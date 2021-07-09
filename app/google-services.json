@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "56288875371",
+    "firebase_url": "https://msger-c1b6f.firebaseio.com",
+    "project_id": "msger-c1b6f",
+    "storage_bucket": "msger-c1b6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56288875371:android:5760607686705379e0322e",
+        "android_client_info": {
+          "package_name": "com.shov.unlimstorage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56288875371-52i6g1d3839fenu4g5mlbijo1rqi4nf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbthDewjmRWefmrBnhaeCsCQPTq2WEuLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56288875371-52i6g1d3839fenu4g5mlbijo1rqi4nf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
