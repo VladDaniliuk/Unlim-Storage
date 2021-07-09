@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:56288875371:android:5760607686705379e0322e",
+        "mobilesdk_app_id": "1:56288875371:android:7f61709917002b22e0322e",
         "android_client_info": {
           "package_name": "com.shov.unlimstorage"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "56288875371-rvv3mgv9dsb0d944psgkm7q8h17o0c7d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shov.unlimstorage",
+            "certificate_hash": "813d524a3306746d054aae1e760ba1d9c089f22c"
+          }
+        },
         {
           "client_id": "56288875371-52i6g1d3839fenu4g5mlbijo1rqi4nf1.apps.googleusercontent.com",
           "client_type": 3
