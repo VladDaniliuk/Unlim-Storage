@@ -1,3 +1,5 @@
+import com.shov.buildsrc.PluginName
+
 plugins {
 	id 'com.android.application'
 	id 'dagger.hilt.android.plugin'
@@ -39,41 +41,59 @@ android {
 }
 
 dependencies {
-
-	implementation 'androidx.core:core-ktx:1.6.0'
-	implementation 'androidx.appcompat:appcompat:1.3.0'
-	implementation 'com.google.android.material:material:1.4.0'
-	implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+	implementation(PluginName.coreKtx)
+	//implementation 'androidx.core:core-ktx:1.6.0'
+	implementation(PluginName.appcompat)
+	//implementation 'androidx.appcompat:appcompat:1.3.0'
+	implementation(PluginName.material)
+	//implementation 'com.google.android.material:material:1.4.0'
+	implementation(PluginName.constraintlayout)
+	//implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 	//firebase
-	implementation 'com.google.firebase:firebase-auth:21.0.1'
-	implementation 'com.google.firebase:firebase-bom:28.2.1'
-	implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
+	implementation(PluginName.firebaseAuth)
+	//implementation 'com.google.firebase:firebase-auth:21.0.1'
+	implementation(PluginName.firebaseBom)
+	//implementation 'com.google.firebase:firebase-bom:28.2.1'
+	implementation(PluginName.firebaseAnalyticsKtx)
+	//implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
 	//coroutines
-	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1'
-	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1'
+	implementation(PluginName.kotlinxCoroutinesCore)
+	//implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1'
+	implementation(PluginName.kotlinxCoroutinesAndroid)
+	//implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1'
 	//moshi
-	implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
-	kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.12.0'
+	implementation(PluginName.moshiKotlin)
+	//implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
+	kapt(PluginName.moshiKotlinCodegen)
+	//kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.12.0'
 	//retrofit
-	implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-	implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+	implementation(PluginName.retrofit)
+	//implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+	implementation(PluginName.converterMoshi)
+	//implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
 	//okhttp
-	implementation 'com.squareup.okhttp3:okhttp:4.9.1'
-	implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+	implementation(PluginName.okhttp)
+	//implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+	implementation(PluginName.loggingInterceptor)
+	//implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 	//Hilt
-	implementation 'com.google.dagger:hilt-android:2.37'
-	kapt 'com.google.dagger:hilt-android-compiler:2.37'
+	implementation(PluginName.hiltAndroid)
+	//implementation 'com.google.dagger:hilt-android:2.37'
+	kapt(PluginName.hiltAndroidCompiler)
+	//kapt 'com.google.dagger:hilt-android-compiler:2.37'
 	//Navigation Component
-	implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+	implementation(PluginName.navigationFragmentKtx)
+	//implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+	implementation(PluginName.navigationUiKtx)
 	implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 	//DataBinding
-	kapt 'com.android.databinding:compiler:3.1.4'
+	kapt(PluginName.databinding)
+	//kapt 'com.android.databinding:compiler:3.1.4'
 
-	testImplementation 'junit:junit:4.13.2'
-	androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-	androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-}
-
-kapt {
-	correctErrorTypes true
+	testImplementation(PluginName.junit)
+	//testImplementation 'junit:junit:4.13.2'
+	androidTestImplementation(PluginName.extJunit)
+	//androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+	androidTestImplementation(PluginName.esspresso)
+	//androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
