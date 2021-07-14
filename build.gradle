@@ -1,15 +1,17 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import com.shov.buildsrc.GradleLib
+import com.shov.buildsrc.FirebaseLib
+import com.shov.buildsrc.DependencyLib
+
 buildscript {
 	repositories {
 		google()
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:4.2.1'//don't work in 4.2.2 (Cause: com/android/aapt/Resources$ResourceTable)
-		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21'
-		classpath 'com.google.gms:google-services:4.3.8'
-		//Hilt
-		classpath 'com.google.dagger:hilt-android-gradle-plugin:2.37'
+		classpath(GradleLib.gradle)
+		classpath(GradleLib.kotlinGradlePlugin)
+		classpath(FirebaseLib.googleServices)
+		classpath(DependencyLib.hiltAndroidGradlePlugin)
 	}
 }
 
