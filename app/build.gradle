@@ -1,11 +1,17 @@
-import com.shov.buildsrc.*
+import com.shov.buildsrc.Core.CoreLib
+import com.shov.buildsrc.Coroutines.CoroutinesLib
+import com.shov.buildsrc.DependencyInjection.DependencyInjectionLib
+import com.shov.buildsrc.Design.DesignLib
+import com.shov.buildsrc.Firebase.FirebaseLib
+import com.shov.buildsrc.Network.NetworkLib
+import com.shov.buildsrc.Test.TestLib
 
 plugins {
-	id 'com.android.application'
-	id 'dagger.hilt.android.plugin'
-	id 'kotlin-android'
-	id 'com.google.gms.google-services'
-	id 'kotlin-kapt'
+	id("com.android.application")
+	id("dagger.hilt.android.plugin")
+	id("kotlin-android")
+	id("com.google.gms.google-services")
+	id("kotlin-kapt")
 }
 
 android {
@@ -41,26 +47,33 @@ android {
 }
 
 dependencies {
+	//CoreUsage.implementCore()
 	implementation(CoreLib.coreKtx)
+	//DesignUsage.implementDesign()
 	implementation(DesignLib.appcompat)
 	implementation(DesignLib.material)
 	implementation(DesignLib.constraintlayout)
+	//FirebaseUsage.implementFirebase()
 	implementation(FirebaseLib.firebaseAuth)
 	implementation(FirebaseLib.firebaseBom)
 	implementation(FirebaseLib.firebaseAnalyticsKtx)
+	//CoroutinesUsage.implementCoroutines()
 	implementation(CoroutinesLib.kotlinxCoroutinesCore)
 	implementation(CoroutinesLib.kotlinxCoroutinesAndroid)
+	//NetworkUsage.implementNetwork()
 	implementation(NetworkLib.moshiKotlin)
 	kapt(NetworkLib.moshiKotlinCodegen)
 	implementation(NetworkLib.retrofit)
 	implementation(NetworkLib.converterMoshi)
 	implementation(NetworkLib.okhttp)
 	implementation(NetworkLib.loggingInterceptor)
-	implementation(DependencyLib.hiltAndroid)
-	kapt(DependencyLib.hiltAndroidCompiler)
-	implementation(DependencyLib.navigationFragmentKtx)
-	implementation(DependencyLib.navigationUiKtx)
-	kapt(DependencyLib.databinding)
+	//DependencyInjectionUsage.implementDependencyInjection()
+	implementation(DependencyInjectionLib.hiltAndroid)
+	kapt(DependencyInjectionLib.hiltAndroidCompiler)
+	implementation(DependencyInjectionLib.navigationFragmentKtx)
+	implementation(DependencyInjectionLib.navigationUiKtx)
+	kapt(DependencyInjectionLib.databinding)
+	//TestUsage.implementTest()
 	testImplementation(TestLib.junit)
 	androidTestImplementation(TestLib.extJunit)
 	androidTestImplementation(TestLib.espresso)
