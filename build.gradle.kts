@@ -4,9 +4,7 @@ buildscript {
 		mavenCentral()
 	}
 
-	dependencies {
-		GradleUsage.implementGradleClasspath(this)
-		DependencyInjectionUsage.implementDependencyInjectionClasspath(this)
-		FirebaseUsage.implementFirebaseClasspath(this)
-	}
+	gradleClasspath()
+	dependencyInjectionClasspath()
+	firebaseClasspath()
 }

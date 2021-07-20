@@ -1,4 +1,6 @@
-import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.ScriptHandlerScope
+import org.gradle.kotlin.dsl.dependencies
 
 object GradleVersion {
 	const val kotlinGradlePluginVersion = "1.5.21"
@@ -11,16 +13,16 @@ object GradleLib {
 		"org.jetbrains.kotlin:kotlin-gradle-plugin:${GradleVersion.kotlinGradlePluginVersion}"
 }
 
-object GradleUsage {
-	fun DependencyHandlerScope.implementGradle() {
-		this.add("implementation", GradleLib.buildGradle)
-		this.add("implementation", GradleLib.kotlinGradlePlugin)
+fun Project.implementGradle() {
+	dependencies {
+		add("implementation", GradleLib.buildGradle)
+		add("implementation", GradleLib.kotlinGradlePlugin)
 	}
+}
 
-	fun implementGradleClasspath(it: DependencyHandlerScope) {
-		it {
-			add("classpath", GradleLib.buildGradle)
-			add("classpath", GradleLib.kotlinGradlePlugin)
-		}
+fun ScriptHandlerScope.gradleClasspath() {
+	dependencies {
+		add("classpath", GradleLib.buildGradle)
+		add("classpath", GradleLib.kotlinGradlePlugin)
 	}
 }

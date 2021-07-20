@@ -1,4 +1,5 @@
-import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 object DesignVersion {
 	const val appcompatVersion = "1.3.0"
@@ -13,8 +14,8 @@ object DesignLib {
 	const val material = "com.google.android.material:material:${DesignVersion.materialVersion}"
 }
 
-object DesignUsage {
-	fun DependencyHandlerScope.implementDesign() {
+fun Project.implementDesign() {
+	dependencies {
 		add("implementation", DesignLib.appcompat)
 		add("implementation", DesignLib.constraintlayout)
 		add("implementation", DesignLib.material)

@@ -1,4 +1,5 @@
-import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 object TestVersion {
 	const val espressoVersion = "3.4.0"
@@ -12,8 +13,8 @@ object TestLib {
 	const val junit = "junit:junit:${TestVersion.junitVersion}"
 }
 
-object TestUsage {
-	fun DependencyHandlerScope.implementTest() {
+fun Project.implementTest() {
+	dependencies {
 		add("androidTestImplementation", TestLib.espresso)
 		add("androidTestImplementation", TestLib.extJunit)
 		add("testImplementation", TestLib.junit)

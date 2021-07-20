@@ -1,4 +1,6 @@
-import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.ScriptHandlerScope
+import org.gradle.kotlin.dsl.dependencies
 
 object DependencyInjectionVersion {
 	const val databindingVersion = "3.1.4"
@@ -24,8 +26,8 @@ object DependencyInjectionLib {
 		"androidx.navigation:navigation-ui-ktx:${DependencyInjectionVersion.navigationVersion}"
 }
 
-object DependencyInjectionUsage {
-	fun DependencyHandlerScope.implementDependencyInjection() {
+fun Project.implementDependencyInjection() {
+	dependencies {
 		add("kapt", DependencyInjectionLib.databinding)
 		add("implementation", DependencyInjectionLib.hiltAndroid)
 		add("kapt", DependencyInjectionLib.hiltAndroidCompiler)
@@ -33,10 +35,10 @@ object DependencyInjectionUsage {
 		add("implementation", DependencyInjectionLib.navigationFragmentKtx)
 		add("implementation", DependencyInjectionLib.navigationUiKtx)
 	}
+}
 
-	fun implementDependencyInjectionClasspath(it: DependencyHandlerScope) {
-		it {
-			add("classpath", DependencyInjectionLib.hiltAndroidGradlePlugin)
-		}
+fun ScriptHandlerScope.dependencyInjectionClasspath() {
+	dependencies {
+		add("classpath", DependencyInjectionLib.hiltAndroidGradlePlugin)
 	}
 }

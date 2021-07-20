@@ -1,4 +1,5 @@
-import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 object NetworkVersion {
 	const val moshiKotlinVersion = "1.12.0"
@@ -19,8 +20,8 @@ object NetworkLib {
 	const val retrofit = "com.squareup.retrofit2:retrofit:${NetworkVersion.retofitVersion}"
 }
 
-object NetworkUsage {
-	fun DependencyHandlerScope.implementNetwork() {
+fun Project.implementNetwork() {
+	dependencies {
 		add("implementation", NetworkLib.converterMoshi)
 		add("implementation", NetworkLib.loggingInterceptor)
 		add("implementation", NetworkLib.moshiKotlin)

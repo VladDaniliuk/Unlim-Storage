@@ -1,4 +1,5 @@
-import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 object CoroutinesVersion {
 	const val kotlinxCoroutinesVersion = "1.5.1"
@@ -13,8 +14,8 @@ object CoroutinesLib {
 	}"
 }
 
-object CoroutinesUsage {
-	fun DependencyHandlerScope.implementCoroutines() {
+fun Project.implementCoroutines() {
+	dependencies {
 		add("implementation", CoroutinesLib.kotlinxCoroutinesAndroid)
 		add("implementation", CoroutinesLib.kotlinxCoroutinesCore)
 	}

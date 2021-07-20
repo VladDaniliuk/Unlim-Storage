@@ -1,4 +1,6 @@
-import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.ScriptHandlerScope
+import org.gradle.kotlin.dsl.dependencies
 
 object FirebaseVersion {
 	const val firebaseAnalyticsKtxVersion = "19.0.0"
@@ -19,17 +21,17 @@ object FirebaseLib {
 		"com.google.gms:google-services:${FirebaseVersion.googleServicesVersion}"
 }
 
-object FirebaseUsage {
-	fun DependencyHandlerScope.implementFirebase() {
+fun Project.implementFirebase() {
+	dependencies {
 		add("implementation", FirebaseLib.firebaseAnalyticsKtx)
 		add("implementation", FirebaseLib.firebaseAuth)
 		add("implementation", FirebaseLib.firebaseBom)
 		add("implementation", FirebaseLib.googleServices)
 	}
+}
 
-	fun implementFirebaseClasspath(it: DependencyHandlerScope) {
-		it {
-			add("classpath", FirebaseLib.googleServices)
-		}
+fun ScriptHandlerScope.firebaseClasspath() {
+	dependencies {
+		add("classpath", FirebaseLib.googleServices)
 	}
 }
