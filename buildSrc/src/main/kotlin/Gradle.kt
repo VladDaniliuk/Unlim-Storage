@@ -23,11 +23,4 @@ object GradleUsage {
 			add("classpath", GradleLib.kotlinGradlePlugin)
 		}
 	}
-
-	/*fun DependencyHandlerScope.implementGradleClasspath() {
-		this {
-			add("classpath", GradleLib.buildGradle)
-			add("classpath", GradleLib.kotlinGradlePlugin)
-		}
-	}*/
 }

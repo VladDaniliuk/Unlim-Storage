@@ -32,8 +32,4 @@ object FirebaseUsage {
 			add("classpath", FirebaseLib.googleServices)
 		}
 	}
-
-	/*fun DependencyHandlerScope.implementFirebaseClasspath() {
-		add("classpath", FirebaseLib.googleServices)
-	}*/
 }

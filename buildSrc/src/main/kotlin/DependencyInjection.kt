@@ -39,8 +39,4 @@ object DependencyInjectionUsage {
 			add("classpath", DependencyInjectionLib.hiltAndroidGradlePlugin)
 		}
 	}
-
-	/*fun DependencyHandlerScope.implementDependencyInjectionClasspath() {
-	add("classpath", DependencyInjectionLib.hiltAndroidGradlePlugin)
-}*/
 }

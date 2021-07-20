@@ -40,42 +40,12 @@ android {
 	}
 
 	dependencies {
-		//CoreUsage.implementCore()
 		this.implementCore()
-		//implementation(CoreLib.coreKtx)
-		//DesignUsage.implementDesign()
 		this.implementDesign()
-		/*implementation(DesignLib.appcompat)
-		implementation(DesignLib.material)
-		implementation(DesignLib.constraintlayout)*/
-		//FirebaseUsage.implementFirebase()
 		this.implementFirebase()
-		/*implementation(FirebaseLib.firebaseAuth)
-		implementation(FirebaseLib.firebaseBom)
-		implementation(FirebaseLib.firebaseAnalyticsKtx)*/
-		//CoroutinesUsage.implementCoroutines()
 		this.implementCoroutines()
-		/*implementation(CoroutinesLib.kotlinxCoroutinesCore)
-		implementation(CoroutinesLib.kotlinxCoroutinesAndroid)*/
-		//NetworkUsage.implementNetwork()
 		this.implementNetwork()
-		/*implementation(NetworkLib.moshiKotlin)
-		kapt(NetworkLib.moshiKotlinCodegen)
-		implementation(NetworkLib.retrofit)
-		implementation(NetworkLib.converterMoshi)
-		implementation(NetworkLib.okhttp)
-		implementation(NetworkLib.loggingInterceptor)*/
-		//DependencyInjectionUsage.implementDependencyInjection()
 		this.implementDependencyInjection()
-		/*implementation(DependencyInjectionLib.hiltAndroid)
-		kapt(DependencyInjectionLib.hiltAndroidCompiler)
-		implementation(DependencyInjectionLib.navigationFragmentKtx)
-		implementation(DependencyInjectionLib.navigationUiKtx)
-		kapt(DependencyInjectionLib.databinding)*/
-		//TestUsage.implementTest()
 		this.implementTest()
-		/*testImplementation(TestLib.junit)
-		androidTestImplementation(TestLib.extJunit)
-		androidTestImplementation(TestLib.espresso)*/
 	}
 }
