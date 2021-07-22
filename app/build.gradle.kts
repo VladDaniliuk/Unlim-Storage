@@ -7,24 +7,22 @@ plugins {
 }
 
 android {
-	compileSdkVersion(31)
-	buildToolsVersion = "30.0.3"
+	compileSdkVersion(AndroidVersion.compileSdkVersion)
+	buildToolsVersion(AndroidVersion.buildToolsVersion)
 
 	defaultConfig {
-		applicationId = "com.shov.unlimstorage"
-		minSdkVersion(27)
-		targetSdkVersion(31)
-		versionCode = 1
-		versionName = "1.0"
-
-		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+		applicationId(Config.applicationId)
+		minSdkVersion(AndroidVersion.minSdkVersion)
+		targetSdkVersion(AndroidVersion.compileSdkVersion)
+		versionCode(Application.versionCode)
+		versionName(Application.versionName)
+		testInstrumentationRunner(Config.testInstrumentationRunner)
 	}
 
 	buildTypes {
-		getByName("release") {
-			isMinifyEnabled = false
-			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-				"proguard-rules.pro")
+		getByName(BuildType.release) {
+			minifyEnabled(false)
+			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 		}
 	}
 
@@ -32,7 +30,6 @@ android {
 		dataBinding = true
 	}
 
-	implementGradle()
 	implementCore()
 	implementDesign()
 	implementFirebase()
