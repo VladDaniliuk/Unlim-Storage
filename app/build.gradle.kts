@@ -7,28 +7,37 @@ plugins {
 }
 
 android {
-	compileSdkVersion(AndroidVersion.compileSdkVersion)
-	buildToolsVersion(AndroidVersion.buildToolsVersion)
-
-	defaultConfig {
-		applicationId(Config.applicationId)
-		minSdkVersion(AndroidVersion.minSdkVersion)
-		targetSdkVersion(AndroidVersion.compileSdkVersion)
-		versionCode(Application.versionCode)
-		versionName(Application.versionName)
-		testInstrumentationRunner(Config.testInstrumentationRunner)
+	buildFeatures {
+		compose = true
 	}
+
+	buildToolsVersion = AndroidVersion.buildToolsVersion
 
 	buildTypes {
 		getByName(BuildType.release) {
-			minifyEnabled(false)
+			isMinifyEnabled = false
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 		}
 	}
 
-	buildFeatures {
-		dataBinding = true
+	composeOptions {
+		kotlinCompilerExtensionVersion = ComposeVersion.composeVersion
 	}
+
+	defaultConfig {
+		applicationId = Config.applicationId
+		minSdk = AndroidVersion.minSdkVersion
+		targetSdk = AndroidVersion.compileSdkVersion
+		versionCode = Application.versionCode
+		versionName = Application.versionName
+		testInstrumentationRunner = Config.testInstrumentationRunner
+	}
+
+	kotlinOptions {
+		jvmTarget = "1.8"
+	}
+
+	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
 
 	implementCore()
 	implementDesign()
@@ -37,4 +46,5 @@ android {
 	implementNetwork()
 	implementDependencyInjection()
 	implementTest()
+	implementCompose()
 }
