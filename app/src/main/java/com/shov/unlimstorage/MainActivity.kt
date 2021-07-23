@@ -6,10 +6,12 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.remember
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.shov.unlimstorage.ui.SignInButton
+import com.shov.unlimstorage.values.CustomTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +32,9 @@ class MainActivity : AppCompatActivity() {
 					GoogleSignIn.getClient(this, viewModel.googleSignInOptions)
 				startForResult.launch(mGoogleSignInClient.signInIntent)
 			}
-			Text(text = counterState.value)
+			CustomTheme {
+				Text(text = counterState.value, color = MaterialTheme.colors.onSurface)
+			}
 		}
 	}
 
