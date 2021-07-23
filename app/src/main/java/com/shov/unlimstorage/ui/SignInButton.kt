@@ -8,11 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.values.CustomTheme
-import com.shov.unlimstorage.values.PADDING_SMALL
+import com.shov.unlimstorage.values.PADDING_MEDIUM
 import com.shov.unlimstorage.values.SIGN_IN
 
 @Composable
-fun SignInButton() {
+fun SignInButton(onClick: () -> Unit) {
 	CustomTheme {
 		Column(
 			modifier = Modifier
@@ -22,8 +22,8 @@ fun SignInButton() {
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			Button(
-				onClick = { /*TODO*/ },
-				modifier = Modifier.padding(bottom = PADDING_SMALL.dp),
+				onClick = onClick,
+				modifier = Modifier.padding(bottom = PADDING_MEDIUM.dp)
 			) {
 				Text(text = SIGN_IN)
 			}

@@ -42,6 +42,7 @@ android {
 	implementCore()
 	implementDesign()
 	implementFirebase()
+	implementGoogle()
 	implementCoroutines()
 	implementNetwork()
 	implementDependencyInjection()

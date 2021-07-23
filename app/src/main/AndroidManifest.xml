@@ -3,6 +3,7 @@
 	package="com.shov.unlimstorage">
 
 	<application
+		android:name=".UnlimStorageApp"
 		android:allowBackup="false"
 		android:icon="@mipmap/ic_launcher"
 		android:label="Unlim Storage"
