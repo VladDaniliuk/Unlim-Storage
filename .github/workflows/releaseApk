@@ -16,9 +16,12 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    - name: get key
+      run: echo "${{secrets.KEY_JKS}}" > Key.jks
+    - name: get properties
+      run: echo "${{secrets.BUILD_PROPERTIES_KT}}" > /src/main/kotlin/BuildProperties.kt
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build Debug APK
