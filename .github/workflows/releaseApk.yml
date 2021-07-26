@@ -19,7 +19,7 @@ jobs:
     - name: get key
       run: echo "${{secrets.KEY_JKS_B64}}" > Key.b64
     - name: decript key
-      run: base64 -di Key.b64 > Key.jks
+      run: base64 -w 0 Key.b64 | base64 -d > Key.jks
     - name: get properties
       run: echo "${{secrets.BUILD_PROPERTIES_KT}}" > /src/main/kotlin/BuildProperties.kt
     - name: Make gradlew executable
