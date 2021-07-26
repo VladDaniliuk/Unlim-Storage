@@ -20,8 +20,11 @@ jobs:
         distribution: 'adopt'
     - name: get key
       run: echo "${{secrets.KEY}}" > Key.jks
-    - name: get properties
-      run: echo '${{secrets.BUILD_PROPERTIES_KT}}' > buildSrc/src/main/kotlin/BuildProperties.kt
+    - name: Run Workflow
+      uses: timheuer/base64-to-file@v1
+      with:
+        fileName: 'BuildProperties.kt'
+        encodedString: ${{ secrets.BUILD_PROPERTIES_KT_B64 }}
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build with Gradle
