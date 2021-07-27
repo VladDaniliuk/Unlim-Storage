@@ -32,7 +32,7 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug
     - name: Releasing using Hub
-    - uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@master
       with:
        release_name: Release ${{github.ref}}
        name: release.apk
