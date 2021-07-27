@@ -18,6 +18,11 @@ android {
 			isMinifyEnabled = false
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 		}
+
+		getByName(BuildType.debug) {
+			signingConfig = signingConfigs.getByName(BuildType.debug)
+			isDebuggable = true
+		}
 	}
 
 	composeOptions {

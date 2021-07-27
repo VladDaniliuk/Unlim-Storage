@@ -19,6 +19,7 @@ object Config {
 
 object BuildType {
 	const val release = "release"
+	const val debug = "debug"
 	const val proguardFile = "proguard-android-optimize.txt"
 	const val proguardRules = "proguard-rules.pro"
 }
