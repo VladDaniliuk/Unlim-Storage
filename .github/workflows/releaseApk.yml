@@ -1,10 +1,10 @@
-name: Android CI
+name: Release APK
 
 on:
   push:
-    branches: [ master ]
-    pull_request:
-      branches: [ master ]
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
   build:
@@ -23,19 +23,24 @@ jobs:
         echo "${{secrets.KEY}}" > Key.jks
         touch ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
     - name: Run Workflow
-        uses: timheuer/base64-to-file@v1
-        with:
-          fileName: '${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt'
-          encodedString: ${{ secrets.BUILD_PROPERTIES_KT_B64 }}
+      uses: timheuer/base64-to-file@v1
+      with:
+        fileName: '${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt'
+        encodedString: ${{ secrets.BUILD_PROPERTIES_KT_B64 }}
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build Debug APK
       run: ./gradlew assembleDebug
+    - name: Chek path
+      run: |
+        ls
+        cd '${{ github.workspace }}/app/build/outputs/apk/release'
+        ls
     - name: Releasing using Hub
-        uses: actions/upload-artifact@master
-        with:
-          release_name: Release ${{github.ref}}
-          name: release.apk
-          path: '${{ github.workspace }}/app/build/outputs/apk/release/app-release.apk'
+      uses: actions/upload-artifact@master
+      with:
+       release_name: Release ${{github.ref}}
+       name: release.apk
+       path: '${{ github.workspace }}/app/build/outputs/apk/release/app-release.apk'
