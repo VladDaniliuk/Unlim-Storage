@@ -1,4 +1,4 @@
-name: Android CI
+name: Release APK
 
 on:
   push:
@@ -32,8 +32,8 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug
     - name: Releasing using Hub
-      uses: ShaunLWM/action-release-debugapk@master
-      env:
-       GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
-       APP_FOLDER: app
-       RELEASE_TITLE: New Build
+    - uses: actions/upload-artifact@master
+      with:
+       release_name: Release ${{github.ref}}
+       name: release.apk
+       path: '${{ github.workspace }}/app/build/outputs/apk/release/app-release.apk'
