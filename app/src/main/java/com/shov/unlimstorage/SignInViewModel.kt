@@ -12,7 +12,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
 import com.google.api.services.drive.DriveScopes
-import com.shov.unlimstorage.values.NULL
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -25,7 +24,7 @@ class SignInViewModel @Inject constructor() : ViewModel() {
 		.requestEmail()
 		.build()
 
-	private val _googleAccess = MutableLiveData(NULL)
+	private val _googleAccess = MutableLiveData<String>(null)
 	val googleAccess: LiveData<String>
 		get() = _googleAccess
 
@@ -46,7 +45,7 @@ class SignInViewModel @Inject constructor() : ViewModel() {
 		account?.let {
 			_googleAccess.postValue("${it.displayName}\n${it.email}\n${it.grantedScopes}")
 		} ?: run {
-			_googleAccess.postValue(NULL)
+			_googleAccess.postValue(null)
 		}
 	}
 }

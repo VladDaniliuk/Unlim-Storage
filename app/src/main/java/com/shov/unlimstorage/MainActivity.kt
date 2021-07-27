@@ -10,7 +10,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.shov.unlimstorage.ui.SignInButton
 import com.shov.unlimstorage.values.CustomTheme
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 		viewModel.updateUserInfo(GoogleSignIn.getLastSignedInAccount(this))
 
 		setContent {
-			val counterState by viewModel.googleAccess.observeAsState()
+			val googleAccess by viewModel.googleAccess.observeAsState()
 
 			SignInButton {
 				val mGoogleSignInClient =
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 				startForResult.launch(mGoogleSignInClient.signInIntent)
 			}
 			CustomTheme {
-				Text(text = counterState.orEmpty(), color = MaterialTheme.colors.onSurface)
+				Text(text = googleAccess.orEmpty(), color = MaterialTheme.colors.onSurface)
 			}
 		}
 	}
