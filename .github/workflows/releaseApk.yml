@@ -23,7 +23,7 @@ jobs:
     - name: Run Workflow
       uses: timheuer/base64-to-file@v1
       with:
-        fileName: 'BuildProperties.kt'
+        fileName: '${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt'
         encodedString: ${{ secrets.BUILD_PROPERTIES_KT_B64 }}
     - name: Make gradlew executable
       run: chmod +x ./gradlew
