@@ -31,6 +31,11 @@ jobs:
       run: ./gradlew build
     - name: Build Debug APK
       run: ./gradlew assembleDebug
+    - name: Chek path
+      run: |
+        ls
+        cd '${{ github.workspace }}/app/build/outputs/apk/release'
+        ls
     - name: Releasing using Hub
       uses: actions/upload-artifact@master
       with:
