@@ -5,6 +5,7 @@ object ComposeVersion {
 	const val activityComposeVersion = "1.3.0-rc02"
 	const val composeVersion = "1.0.0-rc02"
 	const val kotlinStdlibVersion = "1.5.21"
+	const val runtimeLivedataVersion = "1.0.0-rc02"
 }
 
 object ComposeLib {
@@ -16,6 +17,8 @@ object ComposeLib {
 	const val composeUiTooling = "androidx.compose.ui:ui-tooling:${ComposeVersion.composeVersion}"
 	const val kotlinStdlib =
 		"org.jetbrains.kotlin:kotlin-stdlib:${ComposeVersion.kotlinStdlibVersion}"
+	const val runtimeLivedata =
+		"androidx.compose.runtime:runtime-livedata:${ComposeVersion.runtimeLivedataVersion}"
 }
 
 fun Project.implementCompose() {
@@ -25,5 +28,6 @@ fun Project.implementCompose() {
 		add("implementation", ComposeLib.activityCompose)
 		add("implementation", ComposeLib.composeMaterial)
 		add("implementation", ComposeLib.composeUiTooling)
+		add("implementation", ComposeLib.runtimeLivedata)
 	}
 }

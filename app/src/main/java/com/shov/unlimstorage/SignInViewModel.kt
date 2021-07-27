@@ -2,8 +2,8 @@ package com.shov.unlimstorage
 
 import android.app.Activity
 import androidx.activity.result.ActivityResult
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -25,7 +25,9 @@ class SignInViewModel @Inject constructor() : ViewModel() {
 		.requestEmail()
 		.build()
 
-	var googleAccess: MutableState<String> = mutableStateOf(NULL)
+	private val _googleAccess = MutableLiveData(NULL)
+	val googleAccess: LiveData<String>
+		get() = _googleAccess
 
 	fun checkAccess(result: ActivityResult) {
 		if (result.resultCode == Activity.RESULT_OK) {
@@ -42,9 +44,9 @@ class SignInViewModel @Inject constructor() : ViewModel() {
 
 	fun updateUserInfo(account: GoogleSignInAccount?) {
 		account?.let {
-			googleAccess.value = "${it.displayName}\n${it.email}\n${it.grantedScopes}"
+			_googleAccess.postValue("${it.displayName}\n${it.email}\n${it.grantedScopes}")
 		} ?: run {
-			googleAccess.value = NULL
+			_googleAccess.postValue(NULL)
 		}
 	}
 }
