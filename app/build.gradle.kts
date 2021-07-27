@@ -7,27 +7,41 @@ plugins {
 }
 
 android {
-	compileSdkVersion(AndroidVersion.compileSdkVersion)
-	buildToolsVersion(AndroidVersion.buildToolsVersion)
-
-	defaultConfig {
-		applicationId(Config.applicationId)
-		minSdkVersion(AndroidVersion.minSdkVersion)
-		targetSdkVersion(AndroidVersion.compileSdkVersion)
-		versionCode(Application.versionCode)
-		versionName(Application.versionName)
-		testInstrumentationRunner(Config.testInstrumentationRunner)
+	buildFeatures {
+		compose = true
 	}
 
 	buildTypes {
 		getByName(BuildType.release) {
-			minifyEnabled(false)
+			signingConfig = signingConfigs.getByName(BuildType.debug)
+			isMinifyEnabled = false
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
+		}
+
+		getByName(BuildType.debug) {
+			signingConfig = signingConfigs.getByName(BuildType.debug)
+			isDebuggable = true
 		}
 	}
 
-	buildFeatures {
-		dataBinding = true
+	defaultConfig {
+		applicationId = Config.applicationId
+		minSdk = AndroidVersion.minSdkVersion
+		targetSdk = AndroidVersion.compileSdkVersion
+		versionCode = Application.versionCode
+		versionName = Application.versionName
+		testInstrumentationRunner = Config.testInstrumentationRunner
+	}
+
+	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
+
+	signingConfigs {
+		getByName(BuildType.debug) {
+			storeFile = file(BuildProperties.STORE_FILE)
+			keyAlias = BuildProperties.KEY_ALIAS
+			keyPassword = BuildProperties.STORE_PASSWORD
+			storePassword = BuildProperties.KEY_PASSWORD
+		}
 	}
 
 	implementCore()
