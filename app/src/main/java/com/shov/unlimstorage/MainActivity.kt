@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
 		setContent {
 			val counterState by viewModel.googleAccess.observeAsState()
-			remember { viewModel.googleAccess }
 
 			SignInButton {
 				val mGoogleSignInClient =
