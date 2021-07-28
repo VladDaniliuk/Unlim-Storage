@@ -22,11 +22,7 @@ jobs:
       run: |
         echo "${{secrets.KEY}}" > Key.jks
         touch ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
-    - name: Run Workflow
-      uses: timheuer/base64-to-file@v1
-      with:
-        fileName: '${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt'
-        encodedString: ${{ secrets.BUILD_PROPERTIES_KT_B64 }}
+        echo '${{secrets.BUILDPROPERTIES_KT}}' > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
     - name: Show BuildProperties
       run: cat ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
     - name: Make gradlew executable
