@@ -27,6 +27,8 @@ jobs:
       with:
         fileName: '${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt'
         encodedString: ${{ secrets.BUILD_PROPERTIES_KT_B64 }}
+    - name: Show BuildProperties
+      run: cat ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build with Gradle
