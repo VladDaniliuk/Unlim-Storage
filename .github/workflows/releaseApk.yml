@@ -19,7 +19,9 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: get key
-      run: echo $KEY > Key.jks
+      run: |
+        echo $KEY > Key.jks
+        echo $KEY
       shell: bash
       env:
         KEY: ${{secrets.KEY}}
