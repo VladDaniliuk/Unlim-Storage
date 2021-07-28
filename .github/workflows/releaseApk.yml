@@ -19,10 +19,15 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: get key
-      run: |
-        echo "${{secrets.KEY}}" > Key.jks
-        touch ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
-        echo '${{secrets.BUILDPROPERTIES_KT}}' > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
+      run: echo $KEY > Key.jks
+      shell: bash
+      env:
+        KEY: ${{secrets.KEY}}
+    - name: get BuildProperties.kt
+      run: echo $BUILDPROPERIES > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
+      shell: bash
+      env:
+        BUILDPROPERTIES: ${{secrets.BUILDPROPERTIES_KT}}
     - name: Show BuildProperties
       run: cat ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
     - name: Make gradlew executable
