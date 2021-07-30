@@ -1,32 +1,30 @@
 package com.shov.unlimstorage.ui
 
-import androidx.compose.foundation.layout.*
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.values.CustomTheme
+import androidx.compose.ui.res.stringResource
+import com.shov.unlimstorage.models.SignInButtonInfo
 import com.shov.unlimstorage.values.PADDING_MEDIUM
-import com.shov.unlimstorage.values.SIGN_IN
+import com.shov.unlimstorage.values.PADDING_NULL
 
 @Composable
-fun SignInButton(onClick: () -> Unit) {
-	CustomTheme {
-		Column(
-			modifier = Modifier
-				.fillMaxWidth()
-				.fillMaxHeight(),
-			verticalArrangement = Arrangement.Bottom,
-			horizontalAlignment = Alignment.CenterHorizontally
-		) {
-			Button(
-				onClick = onClick,
-				modifier = Modifier.padding(bottom = PADDING_MEDIUM.dp)
-			) {
-				Text(text = SIGN_IN)
-			}
-		}
+fun SignInButton(signInButtonInfo: SignInButtonInfo) {
+	val startForResult = rememberLauncherForActivityResult(
+		ActivityResultContracts.StartActivityForResult()
+	) { result: ActivityResult ->
+		signInButtonInfo.checkAccess(result, signInButtonInfo.signInType)
+	}
+
+	Button(
+		onClick = { signInButtonInfo.getAccess(startForResult, signInButtonInfo.signInType) },
+		modifier = Modifier.padding(PADDING_NULL, PADDING_MEDIUM)
+	) {
+		Text(text = stringResource(id = signInButtonInfo.buttonId))
 	}
 }

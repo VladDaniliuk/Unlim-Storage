@@ -1,4 +1,8 @@
 package com.shov.unlimstorage.values
 
-const val PADDING_SMALL = 4
-const val PADDING_MEDIUM = 8
+import androidx.compose.ui.unit.dp
+
+val PADDING_NULL = 0.dp
+val PADDING_SMALL = 4.dp
+val PADDING_MEDIUM = 16.dp
+val PADDING_BIG = 32.dp
