@@ -23,3 +23,7 @@ object BuildType {
 	const val proguardFile = "proguard-android-optimize.txt"
 	const val proguardRules = "proguard-rules.pro"
 }
+
+object KotlinOptions {
+	const val jvmTarget = "1.8"
+}

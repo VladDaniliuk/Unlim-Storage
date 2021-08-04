@@ -1,3 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Unlim Storage</string>
+	<string name="app_name">Unlim Storage</string>
+	<string name="box">Box</string>
+	<string name="dropbox">Dropbox</string>
+	<string name="google">Google</string>
+	<string name="onedrive">OneDrive</string>
+	<string name="sign_in_with">Sign in with:</string>
 </resources>

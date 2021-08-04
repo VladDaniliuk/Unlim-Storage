@@ -2,6 +2,16 @@ package com.shov.unlimstorage
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 @HiltAndroidApp
-class UnlimStorageApp : Application()
+class UnlimStorageApp : Application() {
+	override fun onCreate() {
+		super.onCreate()
+
+		if (BuildConfig.DEBUG) {
+			Timber.plant(DebugTree())
+		}
+	}
+}

@@ -28,12 +28,9 @@ object DependencyInjectionLib {
 
 fun Project.implementDependencyInjection() {
 	dependencies {
-		add("kapt", DependencyInjectionLib.databinding)
 		add("implementation", DependencyInjectionLib.hiltAndroid)
 		add("kapt", DependencyInjectionLib.hiltAndroidCompiler)
 		add("implementation", DependencyInjectionLib.hiltAndroidGradlePlugin)
-		add("implementation", DependencyInjectionLib.navigationFragmentKtx)
-		add("implementation", DependencyInjectionLib.navigationUiKtx)
 	}
 }
 

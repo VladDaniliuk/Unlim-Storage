@@ -11,9 +11,10 @@ android {
 		compose = true
 	}
 
+	buildToolsVersion = AndroidVersion.buildToolsVersion
+
 	buildTypes {
 		getByName(BuildType.release) {
-			signingConfig = signingConfigs.getByName(BuildType.debug)
 			isMinifyEnabled = false
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 		}
@@ -22,6 +23,10 @@ android {
 			signingConfig = signingConfigs.getByName(BuildType.debug)
 			isDebuggable = true
 		}
+	}
+
+	composeOptions {
+		kotlinCompilerExtensionVersion = ComposeVersion.composeVersion
 	}
 
 	defaultConfig {
@@ -33,22 +38,19 @@ android {
 		testInstrumentationRunner = Config.testInstrumentationRunner
 	}
 
-	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
-
-	signingConfigs {
-		getByName(BuildType.debug) {
-			storeFile = file(BuildProperties.STORE_FILE)
-			keyAlias = BuildProperties.KEY_ALIAS
-			keyPassword = BuildProperties.STORE_PASSWORD
-			storePassword = BuildProperties.KEY_PASSWORD
-		}
+	kotlinOptions {
+		jvmTarget = KotlinOptions.jvmTarget
 	}
+
+	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
 
 	implementCore()
 	implementDesign()
 	implementFirebase()
+	implementGoogle()
 	implementCoroutines()
 	implementNetwork()
 	implementDependencyInjection()
 	implementTest()
+	implementCompose()
 }

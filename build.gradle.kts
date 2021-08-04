@@ -6,5 +6,5 @@ buildscript {
 
 	gradleClasspath()
 	dependencyInjectionClasspath()
-	firebaseClasspath()
+	googleClasspath()
 }
