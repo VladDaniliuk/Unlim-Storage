@@ -40,11 +40,11 @@ jobs:
         tag_name: Release
         release_name: Release ${{github.ref}}
         name: release.apk
-    - name: Add apk
-      uses: actions/upload-release-asset@master
+    - name: Create release and upload apk
+      uses: underwindfall/create-release-with-debugapk@master
       env:
-        GITHUB_TOKEN: ${{secrets.GITHUBTOKEN}}
+        GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
       with:
         asset_path: '${{ github.workspace }}/app/build/outputs/apk/release/app-release.apk'
-        asset_name: app-release.apk
+        asset_name: Unlim_storage.apk
         asset_content_type: application/apk
