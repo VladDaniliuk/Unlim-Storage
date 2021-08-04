@@ -23,7 +23,7 @@ jobs:
     - name: get key
       run: echo "${{secrets.KEY}}" > Key.jks
     - name: get BuildProperties
-      run: echo '${{secrets.BUILD_PROPERTIES_KT}}' > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
+      run: echo -e '${{secrets.BUILD_PROPERTIES_KT}}' > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build with Gradle
