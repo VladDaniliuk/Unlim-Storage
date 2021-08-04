@@ -36,6 +36,6 @@ jobs:
       uses: VladDaniliuk/action-release-releaseapk@master
       env:
         VERSION_VARIABLE: versionName
-        APP_FILE: buildSrc/Android.kt
+        APP_FILE: buildSrc/src/main/kotlin/Android.kt
         APP_FOLDER: app
         RELEASE_TITLE: New Build
