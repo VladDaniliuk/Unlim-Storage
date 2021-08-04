@@ -21,12 +21,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: get key
-      run: |
-        echo $KEY > Key.jks
-        echo $KEY
-      shell: bash
-      env:
-        KEY: ${{secrets.KEY}}
+      run: echo "${{secrets.KEY}}" > Key.jks
     - name: Run Workflow
       uses: timheuer/base64-to-file@v1
       with:
@@ -38,11 +33,6 @@ jobs:
       run: ./gradlew build
     - name: Build Debug APK
       run: ./gradlew assembleDebug
-    - name: Chek path
-      run: |
-        ls
-        cd '${{ github.workspace }}/app/build/outputs/apk/release'
-        ls
     - name: Releasing using Hub
       uses: actions/upload-artifact@master
       with:
