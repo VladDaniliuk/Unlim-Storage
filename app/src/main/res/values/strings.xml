@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="accpunt_preferences">ACCOUNT_PREFERENCES</string>
-	<string name="is_auth">IS_AUTH</string>
-	<string name="sign_in_with">Sign in with:</string>
-	<string name="google">Google</string>
+	<string name="app_name">Unlim Storage</string>
 	<string name="box">Box</string>
 	<string name="dropbox">Dropbox</string>
+	<string name="google">Google</string>
 	<string name="onedrive">OneDrive</string>
-	<string name="nav_main">nav_main</string>
-	<string name="nav_sign_in">nav_signIn</string>
+	<string name="sign_in_with">Sign in with:</string>
 </resources>

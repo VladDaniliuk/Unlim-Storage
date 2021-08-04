@@ -17,6 +17,7 @@ import com.shov.unlimstorage.ui.SignInButton
 import com.shov.unlimstorage.values.CustomTheme
 import com.shov.unlimstorage.values.PADDING_BIG
 import com.shov.unlimstorage.values.PADDING_NULL
+import com.shov.unlimstorage.values.navMain
 import com.shov.unlimstorage.viewModels.SignInViewModel
 
 @Composable
@@ -37,6 +38,6 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 	}
 
 	signInViewModel.serviceAccess.observe(LocalLifecycleOwner.current) { access ->
-		if (access) navController.navigate("nav_main")
+		if (access) navController.navigate(navMain)
 	}
 }
