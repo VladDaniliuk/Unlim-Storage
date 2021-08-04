@@ -35,6 +35,7 @@ jobs:
     - name: Releasing using Hub
       uses: VladDaniliuk/action-release-releaseapk@master
       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
         VERSION_VARIABLE: versionName
         APP_FILE: buildSrc/src/main/kotlin/Android.kt
         APP_FOLDER: app
