@@ -21,10 +21,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Get Key
-      uses: timheuer/base64-to-file@v1
-      with:
-        fileName: 'Key.jks'
-        encodedString: ${{ secrets.KEY_B64 }}
+      run: echo "${{secrets.KEY}}" > ${{ github.workspace }}/Key.jks
     - name: get BuildProperties
       run: echo -e '${{secrets.BUILD_PROPERTIES_KT}}' > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
     - name: Make gradlew executable
