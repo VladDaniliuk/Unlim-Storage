@@ -37,6 +37,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{secrets.GITHUBTOKEN}}
       with:
+        tag_name: Release
         release_name: Release ${{github.ref}}
         name: release.apk
     - name: Add apk
