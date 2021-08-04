@@ -6,7 +6,7 @@ on:
     - main
     - dev/CreateRelease
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
   build:
@@ -27,11 +27,11 @@ jobs:
       shell: bash
       env:
         KEY: ${{secrets.KEY}}
-    - name: get BuildProperties.kt
-      run: echo $BUILDPROPERIES > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
-      shell: bash
-      env:
-        BUILDPROPERTIES: ${{secrets.BUILDPROPERTIES_KT}}
+    - name: Run Workflow
+      uses: timheuer/base64-to-file@v1
+      with:
+        fileName: '${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt'
+        encodedString: ${{ secrets.BUILD_PROPERTIES_KT_B64 }}
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build with Gradle
@@ -46,6 +46,6 @@ jobs:
     - name: Releasing using Hub
       uses: actions/upload-artifact@master
       with:
-       release_name: Release ${{github.ref}}
-       name: release.apk
-       path: '${{ github.workspace }}/app/build/outputs/apk/release/app-release.apk'
+        release_name: Release ${{github.ref}}
+        name: release.apk
+        path: '${{ github.workspace }}/app/build/outputs/apk/release/app-release.apk'
