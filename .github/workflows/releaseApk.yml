@@ -32,9 +32,18 @@ jobs:
       run: ./gradlew build
     - name: Build Debug APK
       run: ./gradlew assembleDebug
-    - name: Releasing using Hub
-      uses: actions/upload-artifact@master
+    - name: Create release
+      uses: actions/create-release@master
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUBTOKEN}}
       with:
         release_name: Release ${{github.ref}}
         name: release.apk
-        path: '${{ github.workspace }}/app/build/outputs/apk/release/app-release.apk'
+    - name: Add apk
+      uses: actions/upload-release-asset@master
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUBTOKEN}}
+      with:
+        asset_path: '${{ github.workspace }}/app/build/outputs/apk/release/app-release.apk'
+        asset_name: app-release.apk
+        asset_content_type: application/apk
