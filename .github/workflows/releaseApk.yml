@@ -2,7 +2,9 @@ name: Release APK
 
 on:
   push:
-    branches: [master]
+    branches:
+    - main
+    - dev/CreateRelease
   pull_request:
     branches: [master]
 
@@ -30,8 +32,6 @@ jobs:
       shell: bash
       env:
         BUILDPROPERTIES: ${{secrets.BUILDPROPERTIES_KT}}
-    - name: Show BuildProperties
-      run: cat ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build with Gradle

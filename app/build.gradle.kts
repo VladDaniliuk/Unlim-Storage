@@ -15,6 +15,7 @@ android {
 
 	buildTypes {
 		getByName(BuildType.release) {
+			signingConfig = signingConfigs.getByName(BuildType.debug)
 			isMinifyEnabled = false
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 		}
@@ -22,6 +23,15 @@ android {
 		getByName(BuildType.debug) {
 			signingConfig = signingConfigs.getByName(BuildType.debug)
 			isDebuggable = true
+		}
+	}
+
+	signingConfigs {
+		getByName(BuildType.debug) {
+			storeFile = file(BuildProperties.STORE_FILE)
+			keyAlias = BuildProperties.KEY_ALIAS
+			keyPassword = BuildProperties.STORE_PASSWORD
+			storePassword = BuildProperties.KEY_PASSWORD
 		}
 	}
 
