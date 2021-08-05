@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.getSignInButtons
 import com.shov.unlimstorage.ui.SignInButton
-import com.shov.unlimstorage.values.CustomTheme
 import com.shov.unlimstorage.values.PADDING_BIG
 import com.shov.unlimstorage.values.PADDING_NULL
 import com.shov.unlimstorage.values.navMain
@@ -22,19 +21,17 @@ import com.shov.unlimstorage.viewModels.SignInViewModel
 
 @Composable
 fun SignInFragment(signInViewModel: SignInViewModel, navController: NavController) {
-	CustomTheme {
-		Column(
-			modifier = Modifier.fillMaxWidth(),
-			horizontalAlignment = Alignment.CenterHorizontally
-		) {
-			Text(
-				text = stringResource(id = R.string.sign_in_with),
-				modifier = Modifier.padding(PADDING_NULL, PADDING_BIG),
-				color = MaterialTheme.colors.onSurface
-			)
+	Column(
+		modifier = Modifier.fillMaxWidth(),
+		horizontalAlignment = Alignment.CenterHorizontally
+	) {
+		Text(
+			text = stringResource(id = R.string.sign_in_with),
+			modifier = Modifier.padding(horizontal = PADDING_NULL, vertical = PADDING_BIG),
+			color = MaterialTheme.colors.onSurface
+		)
 
-			getSignInButtons(signInViewModel).forEach { info -> SignInButton(info) }
-		}
+		getSignInButtons(signInViewModel).forEach { info -> SignInButton(info) }
 	}
 
 	signInViewModel.serviceAccess.observe(LocalLifecycleOwner.current) { access ->

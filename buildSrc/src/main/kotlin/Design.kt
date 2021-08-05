@@ -5,6 +5,8 @@ object DesignVersion {
 	const val appcompatVersion = "1.3.0"
 	const val constraintlayoutVersion = "2.0.4"
 	const val materialVersion = "1.4.0"
+	const val accompanistSystemuicontrollerVersion = "0.16.0"
+	const val accompanistInsetsVersion = "0.16.0"
 }
 
 object DesignLib {
@@ -12,6 +14,12 @@ object DesignLib {
 	const val constraintlayout =
 		"androidx.constraintlayout:constraintlayout:${DesignVersion.constraintlayoutVersion}"
 	const val material = "com.google.android.material:material:${DesignVersion.materialVersion}"
+	const val accompanistSystemuicontroller =
+		"com.google.accompanist:accompanist-systemuicontroller:${
+			DesignVersion.accompanistSystemuicontrollerVersion
+		}"
+	const val accompanistInsets =
+		"com.google.accompanist:accompanist-insets:${DesignVersion.accompanistInsetsVersion}"
 }
 
 fun Project.implementDesign() {
@@ -19,5 +27,6 @@ fun Project.implementDesign() {
 		add("implementation", DesignLib.appcompat)
 		add("implementation", DesignLib.constraintlayout)
 		add("implementation", DesignLib.material)
+		add("implementation", DesignLib.accompanistSystemuicontroller)
 	}
 }

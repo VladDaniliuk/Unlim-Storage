@@ -4,16 +4,28 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun CustomTheme(
 	darkTheme: Boolean = isSystemInDarkTheme(),
+	systemUiController: SystemUiController = rememberSystemUiController(),
 	content: @Composable () -> Unit
 ) {
 	MaterialTheme(
 		colors = if (darkTheme) DARK_THEME else LIGHT_THEME,
 		content = content
 	)
+
+	SideEffect {
+		systemUiController.setSystemBarsColor(
+			color = Color.Transparent,
+			darkIcons = darkTheme.not()
+		)
+	}
 }
 
 val DARK_THEME = Colors(
