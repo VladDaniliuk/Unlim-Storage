@@ -21,3 +21,4 @@ jobs:
         labels: '["small","medium","large"]'
     - name: See result
       run: echo "${{ steps.check_pr_labels.outputs.result }}"
+
