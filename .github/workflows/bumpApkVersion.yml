@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - dev/CreateRelease
+    - dev/check
 jobs:
   build:
     runs-on: ubuntu-latest
