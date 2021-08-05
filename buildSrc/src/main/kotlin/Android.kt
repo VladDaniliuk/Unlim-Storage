@@ -2,14 +2,12 @@ object AndroidVersion {
 	const val compileSdkVersion = 31
 	const val buildToolsVersion = "30.0.3"
 	const val minSdkVersion = 25
-	const val versionCode = 1
-	const val versionName = "0.1.0"
 }
 
 object Application {
 	const val name = "Unlim Storage"
 	const val versionCode = 1
-	const val versionName = "1.0"
+	const val versionName = "0.1.0"
 }
 
 object Config {
