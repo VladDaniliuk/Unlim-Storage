@@ -2,6 +2,7 @@ package com.shov.unlimstorage.di
 
 import com.shov.unlimstorage.models.PreferenceManager
 import com.shov.unlimstorage.models.PreferenceManagerImpl
+import com.shov.unlimstorage.models.signInModels.DropBoxSignIn
 import com.shov.unlimstorage.models.signInModels.GoogleSignIn
 import com.shov.unlimstorage.models.signInModels.SignInSample
 import com.shov.unlimstorage.models.signInModels.SignInType
@@ -33,17 +34,17 @@ abstract class ApplicationModule {
 
 	/*@Binds
 	@IntoMap
-	@MyKey(ProviderType.BOX)
-	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInSample
+	@MyKey(SignInType.BOX)
+	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInSample*/
 
 	@Binds
 	@IntoMap
-	@MyKey(ProviderType.DROPBOX)
+	@MyKey(SignInType.DROPBOX)
 	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): SignInSample
 
-	@Binds
+	/*@Binds
 	@IntoMap
-	@MyKey(ProviderType.ONEDRIVE)
+	@MyKey(SignInType.ONEDRIVE)
 	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): SignInSample*/
 
 	@Binds

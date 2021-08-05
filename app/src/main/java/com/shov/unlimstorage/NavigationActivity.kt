@@ -21,6 +21,11 @@ fun Application(signInViewModel: SignInViewModel) {
 		else navSignIn
 	) {
 		composable(navMain) { MainFragment() }
-		composable(navSignIn) { SignInFragment(hiltViewModel(), navController) }
+		composable(navSignIn) {
+			SignInFragment(
+				signInViewModel = hiltViewModel(),
+				navController = navController
+			)
+		}
 	}
 }

@@ -36,7 +36,7 @@ fun getSignInButtons(signInViewModel: SignInViewModel): List<SignInButtonInfo> =
 			R.string.dropbox,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.GOOGLE//DROPBOX
+			SignInType.DROPBOX
 		),
 		SignInButtonInfo(
 			R.string.onedrive,

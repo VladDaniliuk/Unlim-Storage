@@ -34,7 +34,6 @@ fun Project.implementCompose() {
 		add("implementation", ComposeLib.activityCompose)
 		add("implementation", ComposeLib.composeMaterial)
 		add("implementation", ComposeLib.composeUiTooling)
-		add("implementation", ComposeLib.runtimeLivedata)
 		add("implementation", ComposeLib.navigationCompose)
 		add("implementation", ComposeLib.hiltNavigationCompose)
 	}

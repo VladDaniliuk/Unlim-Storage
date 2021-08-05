@@ -63,4 +63,5 @@ android {
 	implementDependencyInjection()
 	implementTest()
 	implementCompose()
+	implementDropBox()
 }
