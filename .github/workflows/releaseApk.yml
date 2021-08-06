@@ -20,6 +20,8 @@ jobs:
       run: echo $ENCODED_STRING | base64 -di > ${{ github.workspace }}/Key.jks
     - name: get BuildProperties
       run: echo -e '${{secrets.BUILD_PROPERTIES_KT}}' > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
+    - name: get DropBox key
+      run: echo -e '${{secrets.DROP_BOX}}' > ${{ github.workspace }}/app/src/main/java/com/shov/unlimstorage/values/DropBox.kt
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build Release APK
