@@ -13,3 +13,4 @@ local.properties
 /.idea/
 /Key.jks
 /app/src/main/java/com/shov/unlimstorage/values/DropBox.kt
+/app/src/main/java/com/shov/unlimstorage/values/Box.kt
