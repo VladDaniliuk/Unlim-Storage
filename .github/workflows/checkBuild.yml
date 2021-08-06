@@ -28,6 +28,7 @@ jobs:
         ls -l
         cd ${{ github.workspace }}/app/src/main/java/com/shov/unlimstorage/values
         ls -l
+        cat DropBox.kt
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build project
