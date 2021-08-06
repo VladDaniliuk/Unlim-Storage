@@ -30,7 +30,7 @@ fun getSignInButtons(signInViewModel: SignInViewModel): List<SignInButtonInfo> =
 			R.string.box,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.GOOGLE//BOX
+			SignInType.BOX
 		),
 		SignInButtonInfo(
 			R.string.dropbox,

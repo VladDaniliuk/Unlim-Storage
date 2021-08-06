@@ -2,10 +2,7 @@ package com.shov.unlimstorage.di
 
 import com.shov.unlimstorage.models.PreferenceManager
 import com.shov.unlimstorage.models.PreferenceManagerImpl
-import com.shov.unlimstorage.models.signInModels.DropBoxSignIn
-import com.shov.unlimstorage.models.signInModels.GoogleSignIn
-import com.shov.unlimstorage.models.signInModels.SignInSample
-import com.shov.unlimstorage.models.signInModels.SignInType
+import com.shov.unlimstorage.models.signInModels.*
 import com.shov.unlimstorage.repositories.SignInRepository
 import com.shov.unlimstorage.repositories.SignInRepositoryImpl
 import dagger.Binds
@@ -32,10 +29,10 @@ abstract class ApplicationModule {
 	@MyKey(SignInType.GOOGLE)
 	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): SignInSample
 
-	/*@Binds
+	@Binds
 	@IntoMap
 	@MyKey(SignInType.BOX)
-	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInSample*/
+	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInSample
 
 	@Binds
 	@IntoMap
