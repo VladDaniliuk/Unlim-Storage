@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.MainTopBar
+import com.shov.unlimstorage.values.navSettings
 
 @Composable
 fun MainFragment(navController: NavController) {
@@ -19,8 +20,9 @@ fun MainFragment(navController: NavController) {
 	}
 
 	MainTopBar(
-		text = R.string.app_name,
 		navController = navController,
-		imageVector = Icons.Rounded.AccountCircle
+		nextRoute = Pair(Icons.Rounded.AccountCircle, navSettings),
+		prevRoute = null,
+		text = R.string.app_name
 	)
 }
