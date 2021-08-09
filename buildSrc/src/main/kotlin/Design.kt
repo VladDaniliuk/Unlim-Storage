@@ -28,5 +28,6 @@ fun Project.implementDesign() {
 		add("implementation", DesignLib.constraintlayout)
 		add("implementation", DesignLib.material)
 		add("implementation", DesignLib.accompanistSystemuicontroller)
+		add("implementation", DesignLib.accompanistInsets)
 	}
 }
