@@ -21,9 +21,6 @@ class SignInViewModel @Inject constructor(
 	private val _serviceAccess = MutableStateFlow(false)
 	val serviceAccess = _serviceAccess.asStateFlow()
 
-	val isLogIn: Boolean
-		get() = signInRepository.isLogIn
-
 	val checkAccess: (result: ActivityResult, signInType: SignInType) -> Unit =
 		{ activityResult: ActivityResult, signInType: SignInType ->
 			signInFactory.create<SignInSample>(signInType).isSuccess(activityResult).apply {

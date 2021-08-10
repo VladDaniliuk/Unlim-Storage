@@ -22,18 +22,20 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.values.BACK
 import com.shov.unlimstorage.values.HEADLINE6
 import com.shov.unlimstorage.values.PADDING_SMALL
-import com.shov.unlimstorage.values.navMain
 import com.shov.unlimstorage.values.navSettings
 
+data class TopBarObject(
+	val navController: NavController? = null,
+	val nextRoute: Pair<ImageVector, String>? = null,
+	val prevRoute: Boolean = false,
+	val text: Int
+)
+
 @Composable
-fun MainTopBar(
-	text: Int,
-	navController: NavController,
-	prevRoute: Pair<ImageVector, String>?,
-	nextRoute: Pair<ImageVector, String>?
-) {
+fun MainTopBar(topBarObject: TopBarObject) {
 	TopAppBar(
 		contentPadding = rememberInsetsPaddingValues(
 			applyBottom = false,
@@ -46,15 +48,15 @@ fun MainTopBar(
 				.fillMaxHeight()
 				.fillMaxWidth()
 		) {
-			prevRoute?.let { prevRoute ->
+			if (topBarObject.prevRoute) {
 				IconButton(
 					modifier = Modifier
 						.align(Alignment.CenterStart)
 						.padding(start = PADDING_SMALL),
-					onClick = { navController.navigate(prevRoute.second) }) {
+					onClick = { topBarObject.navController?.popBackStack() }) {
 					Icon(
-						contentDescription = prevRoute.second,
-						imageVector = prevRoute.first
+						contentDescription = BACK,
+						imageVector = Icons.Rounded.ArrowBack
 					)
 				}
 			}
@@ -62,15 +64,15 @@ fun MainTopBar(
 			Text(
 				fontSize = HEADLINE6,
 				modifier = Modifier.align(Alignment.Center),
-				text = stringResource(id = text),
+				text = stringResource(id = topBarObject.text),
 			)
 
-			nextRoute?.let { nextRoute ->
+			topBarObject.nextRoute?.let { nextRoute ->
 				IconButton(
 					modifier = Modifier
 						.align(Alignment.CenterEnd)
 						.padding(end = PADDING_SMALL),
-					onClick = { navController.navigate(nextRoute.second) }) {
+					onClick = { topBarObject.navController?.navigate(nextRoute.second) }) {
 					Icon(
 						contentDescription = nextRoute.second,
 						imageVector = nextRoute.first
@@ -85,9 +87,11 @@ fun MainTopBar(
 @Composable
 fun MainTopBarPreview() {
 	MainTopBar(
-		navController = rememberNavController(),
-		nextRoute = Pair(Icons.Rounded.AccountCircle, navSettings),
-		prevRoute = Pair(Icons.Rounded.ArrowBack, navMain),
-		text = R.string.app_name
+		topBarObject = TopBarObject(
+			navController = rememberNavController(),
+			nextRoute = Pair(Icons.Rounded.AccountCircle, navSettings),
+			prevRoute = true,
+			text = R.string.app_name
+		)
 	)
 }

@@ -11,3 +11,6 @@ val PADDING_MEDIUM = 16.dp
 val PADDING_BIG = 32.dp
 
 val HEADLINE6 = 20.sp
+
+const val BACK = "Back"
+const val ACCOUNTS = "Accounts"
