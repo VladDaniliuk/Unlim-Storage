@@ -1,5 +1,6 @@
 package com.shov.unlimstorage
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
@@ -22,6 +23,7 @@ import com.shov.unlimstorage.views.SignInFragment
 import com.shov.unlimstorage.views.settings.AccountsFragment
 import com.shov.unlimstorage.views.settings.SettingsFragment
 
+@ExperimentalMaterialApi
 @Composable
 fun Application(mainViewModel: MainViewModel) {
 	val navController = rememberNavController()

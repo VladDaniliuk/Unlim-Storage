@@ -15,7 +15,8 @@ data class SignInButtonInfo(
 		signInType: SignInType
 	) -> Unit,
 	val checkAccess: (result: ActivityResult, signInType: SignInType) -> Unit,
-	val signInType: SignInType
+	val signInType: SignInType,
+	val image: Int
 )
 
 fun getSignInButtons(signInViewModel: SignInViewModel): List<SignInButtonInfo> =
@@ -24,24 +25,28 @@ fun getSignInButtons(signInViewModel: SignInViewModel): List<SignInButtonInfo> =
 			R.string.google,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.GOOGLE
+			SignInType.GOOGLE,
+			R.drawable.ic_google_drive
 		),
 		SignInButtonInfo(
 			R.string.box,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.BOX
+			SignInType.BOX,
+			R.drawable.ic_box
 		),
 		SignInButtonInfo(
 			R.string.dropbox,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.DROPBOX
+			SignInType.DROPBOX,
+			R.drawable.ic_drop_box
 		),
 		SignInButtonInfo(
 			R.string.onedrive,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.GOOGLE//ONEDRIVE
+			SignInType.GOOGLE,//ONEDRIVE
+			R.drawable.ic_one_drive
 		)
 	)
