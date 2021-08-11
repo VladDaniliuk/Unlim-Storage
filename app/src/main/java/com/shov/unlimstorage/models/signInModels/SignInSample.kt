@@ -7,4 +7,5 @@ import androidx.activity.result.ActivityResult
 interface SignInSample {
 	fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>)
 	fun isSuccess(result: ActivityResult): Boolean
+	fun isSuccess(): Boolean
 }

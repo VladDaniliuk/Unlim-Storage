@@ -22,4 +22,6 @@ class DropBoxSignIn @Inject constructor(@ApplicationContext val context: Context
 	}
 
 	override fun isSuccess(result: ActivityResult): Boolean = Auth.getUid()?.isNotEmpty() ?: false
+
+	override fun isSuccess(): Boolean = Auth.getUid()?.isNotEmpty() ?: false
 }

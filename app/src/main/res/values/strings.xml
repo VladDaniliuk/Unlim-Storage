@@ -12,4 +12,6 @@
 	<string name="add_other_account">Add other account</string>
 	<string name="choose_drive">Choose drive:</string>
 	<string name="add_account">Add %1$s account</string>
+	<string name="account">%1$s account</string>
+	<string name="click_to_delete">Click to delete</string>
 </resources>

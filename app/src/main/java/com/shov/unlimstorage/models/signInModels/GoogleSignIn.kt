@@ -35,4 +35,9 @@ class GoogleSignIn @Inject constructor(@ApplicationContext val context: Context)
 			GoogleSignIn.getSignedInAccountFromIntent(result.data).isSuccessful
 		else false
 	}
+
+	override fun isSuccess(): Boolean =
+		GoogleSignIn.getLastSignedInAccount(context)?.let { google ->
+			google.account != null
+		} ?: false
 }

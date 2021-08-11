@@ -32,4 +32,12 @@ class BoxSignIn @Inject constructor(@ApplicationContext val context: Context) : 
 		BoxSession(context).user?.let { user ->
 			user.status == BoxUser.Status.ACTIVE
 		} ?: false
+
+	override fun isSuccess(): Boolean = try {
+		BoxSession(context).user?.let { user ->
+			user.status == BoxUser.Status.ACTIVE
+		} ?: false
+	} catch (e: RuntimeException) {
+		false
+	}
 }

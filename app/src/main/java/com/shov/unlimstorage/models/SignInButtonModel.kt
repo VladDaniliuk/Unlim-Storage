@@ -24,28 +24,28 @@ fun getSignInButtons(signInViewModel: SignInViewModel): List<SignInButtonInfo> =
 		SignInButtonInfo(
 			R.string.google,
 			signInViewModel.getAccess,
-			signInViewModel.checkAccess,
+			signInViewModel.checkAccessWithResult,
 			SignInType.GOOGLE,
 			R.drawable.ic_google_drive
 		),
 		SignInButtonInfo(
 			R.string.box,
 			signInViewModel.getAccess,
-			signInViewModel.checkAccess,
+			signInViewModel.checkAccessWithResult,
 			SignInType.BOX,
 			R.drawable.ic_box
 		),
 		SignInButtonInfo(
 			R.string.dropbox,
 			signInViewModel.getAccess,
-			signInViewModel.checkAccess,
+			signInViewModel.checkAccessWithResult,
 			SignInType.DROPBOX,
 			R.drawable.ic_drop_box
 		),
 		SignInButtonInfo(
 			R.string.onedrive,
 			signInViewModel.getAccess,
-			signInViewModel.checkAccess,
+			signInViewModel.checkAccessWithResult,
 			SignInType.GOOGLE,//ONEDRIVE
 			R.drawable.ic_one_drive
 		)

@@ -43,7 +43,7 @@ fun Application(mainViewModel: MainViewModel) {
 						text = R.string.accounts
 					)
 				)
-				AccountsFragment()
+				AccountsFragment(signInViewModel = hiltViewModel())
 			}
 			composable(navMain) {
 				mainViewModel.setTopAppBar(
