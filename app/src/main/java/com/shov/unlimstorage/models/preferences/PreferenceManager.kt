@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models
+package com.shov.unlimstorage.models.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,23 +9,23 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 interface PreferenceManager {
-	val sharedPreferences: SharedPreferences
+	val accountPreferences: SharedPreferences
 	val getAccount: Boolean
 	fun setAccount(isAuth: Boolean)
 }
 
 class PreferenceManagerImpl @Inject constructor(@ApplicationContext private val context: Context) :
 	PreferenceManager {
-	override val sharedPreferences: SharedPreferences
+	override val accountPreferences: SharedPreferences
 		get() = context.getSharedPreferences(
 			ACCOUNT_PREFERENCES,
 			Context.MODE_PRIVATE
 		)
 	override val getAccount: Boolean
-		get() = sharedPreferences.getBoolean(IS_AUTH, false)
+		get() = accountPreferences.getBoolean(IS_AUTH, false)
 
 	override fun setAccount(isAuth: Boolean) {
-		sharedPreferences.edit(true) {
+		accountPreferences.edit(true) {
 			putBoolean(IS_AUTH, isAuth)
 		}
 	}

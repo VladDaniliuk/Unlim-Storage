@@ -8,4 +8,5 @@ interface SignInSample {
 	fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>)
 	fun isSuccess(result: ActivityResult): Boolean
 	fun isSuccess(): Boolean
+	fun signOut():Boolean
 }
