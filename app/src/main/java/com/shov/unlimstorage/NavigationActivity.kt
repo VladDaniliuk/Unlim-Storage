@@ -53,7 +53,7 @@ fun Application(mainViewModel: MainViewModel) {
 						text = R.string.app_name
 					)
 				)
-				MainFragment()
+				MainFragment(navController = navController)
 			}
 			composable(navSettings) {
 				mainViewModel.setTopAppBar(
