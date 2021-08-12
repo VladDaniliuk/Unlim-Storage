@@ -29,6 +29,13 @@ class SignInViewModel @Inject constructor(
 		_showDialog.value = Pair(isShow, signInButtonInfo)
 	}
 
+	private val _isAllSignedIn = MutableStateFlow(true)
+	val isAllSignedIn = _isAllSignedIn.asStateFlow()
+
+	fun setAllSignedIn(isAllSignedIn: Boolean) {
+		_isAllSignedIn.value = isAllSignedIn
+	}
+
 	val checkAccessWithResult: (result: ActivityResult, signInType: SignInType) -> Unit =
 		{ activityResult: ActivityResult, signInType: SignInType ->
 			signInFactory.create<SignInSample>(signInType).isSuccess(activityResult).apply {
@@ -49,5 +56,5 @@ class SignInViewModel @Inject constructor(
 	}
 
 	fun signOut(signInType: SignInType?): Boolean =
-		signInType?.let { signInFactory.create<SignInSample>(signInType).signOut()}?: false
+		signInType?.let { signInFactory.create<SignInSample>(signInType).signOut() } ?: false
 }

@@ -27,6 +27,7 @@ fun AccountsFragment(signInViewModel: SignInViewModel) {
 		rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 	val scope = rememberCoroutineScope()
 	val showDialog by signInViewModel.showDialog.collectAsState()
+	val isAllSignedIn by signInViewModel.isAllSignedIn.collectAsState()
 
 	if (showDialog.first) {
 		Dialog(
@@ -39,6 +40,7 @@ fun AccountsFragment(signInViewModel: SignInViewModel) {
 			onConfirmButtonClick = {
 				showDialog.second?.let { signInButtonInfo ->
 					signInViewModel.signOut(signInButtonInfo.signInType)
+					signInViewModel.setAllSignedIn(false)
 					signInViewModel.setShowDialog(false, null)
 				}
 			},
@@ -57,21 +59,23 @@ fun AccountsFragment(signInViewModel: SignInViewModel) {
 				) {
 					signInViewModel.setShowDialog(true, signInButtonInfo)
 				}
-			}
+			} else signInViewModel.setAllSignedIn(false)
 		}
 
 		Divider()
 
-		SettingsMenuLink(
-			icon = {
-				Icon(
-					imageVector = Icons.Rounded.Add,
-					contentDescription = ACCOUNTS
-				)
-			},
-			title = { Text(text = stringResource(R.string.add_other_account)) }
-		) {
-			scope.launch { bottomSheetState.show() }
+		if (isAllSignedIn.not()) {
+			SettingsMenuLink(
+				icon = {
+					Icon(
+						imageVector = Icons.Rounded.Add,
+						contentDescription = ACCOUNTS
+					)
+				},
+				title = { Text(text = stringResource(R.string.add_other_account)) }
+			) {
+				scope.launch { bottomSheetState.show() }
+			}
 		}
 	}
 

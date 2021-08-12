@@ -2,14 +2,13 @@ package com.shov.unlimstorage.views.settings
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.getSignInButtons
@@ -23,7 +22,6 @@ fun AddAccountBottomSheet(
 	bottomSheetState: ModalBottomSheetState,
 	signInViewModel: SignInViewModel
 ) {
-
 	ModalBottomSheetLayout(
 		sheetState = bottomSheetState,
 		sheetContent = {
@@ -35,13 +33,27 @@ fun AddAccountBottomSheet(
 			)
 
 			getSignInButtons(signInViewModel).forEach { signInButtonInfo ->
-				AccountMenuLink(
-					accountId = signInButtonInfo.buttonId,
-					imageId = signInButtonInfo.image,
-					titleId = R.string.add_account
-				) {}
+				if (signInViewModel.checkAccess(signInType = signInButtonInfo.signInType).not()) {
+					AccountMenuLink(
+						accountId = signInButtonInfo.buttonId,
+						imageId = signInButtonInfo.image,
+						titleId = R.string.add_account
+					) {}
+				}
 			}
 
 			Spacer(modifier = Modifier.navigationBarsPadding())
 		}) {}
+}
+
+@ExperimentalMaterialApi
+@Preview
+@Composable
+fun AddAccountBottomSheetPreview() {
+	AddAccountBottomSheet(
+		bottomSheetState = rememberModalBottomSheetState(
+			initialValue = ModalBottomSheetValue.Expanded
+		),
+		signInViewModel = hiltViewModel()
+	)
 }
