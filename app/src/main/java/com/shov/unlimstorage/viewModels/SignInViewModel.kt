@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModel
-import com.shov.unlimstorage.models.SignInButtonInfo
 import com.shov.unlimstorage.models.signInModels.SignInFactory
 import com.shov.unlimstorage.models.signInModels.SignInSample
 import com.shov.unlimstorage.models.signInModels.SignInType
@@ -22,20 +21,6 @@ class SignInViewModel @Inject constructor(
 	private val _serviceAccess = MutableStateFlow(false)
 	val serviceAccess = _serviceAccess.asStateFlow()
 
-	private val _showDialog = MutableStateFlow<Pair<Boolean, SignInButtonInfo?>>(Pair(false, null))
-	val showDialog = _showDialog.asStateFlow()
-
-	fun setShowDialog(isShow: Boolean, signInButtonInfo: SignInButtonInfo?) {
-		_showDialog.value = Pair(isShow, signInButtonInfo)
-	}
-
-	private val _isAllSignedIn = MutableStateFlow(true)
-	val isAllSignedIn = _isAllSignedIn.asStateFlow()
-
-	fun setAllSignedIn(isAllSignedIn: Boolean) {
-		_isAllSignedIn.value = isAllSignedIn
-	}
-
 	val checkAccessWithResult: (result: ActivityResult, signInType: SignInType) -> Unit =
 		{ activityResult: ActivityResult, signInType: SignInType ->
 			signInFactory.create<SignInSample>(signInType).isSuccess(activityResult).apply {
@@ -44,9 +29,6 @@ class SignInViewModel @Inject constructor(
 			}
 		}
 
-	fun checkAccess(signInType: SignInType): Boolean =
-		signInFactory.create<SignInSample>(signInType).isSuccess()
-
 	val getAccess: (
 		startForResult: ManagedActivityResultLauncher<Intent, ActivityResult>,
 		signInClass: SignInType
@@ -54,7 +36,4 @@ class SignInViewModel @Inject constructor(
 	              signInType: SignInType ->
 		signInFactory.create<SignInSample>(signInType).signIn(signInForResult)
 	}
-
-	fun signOut(signInType: SignInType?): Boolean =
-		signInType?.let { signInFactory.create<SignInSample>(signInType).signOut() } ?: false
 }

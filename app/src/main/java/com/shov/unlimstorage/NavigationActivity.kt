@@ -20,8 +20,8 @@ import com.shov.unlimstorage.values.navSignIn
 import com.shov.unlimstorage.viewModels.MainViewModel
 import com.shov.unlimstorage.views.MainFragment
 import com.shov.unlimstorage.views.SignInFragment
-import com.shov.unlimstorage.views.settings.AccountsFragment
 import com.shov.unlimstorage.views.settings.SettingsFragment
+import com.shov.unlimstorage.views.settings.accounts.AccountsFragment
 
 @ExperimentalMaterialApi
 @Composable
@@ -43,7 +43,7 @@ fun Application(mainViewModel: MainViewModel) {
 						text = R.string.accounts
 					)
 				)
-				AccountsFragment(signInViewModel = hiltViewModel())
+				AccountsFragment(accountsViewModel = hiltViewModel())
 			}
 			composable(navMain) {
 				mainViewModel.setTopAppBar(
