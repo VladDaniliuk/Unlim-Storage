@@ -34,7 +34,7 @@ fun AccountsFragment(accountsViewModel: AccountsViewModel) {
 		)
 	}
 
-	showAddAccountBottomSheet.let { if (it) AddAccountBottomSheet(hiltViewModel()) }
+	showAddAccountBottomSheet?.let { AddAccountDialog(accountsViewModel = hiltViewModel()) }
 
 	Column {
 		getSignInButtons(hiltViewModel()).forEach { signInButtonInfo ->

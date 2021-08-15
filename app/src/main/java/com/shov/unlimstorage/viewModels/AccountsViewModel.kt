@@ -22,9 +22,9 @@ class AccountsViewModel @Inject constructor(
 	}
 
 	/**Dialog: add account*/
-	private val _showAddAccountBottomSheet = MutableStateFlow(false)
+	private val _showAddAccountBottomSheet = MutableStateFlow<Boolean?>(null)
 	val showAddAccountBottomSheet = _showAddAccountBottomSheet.asStateFlow()
-	fun setShowAddAccountBottomSheet(isShow: Boolean) {
+	fun setShowAddAccountBottomSheet(isShow: Boolean?) {
 		_showAddAccountBottomSheet.value = isShow
 	}
 

@@ -29,7 +29,7 @@ fun CustomTheme(
 }
 
 val DARK_THEME = Colors(
-	primary = DEEP_PURPLE_900,
+	primary = DEEP_PURPLE_900_LIGHT,
 	primaryVariant = DEEP_PURPLE_900_DARK,
 	onPrimary = WHITE,
 	secondary = LIGHT_BLUE_900,
