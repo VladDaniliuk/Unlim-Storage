@@ -23,7 +23,7 @@ fun CustomTheme(
 	SideEffect {
 		systemUiController.setSystemBarsColor(
 			color = Color.Transparent,
-			darkIcons = darkTheme.not()
+			darkIcons = false
 		)
 	}
 }

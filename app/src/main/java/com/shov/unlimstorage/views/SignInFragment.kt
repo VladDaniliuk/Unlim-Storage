@@ -12,13 +12,15 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import com.google.accompanist.insets.LocalWindowInsets
+import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.getSignInButtons
 import com.shov.unlimstorage.ui.SignInButton
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.values.PADDING_BIG
-import com.shov.unlimstorage.values.PADDING_NULL
 import com.shov.unlimstorage.values.navMain
+import com.shov.unlimstorage.values.navSignIn
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import kotlinx.coroutines.flow.onEach
 
@@ -30,7 +32,12 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 	) {
 		Text(
 			text = stringResource(id = R.string.sign_in_with),
-			modifier = Modifier.padding(horizontal = PADDING_NULL, vertical = PADDING_BIG),
+			modifier = Modifier
+				.padding(vertical = PADDING_BIG)
+				.padding(
+					top = rememberInsetsPaddingValues(LocalWindowInsets.current.statusBars)
+						.calculateTopPadding()
+				),
 			color = MaterialTheme.colors.onSurface
 		)
 
@@ -38,6 +45,8 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 	}
 
 	signInViewModel.serviceAccess.onEach { access ->
-		if (access) navController.navigate(navMain)
+		if (access) navController.navigate(navMain) {
+			popUpTo(navSignIn) { inclusive = true }
+		}
 	}.launchWhenStarted(LocalLifecycleOwner.current.lifecycleScope)
 }
