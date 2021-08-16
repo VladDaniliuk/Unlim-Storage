@@ -20,7 +20,6 @@ import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.viewModels.AccountsViewModel
 
-@ExperimentalMaterialApi
 @Composable
 fun AccountsFragment(accountsViewModel: AccountsViewModel) {
 	val isAllSignedIn by accountsViewModel.isAllSignedIn.collectAsState()
@@ -69,7 +68,6 @@ fun AccountsFragment(accountsViewModel: AccountsViewModel) {
 }
 
 @Preview
-@ExperimentalMaterialApi
 @Composable
 fun AccountFragmentPreview() {
 	AccountsFragment(hiltViewModel())

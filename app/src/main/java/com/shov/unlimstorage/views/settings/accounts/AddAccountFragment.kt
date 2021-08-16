@@ -24,7 +24,6 @@ import com.shov.unlimstorage.values.PADDING_SMALL
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
 import com.shov.unlimstorage.viewModels.AccountsViewModel
 
-@ExperimentalMaterialApi
 @Composable
 fun AddAccountDialog(accountsViewModel: AccountsViewModel) {
 	Dialog(onDismissRequest = { accountsViewModel.setShowAddAccountBottomSheet(null) }) {
@@ -66,7 +65,6 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel) {
 	}
 }
 
-@ExperimentalMaterialApi
 @Preview
 @Composable
 fun AddAccountBottomSheetPreview() {
