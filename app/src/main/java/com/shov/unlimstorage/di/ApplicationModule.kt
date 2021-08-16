@@ -30,22 +30,22 @@ abstract class ApplicationModule {
 	@Binds
 	@IntoMap
 	@MyKey(SignInType.GOOGLE)
-	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): SignInSample
+	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
 
 	/*@Binds
 	@IntoMap
 	@MyKey(SignInType.BOX)
-	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInSample*/
+	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): Authorizer*/
 
 	@Binds
 	@IntoMap
 	@MyKey(SignInType.DROPBOX)
-	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): SignInSample
+	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): Authorizer
 
 	/*@Binds
 	@IntoMap
 	@MyKey(SignInType.ONEDRIVE)
-	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): SignInSample*/
+	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): Authorizer*/
 
 	@Binds
 	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):
