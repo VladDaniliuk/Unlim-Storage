@@ -31,7 +31,7 @@ abstract class ApplicationModule {
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.BOX)
+	@MyKey(StorageType.BOX)
 	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): Authorizer
 
 	@Binds
