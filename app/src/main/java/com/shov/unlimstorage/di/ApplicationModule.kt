@@ -2,10 +2,10 @@ package com.shov.unlimstorage.di
 
 import com.shov.unlimstorage.models.PreferenceManager
 import com.shov.unlimstorage.models.PreferenceManagerImpl
+import com.shov.unlimstorage.models.signInModels.Authorizer
 import com.shov.unlimstorage.models.signInModels.DropBoxSignIn
 import com.shov.unlimstorage.models.signInModels.GoogleSignIn
-import com.shov.unlimstorage.models.signInModels.SignInSample
-import com.shov.unlimstorage.models.signInModels.SignInType
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.repositories.SignInRepository
 import com.shov.unlimstorage.repositories.SignInRepositoryImpl
 import dagger.Binds
@@ -21,7 +21,7 @@ import dagger.multibindings.IntoMap
 	AnnotationTarget.PROPERTY_SETTER
 )
 @MapKey
-internal annotation class MyKey(val value: SignInType)
+internal annotation class MyKey(val value: StorageType)
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -29,7 +29,7 @@ abstract class ApplicationModule {
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.GOOGLE)
+	@MyKey(StorageType.GOOGLE)
 	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
 
 	/*@Binds
@@ -39,7 +39,7 @@ abstract class ApplicationModule {
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.DROPBOX)
+	@MyKey(StorageType.DROPBOX)
 	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): Authorizer
 
 	/*@Binds

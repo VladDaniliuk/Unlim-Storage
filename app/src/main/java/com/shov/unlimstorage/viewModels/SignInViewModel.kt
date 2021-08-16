@@ -4,9 +4,9 @@ import android.content.Intent
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModel
-import com.shov.unlimstorage.models.signInModels.SignInFactory
-import com.shov.unlimstorage.models.signInModels.SignInSample
-import com.shov.unlimstorage.models.signInModels.SignInType
+import com.shov.unlimstorage.models.signInModels.Authorizer
+import com.shov.unlimstorage.models.signInModels.AuthorizerFactory
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.repositories.SignInRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-	private val signInFactory: SignInFactory,
+	private val authorizerFactory: AuthorizerFactory,
 	private val signInRepository: SignInRepository
 ) : ViewModel() {
 	private val _serviceAccess = MutableStateFlow(false)
@@ -24,9 +24,9 @@ class SignInViewModel @Inject constructor(
 	val isLogIn: Boolean
 		get() = signInRepository.isLogIn
 
-	val checkAccess: (result: ActivityResult, signInType: SignInType) -> Unit =
-		{ activityResult: ActivityResult, signInType: SignInType ->
-			signInFactory.create<SignInSample>(signInType).isSuccess(activityResult).apply {
+	val checkAccess: (result: ActivityResult, storageType: StorageType) -> Unit =
+		{ activityResult: ActivityResult, storageType: StorageType ->
+			authorizerFactory.create<Authorizer>(storageType).isSuccess(activityResult).apply {
 				signInRepository.setLogIn(this)
 				_serviceAccess.value = this
 			}
@@ -34,9 +34,9 @@ class SignInViewModel @Inject constructor(
 
 	val getAccess: (
 		startForResult: ManagedActivityResultLauncher<Intent, ActivityResult>,
-		signInClass: SignInType
+		storageClass: StorageType
 	) -> Unit = { signInForResult: ManagedActivityResultLauncher<Intent, ActivityResult>,
-	              signInType: SignInType ->
-		signInFactory.create<SignInSample>(signInType).signIn(signInForResult)
+	              storageType: StorageType ->
+		authorizerFactory.create<Authorizer>(storageType).signIn(signInForResult)
 	}
 }

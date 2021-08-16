@@ -5,17 +5,17 @@ import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.annotation.StringRes
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.signInModels.SignInType
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.viewModels.SignInViewModel
 
 data class SignInButtonInfo(
 	@StringRes val buttonId: Int,
 	val getAccess: (
 		startForResult: ManagedActivityResultLauncher<Intent, ActivityResult>,
-		signInType: SignInType
+		storageType: StorageType
 	) -> Unit,
-	val checkAccess: (result: ActivityResult, signInType: SignInType) -> Unit,
-	val signInType: SignInType
+	val checkAccess: (result: ActivityResult, storageType: StorageType) -> Unit,
+	val storageType: StorageType
 )
 
 fun getSignInButtons(signInViewModel: SignInViewModel): List<SignInButtonInfo> =
@@ -24,24 +24,24 @@ fun getSignInButtons(signInViewModel: SignInViewModel): List<SignInButtonInfo> =
 			R.string.google,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.GOOGLE
+			StorageType.GOOGLE
 		),
 		SignInButtonInfo(
 			R.string.box,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.GOOGLE//BOX
+			StorageType.GOOGLE//BOX
 		),
 		SignInButtonInfo(
 			R.string.dropbox,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.DROPBOX
+			StorageType.DROPBOX
 		),
 		SignInButtonInfo(
 			R.string.onedrive,
 			signInViewModel.getAccess,
 			signInViewModel.checkAccess,
-			SignInType.GOOGLE//ONEDRIVE
+			StorageType.GOOGLE//ONEDRIVE
 		)
 	)
