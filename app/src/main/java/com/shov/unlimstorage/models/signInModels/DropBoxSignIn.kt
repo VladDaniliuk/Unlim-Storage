@@ -15,7 +15,7 @@ import javax.inject.Inject
 class DropBoxSignIn @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val signInRepository: SignInRepository
-) : SignInSample {
+) : Authorizer {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		val intent = AuthActivity.makeIntent(
 			context,

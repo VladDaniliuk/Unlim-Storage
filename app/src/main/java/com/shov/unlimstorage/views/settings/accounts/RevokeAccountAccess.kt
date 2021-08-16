@@ -20,7 +20,7 @@ fun RevokeAccountAccess(accountsViewModel: AccountsViewModel, signInButtonInfo: 
 		},
 		confirmButton = {
 			TextButton(onClick = {
-				accountsViewModel.signOut(signInButtonInfo.signInType)
+				accountsViewModel.signOut(signInButtonInfo.storageType)
 				accountsViewModel.setAllSignedIn(false)
 				accountsViewModel.setShowRevokeDialog(null)
 			}) {

@@ -2,7 +2,6 @@ package com.shov.unlimstorage.views.settings.accounts
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -37,7 +36,7 @@ fun AccountsFragment(accountsViewModel: AccountsViewModel) {
 
 	Column {
 		getSignInButtons(hiltViewModel()).forEach { signInButtonInfo ->
-			if (accountsViewModel.checkAccess(signInType = signInButtonInfo.signInType)) {
+			if (accountsViewModel.checkAccess(storageType = signInButtonInfo.storageType)) {
 				AccountMenuLink(
 					accountId = signInButtonInfo.buttonId,
 					imageId = signInButtonInfo.image,

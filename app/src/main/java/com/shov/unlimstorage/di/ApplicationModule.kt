@@ -1,5 +1,9 @@
 package com.shov.unlimstorage.di
 
+import com.shov.unlimstorage.models.filesRepository.BoxFiles
+import com.shov.unlimstorage.models.filesRepository.DropBoxFiles
+import com.shov.unlimstorage.models.filesRepository.FilesInteractor
+import com.shov.unlimstorage.models.filesRepository.GoogleFiles
 import com.shov.unlimstorage.models.preferences.DropBoxPreferences
 import com.shov.unlimstorage.models.preferences.DropBoxPreferencesImpl
 import com.shov.unlimstorage.models.preferences.PreferenceManager
@@ -20,7 +24,7 @@ import dagger.multibindings.IntoMap
 	AnnotationTarget.PROPERTY_SETTER
 )
 @MapKey
-internal annotation class MyKey(val value: SignInType)
+internal annotation class MyKey(val value: StorageType)
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,33 +32,53 @@ abstract class ApplicationModule {
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.GOOGLE)
-	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): SignInSample
+	@MyKey(StorageType.BOX)
+	abstract fun provideBoxFiles(boxFiles: BoxFiles): FilesInteractor
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.BOX)
-	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInSample
+	@MyKey(StorageType.BOX)
+	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): Authorizer
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.DROPBOX)
-	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): SignInSample
-
-	/*@Binds
-	@IntoMap
-	@MyKey(SignInType.ONEDRIVE)
-	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): SignInSample*/
+	@MyKey(StorageType.DROPBOX)
+	abstract fun provideDropBoxFiles(dropBoxFiles: DropBoxFiles): FilesInteractor
 
 	@Binds
-	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):
-			SignInRepository
+	abstract fun provideDropBoxPreferences(dropBoxPreferencesImpl: DropBoxPreferencesImpl):
+			DropBoxPreferences
+
+	@Binds
+	@IntoMap
+	@MyKey(StorageType.DROPBOX)
+	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): Authorizer
+
+	@Binds
+	@IntoMap
+	@MyKey(StorageType.GOOGLE)
+	abstract fun provideGoogleFiles(googleFiles: GoogleFiles): FilesInteractor
+
+	@Binds
+	@IntoMap
+	@MyKey(StorageType.GOOGLE)
+	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
 
 	@Binds
 	abstract fun provideSharedPreferences(preferenceManagerImpl: PreferenceManagerImpl):
 			PreferenceManager
 
 	@Binds
-	abstract fun provideDropBoxPreferences(dropBoxPreferencesImpl: DropBoxPreferencesImpl):
-			DropBoxPreferences
+	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):
+			SignInRepository
+
+	/*@Binds
+	@IntoMap
+	@MyKey(SignInType.ONEDRIVE)
+	abstract fun provideOneDriveFiles(oneDriveFiles: OneDiveFiles):FilesInteractor
+
+	@Binds
+	@IntoMap
+	@MyKey(SignInType.ONEDRIVE)
+	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): SignInSample*/
 }

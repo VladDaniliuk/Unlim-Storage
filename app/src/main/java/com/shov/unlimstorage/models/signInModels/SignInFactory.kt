@@ -6,21 +6,21 @@ import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
 
-enum class SignInType {
+enum class StorageType {
 	GOOGLE, BOX, DROPBOX, ONEDRIVE
 }
 
 interface Factory {
-	fun create(type: SignInType): SignInSample
+	fun create(type: StorageType): Authorizer
 }
 
 @Singleton
 class SignInFactory @Inject constructor(
-	private val signInTypeMap: Map<SignInType,
-			@JvmSuppressWildcards Provider<SignInSample>>
+	private val storageTypeMap: Map<StorageType,
+			@JvmSuppressWildcards Provider<Authorizer>>
 ) : Factory {
-	override fun create(type: SignInType): SignInSample {
-		val signInProvider = signInTypeMap[type]
+	override fun create(type: StorageType): Authorizer {
+		val signInProvider = storageTypeMap[type]
 			?: throw argumentException(ARGUMENT_SIGN_IN, type.name)
 		return signInProvider.get()
 	}

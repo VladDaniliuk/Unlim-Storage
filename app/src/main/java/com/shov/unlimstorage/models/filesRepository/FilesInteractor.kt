@@ -1,4 +1,5 @@
 package com.shov.unlimstorage.models.filesRepository
 
-class FilesSample {
+interface FilesInteractor {
+	fun getFiles()
 }

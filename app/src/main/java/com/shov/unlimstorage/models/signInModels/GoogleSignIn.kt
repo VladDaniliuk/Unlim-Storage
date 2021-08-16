@@ -12,7 +12,7 @@ import com.google.api.services.drive.DriveScopes
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class GoogleSignIn @Inject constructor(@ApplicationContext val context: Context) : SignInSample {
+class GoogleSignIn @Inject constructor(@ApplicationContext val context: Context) : Authorizer {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions
 			.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
