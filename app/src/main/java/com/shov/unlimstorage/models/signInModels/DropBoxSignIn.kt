@@ -10,7 +10,7 @@ import com.shov.unlimstorage.values.DropBox
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class DropBoxSignIn @Inject constructor(@ApplicationContext val context: Context) : SignInSample {
+class DropBoxSignIn @Inject constructor(@ApplicationContext val context: Context) : Authorizer {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		val intent = AuthActivity.makeIntent(
 			context,
