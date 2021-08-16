@@ -3,7 +3,6 @@ package com.shov.unlimstorage.viewModels
 import androidx.lifecycle.ViewModel
 import com.shov.unlimstorage.models.SignInButtonInfo
 import com.shov.unlimstorage.models.signInModels.SignInFactory
-import com.shov.unlimstorage.models.signInModels.SignInSample
 import com.shov.unlimstorage.models.signInModels.SignInType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,8 +35,8 @@ class AccountsViewModel @Inject constructor(
 	}
 
 	fun checkAccess(signInType: SignInType): Boolean =
-		signInFactory.create<SignInSample>(signInType).isSuccess()
+		signInFactory.create(signInType).isSuccess()
 
 	fun signOut(signInType: SignInType?): Boolean =
-		signInType?.let { signInFactory.create<SignInSample>(signInType).signOut() } ?: false
+		signInType?.let { signInFactory.create(signInType).signOut() } ?: false
 }

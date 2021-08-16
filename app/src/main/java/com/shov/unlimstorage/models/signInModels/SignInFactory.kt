@@ -1,5 +1,7 @@
 package com.shov.unlimstorage.models.signInModels
 
+import com.shov.unlimstorage.values.ARGUMENT_SIGN_IN
+import com.shov.unlimstorage.values.argumentException
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -9,7 +11,7 @@ enum class SignInType {
 }
 
 interface Factory {
-	fun <T : SignInSample> create(type: SignInType): T
+	fun create(type: SignInType): SignInSample
 }
 
 @Singleton
@@ -17,9 +19,9 @@ class SignInFactory @Inject constructor(
 	private val signInTypeMap: Map<SignInType,
 			@JvmSuppressWildcards Provider<SignInSample>>
 ) : Factory {
-	override fun <T : SignInSample> create(type: SignInType): T {
+	override fun create(type: SignInType): SignInSample {
 		val signInProvider = signInTypeMap[type]
-			?: throw IllegalArgumentException("Unknown SignIn class $type")
-		return signInProvider.get() as T
+			?: throw argumentException(ARGUMENT_SIGN_IN, type.name)
+		return signInProvider.get()
 	}
 }
