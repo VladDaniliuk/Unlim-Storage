@@ -18,11 +18,11 @@ fun SignInButton(signInButtonInfo: SignInButtonInfo) {
 	val startForResult = rememberLauncherForActivityResult(
 		ActivityResultContracts.StartActivityForResult()
 	) { result: ActivityResult ->
-		signInButtonInfo.checkAccess(result, signInButtonInfo.signInType)
+		signInButtonInfo.checkAccess(result, signInButtonInfo.storageType)
 	}
 
 	Button(
-		onClick = { signInButtonInfo.getAccess(startForResult, signInButtonInfo.signInType) },
+		onClick = { signInButtonInfo.getAccess(startForResult, signInButtonInfo.storageType) },
 		modifier = Modifier.padding(PADDING_NULL, PADDING_MEDIUM)
 	) {
 		Text(text = stringResource(id = signInButtonInfo.buttonId))
