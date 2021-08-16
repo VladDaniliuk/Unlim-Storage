@@ -9,13 +9,13 @@ enum class SignInType {
 }
 
 interface Factory {
-	fun <T : SignInSample> create(type: SignInType): T
+	fun <T : Authorizer> create(type: SignInType): T
 }
 
 @Singleton
 class SignInFactory @Inject constructor(
 	private val signInTypeMap: Map<SignInType,
-			@JvmSuppressWildcards Provider<SignInSample>>
+			@JvmSuppressWildcards Provider<Authorizer>>
 ) : Factory {
 	override fun <T : SignInSample> create(type: SignInType): T {
 		val signInProvider = signInTypeMap[type]
