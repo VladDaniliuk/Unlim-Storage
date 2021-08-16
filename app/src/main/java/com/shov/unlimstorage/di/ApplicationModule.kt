@@ -2,9 +2,10 @@ package com.shov.unlimstorage.di
 
 import com.shov.unlimstorage.models.PreferenceManager
 import com.shov.unlimstorage.models.PreferenceManagerImpl
+import com.shov.unlimstorage.models.signInModels.Authorizer
+import com.shov.unlimstorage.models.signInModels.DropBoxSignIn
 import com.shov.unlimstorage.models.signInModels.GoogleSignIn
-import com.shov.unlimstorage.models.signInModels.SignInSample
-import com.shov.unlimstorage.models.signInModels.SignInType
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.repositories.SignInRepository
 import com.shov.unlimstorage.repositories.SignInRepositoryImpl
 import dagger.Binds
@@ -20,7 +21,7 @@ import dagger.multibindings.IntoMap
 	AnnotationTarget.PROPERTY_SETTER
 )
 @MapKey
-internal annotation class MyKey(val value: SignInType)
+internal annotation class MyKey(val value: StorageType)
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,23 +29,23 @@ abstract class ApplicationModule {
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.GOOGLE)
-	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): SignInSample
+	@MyKey(StorageType.GOOGLE)
+	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
 
 	/*@Binds
 	@IntoMap
-	@MyKey(ProviderType.BOX)
-	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInSample
+	@MyKey(SignInType.BOX)
+	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): Authorizer*/
 
 	@Binds
 	@IntoMap
-	@MyKey(ProviderType.DROPBOX)
-	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): SignInSample
+	@MyKey(StorageType.DROPBOX)
+	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): Authorizer
 
-	@Binds
+	/*@Binds
 	@IntoMap
-	@MyKey(ProviderType.ONEDRIVE)
-	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): SignInSample*/
+	@MyKey(SignInType.ONEDRIVE)
+	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): Authorizer*/
 
 	@Binds
 	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):

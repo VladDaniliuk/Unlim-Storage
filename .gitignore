@@ -12,4 +12,4 @@ local.properties
 /app/src/test
 /.idea/
 /Key.jks
-/BuildProperties.kt
+/app/src/main/java/com/shov/unlimstorage/values/DropBox.kt
