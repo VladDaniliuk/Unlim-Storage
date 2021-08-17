@@ -12,7 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.SignInButtonInfo
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.values.PADDING_MEDIUM
 import com.shov.unlimstorage.values.PADDING_NULL
@@ -39,4 +42,18 @@ fun SignInButton(signInButtonInfo: SignInButtonInfo) {
 
 		Text(text = stringResource(id = signInButtonInfo.buttonId))
 	}
+}
+
+@Preview
+@Composable
+fun SignInButtonPreview() {
+	SignInButton(
+		signInButtonInfo = SignInButtonInfo(
+			buttonId = R.string.box,
+			getAccess = fun(_: Any, _: Any) {},
+			checkAccess = fun(_: Any, _: Any) {},
+			storageType = StorageType.BOX,
+			image = R.drawable.ic_box
+		)
+	)
 }

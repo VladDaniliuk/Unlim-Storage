@@ -7,8 +7,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.ARRAY_INDEX_EXCEPTION
+import com.shov.unlimstorage.values.navMain
 
 @Composable
 fun TextNavigation(
@@ -53,3 +57,16 @@ fun TextNavigation(
 		)
 	} else throw IllegalArgumentException(ARRAY_INDEX_EXCEPTION)
 }
+
+@Preview
+@Composable
+fun TextNavigationPreview() {
+	TextNavigation(
+		stringIdArray = arrayOf(R.string.google, R.string.accounts_description),
+		clickableStringIndex = 0,
+		direction = navMain,
+		navController = rememberNavController(),
+		modifier = Modifier
+	)
+}
+

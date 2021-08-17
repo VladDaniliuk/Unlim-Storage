@@ -8,6 +8,7 @@ object ComposeVersion {
 	const val runtimeLivedataVersion = "1.0.0"
 	const val navigationComposeVersion = "2.4.0-alpha05"
 	const val hiltNavigationComposeVersion = "1.0.0-alpha03"
+	const val composeMaterialIconsVersion = "1.1.0-alpha01"
 }
 
 object ComposeLib {
@@ -25,6 +26,9 @@ object ComposeLib {
 		"androidx.navigation:navigation-compose:${ComposeVersion.navigationComposeVersion}"
 	const val hiltNavigationCompose =
 		"androidx.hilt:hilt-navigation-compose:${ComposeVersion.hiltNavigationComposeVersion}"
+	const val composeMaterialIcons = "androidx.compose.material:material-icons-extended:${
+		ComposeVersion.composeMaterialIconsVersion
+	}"
 }
 
 fun Project.implementCompose() {
@@ -36,5 +40,6 @@ fun Project.implementCompose() {
 		add("implementation", ComposeLib.composeUiTooling)
 		add("implementation", ComposeLib.navigationCompose)
 		add("implementation", ComposeLib.hiltNavigationCompose)
+		add("implementation", ComposeLib.composeMaterialIcons)
 	}
 }

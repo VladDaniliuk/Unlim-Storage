@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -65,6 +66,7 @@ fun MainTopBar(topBarObject: TopBarObject) {
 				fontSize = HEADLINE6,
 				modifier = Modifier.align(Alignment.Center),
 				text = stringResource(id = topBarObject.text),
+				fontWeight = FontWeight.Medium,
 			)
 
 			topBarObject.nextRoute?.let { nextRoute ->
