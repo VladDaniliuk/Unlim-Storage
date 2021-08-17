@@ -1,5 +1,7 @@
 package com.shov.unlimstorage.models.filesRepository
 
+import com.shov.unlimstorage.models.StoreItem
+
 interface FilesInteractor {
-	fun getFiles()
+	suspend fun getFiles(folderId: String?): Array<StoreItem>
 }
