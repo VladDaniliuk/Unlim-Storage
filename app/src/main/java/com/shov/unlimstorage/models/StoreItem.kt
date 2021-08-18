@@ -2,19 +2,27 @@ package com.shov.unlimstorage.models
 
 import com.box.androidsdk.content.models.BoxItem
 import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.utils.fromLongToString
+
+enum class ItemType {
+	FILE, FOLDER
+}
 
 data class StoreItem(
 	val id: String,
-	val type: String,
+	val type: ItemType,
 	val name: String,
-	val size: Long,
+	val size: String?,
 	val disk: Array<StorageType>
 ) {
 	constructor(boxItem: BoxItem) : this(
 		id = boxItem.id,
-		type = boxItem.type,
+		type = ItemType.valueOf(boxItem.type.uppercase()),
 		name = boxItem.name,
-		size = boxItem.size,
+		size = when (ItemType.valueOf(boxItem.type.uppercase())) {
+			ItemType.FILE -> boxItem.size.fromLongToString()
+			ItemType.FOLDER -> null
+		},
 		disk = arrayOf(StorageType.BOX)
 	)
 

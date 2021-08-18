@@ -19,7 +19,7 @@ class BoxFiles @Inject constructor(@ApplicationContext val context: Context) : F
 		return coroutineScope {
 			val folderItems = BoxApiFolder(BoxSession(context)).getItemsRequest(
 				folderId ?: BoxConstants.ROOT_FOLDER_ID
-			).send()
+			).setFields("size", "name").send()
 
 			return@coroutineScope folderItems.map { boxItem -> StoreItem(boxItem) }.toTypedArray()
 		}
