@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -26,6 +27,8 @@ import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun SignInFragment(signInViewModel: SignInViewModel, navController: NavController) {
+	val currentLifecycleOwner = LocalLifecycleOwner.current
+
 	Column(
 		modifier = Modifier.fillMaxWidth(),
 		horizontalAlignment = Alignment.CenterHorizontally
@@ -44,7 +47,9 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 		getSignInButtons(signInViewModel).forEach { info -> SignInButton(info) }
 	}
 
-	signInViewModel.serviceAccess.onEach { access ->
-		if (access) navController.navigate(navMain)
-	}.launchWhenStarted(LocalLifecycleOwner.current.lifecycleScope)
+	LaunchedEffect(key1 = null) {
+		signInViewModel.serviceAccess.onEach { access ->
+			if (access) navController.navigate(navMain)
+		}.launchWhenStarted(currentLifecycleOwner.lifecycleScope)
+	}
 }
