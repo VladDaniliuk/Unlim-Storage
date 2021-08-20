@@ -14,17 +14,17 @@
       },
       "oauth_client": [
         {
-          "client_id": "968391678987-rlk99hvotg90n8t3r0h8pgu0vkudf5n4.apps.googleusercontent.com",
+          "client_id": "968391678987-lhl2ov4uajutteas6ob46nts4jc02rhe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.shov.unlimstorage",
-            "certificate_hash": "e19a1b4aad8c9322a27ffa9b3b1b915186498948"
+            "certificate_hash": "3c5ecbb11750200ffba45638b0eb550d707a673f"
           }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAbRDM5Ke3g0mE0cVFEAZbAQzbxwi2WDHM"
+          "current_key": "AIzaSyBSwdDyw74_T9PzwdQohT8NtZCusSBOLnk"
         }
       ],
       "services": {

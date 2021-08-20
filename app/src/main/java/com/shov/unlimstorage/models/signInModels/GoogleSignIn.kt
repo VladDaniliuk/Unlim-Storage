@@ -16,8 +16,7 @@ class GoogleSignIn @Inject constructor(@ApplicationContext val context: Context)
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions
 			.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-			.requestScopes(Scope(DriveScopes.DRIVE_APPDATA))
-			.requestScopes(Scope(DriveScopes.DRIVE_FILE))
+			.requestScopes(Scope(DriveScopes.DRIVE))
 			.requestEmail()
 			.build()
 

@@ -16,6 +16,10 @@ val BODY2 = 14.sp
 val HEADLINE5 = 24.sp
 val HEADLINE6 = 20.sp
 
+val SIZE_ICON = 48.dp
+
+const val EMPTY_TEXT = ""
+
 //Icons descriptions
 const val BACK = "Back"
 const val ACCOUNTS = "Accounts"
