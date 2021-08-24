@@ -20,7 +20,7 @@ import dagger.multibindings.IntoMap
 	AnnotationTarget.PROPERTY_SETTER
 )
 @MapKey
-internal annotation class MyKey(val value: SignInType)
+internal annotation class MyKey(val value: StorageType)
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,23 +28,23 @@ abstract class ApplicationModule {
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.GOOGLE)
-	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): SignInSample
+	@MyKey(StorageType.GOOGLE)
+	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.BOX)
-	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInSample
+	@MyKey(StorageType.BOX)
+	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): Authorizer
 
 	@Binds
 	@IntoMap
-	@MyKey(SignInType.DROPBOX)
-	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): SignInSample
+	@MyKey(StorageType.DROPBOX)
+	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): Authorizer
 
 	/*@Binds
 	@IntoMap
 	@MyKey(SignInType.ONEDRIVE)
-	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): SignInSample*/
+	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): Authorizer*/
 
 	@Binds
 	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):

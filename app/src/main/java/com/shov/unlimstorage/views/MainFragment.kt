@@ -17,12 +17,6 @@ import com.shov.unlimstorage.values.navAccounts
 
 @Composable
 fun MainFragment(navController: NavController) {
-	val activity = LocalContext.current as Activity
-
-	BackHandler {
-		activity.finish()
-	}
-
 	if (true) {//check if has no files to show
 		Box(modifier = Modifier.fillMaxSize()) {
 			TextNavigation(

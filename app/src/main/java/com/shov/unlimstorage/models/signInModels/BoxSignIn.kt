@@ -13,7 +13,7 @@ import com.shov.unlimstorage.values.Box
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class BoxSignIn @Inject constructor(@ApplicationContext val context: Context) : SignInSample {
+class BoxSignIn @Inject constructor(@ApplicationContext val context: Context) : Authorizer {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		BoxConfig.CLIENT_ID = Box.CLIENT_ID
 		BoxConfig.CLIENT_SECRET = Box.CLIENT_SECRET
