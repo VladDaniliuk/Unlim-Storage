@@ -12,10 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.shov.unlimstorage.ui.MainTopBar
 import com.shov.unlimstorage.ui.TopBarObject
-import com.shov.unlimstorage.values.navAccounts
-import com.shov.unlimstorage.values.navMain
-import com.shov.unlimstorage.values.navSettings
-import com.shov.unlimstorage.values.navSignIn
+import com.shov.unlimstorage.values.*
 import com.shov.unlimstorage.viewModels.MainViewModel
 import com.shov.unlimstorage.views.MainFragment
 import com.shov.unlimstorage.views.SignInFragment
@@ -30,7 +27,7 @@ fun Application(mainViewModel: MainViewModel) {
 	Scaffold(topBar = { MainTopBar(topBarObject = topBar) }) {
 		NavHost(
 			navController = navController,
-			startDestination = if (mainViewModel.isLogIn) navMain
+			startDestination = if (mainViewModel.isLogIn) navMain()
 			else navSignIn
 		) {
 			composable(navAccounts) {
@@ -43,11 +40,18 @@ fun Application(mainViewModel: MainViewModel) {
 				)
 				AccountsFragment(accountsViewModel = hiltViewModel())
 			}
-			composable(navMain) {
+			composable(
+				arguments = listOf(
+					navArgument(argFolderId) { nullable = true },
+					navArgument(argStorageType) { nullable = true }
+				),
+				route = navMain()
+			) { backStackEntry ->
 				mainViewModel.setTopAppBar(
 					TopBarObject(
 						navController = navController,
 						nextRoute = Pair(Icons.Rounded.AccountCircle, navSettings),
+						prevRoute = backStackEntry.arguments?.getString(argFolderId) != null,
 						text = R.string.app_name
 					)
 				)
