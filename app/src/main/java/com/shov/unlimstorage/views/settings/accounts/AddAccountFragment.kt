@@ -7,7 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -41,11 +40,11 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel) {
 			)
 
 			getSignInButtons(hiltViewModel()).forEach { signInButtonInfo ->
-				if (accountsViewModel.checkAccess(signInType = signInButtonInfo.signInType).not()) {
+				if (accountsViewModel.checkAccess(storageType = signInButtonInfo.storageType).not()) {
 					val startForResult = rememberLauncherForActivityResult(
 						ActivityResultContracts.StartActivityForResult()
 					) { result: ActivityResult ->
-						signInButtonInfo.checkAccess(result, signInButtonInfo.signInType)
+						signInButtonInfo.checkAccess(result, signInButtonInfo.storageType)
 						accountsViewModel.setAllSignedIn(true)
 						accountsViewModel.setShowAddAccountBottomSheet(null)
 					}
@@ -55,7 +54,7 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel) {
 						imageId = signInButtonInfo.image,
 						titleId = R.string.add_account
 					) {
-						signInButtonInfo.getAccess(startForResult, signInButtonInfo.signInType)
+						signInButtonInfo.getAccess(startForResult, signInButtonInfo.storageType)
 					}
 				}
 			}
