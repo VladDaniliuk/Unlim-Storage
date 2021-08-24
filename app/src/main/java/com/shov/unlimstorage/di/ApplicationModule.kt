@@ -1,9 +1,6 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.models.filesRepository.BoxFiles
-import com.shov.unlimstorage.models.filesRepository.DropBoxFiles
-import com.shov.unlimstorage.models.filesRepository.FilesInteractor
-import com.shov.unlimstorage.models.filesRepository.GoogleFiles
+import com.shov.unlimstorage.models.filesRepository.*
 import com.shov.unlimstorage.models.preferences.DropBoxPreferences
 import com.shov.unlimstorage.models.preferences.DropBoxPreferencesImpl
 import com.shov.unlimstorage.models.preferences.PreferenceManager
@@ -71,6 +68,9 @@ abstract class ApplicationModule {
 	@Binds
 	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):
 			SignInRepository
+
+	@Binds
+	abstract fun provideFilesRepository(filesRepositoryImpl: FilesRepositoryImpl): FilesRepository
 
 	/*@Binds
 	@IntoMap

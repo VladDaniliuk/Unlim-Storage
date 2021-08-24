@@ -26,7 +26,7 @@ fun Long.toBytes(convertType: Int = 0): String {
 	return result
 }
 
-fun BoxItem.toStoreItem() = StoreItem(
+fun BoxItem.toStoreItem(parentFolder: String? = null) = StoreItem(
 	id = this.id,
 	type = ItemType.valueOf(this.type.uppercase()),
 	name = this.name,
@@ -34,31 +34,30 @@ fun BoxItem.toStoreItem() = StoreItem(
 		ItemType.FILE -> this.size.toBytes()
 		ItemType.FOLDER -> null
 	},
-	parentFolder = this.parent.id,
-	disk = listOf(StorageType.BOX)
+	parentFolder = parentFolder?.let { this.parent.id } ?: parentFolder,
+	disk = StorageType.BOX
 )
 
-fun Metadata.toStoreItem() = when (this) {
+fun Metadata.toStoreItem(parentFolder: String? = null) = when (this) {
 	is FolderMetadata -> StoreItem(
 		id = this.id,
 		type = ItemType.FOLDER,
 		name = this.name,
-		size = null,
-		parentFolder = this.pathLower.replace("/${this.name}", "", true),
-		disk = listOf(StorageType.DROPBOX)
+		parentFolder = parentFolder,
+		disk = StorageType.DROPBOX
 	)
 	is FileMetadata -> StoreItem(
 		id = this.id,
 		type = ItemType.FILE,
 		name = this.name,
 		size = this.size.toBytes(),
-		parentFolder = this.pathLower.replace("/${this.name}", "", true),
-		disk = listOf(StorageType.DROPBOX)
+		parentFolder = parentFolder,
+		disk = StorageType.DROPBOX
 	)
 	else -> throw argumentException(ARGUMENT_METADATA, this.javaClass.name)
 }
 
-fun File.toStoreItem() = StoreItem(
+fun File.toStoreItem(parentFolder: String? = null) = StoreItem(
 	id = this.id,
 	type = when (this.mimeType.contains(ItemType.FOLDER.name, ignoreCase = true)) {
 		true -> ItemType.FOLDER
@@ -69,6 +68,6 @@ fun File.toStoreItem() = StoreItem(
 		true -> null
 		false -> this.size.toLong().toBytes()
 	},
-	parentFolder = this.parents[0],
-	disk = listOf(StorageType.GOOGLE)
+	parentFolder = parentFolder?.let { this.parents[0] } ?: parentFolder,
+	disk = StorageType.GOOGLE
 )
