@@ -7,6 +7,7 @@ object DesignVersion {
 	const val materialVersion = "1.4.0"
 	const val accompanistSystemuicontrollerVersion = "0.16.0"
 	const val accompanistInsetsVersion = "0.16.0"
+	const val composeSettingsVersion = "0.3.0"
 }
 
 object DesignLib {
@@ -20,6 +21,9 @@ object DesignLib {
 		}"
 	const val accompanistInsets =
 		"com.google.accompanist:accompanist-insets:${DesignVersion.accompanistInsetsVersion}"
+	//lib provides a set of Settings like composable items
+	const val composeSettings =
+		"com.github.alorma:compose-settings:${DesignVersion.composeSettingsVersion}"
 }
 
 fun Project.implementDesign() {
@@ -29,5 +33,6 @@ fun Project.implementDesign() {
 		add("implementation", DesignLib.material)
 		add("implementation", DesignLib.accompanistSystemuicontroller)
 		add("implementation", DesignLib.accompanistInsets)
+		add("implementation", DesignLib.composeSettings)
 	}
 }
