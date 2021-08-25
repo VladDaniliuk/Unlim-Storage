@@ -27,7 +27,7 @@ class DropBoxSignIn @Inject constructor(
 
 	override fun isSuccess(result: ActivityResult): Boolean {
 		signInRepository.setDropBoxToken(Auth.getOAuth2Token())
-		return Auth.getUid()?.isNotEmpty() ?: false
+		return Auth.getUid().isNullOrEmpty().not()
 	}
 
 	override fun isSuccess(): Boolean {
