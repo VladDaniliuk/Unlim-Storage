@@ -1,31 +1,47 @@
 package com.shov.unlimstorage.repositories
 
-import com.shov.unlimstorage.models.preferences.DropBoxPreferences
 import com.shov.unlimstorage.models.preferences.PreferenceManager
+import com.shov.unlimstorage.values.ACCOUNT_PREFERENCES
+import com.shov.unlimstorage.values.DROPBOX_TOKEN
+import com.shov.unlimstorage.values.IS_AUTH
 import javax.inject.Inject
 
 interface SignInRepository {
 	val isLogIn: Boolean
-	val getAccessToken: String?
+	val getDropBoxToken: String?
 	fun setLogIn(isLogIn: Boolean)
-	fun setAccessToken(token: String?)
+	fun setDropBoxToken(token: String?)
 }
 
 class SignInRepositoryImpl @Inject constructor(
-	private val preferenceManager: PreferenceManager,
-	private val dropBoxPreferences: DropBoxPreferences
+	private val preferenceManager: PreferenceManager
 ) :
 	SignInRepository {
 	override val isLogIn: Boolean
-		get() = preferenceManager.getAccount
-	override val getAccessToken: String?
-		get() = dropBoxPreferences.getAccessToken
+		get() = preferenceManager.getBoolean(
+			preferencesName = ACCOUNT_PREFERENCES,
+			booleanName = IS_AUTH
+		)
+
+	override val getDropBoxToken: String?
+		get() = preferenceManager.getString(
+			preferencesName = ACCOUNT_PREFERENCES,
+			stringName = DROPBOX_TOKEN
+		)
 
 	override fun setLogIn(isLogIn: Boolean) {
-		preferenceManager.setAccount(isLogIn)
+		preferenceManager.putBoolean(
+			preferencesName = ACCOUNT_PREFERENCES,
+			booleanName = IS_AUTH,
+			putValue = isLogIn
+		)
 	}
 
-	override fun setAccessToken(token: String?) {
-		dropBoxPreferences.setAccessToken(token)
+	override fun setDropBoxToken(token: String?) {
+		preferenceManager.putString(
+			preferencesName = ACCOUNT_PREFERENCES,
+			stringName = DROPBOX_TOKEN,
+			putValue = token
+		)
 	}
 }

@@ -1,7 +1,5 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.models.preferences.DropBoxPreferences
-import com.shov.unlimstorage.models.preferences.DropBoxPreferencesImpl
 import com.shov.unlimstorage.models.preferences.PreferenceManager
 import com.shov.unlimstorage.models.preferences.PreferenceManagerImpl
 import com.shov.unlimstorage.models.signInModels.*
@@ -53,8 +51,4 @@ abstract class ApplicationModule {
 	@Binds
 	abstract fun provideSharedPreferences(preferenceManagerImpl: PreferenceManagerImpl):
 			PreferenceManager
-
-	@Binds
-	abstract fun provideDropBoxPreferences(dropBoxPreferencesImpl: DropBoxPreferencesImpl):
-			DropBoxPreferences
 }

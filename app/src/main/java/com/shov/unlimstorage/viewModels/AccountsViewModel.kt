@@ -38,6 +38,7 @@ class AccountsViewModel @Inject constructor(
 	fun checkAccess(storageType: StorageType): Boolean =
 		authorizerFactory.create<Authorizer>(storageType).isSuccess()
 
-	fun signOut(storageType: StorageType?): Boolean =
-		storageType?.let { authorizerFactory.create<Authorizer>(storageType).signOut() } ?: false
+	fun signOut(storageType: StorageType): Boolean {
+		return authorizerFactory.create<Authorizer>(storageType).signOut()
+	}
 }

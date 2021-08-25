@@ -4,29 +4,41 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.shov.unlimstorage.values.ACCOUNT_PREFERENCES
+import com.shov.unlimstorage.values.DROPBOX_TOKEN
 import com.shov.unlimstorage.values.IS_AUTH
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 interface PreferenceManager {
-	val accountPreferences: SharedPreferences
-	val getAccount: Boolean
-	fun setAccount(isAuth: Boolean)
+	fun getString(preferencesName: String, stringName: String): String?
+	fun putString(preferencesName: String, stringName: String, putValue: String?)
+	fun getBoolean(preferencesName: String, booleanName: String): Boolean
+	fun putBoolean(preferencesName: String, booleanName: String, putValue: Boolean)
 }
 
 class PreferenceManagerImpl @Inject constructor(@ApplicationContext private val context: Context) :
 	PreferenceManager {
-	override val accountPreferences: SharedPreferences
-		get() = context.getSharedPreferences(
-			ACCOUNT_PREFERENCES,
-			Context.MODE_PRIVATE
-		)
-	override val getAccount: Boolean
-		get() = accountPreferences.getBoolean(IS_AUTH, false)
+	private fun accountPreferences(preferencesName: String): SharedPreferences {
+		return context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
+	}
 
-	override fun setAccount(isAuth: Boolean) {
-		accountPreferences.edit(true) {
-			putBoolean(IS_AUTH, isAuth)
+	override fun getString(preferencesName: String, stringName: String): String? {
+		return accountPreferences(preferencesName).getString(stringName, null)
+	}
+
+	override fun putString(preferencesName: String, stringName: String, putValue: String?) {
+		accountPreferences(preferencesName).edit(true) {
+			putString(stringName, putValue)
+		}
+	}
+
+	override fun getBoolean(preferencesName: String, booleanName: String): Boolean {
+		return accountPreferences(preferencesName).getBoolean(booleanName, false)
+	}
+
+	override fun putBoolean(preferencesName: String, booleanName: String, putValue: Boolean) {
+		accountPreferences(preferencesName).edit(true) {
+			putBoolean(DROPBOX_TOKEN, putValue)
 		}
 	}
 }
