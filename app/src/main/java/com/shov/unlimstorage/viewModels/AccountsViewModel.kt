@@ -2,7 +2,7 @@ package com.shov.unlimstorage.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.shov.unlimstorage.models.SignInButtonInfo
-import com.shov.unlimstorage.models.signInModels.SignInFactory
+import com.shov.unlimstorage.models.signInModels.AuthorizerFactory
 import com.shov.unlimstorage.models.signInModels.StorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AccountsViewModel @Inject constructor(
-	private val signInFactory: SignInFactory
+	private val authorizerFactory: AuthorizerFactory
 ) : ViewModel() {
 	/**Dialog: revoke access to account*/
 	private val _showRevokeDialog = MutableStateFlow<SignInButtonInfo?>(null)
@@ -35,8 +35,9 @@ class AccountsViewModel @Inject constructor(
 	}
 
 	fun checkAccess(storageType: StorageType): Boolean =
-		signInFactory.create(storageType).isSuccess()
+		authorizerFactory.create(storageType).isSuccess()
 
-	fun signOut(storageType: StorageType?): Boolean =
-		storageType?.let { signInFactory.create(storageType).signOut() } ?: false
+	fun signOut(storageType: StorageType): Boolean {
+		return authorizerFactory.create(storageType).signOut()
+	}
 }

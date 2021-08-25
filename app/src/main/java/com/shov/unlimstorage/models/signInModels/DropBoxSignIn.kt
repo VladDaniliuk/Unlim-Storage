@@ -11,7 +11,6 @@ import com.shov.unlimstorage.values.DropBox
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-
 class DropBoxSignIn @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val signInRepository: SignInRepository
@@ -27,16 +26,16 @@ class DropBoxSignIn @Inject constructor(
 	}
 
 	override fun isSuccess(result: ActivityResult): Boolean {
-		signInRepository.setAccessToken(Auth.getOAuth2Token())
-		return Auth.getUid()?.isNotEmpty() ?: false
+		signInRepository.setDropBoxToken(Auth.getOAuth2Token())
+		return Auth.getUid().isNullOrEmpty().not()
 	}
 
 	override fun isSuccess(): Boolean {
-		return signInRepository.getAccessToken.isNullOrEmpty().not()
+		return signInRepository.getDropBoxToken.isNullOrEmpty().not()
 	}
 
 	override fun signOut(): Boolean {
-		signInRepository.setAccessToken(null)
+		signInRepository.setDropBoxToken(null)
 		return isSuccess()
 	}
 }

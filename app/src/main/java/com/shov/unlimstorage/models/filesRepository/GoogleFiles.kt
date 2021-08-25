@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
+import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
@@ -16,26 +17,31 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class GoogleFiles @Inject constructor(@ApplicationContext val context: Context) : FilesInteractor {
-	override suspend fun getFiles(folderId: String?): List<StoreItem>? {
+	override fun getFiles(folderId: String?): List<StoreItem> {
 		return GoogleSignIn.getLastSignedInAccount(context)?.let { googleAccount ->
-			return@let Drive.Builder(
-				AndroidHttp.newCompatibleTransport(),       //httpTransport
-				JacksonFactory.getDefaultInstance(),
-				GoogleAccountCredential.usingOAuth2(        //httpRequestInitializer
-					context, listOf(DriveScopes.DRIVE)      //
-				).apply {
-					selectedAccount = googleAccount.account //give googleAccount exists
-				}
-			).setApplicationName(context.getString(R.string.app_name))
-				.build()                                    //build Drive
-				.Files()
-				.list()                                     //get Files.List
-				.apply {
-					fields = GOOGLE_FIELDS                  //requests fields(id,name,etc.)
-					q = getGoogleQ(folderId = folderId)     //sorting (add folder, remove trashed)
-				}.execute().files.map { googleDriveItem ->
-					googleDriveItem.toStoreItem()
-				}.toList()
-		}
+			return@let try {
+				Drive.Builder(
+					AndroidHttp.newCompatibleTransport(),       //httpTransport
+					JacksonFactory.getDefaultInstance(),
+					GoogleAccountCredential.usingOAuth2(        //httpRequestInitializer
+						context, listOf(DriveScopes.DRIVE)      //
+					).apply {
+						selectedAccount = googleAccount.account //give googleAccount exists
+					}
+				).setApplicationName(context.getString(R.string.app_name))
+					.build()                                    //build Drive
+					.Files()
+					.list()                                     //get Files.List
+					.apply {
+						fields = GOOGLE_FIELDS                  //requests fields(id,name,etc.)
+						q =
+							getGoogleQ(folderId = folderId)     //sorting (add folder, remove trashed)
+					}.execute().files.map { googleDriveItem ->
+						googleDriveItem.toStoreItem()
+					}.toList()
+			} catch (e: GoogleJsonResponseException) {
+				listOf()
+			}
+		} ?: listOf()
 	}
 }

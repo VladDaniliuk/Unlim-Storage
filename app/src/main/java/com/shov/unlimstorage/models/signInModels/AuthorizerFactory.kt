@@ -15,7 +15,7 @@ interface Factory {
 }
 
 @Singleton
-class SignInFactory @Inject constructor(
+class AuthorizerFactory @Inject constructor(
 	private val storageTypeMap: Map<StorageType,
 			@JvmSuppressWildcards Provider<Authorizer>>
 ) : Factory {

@@ -4,7 +4,8 @@ import android.content.Intent
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModel
-import com.shov.unlimstorage.models.signInModels.SignInFactory
+import com.shov.unlimstorage.models.signInModels.Authorizer
+import com.shov.unlimstorage.models.signInModels.AuthorizerFactory
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.repositories.SignInRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-	private val signInFactory: SignInFactory,
+	private val authorizerFactory: AuthorizerFactory,
 	private val signInRepository: SignInRepository
 ) : ViewModel() {
 	private val _serviceAccess = MutableStateFlow(false)
@@ -22,7 +23,7 @@ class SignInViewModel @Inject constructor(
 
 	val checkAccessWithResult: (result: ActivityResult, storageType: StorageType) -> Unit =
 		{ activityResult: ActivityResult, storageType: StorageType ->
-			signInFactory.create(storageType).isSuccess(activityResult).apply {
+			authorizerFactory.create(storageType).isSuccess(activityResult).apply {
 				signInRepository.setLogIn(this)
 				_serviceAccess.value = this
 			}
@@ -33,6 +34,6 @@ class SignInViewModel @Inject constructor(
 		storageType: StorageType
 	) -> Unit = { signInForResult: ManagedActivityResultLauncher<Intent, ActivityResult>,
 	              storageType: StorageType ->
-		signInFactory.create(storageType).signIn(signInForResult)
+		authorizerFactory.create(storageType).signIn(signInForResult)
 	}
 }

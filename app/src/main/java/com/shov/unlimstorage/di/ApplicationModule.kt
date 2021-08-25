@@ -4,8 +4,6 @@ import com.shov.unlimstorage.models.filesRepository.BoxFiles
 import com.shov.unlimstorage.models.filesRepository.DropBoxFiles
 import com.shov.unlimstorage.models.filesRepository.FilesInteractor
 import com.shov.unlimstorage.models.filesRepository.GoogleFiles
-import com.shov.unlimstorage.models.preferences.DropBoxPreferences
-import com.shov.unlimstorage.models.preferences.DropBoxPreferencesImpl
 import com.shov.unlimstorage.models.preferences.PreferenceManager
 import com.shov.unlimstorage.models.preferences.PreferenceManagerImpl
 import com.shov.unlimstorage.models.signInModels.*
@@ -44,10 +42,6 @@ abstract class ApplicationModule {
 	@IntoMap
 	@MyKey(StorageType.DROPBOX)
 	abstract fun provideDropBoxFiles(dropBoxFiles: DropBoxFiles): FilesInteractor
-
-	@Binds
-	abstract fun provideDropBoxPreferences(dropBoxPreferencesImpl: DropBoxPreferencesImpl):
-			DropBoxPreferences
 
 	@Binds
 	@IntoMap
