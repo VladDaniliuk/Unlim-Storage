@@ -9,6 +9,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.Scope
 import com.google.api.services.drive.DriveScopes
+import com.shov.unlimstorage.models.preferences.Preference
+import com.shov.unlimstorage.values.IS_AUTH
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -30,9 +32,13 @@ class GoogleSignIn @Inject constructor(@ApplicationContext val context: Context)
 	}
 
 	override fun isSuccess(result: ActivityResult): Boolean {
-		return if (result.resultCode == Activity.RESULT_OK)
+		var isLogIn by Preference(context, IS_AUTH, false)
+
+		isLogIn = if (result.resultCode == Activity.RESULT_OK)
 			GoogleSignIn.getSignedInAccountFromIntent(result.data).isSuccessful
 		else false
+
+		return isLogIn
 	}
 
 	override fun isSuccess(): Boolean =

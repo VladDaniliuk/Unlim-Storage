@@ -4,11 +4,7 @@ import com.shov.unlimstorage.models.filesRepository.BoxFiles
 import com.shov.unlimstorage.models.filesRepository.DropBoxFiles
 import com.shov.unlimstorage.models.filesRepository.FilesInteractor
 import com.shov.unlimstorage.models.filesRepository.GoogleFiles
-import com.shov.unlimstorage.models.preferences.PreferenceManager
-import com.shov.unlimstorage.models.preferences.PreferenceManagerImpl
 import com.shov.unlimstorage.models.signInModels.*
-import com.shov.unlimstorage.repositories.SignInRepository
-import com.shov.unlimstorage.repositories.SignInRepositoryImpl
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -57,14 +53,6 @@ abstract class ApplicationModule {
 	@IntoMap
 	@MyKey(StorageType.GOOGLE)
 	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
-
-	@Binds
-	abstract fun provideSharedPreferences(preferenceManagerImpl: PreferenceManagerImpl):
-			PreferenceManager
-
-	@Binds
-	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):
-			SignInRepository
 
 	/*@Binds
 	@IntoMap
