@@ -32,4 +32,17 @@ class BoxSignIn @Inject constructor(@ApplicationContext val context: Context) : 
 		BoxSession(context).user?.let { user ->
 			user.status == BoxUser.Status.ACTIVE
 		} ?: false
+
+	override fun isSuccess(): Boolean {
+		BoxConfig.CLIENT_ID = Box.CLIENT_ID
+		BoxConfig.CLIENT_SECRET = Box.CLIENT_SECRET
+
+		return BoxSession(context).user?.let { user ->
+			user.status?.let { status ->
+				status == BoxUser.Status.ACTIVE
+			} ?: false
+		} ?: false
+	}
+
+	override fun signOut(): Boolean = BoxSession(context).logout().isDone
 }

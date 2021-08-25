@@ -35,4 +35,26 @@ class GoogleSignIn @Inject constructor(@ApplicationContext val context: Context)
 			GoogleSignIn.getSignedInAccountFromIntent(result.data).isSuccessful
 		else false
 	}
+
+	override fun isSuccess(): Boolean =
+		GoogleSignIn.getLastSignedInAccount(context)?.let { google ->
+			google.account != null
+		} ?: false
+
+	override fun signOut(): Boolean {
+		val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions
+			.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+			.requestScopes(Scope(DriveScopes.DRIVE_APPDATA))
+			.requestScopes(Scope(DriveScopes.DRIVE_FILE))
+			.requestEmail()
+			.build()
+
+		val mGoogleSignInClient =
+			GoogleSignIn.getClient(
+				context,
+				googleSignInOptions
+			)
+
+		return mGoogleSignInClient.signOut().isComplete
+	}
 }

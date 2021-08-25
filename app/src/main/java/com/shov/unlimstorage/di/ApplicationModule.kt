@@ -1,7 +1,7 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.models.PreferenceManager
-import com.shov.unlimstorage.models.PreferenceManagerImpl
+import com.shov.unlimstorage.models.preferences.PreferenceManager
+import com.shov.unlimstorage.models.preferences.PreferenceManagerImpl
 import com.shov.unlimstorage.models.signInModels.*
 import com.shov.unlimstorage.repositories.SignInRepository
 import com.shov.unlimstorage.repositories.SignInRepositoryImpl
