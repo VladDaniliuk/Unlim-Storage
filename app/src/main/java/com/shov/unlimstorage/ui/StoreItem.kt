@@ -81,7 +81,7 @@ fun StoreIconItem(storageType: StorageType, modifier: Modifier) {
 				StorageType.BOX -> R.drawable.ic_box
 				StorageType.DROPBOX -> R.drawable.ic_drop_box
 				StorageType.GOOGLE -> R.drawable.ic_google_drive
-				StorageType.ONEDRIVE -> R.drawable.ic_one_drive
+				//StorageType.ONEDRIVE -> R.drawable.ic_one_drive
 			}
 		),
 		contentDescription = DRIVE,

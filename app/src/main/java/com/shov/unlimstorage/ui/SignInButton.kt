@@ -1,8 +1,8 @@
 package com.shov.unlimstorage.ui
 
-import androidx.activity.compose.rememberLauncherForActivityResult
+import android.content.Intent
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -13,8 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.SignInButtonInfo
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.values.PADDING_MEDIUM
@@ -22,38 +20,40 @@ import com.shov.unlimstorage.values.PADDING_NULL
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
 
 @Composable
-fun SignInButton(signInButtonInfo: SignInButtonInfo) {
-	val startForResult = rememberLauncherForActivityResult(
-		ActivityResultContracts.StartActivityForResult()
-	) { result: ActivityResult ->
-		signInButtonInfo.checkAccess(result, signInButtonInfo.storageType)
-	}
-
+fun SignInButton(
+	storageType: StorageType,
+	content: ManagedActivityResultLauncher<Intent, ActivityResult>,
+	onClick: (ManagedActivityResultLauncher<Intent, ActivityResult>, StorageType) -> Unit,
+) {
 	Button(
-		onClick = { signInButtonInfo.getAccess(startForResult, signInButtonInfo.storageType) },
+		onClick = { onClick.invoke(content, storageType) },
 		modifier = Modifier.padding(PADDING_NULL, PADDING_MEDIUM)
 	) {
 		Icon(
-			painter = painterResource(id = signInButtonInfo.image),
+			painter = painterResource(id = storageType.imageId),
 			contentDescription = ACCOUNTS
 		)
 
 		Spacer(modifier = Modifier.padding(horizontal = PADDING_SMALL_PLUS))
 
-		Text(text = stringResource(id = signInButtonInfo.buttonId))
+		Text(text = stringResource(storageType.nameId))
 	}
 }
 
 @Preview
 @Composable
 fun SignInButtonPreview() {
-	SignInButton(
-		signInButtonInfo = SignInButtonInfo(
-			buttonId = R.string.box,
-			getAccess = fun(_: Any, _: Any) {},
-			checkAccess = fun(_: Any, _: Any) {},
-			storageType = StorageType.BOX,
-			image = R.drawable.ic_box
+	Button(
+		onClick = {},
+		modifier = Modifier.padding(PADDING_NULL, PADDING_MEDIUM)
+	) {
+		Icon(
+			painter = painterResource(id = StorageType.GOOGLE.imageId),
+			contentDescription = ACCOUNTS
 		)
-	)
+
+		Spacer(modifier = Modifier.padding(horizontal = PADDING_SMALL_PLUS))
+
+		Text(text = stringResource(StorageType.GOOGLE.nameId))
+	}
 }

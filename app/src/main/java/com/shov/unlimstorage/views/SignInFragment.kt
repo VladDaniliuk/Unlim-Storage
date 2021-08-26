@@ -1,5 +1,8 @@
 package com.shov.unlimstorage.views
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,13 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.getSignInButtons
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.SignInButton
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.values.PADDING_BIG
@@ -40,7 +40,17 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 			color = MaterialTheme.colors.onSurface
 		)
 
-		getSignInButtons(signInViewModel).forEach { info -> SignInButton(info) }
+		for (type in StorageType.values()) {
+			SignInButton(
+				storageType = type,
+				content = rememberLauncherForActivityResult(
+					ActivityResultContracts.StartActivityForResult()
+				) { result: ActivityResult ->
+					signInViewModel.checkAccessWithResult(result, type)
+				},
+				onClick = signInViewModel.getAccess
+			)
+		}
 	}
 
 	LaunchedEffect(key1 = null) {

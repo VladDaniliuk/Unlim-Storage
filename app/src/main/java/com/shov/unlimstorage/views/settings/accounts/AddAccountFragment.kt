@@ -17,14 +17,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.getSignInButtons
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.values.PADDING_SMALL
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
 import com.shov.unlimstorage.viewModels.AccountsViewModel
+import com.shov.unlimstorage.viewModels.SignInViewModel
 
 @Composable
-fun AddAccountDialog(accountsViewModel: AccountsViewModel) {
+fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: SignInViewModel) {
 	Dialog(onDismissRequest = { accountsViewModel.setShowAddAccountBottomSheet(null) }) {
 		Column(
 			modifier = Modifier.background(
@@ -39,24 +40,22 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel) {
 					.padding(top = PADDING_SMALL_PLUS)
 			)
 
-			getSignInButtons(hiltViewModel()).forEach { signInButtonInfo ->
-				if (accountsViewModel.checkAccess(storageType = signInButtonInfo.storageType)
-						.not()
-				) {
+			for (storageType in StorageType.values()) {
+				if (accountsViewModel.checkAccess(storageType = storageType).not()) {
 					val startForResult = rememberLauncherForActivityResult(
 						ActivityResultContracts.StartActivityForResult()
 					) { result: ActivityResult ->
-						signInButtonInfo.checkAccess(result, signInButtonInfo.storageType)
+						signInViewModel.checkAccessWithResult(result, storageType)
 						accountsViewModel.setAllSignedIn(true)
 						accountsViewModel.setShowAddAccountBottomSheet(null)
 					}
 
 					AccountMenuLink(
-						accountId = signInButtonInfo.buttonId,
-						imageId = signInButtonInfo.image,
+						accountId = storageType.nameId,
+						imageId = storageType.imageId,
 						titleId = R.string.add_account
 					) {
-						signInButtonInfo.getAccess(startForResult, signInButtonInfo.storageType)
+						signInViewModel.getAccess(startForResult, storageType)
 					}
 				}
 			}
@@ -70,6 +69,7 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel) {
 @Composable
 fun AddAccountBottomSheetPreview() {
 	AddAccountDialog(
-		accountsViewModel = hiltViewModel()
+		accountsViewModel = hiltViewModel(),
+		signInViewModel = hiltViewModel()
 	)
 }
