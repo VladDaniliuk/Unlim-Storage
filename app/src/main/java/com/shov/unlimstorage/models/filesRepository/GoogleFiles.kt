@@ -10,13 +10,16 @@ import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.StoreItem
-import com.shov.unlimstorage.utils.toStoreItem
+import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.values.GOOGLE_FIELDS
 import com.shov.unlimstorage.values.getGoogleQ
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class GoogleFiles @Inject constructor(@ApplicationContext val context: Context) : FilesInteractor {
+class GoogleFiles @Inject constructor(
+	@ApplicationContext val context: Context,
+	private val storeItemConverter: StoreItemConverter
+) : FilesInteractor {
 	override fun getFiles(folderId: String?): List<StoreItem> {
 		return GoogleSignIn.getLastSignedInAccount(context)?.let { googleAccount ->
 			return@let try {
@@ -37,7 +40,9 @@ class GoogleFiles @Inject constructor(@ApplicationContext val context: Context) 
 						q =
 							getGoogleQ(folderId = folderId)     //sorting (add folder, remove trashed)
 					}.execute().files.map { googleDriveItem ->
-						googleDriveItem.toStoreItem()
+						storeItemConverter.run {
+							googleDriveItem.toStoreItem()
+						}
 					}.toList()
 			} catch (e: GoogleJsonResponseException) {
 				listOf()

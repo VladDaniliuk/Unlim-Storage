@@ -57,16 +57,14 @@ fun StoreItem(storeItem: StoreItem, onClick: () -> Unit) {
 				fontSize = BODY2
 			)
 
-			Row(modifier = Modifier.padding(vertical = PADDING_SMALL)) {
-				storeItem.disk.forEach { storageType ->
-					StoreIconItem(
-						storageType = storageType,
-						modifier = Modifier.align(Alignment.CenterVertically)
-					)
+			Spacer(modifier = Modifier.padding(vertical = PADDING_SMALL))
 
-					Spacer(modifier = Modifier.padding(horizontal = PADDING_SMALL))
-				}
-			}
+			StoreIconItem(
+				storageType = storeItem.disk,
+				modifier = Modifier
+			)
+
+			Spacer(modifier = Modifier.padding(vertical = PADDING_SMALL))
 
 			Divider()
 		}
@@ -100,7 +98,7 @@ fun FilePreview() {
 			name = "File preview",
 			size = "1210 MB",
 			parentFolder = null,
-			disk = listOf(StorageType.BOX, StorageType.GOOGLE)
+			disk = StorageType.BOX
 		),
 		onClick = {}
 	)
@@ -116,7 +114,7 @@ fun FolderPreview() {
 			name = "Folder preview",
 			size = null,
 			parentFolder = null,
-			disk = listOf(StorageType.BOX, StorageType.DROPBOX)
+			disk = StorageType.DROPBOX
 		),
 		onClick = {}
 	)
