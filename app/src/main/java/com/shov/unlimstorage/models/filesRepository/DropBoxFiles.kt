@@ -8,6 +8,7 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.StoreItem
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.utils.toStoreItem
+import com.shov.unlimstorage.values.DEFAULT_STRING
 import com.shov.unlimstorage.values.DROPBOX_ROOT_FOLDER
 import com.shov.unlimstorage.values.DROPBOX_TOKEN
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -17,7 +18,8 @@ class DropBoxFiles @Inject constructor(
 	@ApplicationContext val context: Context
 ) : FilesInteractor {
 	override fun getFiles(folderId: String?): List<StoreItem> {
-		val dropBoxToken: String by Preference(context, DROPBOX_TOKEN, "")
+		val dropBoxToken: String by Preference(context, DROPBOX_TOKEN, DEFAULT_STRING)
+
 		return try {
 			DbxClientV2(
 				DbxRequestConfig.newBuilder(context.getString(R.string.app_name)).build(),

@@ -7,9 +7,7 @@ import androidx.activity.result.ActivityResult
 import com.dropbox.core.android.Auth
 import com.dropbox.core.android.AuthActivity
 import com.shov.unlimstorage.models.preferences.Preference
-import com.shov.unlimstorage.values.DROPBOX_TOKEN
-import com.shov.unlimstorage.values.DropBox
-import com.shov.unlimstorage.values.IS_AUTH
+import com.shov.unlimstorage.values.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -26,9 +24,11 @@ class DropBoxSignIn @Inject constructor(
 		dataForSignIn.launch(intent)
 	}
 
+	@Suppress(NEVER_ACCESSED, UNUSED_VALUE)
 	override fun isSuccess(result: ActivityResult): Boolean {
 		var isLogIn by Preference(context, IS_AUTH, false)
-		var dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
+
+		var dropBoxToken by Preference(context, DROPBOX_TOKEN, DEFAULT_STRING)
 
 		dropBoxToken = Auth.getOAuth2Token()
 		isLogIn = Auth.getUid().isNullOrEmpty().not()
@@ -37,15 +37,16 @@ class DropBoxSignIn @Inject constructor(
 	}
 
 	override fun isSuccess(): Boolean {
-		val dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
+		val dropBoxToken by Preference(context, DROPBOX_TOKEN, DEFAULT_STRING)
 
 		return dropBoxToken.isEmpty().not()
 	}
 
+	@Suppress(NEVER_ACCESSED, UNUSED_VALUE)
 	override fun signOut(): Boolean {
-		var dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
+		var dropBoxToken by Preference(context, DROPBOX_TOKEN, DEFAULT_STRING)
 
-		dropBoxToken = ""
+		dropBoxToken = DEFAULT_STRING
 
 		return isSuccess()
 	}

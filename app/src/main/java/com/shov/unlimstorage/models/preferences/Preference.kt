@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.shov.unlimstorage.values.ARGUMENT_ANY
 import com.shov.unlimstorage.values.PREFERENCES
+import com.shov.unlimstorage.values.UNCHECKED_CAST
 import com.shov.unlimstorage.values.argumentException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.properties.ReadWriteProperty
@@ -20,7 +21,7 @@ class Preference<T>(
 
 	override fun getValue(thisRef: Any?, property: KProperty<*>): T {
 		with(sharedPreferences) {
-			@Suppress("UNCHECKED_CAST")
+			@Suppress(UNCHECKED_CAST)
 			return when (default) {
 				is Long -> getLong(name, default)
 				is String -> getString(name, default)
