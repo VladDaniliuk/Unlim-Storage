@@ -40,7 +40,7 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: Sign
 					.padding(top = PADDING_SMALL_PLUS)
 			)
 
-			for (storageType in StorageType.values()) {
+			StorageType.values().forEach { storageType ->
 				if (accountsViewModel.checkAccess(storageType = storageType).not()) {
 					val startForResult = rememberLauncherForActivityResult(
 						ActivityResultContracts.StartActivityForResult()

@@ -9,7 +9,7 @@ import com.box.androidsdk.content.models.BoxSession
 import com.shov.unlimstorage.models.StoreItem
 import com.shov.unlimstorage.models.signInModels.AuthorizerFactory
 import com.shov.unlimstorage.models.signInModels.StorageType
-import com.shov.unlimstorage.utils.toStoreItem
+import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.values.Box
 import com.shov.unlimstorage.values.NAME
 import com.shov.unlimstorage.values.PARENT
@@ -19,7 +19,8 @@ import javax.inject.Inject
 
 class BoxFiles @Inject constructor(
 	@ApplicationContext val context: Context,
-	private val authorizerFactory: AuthorizerFactory
+	private val authorizerFactory: AuthorizerFactory,
+	private val storeItemConverter: StoreItemConverter
 ) : FilesInteractor {
 	override fun getFiles(folderId: String?): List<StoreItem> {
 		BoxConfig.CLIENT_ID = Box.CLIENT_ID
@@ -32,7 +33,9 @@ class BoxFiles @Inject constructor(
 				).setFields(SIZE, NAME, PARENT).send()
 
 				folderItems.map { boxItem ->
-					boxItem.toStoreItem(parentFolder = folderId)
+					storeItemConverter.run {
+						boxItem.toStoreItem(parentFolder = folderId)
+					}
 				}.toList()
 			} catch (e: BoxException) {
 				listOf()

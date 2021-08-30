@@ -28,7 +28,7 @@ class DropBoxSignIn @Inject constructor(
 	override fun isSuccess(result: ActivityResult): Boolean {
 		Auth.getOAuth2Token()?.let { token ->
 			var isLogIn by Preference(context, IS_AUTH, false)
-			var dropBoxToken by Preference(context, DROPBOX_TOKEN, DEFAULT_STRING)
+			var dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
 
 			dropBoxToken = token
 			isLogIn = Auth.getUid().isNullOrEmpty().not()
@@ -38,16 +38,16 @@ class DropBoxSignIn @Inject constructor(
 	}
 
 	override fun isSuccess(): Boolean {
-		val dropBoxToken by Preference(context, DROPBOX_TOKEN, DEFAULT_STRING)
+		val dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
 
 		return dropBoxToken.isEmpty().not()
 	}
 
 	@Suppress(NEVER_ACCESSED, UNUSED_VALUE)
 	override fun signOut(): Boolean {
-		var dropBoxToken by Preference(context, DROPBOX_TOKEN, DEFAULT_STRING)
+		var dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
 
-		dropBoxToken = DEFAULT_STRING
+		dropBoxToken = ""
 
 		return isSuccess()
 	}

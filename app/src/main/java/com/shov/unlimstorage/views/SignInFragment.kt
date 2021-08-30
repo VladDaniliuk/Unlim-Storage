@@ -40,16 +40,18 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 			color = MaterialTheme.colors.onSurface
 		)
 
-		for (type in StorageType.values()) {
+		StorageType.values().forEach { storageType ->
+			val launcher = rememberLauncherForActivityResult(
+				ActivityResultContracts.StartActivityForResult()
+			) { result: ActivityResult ->
+				signInViewModel.checkAccessWithResult(result, storageType)
+			}
+
 			SignInButton(
-				storageType = type,
-				content = rememberLauncherForActivityResult(
-					ActivityResultContracts.StartActivityForResult()
-				) { result: ActivityResult ->
-					signInViewModel.checkAccessWithResult(result, type)
-				},
-				onClick = signInViewModel.getAccess
-			)
+				storageType = storageType,
+			) {
+				signInViewModel.getAccess(launcher, storageType)
+			}
 		}
 	}
 

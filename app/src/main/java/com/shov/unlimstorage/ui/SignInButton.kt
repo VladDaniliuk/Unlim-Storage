@@ -1,8 +1,5 @@
 package com.shov.unlimstorage.ui
 
-import android.content.Intent
-import androidx.activity.compose.ManagedActivityResultLauncher
-import androidx.activity.result.ActivityResult
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -22,11 +19,10 @@ import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
 @Composable
 fun SignInButton(
 	storageType: StorageType,
-	content: ManagedActivityResultLauncher<Intent, ActivityResult>,
-	onClick: (ManagedActivityResultLauncher<Intent, ActivityResult>, StorageType) -> Unit,
+	onClick: () -> Unit,
 ) {
 	Button(
-		onClick = { onClick.invoke(content, storageType) },
+		onClick = onClick,
 		modifier = Modifier.padding(PADDING_NULL, PADDING_MEDIUM)
 	) {
 		Icon(
@@ -43,17 +39,5 @@ fun SignInButton(
 @Preview
 @Composable
 fun SignInButtonPreview() {
-	Button(
-		onClick = {},
-		modifier = Modifier.padding(PADDING_NULL, PADDING_MEDIUM)
-	) {
-		Icon(
-			painter = painterResource(id = StorageType.GOOGLE.imageId),
-			contentDescription = ACCOUNTS
-		)
-
-		Spacer(modifier = Modifier.padding(horizontal = PADDING_SMALL_PLUS))
-
-		Text(text = stringResource(StorageType.GOOGLE.nameId))
-	}
+	SignInButton(storageType = StorageType.GOOGLE) {}
 }
