@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alorma.settings.composables.SettingsMenuLink
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.getSignInButtons
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.viewModels.AccountsViewModel
@@ -25,25 +25,30 @@ fun AccountsFragment(accountsViewModel: AccountsViewModel) {
 	val showRevokeDialog by accountsViewModel.showRevokeDialog.collectAsState()
 	val showAddAccountBottomSheet by accountsViewModel.showAddAccountBottomSheet.collectAsState()
 
-	showRevokeDialog?.let { signInButtonInfo ->
+	showRevokeDialog?.let { storageType ->
 		RevokeAccountAccess(
 			accountsViewModel = hiltViewModel(),
-			signInButtonInfo = signInButtonInfo
+			storageType = storageType
 		)
 	}
 
-	showAddAccountBottomSheet?.let { AddAccountDialog(accountsViewModel = hiltViewModel()) }
+	showAddAccountBottomSheet?.let {
+		AddAccountDialog(
+			accountsViewModel = hiltViewModel(),
+			signInViewModel = hiltViewModel()
+		)
+	}
 
 	Column {
-		getSignInButtons(hiltViewModel()).forEach { signInButtonInfo ->
-			if (accountsViewModel.checkAccess(storageType = signInButtonInfo.storageType)) {
+		StorageType.values().forEach { storageType ->
+			if (accountsViewModel.checkAccess(storageType)) {
 				AccountMenuLink(
-					accountId = signInButtonInfo.buttonId,
-					imageId = signInButtonInfo.image,
+					accountId = storageType.nameId,
+					imageId = storageType.imageId,
 					subtitleId = R.string.click_to_delete,
 					titleId = R.string.account
 				) {
-					accountsViewModel.setShowRevokeDialog(signInButtonInfo)
+					accountsViewModel.setShowRevokeDialog(storageType)
 				}
 			} else accountsViewModel.setAllSignedIn(false)
 		}
