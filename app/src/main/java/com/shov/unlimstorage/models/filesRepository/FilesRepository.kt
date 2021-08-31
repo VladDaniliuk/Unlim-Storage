@@ -51,6 +51,9 @@ class FilesRepositoryImpl @Inject constructor(
 
 	override fun getFromLocal(parentFolder: String?): List<StoreItem> {
 		return storeItemDao.getFiles(parentFolder = parentFolder)
+			.sortedBy { storeItem ->
+				storeItem.name
+			}
 	}
 
 	override fun getFromRemote(parentFolder: String?, disk: StorageType?): List<StoreItem> {
@@ -71,6 +74,8 @@ class FilesRepositoryImpl @Inject constructor(
 						.getFiles(folderId = parentFolder)
 						.asIterable()
 				)
+		}.sortedBy { storeItem ->
+			storeItem.name
 		}
 	}
 

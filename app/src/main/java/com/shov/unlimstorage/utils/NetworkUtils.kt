@@ -14,8 +14,6 @@ import kotlinx.coroutines.flow.callbackFlow
 fun Context.observeConnectivityAsFlow() = callbackFlow {
 	val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-	connectivityManager.registerDefaultNetworkCallback(ConnectivityManager.NetworkCallback())
-
 	val callback = networkCallback { connectionState -> trySend(connectionState) }
 
 	val networkRequest = NetworkRequest.Builder()
