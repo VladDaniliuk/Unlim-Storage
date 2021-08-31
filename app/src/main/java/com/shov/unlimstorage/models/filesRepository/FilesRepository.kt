@@ -52,7 +52,7 @@ class FilesRepositoryImpl @Inject constructor(
 	override fun getFromLocal(parentFolder: String?): List<StoreItem> {
 		return storeItemDao.getFiles(parentFolder = parentFolder)
 			.sortedBy { storeItem ->
-				storeItem.name
+				storeItem.name.uppercase()
 			}
 	}
 
@@ -75,7 +75,7 @@ class FilesRepositoryImpl @Inject constructor(
 						.asIterable()
 				)
 		}.sortedBy { storeItem ->
-			storeItem.name
+			storeItem.name.uppercase()
 		}
 	}
 
