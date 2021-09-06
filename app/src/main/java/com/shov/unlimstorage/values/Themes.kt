@@ -1,8 +1,10 @@
 package com.shov.unlimstorage.values
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Shapes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
@@ -17,7 +19,12 @@ fun CustomTheme(
 ) {
 	MaterialTheme(
 		colors = if (darkTheme) DARK_THEME else LIGHT_THEME,
-		content = content
+		content = content,
+		shapes = Shapes(
+			small = RoundedCornerShape(size = SMALL_SHAPES),
+			medium = RoundedCornerShape(size = MEDIUM_SHAPES),
+			large = RoundedCornerShape(size = LARGE_SHAPES)
+		)
 	)
 
 	SideEffect {
