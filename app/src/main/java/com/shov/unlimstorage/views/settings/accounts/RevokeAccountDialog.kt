@@ -11,7 +11,7 @@ import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.viewModels.AccountsViewModel
 
 @Composable
-fun RevokeAccountAccess(accountsViewModel: AccountsViewModel, storageType: StorageType) {
+fun RevokeAccountDialog(accountsViewModel: AccountsViewModel, storageType: StorageType) {
 	AlertDialog(
 		dismissButton = {
 			TextButton(onClick = { accountsViewModel.setShowRevokeDialog(null) }) {

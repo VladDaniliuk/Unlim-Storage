@@ -4,7 +4,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -18,7 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
-import com.shov.unlimstorage.values.PADDING_SMALL
+import com.shov.unlimstorage.values.MEDIUM_SHAPES
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
 import com.shov.unlimstorage.viewModels.AccountsViewModel
 import com.shov.unlimstorage.viewModels.SignInViewModel
@@ -59,7 +59,7 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: Sign
 				}
 			}
 
-			Spacer(modifier = Modifier.padding(top = PADDING_SMALL))
+			Spacer(modifier = Modifier.padding(bottom = MEDIUM_SHAPES))
 		}
 	}
 }

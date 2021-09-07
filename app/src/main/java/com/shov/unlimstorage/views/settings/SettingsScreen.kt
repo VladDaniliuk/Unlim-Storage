@@ -5,7 +5,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -16,7 +18,20 @@ import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.values.navAccounts
 
 @Composable
-fun SettingsFragment(navController: NavController) {
+fun SettingsScreen(
+	filesNavController: NavController,
+	setTopBar: (
+		prevRoute: Pair<ImageVector, (() -> Unit)>?,
+		textId: Int?,
+		nextRoute: Pair<ImageVector, (() -> Unit)>?
+	) -> Unit
+) {
+	setTopBar(
+		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
+		R.string.settings,
+		null
+	)
+
 	Column {
 		SettingsMenuLink(
 			icon = {
@@ -28,7 +43,7 @@ fun SettingsFragment(navController: NavController) {
 			subtitle = { Text(text = stringResource(R.string.accounts_description)) },
 			title = { Text(text = stringResource(R.string.accounts)) }
 		) {
-			navController.navigate(navAccounts)
+			filesNavController.navigate(navAccounts)
 		}
 	}
 }
@@ -36,5 +51,8 @@ fun SettingsFragment(navController: NavController) {
 @Preview(name = "Settings", showSystemUi = true)
 @Composable
 fun SettingsFragmentPreview() {
-	SettingsFragment(navController = rememberNavController())
+	SettingsScreen(
+		filesNavController = rememberNavController(),
+		setTopBar = { _, _, _ -> }
+	)
 }
