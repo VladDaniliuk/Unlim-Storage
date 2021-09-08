@@ -1,13 +1,9 @@
 package com.shov.unlimstorage.di
 
 import com.shov.unlimstorage.models.filesRepository.*
-import com.shov.unlimstorage.models.preferences.DropBoxPreferences
-import com.shov.unlimstorage.models.preferences.DropBoxPreferencesImpl
-import com.shov.unlimstorage.models.preferences.PreferenceManager
-import com.shov.unlimstorage.models.preferences.PreferenceManagerImpl
 import com.shov.unlimstorage.models.signInModels.*
-import com.shov.unlimstorage.repositories.SignInRepository
-import com.shov.unlimstorage.repositories.SignInRepositoryImpl
+import com.shov.unlimstorage.utils.converters.SizeConverter
+import com.shov.unlimstorage.utils.converters.SizeConverterImpl
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -43,10 +39,6 @@ abstract class ApplicationModule {
 	abstract fun provideDropBoxFiles(dropBoxFiles: DropBoxFiles): FilesInteractor
 
 	@Binds
-	abstract fun provideDropBoxPreferences(dropBoxPreferencesImpl: DropBoxPreferencesImpl):
-			DropBoxPreferences
-
-	@Binds
 	@IntoMap
 	@MyKey(StorageType.DROPBOX)
 	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): Authorizer
@@ -62,15 +54,10 @@ abstract class ApplicationModule {
 	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
 
 	@Binds
-	abstract fun provideSharedPreferences(preferenceManagerImpl: PreferenceManagerImpl):
-			PreferenceManager
-
-	@Binds
-	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):
-			SignInRepository
-
-	@Binds
 	abstract fun provideFilesRepository(filesRepositoryImpl: FilesRepositoryImpl): FilesRepository
+
+	@Binds
+	abstract fun provideConverters(convertersImpl: SizeConverterImpl): SizeConverter
 
 	/*@Binds
 	@IntoMap
