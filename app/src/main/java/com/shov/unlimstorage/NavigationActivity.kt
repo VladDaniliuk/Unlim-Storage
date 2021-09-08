@@ -6,11 +6,13 @@ import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.ui.MainTopBar
 import com.shov.unlimstorage.ui.TopBarObject
 import com.shov.unlimstorage.values.*
@@ -19,17 +21,23 @@ import com.shov.unlimstorage.views.MainFragment
 import com.shov.unlimstorage.views.SignInFragment
 import com.shov.unlimstorage.views.settings.SettingsFragment
 import com.shov.unlimstorage.views.settings.accounts.AccountsFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @Composable
 fun Application(mainViewModel: MainViewModel) {
+	val isLogIn by Preference(LocalContext.current.applicationContext, IS_AUTH, false)
 	val navController = rememberNavController()
 	val topBar by mainViewModel.topAppBar.collectAsState()
 
 	Scaffold(topBar = { MainTopBar(topBarObject = topBar) }) {
 		NavHost(
 			navController = navController,
-			startDestination = if (mainViewModel.isLogIn) navMain()
-			else navSignIn
+			startDestination = if (isLogIn) {
+				navMain()
+			} else {
+				navSignIn
+			}
 		) {
 			composable(navAccounts) {
 				mainViewModel.setTopAppBar(

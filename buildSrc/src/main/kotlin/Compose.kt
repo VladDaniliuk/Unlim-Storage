@@ -6,7 +6,7 @@ object ComposeVersion {
 	const val composeVersion = "1.0.0"
 	const val kotlinStdlibVersion = "1.5.30-M1"
 	const val runtimeLivedataVersion = "1.0.0"
-	const val navigationComposeVersion = "2.4.0-alpha05"
+	const val navigationComposeVersion = "2.4.0-alpha06"
 	const val hiltNavigationComposeVersion = "1.0.0-alpha03"
 	const val composeMaterialIconsVersion = "1.1.0-alpha01"
 }
