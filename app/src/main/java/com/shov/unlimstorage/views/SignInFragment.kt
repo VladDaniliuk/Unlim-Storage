@@ -56,13 +56,13 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 		val messageFailed = stringResource(id = R.string.connection_failed)
 
 		Column(
-			modifier = Modifier.fillMaxWidth(),
-			horizontalAlignment = Alignment.CenterHorizontally
+			horizontalAlignment = Alignment.CenterHorizontally,
+			modifier = Modifier.fillMaxWidth()
 		) {
 			Text(
-				text = stringResource(id = R.string.sign_in_with),
+				color = MaterialTheme.colors.onSurface,
 				modifier = Modifier.padding(vertical = PADDING_BIG),
-				color = MaterialTheme.colors.onSurface
+				text = stringResource(id = R.string.sign_in_with)
 			)
 
 			StorageType.values().forEach { storageType ->
@@ -105,13 +105,13 @@ fun SignInFragmentPreview() {
 			.verticalScroll(rememberScrollState())
 	) {
 		Column(
-			modifier = Modifier.fillMaxWidth(),
-			horizontalAlignment = Alignment.CenterHorizontally
+			horizontalAlignment = Alignment.CenterHorizontally,
+			modifier = Modifier.fillMaxWidth()
 		) {
 			Text(
-				text = stringResource(id = R.string.sign_in_with),
+				color = MaterialTheme.colors.onSurface,
 				modifier = Modifier.padding(vertical = PADDING_BIG),
-				color = MaterialTheme.colors.onSurface
+				text = stringResource(id = R.string.sign_in_with)
 			)
 
 			StorageType.values().forEach { storageType ->
@@ -120,10 +120,10 @@ fun SignInFragmentPreview() {
 		}
 
 		Snackbar(
+			content = { Text(stringResource(id = R.string.connection_failed)) },
 			modifier = Modifier
 				.padding(12.dp)
 				.align(Alignment.BottomCenter),
-			content = { Text(stringResource(id = R.string.connection_failed)) },
 		)
 	}
 }

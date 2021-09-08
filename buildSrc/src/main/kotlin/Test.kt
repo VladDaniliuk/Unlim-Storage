@@ -5,7 +5,7 @@ object TestVersion {
 	const val espressoVersion = "3.4.0"
 	const val extJunitVersion = "1.1.3"
 	const val junitVersion = "4.13.2"
-	const val timberVersion = "4.7.1"
+	const val timberVersion = "5.0.1"
 }
 
 object TestLib {
