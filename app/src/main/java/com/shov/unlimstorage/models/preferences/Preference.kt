@@ -2,10 +2,7 @@ package com.shov.unlimstorage.models.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.shov.unlimstorage.values.ARGUMENT_ANY
-import com.shov.unlimstorage.values.PREFERENCES
-import com.shov.unlimstorage.values.UNCHECKED_CAST
-import com.shov.unlimstorage.values.argumentException
+import com.shov.unlimstorage.values.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -28,7 +25,7 @@ class Preference<T>(
 				is Int -> getInt(name, default)
 				is Boolean -> getBoolean(name, default)
 				is Float -> getFloat(name, default)
-				else -> throw argumentException(ARGUMENT_ANY, default.toString())
+				else -> throw UnknownClassInheritance(ARGUMENT_ANY, default.toString())
 			} as T
 		}
 	}
@@ -41,7 +38,7 @@ class Preference<T>(
 				is Int -> putInt(name, value)
 				is Boolean -> putBoolean(name, value)
 				is Float -> putFloat(name, value)
-				else -> throw argumentException(ARGUMENT_ANY, default.toString())
+				else -> throw UnknownClassInheritance(ARGUMENT_ANY, default.toString())
 			}.apply()
 		}
 	}
