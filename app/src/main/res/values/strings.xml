@@ -19,4 +19,10 @@
 	<string name="revoke_access_to">Revoke access to %1$s?</string>
 	<string name="nothing_to_show">It\'s nothing to show. Please, add account in\ </string>
 	<string name="dot">.</string>
+	<string name="bytes">Bytes</string>
+	<string name="kilobytes">KB</string>
+	<string name="megabytes">MB</string>
+	<string name="gigabytes">GB</string>
+	<string name="terabytes">TB</string>
+	<string name="size">%1$s %2$s</string>
 </resources>

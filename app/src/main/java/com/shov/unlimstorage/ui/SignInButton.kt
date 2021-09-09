@@ -1,8 +1,5 @@
 package com.shov.unlimstorage.ui
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -12,31 +9,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.shov.unlimstorage.models.SignInButtonInfo
+import androidx.compose.ui.tooling.preview.Preview
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.values.PADDING_MEDIUM
 import com.shov.unlimstorage.values.PADDING_NULL
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
 
 @Composable
-fun SignInButton(signInButtonInfo: SignInButtonInfo) {
-	val startForResult = rememberLauncherForActivityResult(
-		ActivityResultContracts.StartActivityForResult()
-	) { result: ActivityResult ->
-		signInButtonInfo.checkAccess(result, signInButtonInfo.storageType)
-	}
-
+fun SignInButton(
+	storageType: StorageType,
+	onClick: () -> Unit,
+) {
 	Button(
-		onClick = { signInButtonInfo.getAccess(startForResult, signInButtonInfo.storageType) },
+		onClick = onClick,
 		modifier = Modifier.padding(PADDING_NULL, PADDING_MEDIUM)
 	) {
 		Icon(
-			painter = painterResource(id = signInButtonInfo.image),
+			painter = painterResource(id = storageType.imageId),
 			contentDescription = ACCOUNTS
 		)
 
 		Spacer(modifier = Modifier.padding(horizontal = PADDING_SMALL_PLUS))
 
-		Text(text = stringResource(id = signInButtonInfo.buttonId))
+		Text(text = stringResource(storageType.nameId))
 	}
+}
+
+@Preview
+@Composable
+fun SignInButtonPreview() {
+	SignInButton(storageType = StorageType.GOOGLE) {}
 }

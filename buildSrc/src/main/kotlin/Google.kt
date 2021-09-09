@@ -15,7 +15,7 @@ object GoogleLib {
 	const val playServicesAuth =
 		"com.google.android.gms:play-services-auth:${GoogleVersion.playServicesAuthVersion}"
 	const val googleApiClient =
-		"com.google.api-client:google-api-client:${GoogleVersion.googleClient}"
+		"com.google.api-client:google-api-client-android:${GoogleVersion.googleClient}"
 	const val googleOauthClientJetty =
 		"com.google.oauth-client:google-oauth-client-jetty:${GoogleVersion.googleClient}"
 	const val googleApiServicesDrive =

@@ -1,11 +1,15 @@
 package com.shov.unlimstorage.views
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -15,7 +19,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.getSignInButtons
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.SignInButton
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.values.PADDING_BIG
@@ -26,6 +30,8 @@ import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun SignInFragment(signInViewModel: SignInViewModel, navController: NavController) {
+	val currentLifecycleOwner = LocalLifecycleOwner.current
+
 	Column(
 		modifier = Modifier.fillMaxWidth(),
 		horizontalAlignment = Alignment.CenterHorizontally
@@ -41,12 +47,26 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 			color = MaterialTheme.colors.onSurface
 		)
 
-		getSignInButtons(signInViewModel).forEach { info -> SignInButton(info) }
+		StorageType.values().forEach { storageType ->
+			val launcher = rememberLauncherForActivityResult(
+				ActivityResultContracts.StartActivityForResult()
+			) { result: ActivityResult ->
+				signInViewModel.checkAccessWithResult(result, storageType)
+			}
+
+			SignInButton(
+				storageType = storageType,
+			) {
+				signInViewModel.getAccess(launcher, storageType)
+			}
+		}
 	}
 
-	signInViewModel.serviceAccess.onEach { access ->
-		if (access) navController.navigate(navMain) {
-			popUpTo(navSignIn) { inclusive = true }
-		}
-	}.launchWhenStarted(LocalLifecycleOwner.current.lifecycleScope)
+	LaunchedEffect(key1 = null) {
+		signInViewModel.serviceAccess.onEach { access ->
+			if (access) navController.navigate(navMain) {
+				popUpTo(navSignIn) { inclusive = true }
+			}
+		}.launchWhenStarted(currentLifecycleOwner.lifecycleScope)
+	}
 }

@@ -1,10 +1,12 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.models.preferences.PreferenceManager
-import com.shov.unlimstorage.models.preferences.PreferenceManagerImpl
+import com.shov.unlimstorage.models.filesRepository.BoxFiles
+import com.shov.unlimstorage.models.filesRepository.DropBoxFiles
+import com.shov.unlimstorage.models.filesRepository.FilesInteractor
+import com.shov.unlimstorage.models.filesRepository.GoogleFiles
 import com.shov.unlimstorage.models.signInModels.*
-import com.shov.unlimstorage.repositories.SignInRepository
-import com.shov.unlimstorage.repositories.SignInRepositoryImpl
+import com.shov.unlimstorage.utils.converters.SizeConverter
+import com.shov.unlimstorage.utils.converters.SizeConverterImpl
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -26,8 +28,8 @@ abstract class ApplicationModule {
 
 	@Binds
 	@IntoMap
-	@MyKey(StorageType.GOOGLE)
-	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
+	@MyKey(StorageType.BOX)
+	abstract fun provideBoxFiles(boxFiles: BoxFiles): FilesInteractor
 
 	@Binds
 	@IntoMap
@@ -37,18 +39,33 @@ abstract class ApplicationModule {
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.DROPBOX)
+	abstract fun provideDropBoxFiles(dropBoxFiles: DropBoxFiles): FilesInteractor
+
+	@Binds
+	@IntoMap
+	@MyKey(StorageType.DROPBOX)
 	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): Authorizer
+
+	@Binds
+	@IntoMap
+	@MyKey(StorageType.GOOGLE)
+	abstract fun provideGoogleFiles(googleFiles: GoogleFiles): FilesInteractor
+
+	@Binds
+	@IntoMap
+	@MyKey(StorageType.GOOGLE)
+	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
+
+	@Binds
+	abstract fun provideConverters(convertersImpl: SizeConverterImpl): SizeConverter
 
 	/*@Binds
 	@IntoMap
 	@MyKey(SignInType.ONEDRIVE)
-	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): Authorizer*/
+	abstract fun provideOneDriveFiles(oneDriveFiles: OneDiveFiles):FilesInteractor
 
 	@Binds
-	abstract fun provideSignInRepository(signInRepositoryImpl: SignInRepositoryImpl):
-			SignInRepository
-
-	@Binds
-	abstract fun provideSharedPreferences(preferenceManagerImpl: PreferenceManagerImpl):
-			PreferenceManager
+	@IntoMap
+	@MyKey(SignInType.ONEDRIVE)
+	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): SignInSample*/
 }
