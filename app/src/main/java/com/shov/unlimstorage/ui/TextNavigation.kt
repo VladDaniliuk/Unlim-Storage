@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.values.ARRAY_INDEX_EXCEPTION
+import com.shov.unlimstorage.values.UnknownArrayIndexException
 import com.shov.unlimstorage.values.navMain
 
 @Composable
@@ -55,7 +55,7 @@ fun TextNavigation(
 				}
 			}
 		)
-	} else throw IllegalArgumentException(ARRAY_INDEX_EXCEPTION)
+	} else throw UnknownArrayIndexException()
 }
 
 @Preview

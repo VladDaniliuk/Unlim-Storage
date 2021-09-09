@@ -9,7 +9,7 @@ import com.shov.unlimstorage.models.ItemType
 import com.shov.unlimstorage.models.StoreItem
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.ARGUMENT_METADATA
-import com.shov.unlimstorage.values.argumentException
+import com.shov.unlimstorage.values.UnknownClassInheritance
 import javax.inject.Inject
 
 interface StoreItemConverter {
@@ -50,7 +50,7 @@ class StoreItemConverterImpl @Inject constructor(private val sizeConverter: Size
 			parentFolder = this.pathLower.replace("/${this.name}", "", true),
 			disk = StorageType.DROPBOX
 		)
-		else -> throw argumentException(ARGUMENT_METADATA, this.javaClass.name)
+		else -> throw UnknownClassInheritance(ARGUMENT_METADATA, this.javaClass.name)
 	}
 
 	override fun File.toStoreItem() = StoreItem(
