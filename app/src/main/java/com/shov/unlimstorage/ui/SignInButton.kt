@@ -17,7 +17,10 @@ import com.shov.unlimstorage.values.PADDING_NULL
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
 
 @Composable
-fun SignInButton(storageType: StorageType, onClick: () -> Unit) {
+fun SignInButton(
+	storageType: StorageType,
+	onClick: () -> Unit,
+) {
 	Button(
 		onClick = onClick,
 		modifier = Modifier.padding(PADDING_NULL, PADDING_MEDIUM)

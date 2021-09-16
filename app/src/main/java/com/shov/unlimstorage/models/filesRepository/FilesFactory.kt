@@ -2,7 +2,7 @@ package com.shov.unlimstorage.models.filesRepository
 
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.ARGUMENT_FILES
-import com.shov.unlimstorage.values.argumentException
+import com.shov.unlimstorage.values.UnknownClassInheritance
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -18,7 +18,7 @@ class FilesFactory @Inject constructor(
 ) : Factory {
 	override fun create(type: StorageType): FilesInteractor {
 		val filesProvider = storageTypeMap[type]
-			?: throw argumentException(ARGUMENT_FILES, type.name)
+			?: throw UnknownClassInheritance(ARGUMENT_FILES, type.name)
 		return filesProvider.get()
 	}
 }
