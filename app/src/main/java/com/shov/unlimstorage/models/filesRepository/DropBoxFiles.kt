@@ -20,6 +20,10 @@ class DropBoxFiles @Inject constructor(
 	override fun getFiles(folderId: String?): List<StoreItem> {
 		val dropBoxToken: String by Preference(context, DROPBOX_TOKEN, "")
 
+		if (dropBoxToken == "") {
+			return emptyList()
+		}
+
 		return try {
 			DbxClientV2(
 				DbxRequestConfig.newBuilder(context.getString(R.string.app_name)).build(),
@@ -32,9 +36,9 @@ class DropBoxFiles @Inject constructor(
 				}
 			}.toList()
 		} catch (e: RateLimitException) {
-			listOf()
+			emptyList()
 		} catch (e: IllegalArgumentException) {
-			listOf()
+			emptyList()
 		}
 	}
 }
