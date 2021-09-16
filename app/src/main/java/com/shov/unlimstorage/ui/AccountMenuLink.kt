@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.ui
 
+import androidx.annotation.StringRes
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,10 +14,10 @@ import com.shov.unlimstorage.values.ACCOUNTS
 
 @Composable
 fun AccountMenuLink(
-	accountId: Int,
+	@StringRes accountId: Int,
 	imageId: Int,
-	subtitleId: Int? = null,
-	titleId: Int,
+	@StringRes subtitleId: Int? = null,
+	@StringRes titleId: Int,
 	onClick: () -> Unit
 ) {
 	SettingsMenuLink(

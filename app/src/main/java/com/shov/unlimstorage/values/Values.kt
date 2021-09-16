@@ -16,6 +16,10 @@ val BODY2 = 14.sp
 val HEADLINE5 = 24.sp
 val HEADLINE6 = 20.sp
 
+val SMALL_SHAPES = 4.dp
+val MEDIUM_SHAPES = 8.dp
+val LARGE_SHAPES = 12.dp
+
 val SIZE_ICON = 48.dp
 
 const val EMPTY_TEXT = ""

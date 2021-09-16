@@ -1,7 +1,6 @@
 package com.shov.unlimstorage.views.settings.accounts
 
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -41,10 +40,10 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: Sign
 			)
 
 			StorageType.values().forEach { storageType ->
-				if (accountsViewModel.checkAccess(storageType = storageType).not()) {
+				if (accountsViewModel.checkAccess(storageType).not()) {
 					val startForResult = rememberLauncherForActivityResult(
 						ActivityResultContracts.StartActivityForResult()
-					) { result: ActivityResult ->
+					) { result ->
 						signInViewModel.checkAccessWithResult(result, storageType)
 						accountsViewModel.setAllSignedIn(true)
 						accountsViewModel.setShowAddAccountBottomSheet(null)

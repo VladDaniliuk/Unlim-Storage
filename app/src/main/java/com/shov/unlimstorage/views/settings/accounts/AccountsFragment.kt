@@ -41,7 +41,7 @@ fun AccountsFragment(accountsViewModel: AccountsViewModel) {
 
 	Column {
 		StorageType.values().forEach { storageType ->
-			if (accountsViewModel.checkAccess(storageType = storageType)) {
+			if (accountsViewModel.checkAccess(storageType)) {
 				AccountMenuLink(
 					accountId = storageType.nameId,
 					imageId = storageType.imageId,
