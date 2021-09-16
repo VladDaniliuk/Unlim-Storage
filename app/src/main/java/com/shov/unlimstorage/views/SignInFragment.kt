@@ -16,8 +16,6 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.SignInButton
@@ -38,12 +36,7 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 	) {
 		Text(
 			text = stringResource(id = R.string.sign_in_with),
-			modifier = Modifier
-				.padding(vertical = PADDING_BIG)
-				.padding(
-					top = rememberInsetsPaddingValues(LocalWindowInsets.current.statusBars)
-						.calculateTopPadding()
-				),
+			modifier = Modifier.padding(vertical = PADDING_BIG),
 			color = MaterialTheme.colors.onSurface
 		)
 
@@ -64,8 +57,10 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 
 	LaunchedEffect(key1 = null) {
 		signInViewModel.serviceAccess.onEach { access ->
-			if (access) navController.navigate(navMain) {
-				popUpTo(navSignIn) { inclusive = true }
+			if (access) navController.navigate(navMain()) {
+				popUpTo(navSignIn) {
+					inclusive = true
+				}
 			}
 		}.launchWhenStarted(currentLifecycleOwner.lifecycleScope)
 	}

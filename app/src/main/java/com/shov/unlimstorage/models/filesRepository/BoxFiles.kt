@@ -34,7 +34,7 @@ class BoxFiles @Inject constructor(
 
 				folderItems.map { boxItem ->
 					storeItemConverter.run {
-						boxItem.toStoreItem()
+						boxItem.toStoreItem(parentFolder = folderId)
 					}
 				}.toList()
 			} catch (e: BoxException) {

@@ -64,7 +64,7 @@ fun TextNavigationPreview() {
 	TextNavigation(
 		stringIdArray = arrayOf(R.string.google, R.string.accounts_description),
 		clickableStringIndex = 0,
-		direction = navMain,
+		direction = navMain(),
 		navController = rememberNavController(),
 		modifier = Modifier
 	)

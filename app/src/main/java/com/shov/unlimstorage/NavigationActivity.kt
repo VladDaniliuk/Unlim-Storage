@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.ui.MainTopBar
@@ -30,7 +31,7 @@ fun Application(mainViewModel: MainViewModel) {
 	Scaffold(topBar = { MainTopBar(topBarObject = topBar) }) {
 		NavHost(
 			navController = navController,
-			startDestination = if (isLogIn) navMain else navSignIn
+			startDestination = if (isLogIn) navMain() else navSignIn
 		) {
 			composable(navAccounts) {
 				mainViewModel.setTopAppBar(
@@ -42,11 +43,18 @@ fun Application(mainViewModel: MainViewModel) {
 				)
 				AccountsFragment(accountsViewModel = hiltViewModel())
 			}
-			composable(navMain) {
+			composable(
+				arguments = listOf(
+					navArgument(argFolderId) { nullable = true },
+					navArgument(argStorageType) { nullable = true }
+				),
+				route = navMain()
+			) { backStackEntry ->
 				mainViewModel.setTopAppBar(
 					TopBarObject(
 						navController = navController,
 						nextRoute = Pair(Icons.Rounded.AccountCircle, navSettings),
+						prevRoute = backStackEntry.arguments?.getString(argFolderId) != null,
 						text = R.string.app_name
 					)
 				)

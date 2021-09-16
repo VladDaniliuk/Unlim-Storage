@@ -28,7 +28,7 @@ class DropBoxFiles @Inject constructor(
 				folderId ?: DROPBOX_ROOT_FOLDER
 			).entries.map { dropBoxItem ->
 				storeItemConverter.run {
-					dropBoxItem.toStoreItem()
+					dropBoxItem.toStoreItem(parentFolder = folderId)
 				}
 			}.toList()
 		} catch (e: RateLimitException) {

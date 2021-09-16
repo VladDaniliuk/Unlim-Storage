@@ -24,24 +24,23 @@ class GoogleFiles @Inject constructor(
 		return GoogleSignIn.getLastSignedInAccount(context)?.let { googleAccount ->
 			return@let try {
 				Drive.Builder(
-					AndroidHttp.newCompatibleTransport(),       //httpTransport
+					AndroidHttp.newCompatibleTransport(),      //httpTransport
 					JacksonFactory.getDefaultInstance(),
-					GoogleAccountCredential.usingOAuth2(        //httpRequestInitializer
-						context, listOf(DriveScopes.DRIVE)      //
+					GoogleAccountCredential.usingOAuth2(       //httpRequestInitializer
+						context, listOf(DriveScopes.DRIVE)     //
 					).apply {
-						selectedAccount = googleAccount.account //give googleAccount exists
+						selectedAccount = googleAccount.account//give googleAccount exists
 					}
 				).setApplicationName(context.getString(R.string.app_name))
-					.build()                                    //build Drive
+					.build()                                  //build Drive
 					.Files()
-					.list()                                     //get Files.List
+					.list()                                   //get Files.List
 					.apply {
-						fields = GOOGLE_FIELDS                  //requests fields(id,name,etc.)
-						q =
-							getGoogleQ(folderId = folderId)     //sorting (add folder, remove trashed)
+						fields = GOOGLE_FIELDS                //requests fields(id,name,etc.)
+						q = getGoogleQ(folderId = folderId)   //sorting (add folder, remove trashed)
 					}.execute().files.map { googleDriveItem ->
 						storeItemConverter.run {
-							googleDriveItem.toStoreItem()
+							googleDriveItem.toStoreItem(parentFolder = folderId)
 						}
 					}.toList()
 			} catch (e: GoogleJsonResponseException) {

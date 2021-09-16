@@ -1,9 +1,6 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.models.filesRepository.BoxFiles
-import com.shov.unlimstorage.models.filesRepository.DropBoxFiles
-import com.shov.unlimstorage.models.filesRepository.FilesInteractor
-import com.shov.unlimstorage.models.filesRepository.GoogleFiles
+import com.shov.unlimstorage.models.filesRepository.*
 import com.shov.unlimstorage.models.signInModels.*
 import com.shov.unlimstorage.utils.converters.SizeConverter
 import com.shov.unlimstorage.utils.converters.SizeConverterImpl
@@ -55,6 +52,9 @@ abstract class ApplicationModule {
 	@IntoMap
 	@MyKey(StorageType.GOOGLE)
 	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
+
+	@Binds
+	abstract fun provideFilesRepository(filesRepositoryImpl: FilesRepositoryImpl): FilesRepository
 
 	@Binds
 	abstract fun provideConverters(convertersImpl: SizeConverterImpl): SizeConverter

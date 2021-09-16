@@ -65,4 +65,5 @@ android {
 	implementCompose()
 	implementDropBox()
 	implementBoxApi()
+	implementLocalDataBase()
 }

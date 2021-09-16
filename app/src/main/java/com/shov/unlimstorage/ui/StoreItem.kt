@@ -22,10 +22,11 @@ import com.shov.unlimstorage.values.*
 
 
 @Composable
-fun StoreItem(storeItem: StoreItem, onClick: () -> Unit) {
+fun StoreItem(storeItem: StoreItem, enabled: Boolean = true, onClick: () -> Unit) {
 	Row(
 		modifier = Modifier
 			.clickable(
+				enabled = enabled,
 				onClick = if (storeItem.type == ItemType.FOLDER) {
 					onClick
 				} else {
@@ -98,7 +99,7 @@ fun FilePreview() {
 			name = "File preview",
 			size = "1210 MB",
 			parentFolder = null,
-			disk = StorageType.BOX
+			disk = StorageType.GOOGLE
 		),
 		onClick = {}
 	)
@@ -114,7 +115,7 @@ fun FolderPreview() {
 			name = "Folder preview",
 			size = null,
 			parentFolder = null,
-			disk = StorageType.DROPBOX
+			disk = StorageType.BOX
 		),
 		onClick = {}
 	)

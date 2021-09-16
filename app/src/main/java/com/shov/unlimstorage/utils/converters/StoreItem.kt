@@ -13,15 +13,15 @@ import com.shov.unlimstorage.values.UnknownClassInheritance
 import javax.inject.Inject
 
 interface StoreItemConverter {
-	fun BoxItem.toStoreItem(): StoreItem
-	fun Metadata.toStoreItem(): StoreItem
-	fun File.toStoreItem(): StoreItem
+	fun BoxItem.toStoreItem(parentFolder: String? = null): StoreItem
+	fun Metadata.toStoreItem(parentFolder: String? = null): StoreItem
+	fun File.toStoreItem(parentFolder: String? = null): StoreItem
 }
 
 class StoreItemConverterImpl @Inject constructor(private val sizeConverter: SizeConverter) :
 	StoreItemConverter {
 
-	override fun BoxItem.toStoreItem() = StoreItem(
+	override fun BoxItem.toStoreItem(parentFolder: String?) = StoreItem(
 		id = this.id,
 		type = ItemType.valueOf(this.type.uppercase()),
 		name = this.name,
@@ -29,17 +29,16 @@ class StoreItemConverterImpl @Inject constructor(private val sizeConverter: Size
 			ItemType.FILE -> sizeConverter.run { this@toStoreItem.size.toBytes() }
 			ItemType.FOLDER -> null
 		},
-		parentFolder = this.parent.id,
+		parentFolder = parentFolder?.let { this.parent.id } ?: parentFolder,
 		disk = StorageType.BOX
 	)
 
-	override fun Metadata.toStoreItem() = when (this) {
+	override fun Metadata.toStoreItem(parentFolder: String?) = when (this) {
 		is FolderMetadata -> StoreItem(
 			id = this.id,
 			type = ItemType.FOLDER,
 			name = this.name,
-			size = null,
-			parentFolder = this.pathLower.replace("/${this.name}", "", true),
+			parentFolder = parentFolder,
 			disk = StorageType.DROPBOX
 		)
 		is FileMetadata -> StoreItem(
@@ -47,13 +46,13 @@ class StoreItemConverterImpl @Inject constructor(private val sizeConverter: Size
 			type = ItemType.FILE,
 			name = this.name,
 			size = sizeConverter.run { this@toStoreItem.size.toBytes() },
-			parentFolder = this.pathLower.replace("/${this.name}", "", true),
+			parentFolder = parentFolder,
 			disk = StorageType.DROPBOX
 		)
 		else -> throw UnknownClassInheritance(ARGUMENT_METADATA, this.javaClass.name)
 	}
 
-	override fun File.toStoreItem() = StoreItem(
+	override fun File.toStoreItem(parentFolder: String?) = StoreItem(
 		id = this.id,
 		type = when (this.mimeType.contains(ItemType.FOLDER.name, ignoreCase = true)) {
 			true -> ItemType.FOLDER
@@ -64,7 +63,7 @@ class StoreItemConverterImpl @Inject constructor(private val sizeConverter: Size
 			true -> null
 			false -> sizeConverter.run { this@toStoreItem.size.toLong().toBytes() }
 		},
-		parentFolder = this.parents[0],
+		parentFolder = parentFolder?.let { this.parents[0] } ?: parentFolder,
 		disk = StorageType.GOOGLE
 	)
 }
