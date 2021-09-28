@@ -32,7 +32,7 @@ fun SignInButton(
 
 		Spacer(modifier = Modifier.padding(horizontal = PADDING_SMALL_PLUS))
 
-		Text(text = stringResource(id = storageType.nameId))
+		Text(text = stringResource(storageType.nameId))
 	}
 }
 

@@ -4,6 +4,8 @@ import com.shov.unlimstorage.models.filesRepository.*
 import com.shov.unlimstorage.models.signInModels.*
 import com.shov.unlimstorage.utils.converters.SizeConverter
 import com.shov.unlimstorage.utils.converters.SizeConverterImpl
+import com.shov.unlimstorage.utils.converters.StoreItemConverter
+import com.shov.unlimstorage.utils.converters.StoreItemConverterImpl
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -57,7 +59,11 @@ abstract class ApplicationModule {
 	abstract fun provideFilesRepository(filesRepositoryImpl: FilesRepositoryImpl): FilesRepository
 
 	@Binds
-	abstract fun provideConverters(convertersImpl: SizeConverterImpl): SizeConverter
+	abstract fun provideSizeConverter(sizeConverterImpl: SizeConverterImpl): SizeConverter
+
+	@Binds
+	abstract fun provideStoreItemConverter(storeItemConverterImpl: StoreItemConverterImpl):
+			StoreItemConverter
 
 	/*@Binds
 	@IntoMap

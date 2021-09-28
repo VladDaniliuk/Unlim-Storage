@@ -6,9 +6,10 @@ object ComposeVersion {
 	const val composeVersion = "1.0.0"
 	const val kotlinStdlibVersion = "1.5.30-M1"
 	const val runtimeLivedataVersion = "1.0.0"
-	const val navigationComposeVersion = "2.4.0-alpha06"
+	const val navigationComposeVersion = "2.4.0-alpha08"
 	const val hiltNavigationComposeVersion = "1.0.0-alpha03"
 	const val composeMaterialIconsVersion = "1.1.0-alpha01"
+	const val accompanistSwiperefreshVersion = "0.18.0"
 }
 
 object ComposeLib {
@@ -29,6 +30,9 @@ object ComposeLib {
 	const val composeMaterialIcons = "androidx.compose.material:material-icons-extended:${
 		ComposeVersion.composeMaterialIconsVersion
 	}"
+	const val accompanistSwiperefresh = "com.google.accompanist:accompanist-swiperefresh:${
+		ComposeVersion.accompanistSwiperefreshVersion
+	}"
 }
 
 fun Project.implementCompose() {
@@ -41,5 +45,6 @@ fun Project.implementCompose() {
 		add("implementation", ComposeLib.navigationCompose)
 		add("implementation", ComposeLib.hiltNavigationCompose)
 		add("implementation", ComposeLib.composeMaterialIcons)
+		add("implementation", ComposeLib.accompanistSwiperefresh)
 	}
 }

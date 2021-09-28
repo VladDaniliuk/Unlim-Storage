@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -16,27 +13,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.values.BACK
-import com.shov.unlimstorage.values.HEADLINE6
 import com.shov.unlimstorage.values.PADDING_SMALL
-import com.shov.unlimstorage.values.navSettings
-
-data class TopBarObject(
-	val navController: NavController? = null,
-	val nextRoute: Pair<ImageVector, String>? = null,
-	val prevRoute: Boolean = false,
-	val text: Int
-)
 
 @Composable
-fun MainTopBar(topBarObject: TopBarObject) {
+fun MainTopBar(
+	prevRoute: Pair<ImageVector, () -> Unit>? = null,
+	textId: Int? = null,
+	nextRoute: Pair<ImageVector, () -> Unit>? = null
+) {
 	TopAppBar(
 		contentPadding = rememberInsetsPaddingValues(
 			applyBottom = false,
@@ -49,34 +37,39 @@ fun MainTopBar(topBarObject: TopBarObject) {
 				.fillMaxHeight()
 				.fillMaxWidth()
 		) {
-			if (topBarObject.prevRoute) {
+			prevRoute?.let { prevRoute ->
 				IconButton(
 					modifier = Modifier
 						.align(Alignment.CenterStart)
 						.padding(start = PADDING_SMALL),
-					onClick = { topBarObject.navController?.popBackStack() }) {
+					onClick = prevRoute.second
+				) {
 					Icon(
-						contentDescription = BACK,
-						imageVector = Icons.Rounded.ArrowBack
+						contentDescription = prevRoute.first.name,
+						imageVector = prevRoute.first
 					)
 				}
 			}
 
-			Text(
-				fontSize = HEADLINE6,
-				modifier = Modifier.align(Alignment.Center),
-				text = stringResource(id = topBarObject.text),
-				fontWeight = FontWeight.Medium,
-			)
+			textId?.let { textId ->
+				Text(
+					fontSize = Typography().h6.fontSize,
+					fontStyle = Typography().h6.fontStyle,
+					fontWeight = Typography().h6.fontWeight,
+					modifier = Modifier.align(Alignment.Center),
+					text = stringResource(id = textId)
+				)
+			}
 
-			topBarObject.nextRoute?.let { nextRoute ->
+			nextRoute?.let { nextRoute ->
 				IconButton(
 					modifier = Modifier
 						.align(Alignment.CenterEnd)
 						.padding(end = PADDING_SMALL),
-					onClick = { topBarObject.navController?.navigate(nextRoute.second) }) {
+					onClick = nextRoute.second
+				) {
 					Icon(
-						contentDescription = nextRoute.second,
+						contentDescription = nextRoute.first.name,
 						imageVector = nextRoute.first
 					)
 				}
@@ -89,11 +82,8 @@ fun MainTopBar(topBarObject: TopBarObject) {
 @Composable
 fun MainTopBarPreview() {
 	MainTopBar(
-		topBarObject = TopBarObject(
-			navController = rememberNavController(),
-			nextRoute = Pair(Icons.Rounded.AccountCircle, navSettings),
-			prevRoute = true,
-			text = R.string.app_name
-		)
+		prevRoute = Icons.Rounded.ArrowBack to {},
+		textId = R.string.app_name,
+		nextRoute = Icons.Rounded.AccountCircle to {}
 	)
 }

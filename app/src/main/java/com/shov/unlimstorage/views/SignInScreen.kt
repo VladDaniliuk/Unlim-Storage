@@ -4,12 +4,14 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Snackbar
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
@@ -17,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.SignInButton
@@ -33,52 +34,48 @@ import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @Composable
-fun SignInFragment(signInViewModel: SignInViewModel, navController: NavController) {
-	val coroutineScope = rememberCoroutineScope()
-	val scaffoldState = rememberScaffoldState()
-
-	val currentLifecycleOwner = LocalLifecycleOwner.current
+fun SignInScreen(
+	scaffoldState: ScaffoldState,
+	setTopBar: (
+		prevRoute: Pair<ImageVector, (() -> Unit)>?,
+		textId: Int?,
+		nextRoute: Pair<ImageVector, (() -> Unit)>?
+	) -> Unit,
+	signInViewModel: SignInViewModel,
+	navController: NavController
+) {
+	setTopBar(null, R.string.app_name, null)
 
 	val hasConnection by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(initial = false)
+	val coroutineScope = rememberCoroutineScope()
+	val currentLifecycleOwner = LocalLifecycleOwner.current
 
-	Scaffold(
-		scaffoldState = scaffoldState,
-		snackbarHost = { hostState ->
-			SnackbarHost(
-				hostState = hostState,
-				modifier = Modifier.navigationBarsPadding()
-			) { data ->
-				Snackbar(snackbarData = data)
-			}
-		}
+	val messageFailed = stringResource(id = R.string.connection_failed)
+
+	Column(
+		horizontalAlignment = Alignment.CenterHorizontally,
+		modifier = Modifier.fillMaxSize()
 	) {
-		val messageFailed = stringResource(id = R.string.connection_failed)
+		Text(
+			color = MaterialTheme.colors.onSurface,
+			modifier = Modifier.padding(vertical = PADDING_BIG),
+			text = stringResource(id = R.string.sign_in_with)
+		)
 
-		Column(
-			modifier = Modifier.fillMaxWidth(),
-			horizontalAlignment = Alignment.CenterHorizontally
-		) {
-			Text(
-				text = stringResource(id = R.string.sign_in_with),
-				modifier = Modifier.padding(vertical = PADDING_BIG),
-				color = MaterialTheme.colors.onSurface
-			)
+		StorageType.values().forEach { storageType ->
+			val launcher = rememberLauncherForActivityResult(
+				ActivityResultContracts.StartActivityForResult()
+			) { result: ActivityResult ->
+				signInViewModel.checkAccessWithResult(result, storageType)
+			}
 
-			StorageType.values().forEach { storageType ->
-				val launcher = rememberLauncherForActivityResult(
-					ActivityResultContracts.StartActivityForResult()
-				) { result: ActivityResult ->
-					signInViewModel.checkAccessWithResult(result, storageType)
-				}
-
-				SignInButton(storageType = storageType) {
-					if (hasConnection) {
-						signInViewModel.getAccess(launcher, storageType)
-					} else {
-						coroutineScope.launch {
-							scaffoldState.snackbarHostState.showSnackbar(message = messageFailed)
-						}
+			SignInButton(storageType = storageType) {
+				if (hasConnection) {
+					signInViewModel.getAccess(launcher, storageType)
+				} else {
+					coroutineScope.launch {
+						scaffoldState.snackbarHostState.showSnackbar(message = messageFailed)
 					}
 				}
 			}
@@ -87,7 +84,7 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 
 	LaunchedEffect(key1 = null) {
 		signInViewModel.serviceAccess.onEach { access ->
-			if (access) navController.navigate(navMain()) {
+			if (access) navController.navigate(navMain) {
 				popUpTo(navSignIn) {
 					inclusive = true
 				}
@@ -100,18 +97,16 @@ fun SignInFragment(signInViewModel: SignInViewModel, navController: NavControlle
 @Composable
 fun SignInFragmentPreview() {
 	Box(
-		modifier = Modifier
-			.fillMaxSize()
-			.verticalScroll(rememberScrollState())
+		modifier = Modifier.fillMaxSize()
 	) {
 		Column(
-			modifier = Modifier.fillMaxWidth(),
-			horizontalAlignment = Alignment.CenterHorizontally
+			horizontalAlignment = Alignment.CenterHorizontally,
+			modifier = Modifier.fillMaxWidth()
 		) {
 			Text(
-				text = stringResource(id = R.string.sign_in_with),
+				color = MaterialTheme.colors.onSurface,
 				modifier = Modifier.padding(vertical = PADDING_BIG),
-				color = MaterialTheme.colors.onSurface
+				text = stringResource(id = R.string.sign_in_with)
 			)
 
 			StorageType.values().forEach { storageType ->
@@ -120,10 +115,10 @@ fun SignInFragmentPreview() {
 		}
 
 		Snackbar(
-			modifier = Modifier
-				.padding(12.dp)
-				.align(Alignment.BottomCenter),
 			content = { Text(stringResource(id = R.string.connection_failed)) },
+			modifier = Modifier
+				.align(Alignment.BottomCenter)
+				.padding(12.dp),
 		)
 	}
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Description
@@ -18,7 +19,9 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.ItemType
 import com.shov.unlimstorage.models.StoreItem
 import com.shov.unlimstorage.models.signInModels.StorageType
-import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.values.DRIVE
+import com.shov.unlimstorage.values.PADDING_SMALL
+import com.shov.unlimstorage.values.SIZE_ICON
 
 
 @Composable
@@ -50,12 +53,16 @@ fun StoreItem(storeItem: StoreItem, enabled: Boolean = true, onClick: () -> Unit
 		Column {
 			Text(
 				text = storeItem.name,
-				fontSize = HEADLINE5
+				fontSize = MaterialTheme.typography.h5.fontSize,
+				fontStyle = MaterialTheme.typography.h5.fontStyle,
+				fontWeight = MaterialTheme.typography.h5.fontWeight
 			)
 
 			Text(
-				text = storeItem.size ?: EMPTY_TEXT,
-				fontSize = BODY2
+				text = storeItem.size ?: "",
+				fontSize = MaterialTheme.typography.body2.fontSize,
+				fontStyle = MaterialTheme.typography.body2.fontStyle,
+				fontWeight = MaterialTheme.typography.body2.fontWeight
 			)
 
 			Spacer(modifier = Modifier.padding(vertical = PADDING_SMALL))
@@ -81,7 +88,6 @@ fun StoreIconItem(storageType: StorageType, modifier: Modifier) {
 				StorageType.BOX -> R.drawable.ic_box
 				StorageType.DROPBOX -> R.drawable.ic_drop_box
 				StorageType.GOOGLE -> R.drawable.ic_google_drive
-				//StorageType.ONEDRIVE -> R.drawable.ic_one_drive
 			}
 		),
 		contentDescription = DRIVE,
