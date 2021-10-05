@@ -35,7 +35,9 @@ fun FilesNavigation(
 		prevRoute: Pair<ImageVector, (() -> Unit)>?,
 		title: String?,
 		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit
+	) -> Unit,
+	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>,
+	sheetState: ModalBottomSheetState
 ) {
 	val filesNavController = rememberNavController()
 
@@ -64,7 +66,9 @@ fun FilesNavigation(
 					storageType = arguments.getString(argStorageType)
 						?.let { storageType ->
 							StorageType.valueOf(storageType)
-						}
+						},
+					sheetContent = sheetContent,
+					sheetState = sheetState
 				)
 			}
 		}

@@ -32,7 +32,9 @@ fun MainNavigation(
 		prevRoute: Pair<ImageVector, (() -> Unit)>?,
 		title: String?,
 		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit
+	) -> Unit,
+	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>,
+	sheetState: ModalBottomSheetState
 ) {
 	val isLogIn by Preference(LocalContext.current, IS_AUTH, false)
 	val mainNavController = rememberNavController()
@@ -57,7 +59,9 @@ fun MainNavigation(
 		composable(navMain) {
 			FilesNavigation(
 				scaffoldState = scaffoldState,
-				setTopBar = setTopBar
+				setTopBar = setTopBar,
+				sheetContent = sheetContent,
+				sheetState = sheetState
 			)
 		}
 	}

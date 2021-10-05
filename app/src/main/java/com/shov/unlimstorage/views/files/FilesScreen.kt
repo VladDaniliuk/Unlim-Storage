@@ -45,7 +45,9 @@ fun FilesScreen(
 		title: String?,
 		nextRoute: Pair<ImageVector, (() -> Unit)>?
 	) -> Unit,
-	storageType: StorageType? = null
+	storageType: StorageType? = null,
+	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>,
+	sheetState: ModalBottomSheetState
 ) {
 	setTopBar(
 		folderId?.let { Icons.Rounded.ArrowBack to { filesNavController.popBackStack() } },

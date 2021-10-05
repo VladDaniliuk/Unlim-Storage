@@ -28,12 +28,17 @@ fun MainScreen() {
 
 	/**BottomSheet parameters*/
 	val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+
+	val sheetContent =
+		remember { mutableStateOf<(@Composable ColumnScope.() -> Unit)?>(null) }
+
 	val scaffoldState = rememberScaffoldState()
 
 	ModalBottomSheetLayout(
 		sheetState = sheetState,
 		sheetContent = {
-			FilesBottomSheet()
+			sheetContent.value?.invoke(this)
+			Spacer(modifier = Modifier.navigationBarsPadding())
 		},
 		content = {
 			Scaffold(
@@ -60,7 +65,9 @@ fun MainScreen() {
 						prevRoute.value = newPrevRoute
 						title.value = newTitle
 						nextRoute.value = newNextRoute
-					}
+					},
+					sheetState = sheetState,
+					sheetContent = sheetContent
 				)
 			}
 		}
