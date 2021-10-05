@@ -28,13 +28,13 @@ fun AccountsScreen(
 	filesNavController: NavController,
 	setTopBar: (
 		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		textId: Int?,
+		title: String?,
 		nextRoute: Pair<ImageVector, (() -> Unit)>?
 	) -> Unit
 ) {
 	setTopBar(
 		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		R.string.accounts,
+		stringResource(id = R.string.accounts),
 		null
 	)
 

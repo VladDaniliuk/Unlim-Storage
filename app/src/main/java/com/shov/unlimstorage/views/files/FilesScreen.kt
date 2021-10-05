@@ -1,11 +1,11 @@
 package com.shov.unlimstorage.views.files
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
@@ -21,17 +21,18 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.models.ItemType
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.ui.TextNavigation
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
-import com.shov.unlimstorage.values.navAccounts
-import com.shov.unlimstorage.values.navFiles
-import com.shov.unlimstorage.values.navSettings
+import com.shov.unlimstorage.values.*
 import com.shov.unlimstorage.viewModels.FilesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
 fun FilesScreen(
@@ -41,14 +42,14 @@ fun FilesScreen(
 	folderId: String? = null,
 	setTopBar: (
 		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		textId: Int?,
+		title: String?,
 		nextRoute: Pair<ImageVector, (() -> Unit)>?
 	) -> Unit,
 	storageType: StorageType? = null
 ) {
 	setTopBar(
 		folderId?.let { Icons.Rounded.ArrowBack to { filesNavController.popBackStack() } },
-		R.string.app_name,
+		stringResource(R.string.app_name),
 		Icons.Rounded.AccountCircle to { filesNavController.navigate(navSettings) }
 	)
 
@@ -66,13 +67,10 @@ fun FilesScreen(
 		state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
 		onRefresh = {
 			if (isConnected.value) {
-				filesViewModel.refreshFiles(
-					folderId = folderId,
-					storageType = storageType
-				)
+				filesViewModel.refreshFiles(folderId, storageType)
 			} else {
 				coroutineScope.launch {
-					scaffoldState.snackbarHostState.showSnackbar(message = messageFailed)
+					scaffoldState.snackbarHostState.showSnackbar(messageFailed)
 				}
 			}
 		}

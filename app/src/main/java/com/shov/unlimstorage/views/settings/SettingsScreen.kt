@@ -22,13 +22,13 @@ fun SettingsScreen(
 	filesNavController: NavController,
 	setTopBar: (
 		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		textId: Int?,
+		title: String?,
 		nextRoute: Pair<ImageVector, (() -> Unit)>?
 	) -> Unit
 ) {
 	setTopBar(
 		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		R.string.settings,
+		stringResource(R.string.settings),
 		null
 	)
 
