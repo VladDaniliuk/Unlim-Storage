@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.shov.unlimstorage">
 
+	<uses-permission android:name="android.permission.VIBRATE" />
+
 	<application
 		android:name=".UnlimStorageApp"
 		android:icon="@mipmap/ic_launcher"
@@ -11,6 +13,7 @@
 		android:theme="@style/Theme.Splash">
 		<activity
 			android:name=".MainActivity"
+			android:windowSoftInputMode="stateVisible|adjustResize"
 			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
