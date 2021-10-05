@@ -66,4 +66,5 @@ android {
 	implementDropBox()
 	implementBoxApi()
 	implementLocalDataBase()
+	implementImageLoader()
 }
