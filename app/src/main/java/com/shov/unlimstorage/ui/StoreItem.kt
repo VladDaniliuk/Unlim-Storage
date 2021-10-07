@@ -3,7 +3,10 @@ package com.shov.unlimstorage.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.runtime.Composable
@@ -18,7 +21,7 @@ import com.shov.unlimstorage.models.ItemType
 import com.shov.unlimstorage.models.StoreItem
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.PADDING_SMALL
-import com.shov.unlimstorage.values.SIZE_ICON
+import com.shov.unlimstorage.values.SIZE_ICON_MEDIUM
 
 
 @ExperimentalFoundationApi
@@ -44,7 +47,7 @@ fun StoreItem(
 			modifier = Modifier
 				.padding(horizontal = PADDING_SMALL)
 				.align(Alignment.CenterVertically)
-				.size(SIZE_ICON),
+				.size(SIZE_ICON_MEDIUM),
 			imageVector = storeItem.type.imageVector,
 			contentDescription = storeItem.type.name
 		)
@@ -52,20 +55,16 @@ fun StoreItem(
 		Column {
 			Row {
 				Column(modifier = Modifier.weight(1f)) {
-					Text(
+					CustomText(
 						overflow = TextOverflow.Ellipsis,
 						maxLines = 1,
 						text = storeItem.name,
-						fontSize = MaterialTheme.typography.h5.fontSize,
-						fontStyle = MaterialTheme.typography.h5.fontStyle,
-						fontWeight = MaterialTheme.typography.h5.fontWeight
+						textStyle = Typography().h5
 					)
 
-					Text(
-						text = storeItem.size ?: "",
-						fontSize = MaterialTheme.typography.body2.fontSize,
-						fontStyle = MaterialTheme.typography.body2.fontStyle,
-						fontWeight = MaterialTheme.typography.body2.fontWeight
+					CustomText(
+						text = storeItem.size,
+						textStyle = Typography().body2
 					)
 
 					Icon(

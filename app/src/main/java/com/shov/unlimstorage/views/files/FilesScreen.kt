@@ -21,13 +21,13 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.ItemType
+import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.ui.TextNavigation
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.*
-import com.shov.unlimstorage.viewModels.FilesViewModel
+import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -56,9 +56,8 @@ fun FilesScreen(
 	)
 
 	val coroutineScope = rememberCoroutineScope()
-	val isClickable = remember { mutableStateOf(true) }
-	val isConnected =
-		LocalContext.current.observeConnectivityAsFlow().collectAsState(initial = false)
+	val isClickable by filesViewModel.isClickable.collectAsState()
+	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 	val isRefreshing by filesViewModel.isRefreshing.collectAsState()
 	val storeItemList by filesViewModel.storeItemList.collectAsState()
 
@@ -68,7 +67,7 @@ fun FilesScreen(
 		modifier = Modifier.fillMaxSize(),
 		state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
 		onRefresh = {
-			if (isConnected.value) {
+			if (isConnected) {
 				filesViewModel.refreshFiles(folderId, storageType)
 			} else {
 				coroutineScope.launch {
@@ -104,17 +103,48 @@ fun FilesScreen(
 				storeItemList.forEach { storeItem ->
 					StoreItem(
 						storeItem = storeItem,
-						enabled = isClickable.value
-					) {
-						isClickable.value = false
+						enabled = isClickable,
+						onClick = {
+							when (storeItem.type) {
+								ItemType.FOLDER -> {
+									filesViewModel.setClickable(false)
 
-						filesNavController.navigate(
-							navFiles(
-								folderId = storeItem.id,
-								storageType = storeItem.disk.name
-							)
-						)
-					}
+									filesNavController.navigate(
+										navFiles(
+											folderId = storeItem.id,
+											storageType = storeItem.disk.name
+										)
+									)
+
+									filesViewModel.setClickable(true)
+								}
+								ItemType.FILE -> {
+									filesViewModel.setClickable(false)
+
+									filesNavController.currentBackStackEntry?.arguments?.putParcelable(
+										argStoreItem, storeItem
+									)
+									filesNavController.navigate(navFileInfo)
+
+									filesViewModel.setClickable(true)
+								}
+							}
+						},
+						onOptionClick = {
+							sheetContent.value = {
+								FileActionsBottomSheet(
+									scaffoldState = scaffoldState,
+									sheetState = sheetState,
+									storeItem = storeItem,
+									filesNavController = filesNavController
+								)
+							}
+
+							coroutineScope.launch {
+								sheetState.show()
+							}
+						}
+					)
 				}
 
 				Spacer(modifier = Modifier.navigationBarsPadding())
@@ -122,8 +152,8 @@ fun FilesScreen(
 		}
 	}
 
-	LaunchedEffect(key1 = isConnected.value) {
-		if (isConnected.value) {
+	LaunchedEffect(key1 = isConnected) {
+		if (isConnected) {
 			filesViewModel.getFiles(
 				folderId = folderId,
 				storageType = storageType
