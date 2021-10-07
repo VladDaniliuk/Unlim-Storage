@@ -5,7 +5,9 @@ import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.RateLimitException
 import com.dropbox.core.v2.DbxClientV2
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.StoreItem
+import com.shov.unlimstorage.models.items.ItemType
+import com.shov.unlimstorage.models.items.StoreItem
+import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.values.DROPBOX_ROOT_FOLDER

@@ -14,7 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
-import com.shov.unlimstorage.models.StoreItem
+import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.*
 import com.shov.unlimstorage.views.files.FileDescriptionScreen

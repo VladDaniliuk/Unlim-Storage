@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models
+package com.shov.unlimstorage.models.items
 
 import android.os.Parcel
 import android.os.Parcelable

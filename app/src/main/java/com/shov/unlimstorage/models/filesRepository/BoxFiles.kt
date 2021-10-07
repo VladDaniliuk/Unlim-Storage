@@ -6,7 +6,9 @@ import com.box.androidsdk.content.BoxConfig
 import com.box.androidsdk.content.BoxConstants
 import com.box.androidsdk.content.BoxException
 import com.box.androidsdk.content.models.BoxSession
-import com.shov.unlimstorage.models.StoreItem
+import com.shov.unlimstorage.models.items.ItemType
+import com.shov.unlimstorage.models.items.StoreItem
+import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.signInModels.AuthorizerFactory
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.utils.converters.StoreItemConverter

@@ -17,8 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.models.ItemType
-import com.shov.unlimstorage.models.StoreItem
+import com.shov.unlimstorage.models.items.ItemType
+import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.PADDING_SMALL
 import com.shov.unlimstorage.values.SIZE_ICON_MEDIUM

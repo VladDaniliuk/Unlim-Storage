@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.shov.unlimstorage.models.StoreItem
+import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.signInModels.StorageType
 
 @Dao
