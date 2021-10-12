@@ -12,6 +12,6 @@ const val ARGUMENT_METADATA = "FolderMetadata or FileMetadata"
 const val ARGUMENT_ANY = "Any"
 
 //Exceptions
-const val ARRAY_INDEX_EXCEPTION = "ClickableStringIndex is more than stringArray size"
-fun argumentException(sampleClass: String, type: String) =
-	IllegalArgumentException("Unknown $sampleClass class $type")
+class UnknownArrayIndexException : Exception("ClickableStringIndex is more than stringArray size")
+class UnknownClassInheritance(sampleClass: String, type: String) :
+	Exception("Unknown $sampleClass class $type")
