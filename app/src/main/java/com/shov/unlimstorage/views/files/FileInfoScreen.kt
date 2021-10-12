@@ -254,7 +254,6 @@ fun FileInfoScreen(
 		}
 	}
 
-
 	LaunchedEffect(key1 = isConnected) {
 		if (isConnected.and(fileInfoViewModel.storeMetadata == null)) {
 			fileInfoViewModel.getFileMetadata()

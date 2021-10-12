@@ -3,6 +3,7 @@ package com.shov.unlimstorage.views
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +41,10 @@ fun MainScreen() {
 			sheetContent.value?.invoke(this)
 			Spacer(modifier = Modifier.navigationBarsPadding())
 		},
+		sheetShape = MaterialTheme.shapes.large.copy(
+			bottomEnd = CornerSize(0),
+			bottomStart = CornerSize(0)
+		),
 		content = {
 			Scaffold(
 				scaffoldState = scaffoldState,
