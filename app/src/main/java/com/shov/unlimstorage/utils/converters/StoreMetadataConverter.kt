@@ -11,7 +11,7 @@ import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.items.User
 import com.shov.unlimstorage.values.ARGUMENT_METADATA
-import com.shov.unlimstorage.values.argumentException
+import com.shov.unlimstorage.values.UnknownClassInheritance
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -82,7 +82,7 @@ class StoreMetadataConverterImpl @Inject constructor(
 			sharingUsers = null,
 			size = sizeConverter.run { this@toStoreMetadata.size.toBytes() }
 		)
-		else -> throw argumentException(ARGUMENT_METADATA, this.javaClass.name)
+		else -> throw UnknownClassInheritance(ARGUMENT_METADATA, this.javaClass.name)
 	}
 
 
