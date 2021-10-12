@@ -18,31 +18,32 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.models.items.ItemType
+import com.shov.unlimstorage.models.items.StoreItem
+import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.ui.CustomIconButton
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.values.argStoreItem
 import com.shov.unlimstorage.values.navFileInfo
-import com.shov.unlimstorage.viewModels.files.FileActionsViewModel
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
 fun FileActionsBottomSheet(
-	fileActionViewModel: FileActionsViewModel,
 	filesNavController: NavController,
 	scaffoldState: ScaffoldState,
-	sheetState: ModalBottomSheetState
+	sheetState: ModalBottomSheetState,
+	storeItem: StoreItem
 ) {
 	val coroutineScope = rememberCoroutineScope()
 
 	Column {
 		StoreItem(
-			storeItem = fileActionViewModel.storeItem,
+			storeItem = storeItem,
 			enabled = false,
 			isDividerVisible = false,
 			isOptionVisible = false
@@ -73,7 +74,7 @@ fun FileActionsBottomSheet(
 
 						filesNavController.currentBackStackEntry
 							?.arguments
-							?.putParcelable(argStoreItem, fileActionViewModel.storeItem)
+							?.putParcelable(argStoreItem, storeItem)
 						filesNavController.navigate(navFileInfo)
 					}
 				)
@@ -96,9 +97,14 @@ fun FileActionsBottomSheet(
 @Composable
 fun FileActionsPreview() {
 	FileActionsBottomSheet(
-		fileActionViewModel = hiltViewModel(),
 		filesNavController = rememberNavController(),
 		scaffoldState = rememberScaffoldState(),
 		sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded),
+		storeItem = StoreItem(
+			id = "",
+			type = ItemType.FILE,
+			name = "folder",
+			disk = StorageType.GOOGLE
+		)
 	)
 }

@@ -7,20 +7,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.shov.unlimstorage.di.ViewModelFactoryProvider
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
-import com.shov.unlimstorage.viewModels.files.FileActionsViewModel
 import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import dagger.hilt.android.EntryPointAccessors
-
-@Composable
-fun fileInfoViewModel(storeItem: StoreItem): FileInfoViewModel {
-	val factory = EntryPointAccessors.fromActivity(
-		LocalContext.current as Activity,
-		ViewModelFactoryProvider::class.java
-	).fileInfoViewModelFactory()
-
-	return viewModel(factory = FileInfoViewModel.provideFactory(factory, storeItem))
-}
 
 @Composable
 fun fileDescriptionViewModel(storeMetadataItem: StoreMetadataItem): FileDescriptionViewModel {
@@ -33,11 +22,11 @@ fun fileDescriptionViewModel(storeMetadataItem: StoreMetadataItem): FileDescript
 }
 
 @Composable
-fun fileActionsViewModel(storeItem: StoreItem): FileActionsViewModel {
+fun fileInfoViewModel(storeItem: StoreItem): FileInfoViewModel {
 	val factory = EntryPointAccessors.fromActivity(
 		LocalContext.current as Activity,
 		ViewModelFactoryProvider::class.java
-	).fileActionViewModelFactory()
+	).fileInfoViewModelFactory()
 
-	return viewModel(factory = FileActionsViewModel.provideFactory(factory, storeItem))
+	return viewModel(factory = FileInfoViewModel.provideFactory(factory, storeItem))
 }

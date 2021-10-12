@@ -27,7 +27,6 @@ import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.ui.TextNavigation
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.*
-import com.shov.unlimstorage.viewModels.fileActionsViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -134,10 +133,10 @@ fun FilesScreen(
 						onOptionClick = {
 							sheetContent.value = {
 								FileActionsBottomSheet(
-									fileActionViewModel = fileActionsViewModel(storeItem),
+									filesNavController = filesNavController,
 									scaffoldState = scaffoldState,
 									sheetState = sheetState,
-									filesNavController = filesNavController
+									storeItem = storeItem
 								)
 							}
 
