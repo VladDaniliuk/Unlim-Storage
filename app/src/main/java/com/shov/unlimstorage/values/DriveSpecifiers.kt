@@ -1,11 +1,25 @@
 package com.shov.unlimstorage.values
 
-const val SIZE = "size"
-const val NAME = "name"
-const val PARENT = "parent"
+import com.box.androidsdk.content.requests.BoxRequestsFolder
 
 const val DROPBOX_ROOT_FOLDER = ""
 
 const val GOOGLE_FIELDS = "files(id,size,name,mimeType,parents)"
+const val GOOGLE_METADATA = "id,name,mimeType,description,permissions,shared,starred,version," +
+		"webViewLink,createdTime,modifiedTime,owners,size"
 
-fun getGoogleQ(folderId: String?) = "parents = '${folderId ?: "root"}' and trashed = false"
+fun getGoogleQ(folderId: String? = null) = "parents = '${folderId ?: "root"}' and trashed = false"
+
+fun getBoxFields() = arrayOf(
+	"name",
+	"description",
+	"collections",
+	"shared_link",
+	"created_at",
+	"created_by",
+	"modified_at",
+	"size"
+)
+
+fun BoxRequestsFolder.GetFolderItems.setItemFields(): BoxRequestsFolder.GetFolderItems =
+	this.setFields("size", "name", "parent")
