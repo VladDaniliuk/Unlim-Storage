@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.unlimstorage.viewModels.files
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,6 +21,13 @@ class FilesViewModel @Inject constructor(
 
 	private val _isRefreshing = MutableStateFlow(false)
 	val isRefreshing = _isRefreshing.asStateFlow()
+
+	private val _isClickable = MutableStateFlow(true)
+	val isClickable = _isClickable.asStateFlow()
+
+	fun setClickable(isClickable: Boolean) {
+		_isClickable.value = isClickable
+	}
 
 	fun getFiles(folderId: String? = null, storageType: StorageType? = null) {
 		_isRefreshing.value = true
