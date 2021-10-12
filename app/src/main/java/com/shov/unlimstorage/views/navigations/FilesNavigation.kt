@@ -15,8 +15,11 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import com.shov.unlimstorage.models.items.StoreItem
+import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.signInModels.StorageType
 import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.viewModels.fileDescriptionViewModel
+import com.shov.unlimstorage.viewModels.fileInfoViewModel
 import com.shov.unlimstorage.views.files.FileDescriptionScreen
 import com.shov.unlimstorage.views.files.FileInfoScreen
 import com.shov.unlimstorage.views.files.FilesScreen
@@ -48,6 +51,33 @@ fun FilesNavigation(
 				filesNavController = filesNavController,
 				setTopBar = setTopBar
 			)
+		}
+		composable(navFileInfo) {
+			filesNavController.previousBackStackEntry
+				?.arguments
+				?.getParcelable<StoreItem>(argStoreItem)
+				?.let { item ->
+					FileInfoScreen(
+						fileInfoViewModel = fileInfoViewModel(item),
+						filesNavController = filesNavController,
+						scaffoldState = scaffoldState,
+						setTopBar = setTopBar
+					)
+				}
+		}
+
+		composable(navFileDescription) {
+			filesNavController.previousBackStackEntry
+				?.arguments
+				?.getParcelable<StoreMetadataItem>(argStoreMetadata)
+				?.let { storeMetadata ->
+					FileDescriptionScreen(
+						filesNavController = filesNavController,
+						fileDescriptionViewModel = fileDescriptionViewModel(storeMetadata),
+						setTopBar = setTopBar,
+						scaffoldState = scaffoldState
+					)
+				}
 		}
 		composable(
 			arguments = listOf(
