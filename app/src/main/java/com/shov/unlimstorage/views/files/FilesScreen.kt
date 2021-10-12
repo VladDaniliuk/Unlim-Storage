@@ -27,6 +27,7 @@ import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.ui.TextNavigation
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.viewModels.fileActionsViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -121,9 +122,9 @@ fun FilesScreen(
 								ItemType.FILE -> {
 									filesViewModel.setClickable(false)
 
-									filesNavController.currentBackStackEntry?.arguments?.putParcelable(
-										argStoreItem, storeItem
-									)
+									filesNavController.currentBackStackEntry
+										?.arguments
+										?.putParcelable(argStoreItem, storeItem)
 									filesNavController.navigate(navFileInfo)
 
 									filesViewModel.setClickable(true)
@@ -133,9 +134,9 @@ fun FilesScreen(
 						onOptionClick = {
 							sheetContent.value = {
 								FileActionsBottomSheet(
+									fileActionViewModel = fileActionsViewModel(storeItem),
 									scaffoldState = scaffoldState,
 									sheetState = sheetState,
-									storeItem = storeItem,
 									filesNavController = filesNavController
 								)
 							}
