@@ -2,14 +2,14 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 object ComposeVersion {
-	const val activityComposeVersion = "1.3.0"
-	const val composeVersion = "1.0.0"
-	const val kotlinStdlibVersion = "1.5.30-M1"
+	const val activityComposeVersion = "1.3.1"
+	const val composeVersion = "1.0.4"
+	const val kotlinStdlibVersion = "1.5.31"
 	const val runtimeLivedataVersion = "1.0.0"
-	const val navigationComposeVersion = "2.4.0-alpha08"
+	const val navigationComposeVersion = "2.4.0-alpha10"
 	const val hiltNavigationComposeVersion = "1.0.0-alpha03"
-	const val composeMaterialIconsVersion = "1.1.0-alpha01"
-	const val accompanistSwiperefreshVersion = "0.18.0"
+	const val composeMaterialIconsVersion = "1.1.0-alpha06"
+	const val accompanistSwiperefreshVersion = "0.19.0"
 }
 
 object ComposeLib {

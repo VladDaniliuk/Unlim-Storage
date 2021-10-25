@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object LocalDataBaseVersion {
 	const val roomVersion = "2.3.0"
-	const val gsonVersion = "2.8.7"
+	const val gsonVersion = "2.8.8"
 }
 
 object LocalDataBase {

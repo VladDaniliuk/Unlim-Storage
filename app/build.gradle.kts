@@ -18,11 +18,25 @@ android {
 			signingConfig = signingConfigs.getByName(BuildType.debug)
 			isMinifyEnabled = false
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
+
+			applicationVariants.all {
+				outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+					.forEach { output ->
+						output.outputFileName = BuildType.outputName
+					}
+			}
 		}
 
 		getByName(BuildType.debug) {
 			signingConfig = signingConfigs.getByName(BuildType.debug)
 			isDebuggable = true
+
+			applicationVariants.all {
+				outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+					.forEach { output ->
+						output.outputFileName = BuildType.outputNameDebug
+					}
+			}
 		}
 	}
 
