@@ -17,7 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alorma.settings.composables.SettingsMenuLink
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.viewModels.AccountsViewModel

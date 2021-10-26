@@ -7,19 +7,19 @@ import com.dropbox.core.v2.files.Metadata
 import com.google.api.services.drive.model.File
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.values.ARGUMENT_METADATA
 import com.shov.unlimstorage.values.UnknownClassInheritance
 import javax.inject.Inject
 
-interface StoreItemConverter {
+interface StoreConverter {
 	fun BoxItem.toStoreItem(parentFolder: String? = null): StoreItem
 	fun Metadata.toStoreItem(parentFolder: String? = null): StoreItem
 	fun File.toStoreItem(parentFolder: String? = null): StoreItem
 }
 
-class StoreItemConverterImpl @Inject constructor(private val sizeConverter: SizeConverter) :
-	StoreItemConverter {
+class StoreConverterImpl @Inject constructor(private val sizeConverter: SizeConverter) :
+	StoreConverter {
 
 	override fun BoxItem.toStoreItem(parentFolder: String?) = StoreItem(
 		id = this.id,

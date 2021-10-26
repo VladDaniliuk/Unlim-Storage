@@ -2,9 +2,9 @@ package com.shov.unlimstorage.viewModels.files
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.unlimstorage.models.filesRepository.FilesRepository
 import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.models.repositories.files.FilesRepository
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

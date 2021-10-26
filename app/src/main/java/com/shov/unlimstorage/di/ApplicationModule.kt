@@ -1,8 +1,7 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.models.filesRepository.*
-import com.shov.unlimstorage.models.signInModels.*
-import com.shov.unlimstorage.utils.converters.*
+import com.shov.unlimstorage.models.repositories.files.*
+import com.shov.unlimstorage.models.repositories.signIn.*
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module

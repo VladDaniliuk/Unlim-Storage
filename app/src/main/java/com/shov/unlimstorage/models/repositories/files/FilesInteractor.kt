@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.filesRepository
+package com.shov.unlimstorage.models.repositories.files
 
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem

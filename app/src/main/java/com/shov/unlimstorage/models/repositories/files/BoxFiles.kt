@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.filesRepository
+package com.shov.unlimstorage.models.repositories.files
 
 import android.content.Context
 import com.box.androidsdk.content.*
@@ -6,9 +6,9 @@ import com.box.androidsdk.content.models.BoxSession
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
-import com.shov.unlimstorage.models.signInModels.AuthorizerFactory
-import com.shov.unlimstorage.models.signInModels.StorageType
-import com.shov.unlimstorage.utils.converters.StoreItemConverter
+import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.unlimstorage.utils.converters.StoreConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.values.Box
 import com.shov.unlimstorage.values.getBoxFields
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class BoxFiles @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val authorizerFactory: AuthorizerFactory,
-	private val storeItemConverter: StoreItemConverter,
+	private val storeItemConverter: StoreConverter,
 	private val storeMetadataConverter: StoreMetadataConverter
 ) : FilesInteractor {
 	override fun getFiles(folderId: String?): List<StoreItem> {
