@@ -1,5 +1,7 @@
 package com.shov.unlimstorage.di
 
+import com.shov.unlimstorage.models.repositories.GitHubRepository
+import com.shov.unlimstorage.models.repositories.GitHubRepositoryImpl
 import com.shov.unlimstorage.models.repositories.files.*
 import com.shov.unlimstorage.models.repositories.signIn.*
 import dagger.Binds
@@ -57,12 +59,4 @@ abstract class ApplicationModule {
 	@Binds
 	abstract fun provideGitHub(gitHubRepositoryImpl: GitHubRepositoryImpl): GitHubRepository
 
-	@Binds
-	abstract fun provideStoreItemConverter(storeItemConverterImpl: StoreItemConverterImpl):
-			StoreItemConverter
-
-	@Binds
-	abstract fun provideStoreMetadataConverter(
-		storeMetadataConverterImpl: StoreMetadataConverterImpl
-	): StoreMetadataConverter
 }
