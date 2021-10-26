@@ -55,7 +55,7 @@ abstract class ApplicationModule {
 	abstract fun provideFilesRepository(filesRepositoryImpl: FilesRepositoryImpl): FilesRepository
 
 	@Binds
-	abstract fun provideSizeConverter(sizeConverterImpl: SizeConverterImpl): SizeConverter
+	abstract fun provideGitHub(gitHubRepositoryImpl: GitHubRepositoryImpl): GitHubRepository
 
 	@Binds
 	abstract fun provideStoreItemConverter(storeItemConverterImpl: StoreItemConverterImpl):
