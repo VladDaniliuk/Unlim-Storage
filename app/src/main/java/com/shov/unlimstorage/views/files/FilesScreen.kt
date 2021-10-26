@@ -56,16 +56,12 @@ fun FilesScreen(
 	)
 
 	val coroutineScope = rememberCoroutineScope()
-	val isClickable by filesViewModel.isClickable.collectAsState()
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
-	val isRefreshing by filesViewModel.isRefreshing.collectAsState()
-	val storeItemList by filesViewModel.storeItemList.collectAsState()
-
 	val messageFailed = stringResource(id = R.string.connection_failed)
 
 	SwipeRefresh(
 		modifier = Modifier.fillMaxSize(),
-		state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+		state = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
 		onRefresh = {
 			if (isConnected) {
 				filesViewModel.refreshFiles(folderId, storageType)
@@ -76,7 +72,7 @@ fun FilesScreen(
 			}
 		}
 	) {
-		if (storeItemList.isEmpty()) {
+		if (filesViewModel.storeItemList.isEmpty()) {
 			Box(
 				modifier = Modifier
 					.fillMaxSize()
@@ -100,10 +96,10 @@ fun FilesScreen(
 					.fillMaxSize()
 					.verticalScroll(state = rememberScrollState())
 			) {
-				storeItemList.forEach { storeItem ->
+				filesViewModel.storeItemList.forEach { storeItem ->
 					StoreItem(
 						storeItem = storeItem,
-						enabled = isClickable,
+						enabled = filesViewModel.isClickable,
 						onClick = {
 							when (storeItem.type) {
 								ItemType.FOLDER -> {
