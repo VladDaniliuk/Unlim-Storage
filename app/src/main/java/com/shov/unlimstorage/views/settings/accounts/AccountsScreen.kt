@@ -8,8 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,18 +36,14 @@ fun AccountsScreen(
 		null
 	)
 
-	val isAllSignedIn by accountsViewModel.isAllSignedIn.collectAsState()
-	val showRevokeDialog by accountsViewModel.showRevokeDialog.collectAsState()
-	val showAddAccountBottomSheet by accountsViewModel.showAddAccountBottomSheet.collectAsState()
-
-	showRevokeDialog?.let { storageType ->
+	accountsViewModel.showRevokeDialog?.let { storageType ->
 		RevokeAccountDialog(
 			accountsViewModel = hiltViewModel(),
 			storageType = storageType
 		)
 	}
 
-	showAddAccountBottomSheet?.let {
+	accountsViewModel.showAddAccountBottomSheet?.let {
 		AddAccountDialog(
 			accountsViewModel = hiltViewModel(),
 			signInViewModel = hiltViewModel()
@@ -72,7 +66,7 @@ fun AccountsScreen(
 
 		Divider()
 
-		if (isAllSignedIn.not()) {
+		if (accountsViewModel.isAllSignedIn.not()) {
 			SettingsMenuLink(
 				icon = {
 					Icon(
