@@ -48,4 +48,6 @@
 	<string name="update_text">Update %1$s is available to download %2$s.\nRelease date: %3$s\nSize: %4$s\nRelease name: %5$s</string>
 	<string name="dont_show_again">Don\'t show me again</string>
 	<string name="download_new_version">Downloading new version…</string>
+	<string name="apk_name">app-%1$s.apk</string>
+	<string name="provider">.provider</string>
 </resources>
