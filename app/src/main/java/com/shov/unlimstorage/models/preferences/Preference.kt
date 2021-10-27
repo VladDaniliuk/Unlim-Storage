@@ -2,7 +2,10 @@ package com.shov.unlimstorage.models.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.values.ARGUMENT_ANY
+import com.shov.unlimstorage.values.PREFERENCES
+import com.shov.unlimstorage.values.UNCHECKED_CAST
+import com.shov.unlimstorage.values.UnknownClassInheritance
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
