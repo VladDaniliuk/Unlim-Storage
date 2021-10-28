@@ -7,7 +7,6 @@ import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -37,11 +36,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun FilesNavigation(
 	scaffoldState: ScaffoldState,
-	setTopBar: (
-		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		title: String?,
-		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit,
 	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>,
 	sheetState: ModalBottomSheetState
 ) {
@@ -52,7 +46,7 @@ fun FilesNavigation(
 			AccountsScreen(
 				accountsViewModel = hiltViewModel(),
 				filesNavController = filesNavController,
-				setTopBar = setTopBar
+				topAppBarViewModel = singletonViewModel()
 			)
 		}
 		composable(navFileInfo) {
@@ -64,11 +58,10 @@ fun FilesNavigation(
 						fileInfoViewModel = fileInfoViewModel(item),
 						filesNavController = filesNavController,
 						scaffoldState = scaffoldState,
-						setTopBar = setTopBar
+						topAppBarViewModel = singletonViewModel()
 					)
 				}
 		}
-
 		composable(navFileDescription) {
 			filesNavController.previousBackStackEntry
 				?.arguments
@@ -77,7 +70,7 @@ fun FilesNavigation(
 					FileDescriptionScreen(
 						filesNavController = filesNavController,
 						fileDescriptionViewModel = fileDescriptionViewModel(storeMetadata),
-						setTopBar = setTopBar,
+						topAppBarViewModel = singletonViewModel(),
 						scaffoldState = scaffoldState
 					)
 				}
@@ -95,7 +88,7 @@ fun FilesNavigation(
 					filesNavController = filesNavController,
 					filesViewModel = hiltViewModel(),
 					folderId = arguments.getString(argFolderId),
-					setTopBar = setTopBar,
+					topAppBarViewModel = singletonViewModel(),
 					storageType = arguments.getString(argStorageType)
 						?.let { storageType ->
 							StorageType.valueOf(storageType)

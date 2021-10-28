@@ -10,6 +10,8 @@ import androidx.core.view.WindowCompat
 import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.shov.unlimstorage.values.CustomTheme
+import com.shov.unlimstorage.viewModels.singletonViewModel
+import com.shov.unlimstorage.viewModels.updateViewModel
 import com.shov.unlimstorage.views.MainScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,7 +32,11 @@ class MainActivity : AppCompatActivity() {
 		setContent {
 			CustomTheme {
 				ProvideWindowInsets {
-					MainScreen()
+					MainScreen(
+						updateViewModel = updateViewModel(),
+						downloadViewModel = singletonViewModel(),
+						topAppBarViewModel = singletonViewModel()
+					)
 				}
 			}
 		}
