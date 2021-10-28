@@ -1,7 +1,6 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.models.FileDescriptionViewModelFactory
-import com.shov.unlimstorage.models.FileInfoViewModelFactory
+import com.shov.unlimstorage.models.*
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
@@ -11,4 +10,6 @@ import dagger.hilt.android.components.ActivityComponent
 interface ViewModelFactoryProvider {
 	fun fileDescriptionViewModelFactory(): FileDescriptionViewModelFactory
 	fun fileInfoViewModelFactory(): FileInfoViewModelFactory
+	fun newVersionViewModelFactory(): NewVersionViewModelFactory
+	fun mainNavigationViewModelFactory(): MainNavigationViewModelFactory
 }
