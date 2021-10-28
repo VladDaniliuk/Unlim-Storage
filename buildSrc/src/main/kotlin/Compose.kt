@@ -10,7 +10,8 @@ object ComposeVersion {
 	const val hiltNavigationComposeVersion = "1.0.0-alpha03"
 	const val composeMaterialIconsVersion = "1.1.0-alpha06"
 	const val accompanistSwiperefreshVersion = "0.19.0"
-}
+	const val composeMaterial3Version = "1.0.0-alpha01" //TODO migrate to material3
+}                                                       //TODO color scheme of material3
 
 object ComposeLib {
 	const val activityCompose =
@@ -33,6 +34,8 @@ object ComposeLib {
 	const val accompanistSwiperefresh = "com.google.accompanist:accompanist-swiperefresh:${
 		ComposeVersion.accompanistSwiperefreshVersion
 	}"
+	const val composeMaterial3 =
+		"androidx.compose.material3:material3:${ComposeVersion.composeMaterial3Version}"
 }
 
 fun Project.implementCompose() {

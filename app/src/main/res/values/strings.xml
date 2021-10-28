@@ -50,4 +50,9 @@
 	<string name="download_new_version">Downloading new version…</string>
 	<string name="apk_name">app-%1$s.apk</string>
 	<string name="provider">.provider</string>
+	<string name="updates">Updates</string>
+	<string name="check_for_updates">Check for updates</string>
+	<string name="auto_check">Auto check for updates</string>
+	<string name="about_updates">About updates</string>
+	<string name="check_update_disable_auto">check updates or disable auto update</string>
 </resources>

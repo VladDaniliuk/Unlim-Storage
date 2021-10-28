@@ -1,5 +1,7 @@
 package com.shov.unlimstorage.di
 
+import com.shov.unlimstorage.models.repositories.DownloadRepository
+import com.shov.unlimstorage.models.repositories.DownloadRepositoryImpl
 import com.shov.unlimstorage.models.repositories.GitHubRepository
 import com.shov.unlimstorage.models.repositories.GitHubRepositoryImpl
 import com.shov.unlimstorage.models.repositories.files.*
@@ -59,4 +61,6 @@ abstract class ApplicationModule {
 	@Binds
 	abstract fun provideGitHub(gitHubRepositoryImpl: GitHubRepositoryImpl): GitHubRepository
 
+	@Binds
+	abstract fun provideDownload(downloadRepositoryImpl: DownloadRepositoryImpl): DownloadRepository
 }
