@@ -20,11 +20,14 @@ import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.values.*
 import com.shov.unlimstorage.viewModels.fileDescriptionViewModel
 import com.shov.unlimstorage.viewModels.fileInfoViewModel
+import com.shov.unlimstorage.viewModels.singletonViewModel
 import com.shov.unlimstorage.views.files.FileDescriptionScreen
+import com.shov.unlimstorage.viewModels.updateViewModel
 import com.shov.unlimstorage.views.files.FileInfoScreen
 import com.shov.unlimstorage.views.files.FilesScreen
 import com.shov.unlimstorage.views.settings.SettingsScreen
 import com.shov.unlimstorage.views.settings.accounts.AccountsScreen
+import com.shov.unlimstorage.views.settings.updates.UpdateScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoilApi
@@ -105,7 +108,14 @@ fun FilesNavigation(
 		composable(navSettings) {
 			SettingsScreen(
 				filesNavController = filesNavController,
-				setTopBar = setTopBar
+				topAppBarViewModel = singletonViewModel()
+			)
+		}
+		composable(navUpdates) {
+			UpdateScreen(
+				filesNavController = filesNavController,
+				topAppBarViewModel = singletonViewModel(),
+				updateViewModel = updateViewModel()
 			)
 		}
 	}

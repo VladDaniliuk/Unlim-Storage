@@ -6,27 +6,26 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alorma.settings.composables.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.values.navAccounts
+import com.shov.unlimstorage.values.navUpdates
+import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 
 @Composable
 fun SettingsScreen(
 	filesNavController: NavController,
-	setTopBar: (
-		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		title: String?,
-		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit
+	topAppBarViewModel: TopAppBarViewModel
 ) {
-	setTopBar(
+	topAppBarViewModel.setTopBar(
 		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
 		stringResource(R.string.settings),
 		null
@@ -45,14 +44,27 @@ fun SettingsScreen(
 		) {
 			filesNavController.navigate(navAccounts)
 		}
+
+		SettingsMenuLink(
+			icon = {
+				Icon(
+					imageVector = Icons.Rounded.Update,
+					contentDescription = Icons.Rounded.Update.name
+				)
+			},
+			title = { Text(text = stringResource(R.string.about_updates)) },
+			subtitle = { Text(text = stringResource(R.string.check_update_disable_auto)) }
+		) {
+			filesNavController.navigate(navUpdates)
+		}
 	}
 }
 
-@Preview(name = "Settings", showSystemUi = true)
+@Preview(showSystemUi = true)
 @Composable
 fun SettingsFragmentPreview() {
 	SettingsScreen(
 		filesNavController = rememberNavController(),
-		setTopBar = { _, _, _ -> }
+		topAppBarViewModel = hiltViewModel()
 	)
 }
