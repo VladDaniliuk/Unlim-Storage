@@ -47,16 +47,6 @@ fun fileInfoViewModel(storeItem: StoreItem): FileInfoViewModel {
 	)
 }
 
-@Composable
-fun newVersionViewModel(lastReleaseItem: LastReleaseItem): NewVersionViewModel {
-	return viewModel(
-		factory = NewVersionViewModel.provideFactory(
-			getFactory().newVersionViewModelFactory(),
-			lastReleaseItem
-		)
-	)
-}
-
 @ExperimentalMaterialApi
 @Composable
 fun mainNavigationViewModel(
@@ -73,8 +63,32 @@ fun mainNavigationViewModel(
 }
 
 @Composable
+fun newVersionViewModel(lastReleaseItem: LastReleaseItem): NewVersionViewModel {
+	return viewModel(
+		factory = NewVersionViewModel.provideFactory(
+			getFactory().newVersionViewModelFactory(),
+			lastReleaseItem
+		)
+	)
+}
+
+@Composable
 inline fun <reified VM : ViewModel> singletonViewModel(): VM {
 	val context = LocalContext.current as ComponentActivity
 
 	return hiltViewModel(context)
+}
+
+@Composable
+fun updateViewModel(): UpdateViewModel {
+	val context = LocalContext.current as AppCompatActivity
+	val isShowAgain = Preference(context, IS_UPDATE_SHOW, true)
+
+	return viewModel(
+		context,
+		factory = UpdateViewModel.provideFactory(
+			getFactory().updateViewModelFactory(),
+			isShowAgain
+		)
+	)
 }

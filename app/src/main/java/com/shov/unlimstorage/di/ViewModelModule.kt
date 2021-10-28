@@ -10,6 +10,7 @@ import dagger.hilt.android.components.ActivityComponent
 interface ViewModelFactoryProvider {
 	fun fileDescriptionViewModelFactory(): FileDescriptionViewModelFactory
 	fun fileInfoViewModelFactory(): FileInfoViewModelFactory
-	fun newVersionViewModelFactory(): NewVersionViewModelFactory
 	fun mainNavigationViewModelFactory(): MainNavigationViewModelFactory
+	fun newVersionViewModelFactory(): NewVersionViewModelFactory
+	fun updateViewModelFactory(): UpdateViewModelFactory
 }

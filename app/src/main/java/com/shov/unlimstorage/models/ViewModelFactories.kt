@@ -26,15 +26,20 @@ interface FileInfoViewModelFactory {
 }
 
 @AssistedFactory
-interface NewVersionViewModelFactory {
-	fun createNewVersionViewModel(lastReleaseItem: LastReleaseItem): NewVersionViewModel
-}
-
-@AssistedFactory
 interface MainNavigationViewModelFactory {
 	@ExperimentalMaterialApi
 	fun createMainNavigationViewModel(
 		scaffoldState: ScaffoldState,
 		sheetState: ModalBottomSheetState
 	): MainNavigationViewModel
+}
+
+@AssistedFactory
+interface NewVersionViewModelFactory {
+	fun createNewVersionViewModel(lastReleaseItem: LastReleaseItem): NewVersionViewModel
+}
+
+@AssistedFactory
+interface UpdateViewModelFactory {
+	fun createUpdateViewModel(isShowAgain: Preference<Boolean>): UpdateViewModel
 }
