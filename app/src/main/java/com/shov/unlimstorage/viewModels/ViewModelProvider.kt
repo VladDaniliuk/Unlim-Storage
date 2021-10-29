@@ -13,8 +13,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.di.ViewModelFactoryProvider
-import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.values.IS_UPDATE_SHOW
 import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
@@ -28,21 +26,21 @@ private fun getFactory() = EntryPointAccessors.fromActivity(
 )
 
 @Composable
-fun fileDescriptionViewModel(storeMetadataItem: StoreMetadataItem): FileDescriptionViewModel {
+fun fileDescriptionViewModel(storeId: String): FileDescriptionViewModel {
 	return viewModel(
 		factory = FileDescriptionViewModel.provideFactory(
 			getFactory().fileDescriptionViewModelFactory(),
-			storeMetadataItem
+			storeId
 		)
 	)
 }
 
 @Composable
-fun fileInfoViewModel(storeItem: StoreItem): FileInfoViewModel {
+fun fileInfoViewModel(id: String): FileInfoViewModel {
 	return viewModel(
 		factory = FileInfoViewModel.provideFactory(
 			getFactory().fileInfoViewModelFactory(),
-			storeItem
+			id
 		)
 	)
 }

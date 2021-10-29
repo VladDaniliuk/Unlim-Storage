@@ -57,7 +57,7 @@ fun FileInfoScreen(
 
 	topAppBarViewModel.setTopBar(
 		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		fileInfoViewModel.storeItem.name,
+		fileInfoViewModel.storeItem?.name,
 		if (fileInfoViewModel.storeMetadata?.isStarred == true) {
 			Icons.Rounded.Star
 		} else {
@@ -74,22 +74,24 @@ fun FileInfoScreen(
 			.fillMaxWidth()
 			.verticalScroll(state = rememberScrollState())
 	) {
-		ItemTypeIcon(
-			modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-			iconSize = SIZE_ICON_BIG,
-			mainIcon = fileInfoViewModel.storeItem.type.imageVector,
-			mainTint = MaterialTheme.colors.onBackground,
-			contentDescription = fileInfoViewModel.storeItem.type.name,
-			secondaryIcon = painterResource(fileInfoViewModel.storeItem.disk.imageId),
-			secondaryAlignment = Alignment.BottomEnd
-		)
+		fileInfoViewModel.storeItem?.let { item ->
+			ItemTypeIcon(
+				modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+				iconSize = SIZE_ICON_BIG,
+				mainIcon = item.type.imageVector,
+				mainTint = MaterialTheme.colors.onBackground,
+				contentDescription = item.type.name,
+				secondaryIcon = painterResource(item.disk.imageId),
+				secondaryAlignment = Alignment.BottomEnd
+			)
 
-		listOf(
-			stringResource(R.string.size_description) to fileInfoViewModel.storeItem.size,
-			stringResource(R.string.id_description) to fileInfoViewModel.storeItem.id
-		).forEach { pair ->
-			pair.second?.let { value ->
-				TextInfo(name = pair.first, value = value)
+			listOf(
+				stringResource(R.string.size_description) to item.size,
+				stringResource(R.string.id_description) to item.id
+			).forEach { pair ->
+				pair.second?.let { value ->
+					TextInfo(name = pair.first, value = value)
+				}
 			}
 		}
 
@@ -125,10 +127,11 @@ fun FileInfoScreen(
 					.padding(end = PADDING_MEDIUM)
 					.align(Alignment.CenterEnd),
 				onClick = {
-					filesNavController.currentBackStackEntry
-						?.arguments
-						?.putParcelable(argStoreMetadata, fileInfoViewModel.storeMetadata)
-					filesNavController.navigate(navFileDescription)
+					fileInfoViewModel.storeMetadata?.let { metadata ->
+						filesNavController.navigate(
+							Screen.FileDescription.setStoreItemId(metadata.id)
+						)
+					}
 				}
 			) {
 				Icon(
@@ -248,6 +251,10 @@ fun FileInfoScreen(
 
 			Spacer(modifier = Modifier.navigationBarsPadding())
 		}
+	}
+
+	LaunchedEffect(key1 = null) {
+		fileInfoViewModel.getStoreItem()
 	}
 
 	LaunchedEffect(key1 = isConnected) {

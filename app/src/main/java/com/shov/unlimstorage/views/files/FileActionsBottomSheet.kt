@@ -26,8 +26,7 @@ import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.CustomIconButton
 import com.shov.unlimstorage.ui.StoreItem
-import com.shov.unlimstorage.values.argStoreItem
-import com.shov.unlimstorage.values.navFileInfo
+import com.shov.unlimstorage.values.Screen
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -72,10 +71,7 @@ fun FileActionsBottomSheet(
 					Triple(Icons.Rounded.Info, R.string.show_info) {
 						coroutineScope.launch { sheetState.hide() }
 
-						filesNavController.currentBackStackEntry
-							?.arguments
-							?.putParcelable(argStoreItem, storeItem)
-						filesNavController.navigate(navFileInfo)
+						filesNavController.navigate(Screen.FileInfo.setStoreItem(storeItem.id))
 					}
 				)
 			) { item ->

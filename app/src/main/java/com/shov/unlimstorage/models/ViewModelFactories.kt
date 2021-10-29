@@ -4,8 +4,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ScaffoldState
 import com.shov.unlimstorage.api.models.LastReleaseItem
-import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.viewModels.MainNavigationViewModel
 import com.shov.unlimstorage.viewModels.NewVersionViewModel
@@ -16,13 +14,12 @@ import dagger.assisted.AssistedFactory
 
 @AssistedFactory
 interface FileDescriptionViewModelFactory {
-	fun createFileDescriptionViewModel(storeMetadataItem: StoreMetadataItem):
-			FileDescriptionViewModel
+	fun createFileDescriptionViewModel(storeId: String): FileDescriptionViewModel
 }
 
 @AssistedFactory
 interface FileInfoViewModelFactory {
-	fun createFileInfoViewModel(storeItem: StoreItem): FileInfoViewModel
+	fun createFileInfoViewModel(id: String): FileInfoViewModel
 }
 
 @AssistedFactory

@@ -5,17 +5,20 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Done
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 @Composable
 fun FileDescriptionScreen(
 	fileDescriptionViewModel: FileDescriptionViewModel,
@@ -24,10 +27,11 @@ fun FileDescriptionScreen(
 	scaffoldState: ScaffoldState
 ) {
 	val coroutineScope = rememberCoroutineScope()
+	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 
 	topAppBarViewModel.setTopBar(
 		Icons.Rounded.Close to { filesNavController.popBackStack() },
-		fileDescriptionViewModel.storeMetadata.name,
+		fileDescriptionViewModel.storeItem?.name,
 		Icons.Rounded.Done to {
 			coroutineScope.launch {
 				scaffoldState.snackbarHostState.showSnackbar("Doesn't work now")
@@ -36,9 +40,10 @@ fun FileDescriptionScreen(
 	)
 
 	TextField(
-		value = fileDescriptionViewModel.storeMetadata.description ?: "",
+		enabled = isConnected,
+		value = fileDescriptionViewModel.description ?: "",
 		onValueChange = { newDescription ->
-			fileDescriptionViewModel.setDescription(newDescription)
+			fileDescriptionViewModel.setNewDescription(newDescription)
 		},
 		placeholder = { Text(text = stringResource(id = R.string.description)) },
 		modifier = Modifier
@@ -50,4 +55,14 @@ fun FileDescriptionScreen(
 			unfocusedIndicatorColor = MaterialTheme.colors.background
 		)
 	)
+
+	LaunchedEffect(key1 = null) {
+		fileDescriptionViewModel.getStoreItem()
+	}
+
+	LaunchedEffect(key1 = isConnected) {
+		if (isConnected.and(fileDescriptionViewModel.description.isNullOrEmpty())) {
+			fileDescriptionViewModel.getDescription()
+		}
+	}
 }

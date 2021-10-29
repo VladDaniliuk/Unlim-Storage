@@ -13,6 +13,7 @@ interface FilesRepository {
 	fun getFromLocal(parentFolder: String? = null): List<StoreItem>
 	fun getFromRemote(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
 	fun setToLocal(storeItemList: List<StoreItem>)
+	fun getLocalItem(id: String): StoreItem
 	fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem?
 }
 
@@ -86,7 +87,15 @@ class FilesRepositoryImpl @Inject constructor(
 		storeItemDao.setAll(storeItems = storeItemList)
 	}
 
-	override fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem? {
+	override fun getLocalItem(id: String): StoreItem {
+		return storeItemDao.getFile(id)
+	}
+
+	override fun getRemoteMetadata(
+		id: String,
+		disk: StorageType,
+		type: ItemType
+	): StoreMetadataItem? {
 		return filesFactory.create(disk).getFileMetadata(id, type)
 	}
 }

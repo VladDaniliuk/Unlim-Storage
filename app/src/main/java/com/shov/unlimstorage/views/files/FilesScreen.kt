@@ -25,7 +25,7 @@ import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.ui.TextNavigation
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
-import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,7 +48,7 @@ fun FilesScreen(
 	topAppBarViewModel.setTopBar(
 		folderId?.let { Icons.Rounded.ArrowBack to { filesNavController.popBackStack() } },
 		stringResource(R.string.app_name),
-		Icons.Rounded.AccountCircle to { filesNavController.navigate(navSettings) }
+		Icons.Rounded.AccountCircle to { filesNavController.navigate(Screen.Settings.route) }
 	)
 
 	val coroutineScope = rememberCoroutineScope()
@@ -83,7 +83,7 @@ fun FilesScreen(
 					taggedStringId = R.string.settings,
 					modifier = Modifier.align(Alignment.Center)
 				) {
-					filesNavController.navigate(navAccounts)
+					filesNavController.navigate(Screen.Accounts.route)
 				}
 			}
 		} else {
@@ -102,10 +102,7 @@ fun FilesScreen(
 									filesViewModel.setClickable(false)
 
 									filesNavController.navigate(
-										navFiles(
-											folderId = storeItem.id,
-											storageType = storeItem.disk.name
-										)
+										Screen.Files.openFolder(storeItem.id, storeItem.disk.name)
 									)
 
 									filesViewModel.setClickable(true)
@@ -113,10 +110,9 @@ fun FilesScreen(
 								ItemType.FILE -> {
 									filesViewModel.setClickable(false)
 
-									filesNavController.currentBackStackEntry
-										?.arguments
-										?.putParcelable(argStoreItem, storeItem)
-									filesNavController.navigate(navFileInfo)
+									filesNavController.navigate(
+										Screen.FileInfo.setStoreItem(storeItem.id)
+									)
 
 									filesViewModel.setClickable(true)
 								}
