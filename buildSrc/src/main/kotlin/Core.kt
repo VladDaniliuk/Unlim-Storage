@@ -4,7 +4,7 @@ import org.gradle.kotlin.dsl.dependencies
 object CoreVersion {
 	const val coreKtxVersion = "1.6.0"
 	const val coreSplashScreenVersion = "1.0.0-alpha02"
-	const val kotlinxDatetimeVersion = "0.3.0"
+	const val kotlinxDatetimeVersion = "0.3.1"
 }
 
 object CoreLib {

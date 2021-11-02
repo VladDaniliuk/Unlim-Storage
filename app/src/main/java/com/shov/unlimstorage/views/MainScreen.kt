@@ -12,13 +12,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.ui.DownloadSnackbar
 import com.shov.unlimstorage.ui.MainTopBar
+import com.shov.unlimstorage.utils.launchWhenStarted
+import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.*
 import com.shov.unlimstorage.views.navigations.MainNavigation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.onEach
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
@@ -30,6 +36,9 @@ fun MainScreen(
 	updateViewModel: UpdateViewModel,
 	downloadViewModel: DownloadViewModel
 ) {
+	val context = LocalContext.current
+	val currentLifecycleOwner = LocalLifecycleOwner.current
+
 	/**States*/
 	val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 	val scaffoldState = rememberScaffoldState()
@@ -99,8 +108,8 @@ fun MainScreen(
 	}
 
 	LaunchedEffect(key1 = null) {
-		if (updateViewModel.isShowAgain) {
-			updateViewModel.checkAppVersion()
-		}
+		context.observeConnectivityAsFlow().onEach { isConnected ->
+			if (updateViewModel.isShowAgain.and(isConnected)) updateViewModel.checkAppVersion()
+		}.launchWhenStarted(currentLifecycleOwner.lifecycleScope)
 	}
 }
