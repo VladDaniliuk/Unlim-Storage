@@ -8,26 +8,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import com.shov.unlimstorage.viewModels.AccountsViewModel
+import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 
 @Composable
 fun RevokeAccountDialog(accountsViewModel: AccountsViewModel, storageType: StorageType) {
 	AlertDialog(
 		dismissButton = {
-			TextButton(onClick = { accountsViewModel.setShowRevokeDialog(null) }) {
+			TextButton(onClick = { accountsViewModel.showRevokeDialog() }) {
 				Text(text = stringResource(id = android.R.string.cancel))
 			}
 		},
 		confirmButton = {
 			TextButton(onClick = {
 				accountsViewModel.signOut(storageType)
-				accountsViewModel.setAllSignedIn(false)
-				accountsViewModel.setShowRevokeDialog(null)
+				accountsViewModel.setIsAllSignedIn(false)
+				accountsViewModel.showRevokeDialog()
 			}) {
 				Text(text = stringResource(id = R.string.revoke))
 			}
 		},
-		onDismissRequest = { accountsViewModel.setShowRevokeDialog(null) },
+		onDismissRequest = { accountsViewModel.showRevokeDialog() },
 		properties = DialogProperties(),
 		text = {
 			Text(

@@ -20,12 +20,12 @@ import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.values.MEDIUM_SHAPES
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
-import com.shov.unlimstorage.viewModels.AccountsViewModel
+import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 import com.shov.unlimstorage.viewModels.SignInViewModel
 
 @Composable
 fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: SignInViewModel) {
-	Dialog(onDismissRequest = { accountsViewModel.setShowAddAccountBottomSheet(null) }) {
+	Dialog(onDismissRequest = { accountsViewModel.showAddAccountBottomSheet() }) {
 		Column(
 			modifier = Modifier.background(
 				color = MaterialTheme.colors.surface,
@@ -45,8 +45,8 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: Sign
 						ActivityResultContracts.StartActivityForResult()
 					) { result ->
 						signInViewModel.checkAccessWithResult(result, storageType)
-						accountsViewModel.setAllSignedIn(true)
-						accountsViewModel.setShowAddAccountBottomSheet(null)
+						accountsViewModel.setIsAllSignedIn(true)
+						accountsViewModel.showAddAccountBottomSheet(null)
 					}
 
 					AccountMenuLink(
