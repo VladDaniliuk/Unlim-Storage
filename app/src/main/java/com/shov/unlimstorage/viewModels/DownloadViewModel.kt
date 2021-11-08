@@ -27,10 +27,14 @@ class DownloadViewModel @Inject constructor(
 
 			viewModelScope.launch {
 				downloadRepository.checkDownload(id, name) {
-					_percents = it
+					setPercents(it)
 				}
 			}
 		}
+	}
+
+	fun setPercents(percent: Float) {
+		_percents = percent
 	}
 
 	private var _percents by mutableStateOf(0f)
@@ -39,7 +43,7 @@ class DownloadViewModel @Inject constructor(
 	fun dismissDownloading() {
 		_downloadId?.let { id ->
 			downloadRepository.dismissDownloading(id) {
-				_percents = it
+				setPercents(it)
 			}
 		}
 	}
