@@ -174,18 +174,22 @@ fun FileInfoScreen(
 							currentHapticFeedback.performHapticFeedback(
 								HapticFeedbackType.LongPress
 							)
+							user.email?.let {
+								currentClipboardManager.setText(AnnotatedString(user.email))
 
-							currentClipboardManager.setText(AnnotatedString(user.email))
-
-							coroutineScope.launch {
+								coroutineScope.launch {
+									scaffoldState.snackbarHostState
+										.showSnackbar(message = onLongClickMessage)
+								}
+							} ?: coroutineScope.launch {
 								scaffoldState.snackbarHostState
-									.showSnackbar(message = onLongClickMessage)
+									.showSnackbar(message = "User doesn't have email")
 							}
 						},
-						contentDescription = user.name,
+						contentDescription = user.name ?: "User",
 						iconLink = user.photoLink,
 						iconSize = SIZE_ICON_SMALL,
-						title = user.name,
+						title = user.name ?: "User",
 						subtitle = user.role
 					)
 				}
