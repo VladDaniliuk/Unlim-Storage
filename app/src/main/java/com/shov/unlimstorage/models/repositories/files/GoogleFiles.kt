@@ -2,9 +2,9 @@ package com.shov.unlimstorage.models.repositories.files
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
+import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
@@ -57,7 +57,7 @@ class GoogleFiles @Inject constructor(
 	private fun getGoogleFiles(): Drive.Files {
 		GoogleSignIn.getLastSignedInAccount(context)?.let { googleAccount ->
 			return Drive.Builder(
-				AndroidHttp.newCompatibleTransport(),
+				NetHttpTransport(),
 				JacksonFactory.getDefaultInstance(),
 				GoogleAccountCredential.usingOAuth2(context, listOf(DriveScopes.DRIVE))
 					.apply { selectedAccount = googleAccount.account })

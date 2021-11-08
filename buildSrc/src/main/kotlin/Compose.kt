@@ -4,12 +4,11 @@ import org.gradle.kotlin.dsl.dependencies
 object ComposeVersion {
 	const val activityComposeVersion = "1.3.1"
 	const val composeVersion = "1.0.4"
-	const val kotlinStdlibVersion = "1.5.31"
+	const val kotlinStdlibVersion = "1.6.0-RC2"
 	const val runtimeLivedataVersion = "1.0.0"
 	const val navigationComposeVersion = "2.4.0-alpha10"
 	const val hiltNavigationComposeVersion = "1.0.0-alpha03"
 	const val composeMaterialIconsVersion = "1.1.0-alpha06"
-	const val accompanistSwiperefreshVersion = "0.19.0"
 	const val composeMaterial3Version = "1.0.0-alpha01" //TODO migrate to material3
 }                                                       //TODO color scheme of material3
 
@@ -31,9 +30,6 @@ object ComposeLib {
 	const val composeMaterialIcons = "androidx.compose.material:material-icons-extended:${
 		ComposeVersion.composeMaterialIconsVersion
 	}"
-	const val accompanistSwiperefresh = "com.google.accompanist:accompanist-swiperefresh:${
-		ComposeVersion.accompanistSwiperefreshVersion
-	}"
 	const val composeMaterial3 =
 		"androidx.compose.material3:material3:${ComposeVersion.composeMaterial3Version}"
 }
@@ -48,6 +44,5 @@ fun Project.implementCompose() {
 		add("implementation", ComposeLib.navigationCompose)
 		add("implementation", ComposeLib.hiltNavigationCompose)
 		add("implementation", ComposeLib.composeMaterialIcons)
-		add("implementation", ComposeLib.accompanistSwiperefresh)
 	}
 }

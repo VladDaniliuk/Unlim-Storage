@@ -5,7 +5,7 @@ object NetworkVersion {
 	const val moshiKotlinVersion = "1.12.0"
 	const val okhttpVersion = "4.9.2"
 	const val retrofitVersion = "2.9.0"
-	const val gsonVersion = "2.8.8"
+	const val gsonVersion = "2.8.9"
 }
 
 object NetworkLib {

@@ -2,7 +2,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 object DropBoxVersion {
-	const val dropboxCoreSdkVersion = "4.0.0"
+	const val dropboxCoreSdkVersion = "5.0.0"
 }
 
 object DropBoxLib {
