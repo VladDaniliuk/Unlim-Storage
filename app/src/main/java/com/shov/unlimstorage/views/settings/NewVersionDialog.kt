@@ -13,8 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.CustomDialog
 import com.shov.unlimstorage.ui.CustomText
+import com.shov.unlimstorage.ui.dialog.CustomHeaderDialog
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.NewVersionViewModel
 import com.shov.unlimstorage.viewModels.UpdateViewModel
@@ -28,7 +28,7 @@ fun NewVersionDialog(
 ) {
 	val context = LocalContext.current
 
-	CustomDialog(
+	CustomHeaderDialog(
 		onDismissRequest = onDismissRequest,
 		header = stringResource(R.string.new_update),
 		onCompleteText = stringResource(R.string.download).uppercase(),

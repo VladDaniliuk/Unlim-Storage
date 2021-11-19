@@ -19,8 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.CustomDialogWithIcon
 import com.shov.unlimstorage.ui.CustomText
+import com.shov.unlimstorage.ui.dialog.CustomIconDialog
 
 @Composable
 fun Permission(
@@ -48,7 +48,7 @@ fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 	if (Environment.isExternalStorageManager()) {
 		onHasAccess.invoke()
 	} else {
-		CustomDialogWithIcon(
+		CustomIconDialog(
 			onDismissRequest = onDismissRequest,
 			onCompleteRequest = {
 				context.startActivity(
