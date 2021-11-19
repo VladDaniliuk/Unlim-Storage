@@ -32,9 +32,9 @@ import kotlinx.coroutines.flow.onEach
 @ExperimentalMaterialApi
 @Composable
 fun MainScreen(
-	topAppBarViewModel: TopAppBarViewModel,
-	updateViewModel: UpdateViewModel,
-	downloadViewModel: DownloadViewModel
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	updateViewModel: UpdateViewModel = updateViewModel(),
+	downloadViewModel: DownloadViewModel = singletonViewModel()
 ) {
 	val context = LocalContext.current
 	val currentLifecycleOwner = LocalLifecycleOwner.current
@@ -99,11 +99,15 @@ fun MainScreen(
 			}
 		)
 
-		if (downloadViewModel.percents > 0) {
-			DownloadSnackbar(
-				percents = downloadViewModel.percents,
-				onDismissRequest = downloadViewModel::dismissDownloading
-			)
+		when (downloadViewModel.percents) {
+			in 0.01f..0.99f -> {
+				DownloadSnackbar(
+					percents = downloadViewModel.percents,
+					onDismissRequest = downloadViewModel::dismissDownloading,
+					title = downloadViewModel.title
+				)
+			}
+			else -> {}
 		}
 	}
 
