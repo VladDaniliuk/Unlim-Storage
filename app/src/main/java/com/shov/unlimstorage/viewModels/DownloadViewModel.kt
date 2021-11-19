@@ -25,16 +25,12 @@ class DownloadViewModel @Inject constructor(
 		return downloadRepository.downloadFile(Uri.parse(url), name)
 	}
 
-	private var _downloadId by mutableStateOf<Long?>(null)
-
 	fun subscribeToDownload(id: Long?, name: String) {
 		id?.let {
 			_downloadId = id
 
 			viewModelScope.launch {
-				downloadRepository.checkDownload(id, name) {
-					setPercents(it)
-				}
+				downloadRepository.checkDownload(id, name, ::setProgress)
 			}
 		}
 	}
@@ -46,8 +42,8 @@ class DownloadViewModel @Inject constructor(
 
 	fun dismissDownloading() {
 		_downloadId?.let { id ->
-			downloadRepository.dismissDownloading(id) {
-				setPercents(it)
+			downloadRepository.dismissDownloading(id) { percents ->
+				setProgress(percents, title)
 			}
 		}
 	}
