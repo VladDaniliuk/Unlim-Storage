@@ -21,8 +21,6 @@ object DesignLib {
 fun Project.implementDesign() {
 	dependencies {
 		add("implementation", DesignLib.appcompat)
-		add("implementation", DesignLib.constraintlayout)
-		add("implementation", DesignLib.material)
 		add("implementation", DesignLib.composeSettingsUi)
 	}
 }

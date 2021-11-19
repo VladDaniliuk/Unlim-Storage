@@ -50,7 +50,7 @@ android {
 	}
 
 	composeOptions {
-		kotlinCompilerExtensionVersion = ComposeVersion.composeVersion
+		kotlinCompilerExtensionVersion = Compose.version
 	}
 
 	defaultConfig {
@@ -72,18 +72,22 @@ android {
 
 	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
 
+	implementKotlinx()
 	implementCore()
 	implementDesign()
 	implementFirebase()
 	implementGoogle()
-	implementCoroutines()
 	implementNetwork()
-	implementDependencyInjection()
 	implementTest()
+	implementLifecycle()
+	implementKotlin()
+	implementNavigation()
+	implementActivity()
 	implementCompose()
-	implementDropBox()
+	implementHilt()
+	implementDropbox()
 	implementBoxApi()
 	implementLocalDataBase()
-	implementImageLoader()
+	implementCoil()
 	implementAccompanist()
 }

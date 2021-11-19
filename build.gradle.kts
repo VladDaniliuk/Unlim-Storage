@@ -5,6 +5,7 @@ buildscript {
 	}
 
 	gradleClasspath()
-	dependencyInjectionClasspath()
+	kotlinClasspath()
+	hiltClasspath()
 	googleClasspath()
 }

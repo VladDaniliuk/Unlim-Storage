@@ -1,24 +1,20 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-object CoreVersion {
-	const val coreKtxVersion = "1.6.0"
-	const val coreSplashScreenVersion = "1.0.0-alpha02"
-	const val kotlinxDatetimeVersion = "0.3.1"
-}
+object Core {
+	private const val version = "1.6.0"
+	private const val versionSplashscreen = "1.0.0-alpha02"
+	private const val lib = "androidx.core:core"
 
-object CoreLib {
-	const val coreKtx = "androidx.core:core-ktx:${CoreVersion.coreKtxVersion}"
-	const val coreSplashScreen =
-		"androidx.core:core-splashscreen:${CoreVersion.coreSplashScreenVersion}"
-	const val kotlinxDatetime =
-		"org.jetbrains.kotlinx:kotlinx-datetime:${CoreVersion.kotlinxDatetimeVersion}"
+	object Lib {
+		const val ktx = "$lib-ktx:$version"
+		const val splashscreen = "$lib-splashscreen:$versionSplashscreen"
+	}
 }
 
 fun Project.implementCore() {
 	dependencies {
-		add("implementation", CoreLib.coreKtx)
-		add("implementation", CoreLib.coreSplashScreen)
-		add("implementation", CoreLib.kotlinxDatetime)
+		implement(Core.Lib.ktx)
+		implement(Core.Lib.splashscreen)
 	}
 }
