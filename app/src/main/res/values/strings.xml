@@ -27,7 +27,8 @@
 	<string name="dont_show_again">Don\'t show me again</string>
 	<string name="dot">.</string>
 	<string name="download">Download</string>
-	<string name="download_new_version">Downloading new version…</string>
+	<string name="downloading">Downloading %1$s</string>
+	<string name="new_version">new version…</string>
 	<string name="dropbox">Dropbox</string>
 	<string name="gigabytes">GB</string>
 	<string name="google">Google</string>
