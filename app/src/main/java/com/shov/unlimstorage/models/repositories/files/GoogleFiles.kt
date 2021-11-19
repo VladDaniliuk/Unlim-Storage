@@ -18,6 +18,8 @@ import com.shov.unlimstorage.values.GOOGLE_FIELDS
 import com.shov.unlimstorage.values.GOOGLE_METADATA
 import com.shov.unlimstorage.values.getGoogleQ
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 class GoogleFiles @Inject constructor(
@@ -51,6 +53,16 @@ class GoogleFiles @Inject constructor(
 			null
 		} catch (e: IllegalArgumentException) {
 			null
+		}
+	}
+
+	override fun downloadFile(id: String, name: String, size: Long, setPercents: (Float, String) -> Unit) {
+		val f = File(File("/storage/emulated/0/Download"), name)
+		f.createNewFile()
+		if (f.exists()) {
+			val fos = FileOutputStream(f)
+			val request = getGoogleFiles().get(id)
+			request.executeMediaAndDownloadTo(fos)//TODO GOOGLE PERCENTS
 		}
 	}
 

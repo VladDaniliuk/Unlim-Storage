@@ -15,6 +15,8 @@ import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.values.DROPBOX_ROOT_FOLDER
 import com.shov.unlimstorage.values.DROPBOX_TOKEN
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 class DropBoxFiles @Inject constructor(
@@ -59,6 +61,27 @@ class DropBoxFiles @Inject constructor(
 			null
 		} catch (e: IllegalArgumentException) {
 			null
+		}
+	}
+
+	override fun downloadFile(
+		id: String,
+		name: String,
+		size: Long,
+		setPercents: (Float, String) -> Unit
+	) {
+		val f = File(File("/storage/emulated/0/Download"), name)
+		f.createNewFile()
+		if (f.exists()) {
+			val fos = FileOutputStream(f)
+			try {
+				getFiles()?.download(getFiles()?.getMetadata(id)?.pathLower)?.download(fos) {
+					setPercents((it / size).toFloat(), name)
+				}
+			} catch (e: RateLimitException) {
+			} catch (e: IllegalArgumentException) {
+			}/* catch (e: InvalidAccessTokenException) {
+			}*///TODO Token invalidate | rewrite
 		}
 	}
 
