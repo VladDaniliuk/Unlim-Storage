@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.unlimstorage.viewModels.provider
 
 import android.app.Activity
 import androidx.activity.ComponentActivity

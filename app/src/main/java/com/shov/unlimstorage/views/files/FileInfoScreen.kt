@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
@@ -30,9 +31,12 @@ import com.shov.unlimstorage.ui.*
 import com.shov.unlimstorage.utils.converters.toPrettyString
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.unlimstorage.views.Permission
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
