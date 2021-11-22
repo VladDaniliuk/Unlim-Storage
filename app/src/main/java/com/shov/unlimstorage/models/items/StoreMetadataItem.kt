@@ -15,7 +15,7 @@ data class StoreMetadataItem(
 	val createdTime: LocalDateTime?,
 	val modifiedTime: LocalDateTime?,
 	val sharingUsers: List<User>? = null,
-	val size: String?
+	val size: Long? = null
 ) : Parcelable {
 	constructor(parcel: Parcel) : this(
 		parcel.readString().toString(),
@@ -33,7 +33,7 @@ data class StoreMetadataItem(
 				User::javaClass.javaClass.classLoader
 			)
 		},
-		parcel.readString()
+		parcel.readValue(Long::class.java.classLoader) as? Long
 	)
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -46,7 +46,7 @@ data class StoreMetadataItem(
 		parcel.writeString(createdTime.toString())
 		parcel.writeString(modifiedTime.toString())
 		parcel.writeList(sharingUsers)
-		parcel.writeString(size)
+		parcel.writeValue(size)
 	}
 
 	override fun describeContents(): Int {

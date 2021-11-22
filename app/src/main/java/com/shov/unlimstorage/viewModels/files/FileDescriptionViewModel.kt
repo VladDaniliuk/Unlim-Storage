@@ -3,22 +3,24 @@ package com.shov.unlimstorage.viewModels.files
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.shov.unlimstorage.models.FileDescriptionViewModelFactory
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.repositories.files.FilesRepository
-import com.shov.unlimstorage.values.UNCHECKED_CAST
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
+import com.shov.unlimstorage.values.argStoreId
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FileDescriptionViewModel @AssistedInject constructor(
-	@Assisted private val storeId: String,
+@HiltViewModel
+class FileDescriptionViewModel @Inject constructor(
+	savedStateHandle: SavedStateHandle,
 	private val filesRepository: FilesRepository
 ) : ViewModel() {
+	var id by mutableStateOf<String?>(null)
+		private set
 	var description by mutableStateOf<String?>(null)
 		private set
 	var storeItem by mutableStateOf<StoreItem?>(null)
@@ -30,7 +32,7 @@ class FileDescriptionViewModel @AssistedInject constructor(
 
 	fun getStoreItem() {
 		viewModelScope.launch(Dispatchers.IO) {
-			storeItem = filesRepository.getLocalItem(storeId)
+			storeItem = filesRepository.getLocalItem(id!!)
 		}
 	}
 
@@ -38,7 +40,7 @@ class FileDescriptionViewModel @AssistedInject constructor(
 		storeItem?.let { storeItem ->
 			viewModelScope.launch(Dispatchers.IO) {
 				description = filesRepository.getRemoteMetadata(
-					storeId,
+					id!!,
 					storeItem.disk,
 					storeItem.type
 				)?.description
@@ -46,15 +48,9 @@ class FileDescriptionViewModel @AssistedInject constructor(
 		}
 	}
 
-	@Suppress(UNCHECKED_CAST)
-	companion object {
-		fun provideFactory(
-			assistedFactory: FileDescriptionViewModelFactory,
-			storeId: String
-		): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-			override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-				return assistedFactory.createFileDescriptionViewModel(storeId) as T
-			}
-		}
+	init {
+		savedStateHandle.get<String>(argStoreId)?.let { id ->
+			this.id = id
+		} ?: throw NullPointerException()
 	}
 }

@@ -11,16 +11,6 @@ import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 import dagger.assisted.AssistedFactory
 
 @AssistedFactory
-interface FileDescriptionViewModelFactory {
-	fun createFileDescriptionViewModel(storeId: String): FileDescriptionViewModel
-}
-
-@AssistedFactory
-interface FileInfoViewModelFactory {
-	fun createFileInfoViewModel(id: String): FileInfoViewModel
-}
-
-@AssistedFactory
 interface MainNavigationViewModelFactory {
 	@OptIn(ExperimentalMaterialApi::class)
 	fun createMainNavigationViewModel(

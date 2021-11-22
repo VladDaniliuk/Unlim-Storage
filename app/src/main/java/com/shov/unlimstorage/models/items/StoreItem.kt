@@ -20,7 +20,7 @@ data class StoreItem(
 	@PrimaryKey val id: String,
 	@ColumnInfo val type: ItemType,
 	@ColumnInfo val name: String,
-	@ColumnInfo val size: String? = null,
+	@ColumnInfo val size: Long? = null,
 	@ColumnInfo val parentFolder: String? = null,
 	@ColumnInfo val disk: StorageType
 ) : Parcelable {
@@ -28,7 +28,7 @@ data class StoreItem(
 		parcel.readString().toString(),
 		ItemType.valueOf(parcel.readString().toString()),
 		parcel.readString().toString(),
-		parcel.readString(),
+		parcel.readValue(Long::class.java.classLoader) as? Long,
 		parcel.readString(),
 		StorageType.valueOf(parcel.readString().toString())
 	)
@@ -37,7 +37,7 @@ data class StoreItem(
 		parcel.writeString(id)
 		parcel.writeString(type.name)
 		parcel.writeString(name)
-		parcel.writeString(size)
+		parcel.writeValue(size)
 		parcel.writeString(parentFolder)
 		parcel.writeString(disk.name)
 	}

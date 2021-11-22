@@ -18,15 +18,13 @@ interface StoreConverter {
 	fun File.toStoreItem(parentFolder: String? = null): StoreItem
 }
 
-class StoreConverterImpl @Inject constructor(private val sizeConverter: SizeConverter) :
-	StoreConverter {
-
+class StoreConverterImpl @Inject constructor() : StoreConverter {
 	override fun BoxItem.toStoreItem(parentFolder: String?) = StoreItem(
 		id = this.id,
 		type = ItemType.valueOf(this.type.uppercase()),
 		name = this.name,
 		size = when (ItemType.valueOf(this.type.uppercase())) {
-			ItemType.FILE -> sizeConverter.run { this@toStoreItem.size.toBytes() }
+			ItemType.FILE -> size
 			ItemType.FOLDER -> null
 		},
 		parentFolder = parentFolder?.let { this.parent.id } ?: parentFolder,
@@ -45,7 +43,7 @@ class StoreConverterImpl @Inject constructor(private val sizeConverter: SizeConv
 			id = this.id,
 			type = ItemType.FILE,
 			name = this.name,
-			size = sizeConverter.run { this@toStoreItem.size.toBytes() },
+			size = size,
 			parentFolder = parentFolder,
 			disk = StorageType.DROPBOX
 		)
@@ -59,9 +57,9 @@ class StoreConverterImpl @Inject constructor(private val sizeConverter: SizeConv
 			false -> ItemType.FILE
 		},
 		name = this.name,
-		size = when (this.mimeType.contains(ItemType.FOLDER.name, ignoreCase = true)) {
+		size = when (mimeType.contains(ItemType.FOLDER.name, ignoreCase = true)) {
 			true -> null
-			false -> sizeConverter.run { this@toStoreItem.size.toLong().toBytes() }
+			false -> this.getSize()
 		},
 		parentFolder = parentFolder?.let { this.parents[0] } ?: parentFolder,
 		disk = StorageType.GOOGLE

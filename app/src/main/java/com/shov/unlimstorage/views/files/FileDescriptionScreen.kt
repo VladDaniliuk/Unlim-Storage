@@ -24,22 +24,18 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FileDescriptionScreen(
-	fileDescriptionViewModel: FileDescriptionViewModel,
-	filesNavController: NavController,
-	topAppBarViewModel: TopAppBarViewModel,
-	scaffoldState: ScaffoldState
+	fileDescriptionViewModel: FileDescriptionViewModel = hiltViewModel(),
+	onCloseClick: () -> Unit,
+	onDoneClick: suspend CoroutineScope.() -> Unit,
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 ) {
 	val coroutineScope = rememberCoroutineScope()
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 
 	topAppBarViewModel.setTopBar(
-		Icons.Rounded.Close to { filesNavController.popBackStack() },
+		Icons.Rounded.Close to onCloseClick,
 		fileDescriptionViewModel.storeItem?.name,
-		Icons.Rounded.Done to {
-			coroutineScope.launch {
-				scaffoldState.snackbarHostState.showSnackbar("Doesn't work now")
-			}
-		}
+		Icons.Rounded.Done to { coroutineScope.launch(block = onDoneClick) }
 	)
 
 	TextField(

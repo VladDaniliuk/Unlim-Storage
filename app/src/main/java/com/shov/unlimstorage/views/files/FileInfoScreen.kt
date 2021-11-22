@@ -41,10 +41,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FileInfoScreen(
-	fileInfoViewModel: FileInfoViewModel,
+	fileInfoViewModel: FileInfoViewModel = hiltViewModel(),
 	filesNavController: NavController,
 	scaffoldState: ScaffoldState,
-	topAppBarViewModel: TopAppBarViewModel
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	downloadViewModel: DownloadViewModel = singletonViewModel()
 ) {
 	val coroutineScope = rememberCoroutineScope()
 	val currentClipboardManager = LocalClipboardManager.current
@@ -68,6 +69,16 @@ fun FileInfoScreen(
 		}
 	)
 
+	if (fileInfoViewModel.isDialogShown) {
+		Permission(
+			onDismissRequest = { fileInfoViewModel.setShowDialog(false) },
+			onHasAccess = {
+				fileInfoViewModel.setShowDialog(false)
+				fileInfoViewModel.downloadFile(downloadViewModel::setProgress)
+			}
+		)
+	}
+
 	Column(
 		modifier = Modifier
 			.fillMaxWidth()
@@ -84,14 +95,11 @@ fun FileInfoScreen(
 				secondaryAlignment = Alignment.BottomEnd
 			)
 
-			listOf(
-				stringResource(R.string.size_description) to item.size,
-				stringResource(R.string.id_description) to item.id
-			).forEach { pair ->
-				pair.second?.let { value ->
-					TextInfo(name = pair.first, value = value)
-				}
+			fileInfoViewModel.getBeautySize()?.let { size ->
+				TextInfo(name = stringResource(R.string.size_description), value = size)
 			}
+
+			TextInfo(name = stringResource(R.string.id_description), value = item.id)
 		}
 
 
@@ -252,12 +260,22 @@ fun FileInfoScreen(
 				Text(text = stringResource(R.string.create_link))
 			}
 
+			Button(onClick = { fileInfoViewModel.setShowDialog() }) {
+				Text(text = "Download")
+			}
+
 			Spacer(modifier = Modifier.navigationBarsPadding())
 		}
 	}
 
 	LaunchedEffect(key1 = null) {
-		fileInfoViewModel.getStoreItem()
+		launch(Dispatchers.IO) {
+			fileInfoViewModel.getStoreItem()
+		}.invokeOnCompletion {
+			if (isConnected) {
+				fileInfoViewModel.getFileMetadata()
+			}
+		}
 	}
 
 	LaunchedEffect(key1 = isConnected) {
