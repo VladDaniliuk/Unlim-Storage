@@ -8,6 +8,7 @@ object Google {
 	private const val versionAuth = "19.2.0"
 	private const val versionClient = "1.23.0"
 	private const val versionDrive = "v3-rev110-1.23.0"
+	private const val versionGson = "2.8.9"
 
 	object Lib {
 		const val services = "$lib.gms:google-services:$versionServices"
@@ -15,6 +16,7 @@ object Google {
 		const val clientAndroid = "$lib.api-client:google-api-client-android:$versionClient"
 		const val clientJetty = "$lib.oauth-client:google-oauth-client-jetty:$versionClient"
 		const val drive = "$lib.apis:google-api-services-drive:$versionDrive"
+		const val gson = "$lib.code.gson:gson:$versionGson"
 	}
 }
 
@@ -24,6 +26,7 @@ fun Project.implementGoogle() {
 		implement(Google.Lib.clientAndroid)
 		implement(Google.Lib.clientJetty)
 		implement(Google.Lib.drive)
+		implement(Google.Lib.gson)
 	}
 }
 

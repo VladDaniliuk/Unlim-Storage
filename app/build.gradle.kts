@@ -67,7 +67,7 @@ android {
 	}
 
 	tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-		kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+		kotlinOptions.freeCompilerArgs += BuildType.requiresOptIn
 	}
 
 	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
@@ -75,9 +75,10 @@ android {
 	implementKotlinx()
 	implementCore()
 	implementDesign()
+	implementGithub()
 	implementFirebase()
 	implementGoogle()
-	implementNetwork()
+	implementSquareup()
 	implementTest()
 	implementLifecycle()
 	implementKotlin()

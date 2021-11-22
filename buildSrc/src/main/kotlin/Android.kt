@@ -22,6 +22,7 @@ object BuildType {
 	const val outputNameDebug = "Unlim Storage-debug.apk"
 	const val proguardFile = "proguard-android-optimize.txt"
 	const val proguardRules = "proguard-rules.pro"
+	const val requiresOptIn = "-Xopt-in=kotlin.RequiresOptIn"
 }
 
 object KotlinOptions {

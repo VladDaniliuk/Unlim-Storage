@@ -14,8 +14,8 @@ object Room {
 
 fun Project.implementLocalDataBase() {
 	dependencies {
-		add("implementation", Room.Lib.runtime)
-		add("kapt", Room.Lib.compiler)
-		add("implementation", Room.Lib.ktx)
+		implement(Room.Lib.runtime)
+		kapt(Room.Lib.compiler)
+		implement(Room.Lib.ktx)
 	}
 }
