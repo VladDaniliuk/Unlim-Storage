@@ -1,6 +1,5 @@
 package com.shov.unlimstorage.views.files
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -29,8 +28,6 @@ import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.values.Screen
 import kotlinx.coroutines.launch
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
 @Composable
 fun FileActionsBottomSheet(
 	filesNavController: NavController,

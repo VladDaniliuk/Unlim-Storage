@@ -27,11 +27,9 @@ import com.shov.unlimstorage.values.PADDING_BIG
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 @Composable
 fun SignInScreen(
 	scaffoldState: ScaffoldState,

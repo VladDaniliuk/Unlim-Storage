@@ -1,7 +1,6 @@
 package com.shov.unlimstorage.views.files
 
 import android.content.Intent
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -25,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.navigation.NavController
-import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.*
@@ -37,9 +35,6 @@ import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
 @Composable
 fun FileInfoScreen(
 	fileInfoViewModel: FileInfoViewModel,

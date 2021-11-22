@@ -1,6 +1,5 @@
 package com.shov.unlimstorage.views.navigations
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
@@ -24,12 +23,8 @@ import com.shov.unlimstorage.viewModels.singletonViewModel
 import com.shov.unlimstorage.views.files.FileDescriptionScreen
 import com.shov.unlimstorage.views.files.FileInfoScreen
 import com.shov.unlimstorage.views.files.FilesScreen
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalMaterialApi
-@ExperimentalCoilApi
-@ExperimentalCoroutinesApi
-@ExperimentalFoundationApi
+@OptIn(ExperimentalMaterialApi::class)
 fun NavGraphBuilder.filesComposable(
 	filesNavController: NavController,
 	scaffoldState: ScaffoldState,

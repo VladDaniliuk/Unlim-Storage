@@ -18,7 +18,6 @@ import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 @Composable
 fun FileDescriptionScreen(
 	fileDescriptionViewModel: FileDescriptionViewModel,

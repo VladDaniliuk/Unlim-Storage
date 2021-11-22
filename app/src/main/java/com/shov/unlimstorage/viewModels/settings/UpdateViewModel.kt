@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.unlimstorage.viewModels.settings
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class UpdateViewModel @AssistedInject constructor(
 	private val gitHubRepository: GitHubRepository,
-	@Assisted var isShowAgainPreference: Preference<Boolean>
+	@Assisted private var isShowAgainPreference: Preference<Boolean>
 ) : ViewModel() {
 	var lastRelease by mutableStateOf<LastReleaseItem?>(null)
 		private set
@@ -51,10 +51,10 @@ class UpdateViewModel @AssistedInject constructor(
 		val currentVersion = BuildConfig.VERSION_NAME.split(".")
 
 		lastReleaseVersion.split(".").forEachIndexed { i, element ->
-			if (element.toLong() > currentVersion.getOrNull(i)?.toLong() ?: 0) {
+			if (element.toLong() > (currentVersion.getOrNull(i)?.toLong() ?: 0)) {
 				isDialogShown = true
 				return
-			} else if (element.toLong() < currentVersion.getOrNull(i)?.toLong() ?: 0) {
+			} else if (element.toLong() < (currentVersion.getOrNull(i)?.toLong() ?: 0)) {
 				return
 			}
 		}

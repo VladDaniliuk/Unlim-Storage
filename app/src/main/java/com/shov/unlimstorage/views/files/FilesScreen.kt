@@ -31,9 +31,6 @@ import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 fun FilesScreen(
 	scaffoldState: ScaffoldState,

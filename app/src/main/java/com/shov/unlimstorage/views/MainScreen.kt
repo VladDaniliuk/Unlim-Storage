@@ -1,6 +1,5 @@
 package com.shov.unlimstorage.views
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.ui.DownloadSnackbar
 import com.shov.unlimstorage.ui.MainTopBar
@@ -26,10 +24,7 @@ import com.shov.unlimstorage.views.navigations.MainNavigation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.onEach
 
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun MainScreen(
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
