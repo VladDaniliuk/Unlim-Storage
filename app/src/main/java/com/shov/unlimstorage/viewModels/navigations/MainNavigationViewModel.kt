@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.unlimstorage.viewModels.navigations
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState

@@ -5,11 +5,9 @@ import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ScaffoldState
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.models.preferences.Preference
-import com.shov.unlimstorage.viewModels.MainNavigationViewModel
-import com.shov.unlimstorage.viewModels.NewVersionViewModel
-import com.shov.unlimstorage.viewModels.UpdateViewModel
-import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
-import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
+import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
+import com.shov.unlimstorage.viewModels.settings.NewVersionViewModel
+import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 import dagger.assisted.AssistedFactory
 
 @AssistedFactory
@@ -24,7 +22,7 @@ interface FileInfoViewModelFactory {
 
 @AssistedFactory
 interface MainNavigationViewModelFactory {
-	@ExperimentalMaterialApi
+	@OptIn(ExperimentalMaterialApi::class)
 	fun createMainNavigationViewModel(
 		scaffoldState: ScaffoldState,
 		sheetState: ModalBottomSheetState

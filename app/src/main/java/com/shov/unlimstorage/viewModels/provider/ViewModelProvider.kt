@@ -15,8 +15,9 @@ import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.di.ViewModelFactoryProvider
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.values.IS_UPDATE_SHOW
-import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
-import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
+import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
+import com.shov.unlimstorage.viewModels.settings.NewVersionViewModel
+import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 import dagger.hilt.android.EntryPointAccessors
 
 @Composable

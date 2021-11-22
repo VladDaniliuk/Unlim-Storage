@@ -13,7 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.values.IS_AUTH
 import com.shov.unlimstorage.values.Screen
-import com.shov.unlimstorage.viewModels.MainNavigationViewModel
+import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
 import com.shov.unlimstorage.views.SignInScreen
 
 @OptIn(ExperimentalMaterialApi::class)

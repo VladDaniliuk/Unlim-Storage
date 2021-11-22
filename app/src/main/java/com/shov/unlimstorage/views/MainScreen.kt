@@ -19,8 +19,15 @@ import com.shov.unlimstorage.ui.DownloadSnackbar
 import com.shov.unlimstorage.ui.MainTopBar
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
-import com.shov.unlimstorage.viewModels.*
+import com.shov.unlimstorage.viewModels.DownloadViewModel
+import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.provider.mainNavigationViewModel
+import com.shov.unlimstorage.viewModels.provider.newVersionViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.unlimstorage.viewModels.provider.updateViewModel
+import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 import com.shov.unlimstorage.views.navigations.MainNavigation
+import com.shov.unlimstorage.views.settings.NewVersionDialog
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.onEach
 
@@ -47,7 +54,6 @@ fun MainScreen(
 				updateViewModel = updateViewModel,
 				newVersionViewModel = newVersionViewModel(lastReleaseItem = lastRelease),
 				onDismissRequest = updateViewModel::hideDialog,
-				downloadViewModel = singletonViewModel()
 			)
 		}
 	}
