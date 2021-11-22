@@ -59,27 +59,18 @@ fun NavGraphBuilder.filesComposable(
 			}
 		}
 	}
-	composable(
-		arguments = listOf(
-			navArgument(argFolderId) { nullable = true },
-			navArgument(argStorageType) { nullable = true }
-		),
-		route = Screen.Files.route
-	) { navBackStackEntry ->
-		navBackStackEntry.arguments?.let { arguments ->
-			FilesScreen(
-				scaffoldState = scaffoldState,
-				filesNavController = filesNavController,
-				filesViewModel = hiltViewModel(),
-				folderId = arguments.getString(argFolderId),
-				topAppBarViewModel = singletonViewModel(),
-				storageType = arguments.getString(argStorageType)
-					?.let { storageType ->
-						StorageType.valueOf(storageType)
-					},
-				sheetContent = sheetContent,
-				sheetState = sheetState
-			)
-		}
+	composable(route = Screen.Files.route) {
+		FilesScreen(
+			scaffoldState = scaffoldState,
+			filesNavController = filesNavController,
+			sheetContent = sheetContent,
+			onShowSheet = { isShow ->
+				if (isShow) {
+					sheetState.show()
+				} else {
+					sheetState.hide()
+				}
+			}
+		)
 	}
 }

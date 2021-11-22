@@ -3,11 +3,14 @@ package com.shov.unlimstorage.viewModels.files
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.repositories.files.FilesRepository
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.unlimstorage.values.argFolderId
+import com.shov.unlimstorage.values.argStorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,51 +18,67 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilesViewModel @Inject constructor(
-	private val filesRepository: FilesRepository
+	private val filesRepository: FilesRepository,
+	savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-	private var _storeItemList by mutableStateOf(emptyList<StoreItem>())
-	val storeItemList get() = _storeItemList
+	var folderId by mutableStateOf<String?>(null)
+		private set
+	var storageType by mutableStateOf<StorageType?>(null)
+		private set
+	var storeItemList by mutableStateOf(emptyList<StoreItem>())
+		private set
+	var isRefreshing by mutableStateOf(false)
+		private set
+	var isClickable by mutableStateOf(true)
+		private set
 
-	private var _isRefreshing by mutableStateOf(false)
-	val isRefreshing get() = _isRefreshing
-
-	private var _isClickable by mutableStateOf(true)
-	val isClickable get() = _isClickable
-
-	fun setClickable(isClickable: Boolean) {
-		_isClickable = isClickable
+	fun setOpenable(isClickable: Boolean) {
+		this.isClickable = isClickable
 	}
 
-	fun getFiles(folderId: String? = null, storageType: StorageType? = null) {
-		_isRefreshing = true
+	fun getFiles() {
+		isRefreshing = true
+
 		viewModelScope.launch(Dispatchers.IO) {
-			_storeItemList = filesRepository.checkLocal(
+			storeItemList = filesRepository.checkLocal(
 				parentFolder = folderId,
 				disk = storageType
 			)
 		}.invokeOnCompletion {
-			_isRefreshing = false
+			isRefreshing = false
 		}
 	}
 
-	fun refreshFiles(folderId: String? = null, storageType: StorageType? = null) {
-		_isRefreshing = true
+	fun refreshFiles() {
+		isRefreshing = true
+
 		viewModelScope.launch(Dispatchers.IO) {
-			_storeItemList = filesRepository.checkRemote(
+			storeItemList = filesRepository.checkRemote(
 				parentFolder = folderId,
 				disk = storageType
 			)
 		}.invokeOnCompletion {
-			_isRefreshing = false
+			isRefreshing = false
 		}
 	}
 
-	fun checkLocalFiles(folderId: String? = null) {
-		_isRefreshing = true
+	fun checkLocalFiles() {
+		isRefreshing = true
+
 		viewModelScope.launch(Dispatchers.IO) {
-			_storeItemList = filesRepository.getFromLocal(parentFolder = folderId)
+			storeItemList =
+				filesRepository.getFromLocal(parentFolder = folderId)
 		}.invokeOnCompletion {
-			_isRefreshing = false
+			isRefreshing = false
+		}
+	}
+
+	init {
+		savedStateHandle.get<String?>(argFolderId)?.let { folderId ->
+			this.folderId = folderId
+		}
+		savedStateHandle.get<String?>(argStorageType)?.let { storageType ->
+			this.storageType = StorageType.valueOf(storageType)
 		}
 	}
 }
