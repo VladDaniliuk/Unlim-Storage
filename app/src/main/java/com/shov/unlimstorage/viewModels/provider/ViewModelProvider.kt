@@ -26,27 +26,7 @@ private fun getFactory() = EntryPointAccessors.fromActivity(
 	ViewModelFactoryProvider::class.java
 )
 
-@Composable
-fun fileDescriptionViewModel(storeId: String): FileDescriptionViewModel {
-	return viewModel(
-		factory = FileDescriptionViewModel.provideFactory(
-			getFactory().fileDescriptionViewModelFactory(),
-			storeId
-		)
-	)
-}
-
-@Composable
-fun fileInfoViewModel(id: String): FileInfoViewModel {
-	return viewModel(
-		factory = FileInfoViewModel.provideFactory(
-			getFactory().fileInfoViewModelFactory(),
-			id
-		)
-	)
-}
-
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun mainNavigationViewModel(
 	scaffoldState: ScaffoldState,
@@ -81,13 +61,12 @@ inline fun <reified VM : ViewModel> singletonViewModel(): VM {
 @Composable
 fun updateViewModel(): UpdateViewModel {
 	val context = LocalContext.current as AppCompatActivity
-	val isShowAgain = Preference(context, IS_UPDATE_SHOW, true)
 
 	return viewModel(
 		context,
 		factory = UpdateViewModel.provideFactory(
 			getFactory().updateViewModelFactory(),
-			isShowAgain
+			Preference(context, IS_UPDATE_SHOW, true),
 		)
 	)
 }
