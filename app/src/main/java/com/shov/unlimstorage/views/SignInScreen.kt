@@ -38,13 +38,13 @@ fun SignInScreen(
 	scaffoldState: ScaffoldState,
 	setTopBar: (
 		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		textId: Int?,
+		title: String?,
 		nextRoute: Pair<ImageVector, (() -> Unit)>?
 	) -> Unit,
 	signInViewModel: SignInViewModel,
 	navController: NavController
 ) {
-	setTopBar(null, R.string.app_name, null)
+	setTopBar(null, stringResource(R.string.app_name), null)
 
 	val hasConnection by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(initial = false)

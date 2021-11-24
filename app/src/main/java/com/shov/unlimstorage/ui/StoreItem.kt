@@ -1,116 +1,119 @@
 package com.shov.unlimstorage.ui
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.IconButton
+import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Description
-import androidx.compose.material.icons.rounded.Folder
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.ItemType
-import com.shov.unlimstorage.models.StoreItem
+import androidx.compose.ui.unit.dp
+import com.shov.unlimstorage.models.items.ItemType
+import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.signInModels.StorageType
-import com.shov.unlimstorage.values.DRIVE
 import com.shov.unlimstorage.values.PADDING_SMALL
-import com.shov.unlimstorage.values.SIZE_ICON
+import com.shov.unlimstorage.values.SIZE_ICON_MEDIUM
 
 
+@ExperimentalFoundationApi
 @Composable
-fun StoreItem(storeItem: StoreItem, enabled: Boolean = true, onClick: () -> Unit) {
+fun StoreItem(
+	storeItem: StoreItem,
+	enabled: Boolean = true,
+	isDividerVisible: Boolean = true,
+	isOptionVisible: Boolean = true,
+	onClick: () -> Unit = {},
+	onLongClick: () -> Unit = {},
+	onOptionClick: () -> Unit = {}
+) {
 	Row(
 		modifier = Modifier
-			.clickable(
-				enabled = enabled,
-				onClick = if (storeItem.type == ItemType.FOLDER) {
-					onClick
-				} else {
-					{}
-				}
+			.combinedClickable(
+				onClick = onClick,
+				onLongClick = onLongClick,
+				enabled = enabled
 			)
-			.fillMaxWidth()
 	) {
 		Icon(
 			modifier = Modifier
+				.padding(horizontal = PADDING_SMALL)
 				.align(Alignment.CenterVertically)
-				.size(SIZE_ICON)
-				.padding(horizontal = PADDING_SMALL),
-			imageVector = when (storeItem.type) {
-				ItemType.FOLDER -> Icons.Rounded.Folder
-				ItemType.FILE -> Icons.Rounded.Description
-			},
+				.size(SIZE_ICON_MEDIUM),
+			imageVector = storeItem.type.imageVector,
 			contentDescription = storeItem.type.name
 		)
 
 		Column {
-			Text(
-				text = storeItem.name,
-				fontSize = MaterialTheme.typography.h5.fontSize,
-				fontStyle = MaterialTheme.typography.h5.fontStyle,
-				fontWeight = MaterialTheme.typography.h5.fontWeight
-			)
+			Row {
+				Column(modifier = Modifier.weight(1f)) {
+					CustomText(
+						overflow = TextOverflow.Ellipsis,
+						maxLines = 1,
+						text = storeItem.name,
+						textStyle = Typography().h5
+					)
 
-			Text(
-				text = storeItem.size ?: "",
-				fontSize = MaterialTheme.typography.body2.fontSize,
-				fontStyle = MaterialTheme.typography.body2.fontStyle,
-				fontWeight = MaterialTheme.typography.body2.fontWeight
-			)
+					CustomText(
+						text = storeItem.size,
+						textStyle = Typography().body2
+					)
 
-			Spacer(modifier = Modifier.padding(vertical = PADDING_SMALL))
+					Icon(
+						painter = painterResource(id = storeItem.disk.imageId),
+						contentDescription = storeItem.disk.name,
+						modifier = Modifier
+							.padding(vertical = PADDING_SMALL)
+							.height(24.dp),
+						tint = Color.Unspecified
+					)
+				}
 
-			StoreIconItem(
-				storageType = storeItem.disk,
-				modifier = Modifier
-			)
+				if (isOptionVisible) {
+					IconButton(
+						modifier = Modifier.align(Alignment.CenterVertically),
+						onClick = onOptionClick
+					) {
+						Icon(
+							imageVector = Icons.Rounded.MoreVert,
+							contentDescription = Icons.Rounded.MoreVert.name
+						)
+					}
+				}
+			}
 
-			Spacer(modifier = Modifier.padding(vertical = PADDING_SMALL))
-
-			Divider()
+			if (isDividerVisible) {
+				Divider()
+			}
 		}
 	}
 }
 
-@Composable
-fun StoreIconItem(storageType: StorageType, modifier: Modifier) {
-	Icon(
-		modifier = modifier,
-		painter = painterResource(
-			id = when (storageType) {
-				StorageType.BOX -> R.drawable.ic_box
-				StorageType.DROPBOX -> R.drawable.ic_drop_box
-				StorageType.GOOGLE -> R.drawable.ic_google_drive
-			}
-		),
-		contentDescription = DRIVE,
-		tint = Color.Unspecified
-	)
-}
-
-@Preview
+@ExperimentalFoundationApi
+@Preview(name = "File with long name")
 @Composable
 fun FilePreview() {
 	StoreItem(
 		storeItem = StoreItem(
 			id = "000000",
 			type = ItemType.FILE,
-			name = "File preview",
+			name = "Test test test test test test test test test",
 			size = "1210 MB",
 			parentFolder = null,
 			disk = StorageType.GOOGLE
-		),
-		onClick = {}
+		)
 	)
 }
 
+@ExperimentalFoundationApi
 @Preview
 @Composable
 fun FolderPreview() {
@@ -122,7 +125,6 @@ fun FolderPreview() {
 			size = null,
 			parentFolder = null,
 			disk = StorageType.BOX
-		),
-		onClick = {}
+		)
 	)
 }

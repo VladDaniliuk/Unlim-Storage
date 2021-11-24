@@ -2,10 +2,7 @@ package com.shov.unlimstorage.di
 
 import com.shov.unlimstorage.models.filesRepository.*
 import com.shov.unlimstorage.models.signInModels.*
-import com.shov.unlimstorage.utils.converters.SizeConverter
-import com.shov.unlimstorage.utils.converters.SizeConverterImpl
-import com.shov.unlimstorage.utils.converters.StoreItemConverter
-import com.shov.unlimstorage.utils.converters.StoreItemConverterImpl
+import com.shov.unlimstorage.utils.converters.*
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -65,13 +62,8 @@ abstract class ApplicationModule {
 	abstract fun provideStoreItemConverter(storeItemConverterImpl: StoreItemConverterImpl):
 			StoreItemConverter
 
-	/*@Binds
-	@IntoMap
-	@MyKey(SignInType.ONEDRIVE)
-	abstract fun provideOneDriveFiles(oneDriveFiles: OneDiveFiles):FilesInteractor
-
 	@Binds
-	@IntoMap
-	@MyKey(SignInType.ONEDRIVE)
-	abstract fun provideOneDriveSignIn(oneDriveSignInImpl: OneDriveSignIn): SignInSample*/
+	abstract fun provideStoreMetadataConverter(
+		storeMetadataConverterImpl: StoreMetadataConverterImpl
+	): StoreMetadataConverter
 }

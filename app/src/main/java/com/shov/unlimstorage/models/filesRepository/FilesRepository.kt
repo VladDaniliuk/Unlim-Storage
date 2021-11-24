@@ -1,7 +1,9 @@
 package com.shov.unlimstorage.models.filesRepository
 
 import com.shov.unlimstorage.db.StoreItemDao
-import com.shov.unlimstorage.models.StoreItem
+import com.shov.unlimstorage.models.items.ItemType
+import com.shov.unlimstorage.models.items.StoreItem
+import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.signInModels.StorageType
 import javax.inject.Inject
 
@@ -11,6 +13,7 @@ interface FilesRepository {
 	fun getFromLocal(parentFolder: String? = null): List<StoreItem>
 	fun getFromRemote(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
 	fun setToLocal(storeItemList: List<StoreItem>)
+	fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem?
 }
 
 class FilesRepositoryImpl @Inject constructor(
@@ -81,5 +84,9 @@ class FilesRepositoryImpl @Inject constructor(
 
 	override fun setToLocal(storeItemList: List<StoreItem>) {
 		storeItemDao.setAll(storeItems = storeItemList)
+	}
+
+	override fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem? {
+		return filesFactory.create(disk).getFileMetadata(id, type)
 	}
 }

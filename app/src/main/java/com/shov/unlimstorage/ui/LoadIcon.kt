@@ -1,0 +1,40 @@
+package com.shov.unlimstorage.ui
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+
+@ExperimentalCoilApi
+@Composable
+fun LoadIcon(
+	modifier: Modifier = Modifier,
+	contentDescription: String = "",
+	defaultImageVector: ImageVector = Icons.Rounded.AccountCircle,
+	defaultTint: Color = Color.Unspecified,
+	iconLink: String? = null,
+	iconTint: Color = Color.Unspecified
+) {
+	Box(modifier = modifier) {
+		iconLink?.let {
+			Icon(
+				modifier = Modifier.fillMaxSize(),
+				painter = rememberImagePainter(iconLink),
+				contentDescription = contentDescription,
+				tint = iconTint
+			)
+		} ?: Icon(
+			modifier = Modifier.fillMaxSize(),
+			imageVector = defaultImageVector,
+			contentDescription = contentDescription,
+			tint = defaultTint
+		)
+	}
+}

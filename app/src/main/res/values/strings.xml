@@ -26,4 +26,22 @@
 	<string name="gigabytes">GB</string>
 	<string name="terabytes">TB</string>
 	<string name="size">%1$s %2$s</string>
+	<string name="size_description">Size:</string>
+	<string name="created_time">Created time:</string>
+	<string name="modified_time">Modified time:</string>
+	<string name="version_description">Version:</string>
+	<string name="id_description">Id:</string>
+	<string name="description">Description:</string>
+	<string name="sharing_access">Sharing access:</string>
+	<string name="user_click_message">Long click to copy email</string>
+	<string name="user_long_click_message">Email is copied</string>
+	<string name="link_description">Link:</string>
+	<string name="open_in_browser">Open in browser</string>
+	<string name="copy_link">Copy link</string>
+	<string name="link_copied">Link is copied</string>
+	<string name="share_link">Share link</string>
+	<string name="create_link">Create link for share</string>
+	<string name="download">Download</string>
+	<string name="show_info">Show info</string>
+	<string name="modifier">Modifier</string>
 </resources>

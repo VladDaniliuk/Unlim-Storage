@@ -4,7 +4,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object DependencyInjectionVersion {
 	const val databindingVersion = "3.1.4"
-	const val hiltAndroidVersion = "2.37"
+	const val hiltAndroidVersion = "2.39.1"
 	const val navigationVersion = "2.3.5"
 }
 

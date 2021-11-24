@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.ScriptHandlerScope
 object GradleVersion {
 	const val kotlinGradlePluginVersion =
 		"1.5.10"//"1.5.30-M1"\\ уменьшение для jetpack compose 1.0.0-rc02
-	const val gradleVersion = "7.0.0-rc01"
+	const val gradleVersion = "7.0.2"
 }
 
 object GradleLib {
