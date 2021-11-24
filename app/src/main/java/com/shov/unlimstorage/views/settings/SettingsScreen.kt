@@ -6,8 +6,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,11 +27,7 @@ fun SettingsScreen(
 	filesNavController: NavController,
 	topAppBarViewModel: TopAppBarViewModel
 ) {
-	topAppBarViewModel.setTopBar(
-		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		stringResource(R.string.settings),
-		null
-	)
+	val context = LocalContext.current
 
 	Column {
 		SettingsMenuLink(
@@ -56,6 +55,14 @@ fun SettingsScreen(
 		) {
 			filesNavController.navigate(Screen.Updates.route)
 		}
+	}
+
+	LaunchedEffect(key1 = null) {
+		topAppBarViewModel.setTopBar(
+			Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
+			context.getString(R.string.settings),
+			null
+		)
 	}
 }
 

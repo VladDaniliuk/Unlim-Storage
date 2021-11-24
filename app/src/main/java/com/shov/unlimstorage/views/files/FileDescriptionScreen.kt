@@ -32,12 +32,6 @@ fun FileDescriptionScreen(
 	val coroutineScope = rememberCoroutineScope()
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 
-	topAppBarViewModel.setTopBar(
-		Icons.Rounded.Close to onCloseClick,
-		fileDescriptionViewModel.storeItem?.name,
-		Icons.Rounded.Done to { coroutineScope.launch(block = onDoneClick) }
-	)
-
 	TextField(
 		enabled = isConnected,
 		value = fileDescriptionViewModel.description ?: "",
@@ -63,5 +57,13 @@ fun FileDescriptionScreen(
 		if (isConnected.and(fileDescriptionViewModel.description.isNullOrEmpty())) {
 			fileDescriptionViewModel.getDescription()
 		}
+	}
+
+	LaunchedEffect(key1 = fileDescriptionViewModel.storeItem?.name) {
+		topAppBarViewModel.setTopBar(
+			Icons.Rounded.Close to onCloseClick,
+			fileDescriptionViewModel.storeItem?.name,
+			Icons.Rounded.Done to { coroutineScope.launch(block = onDoneClick) }
+		)
 	}
 }

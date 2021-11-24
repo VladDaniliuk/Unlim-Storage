@@ -9,6 +9,8 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Autorenew
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.alorma.compose.settings.ui.SettingsMenuLink
@@ -22,11 +24,7 @@ fun UpdateScreen(
 	filesNavController: NavController,
 	topAppBarViewModel: TopAppBarViewModel
 ) {
-	topAppBarViewModel.setTopBar(
-		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		stringResource(R.string.updates),
-		null
-	)
+	val context = LocalContext.current
 
 	Column {
 		SettingsMenuLink(
@@ -56,5 +54,13 @@ fun UpdateScreen(
 				)
 			}
 		) {}
+	}
+
+	LaunchedEffect(key1 = null) {
+		topAppBarViewModel.setTopBar(
+			Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
+			context.getString(R.string.updates),
+			null
+		)
 	}
 }

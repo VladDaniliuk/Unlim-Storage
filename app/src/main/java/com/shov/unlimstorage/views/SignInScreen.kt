@@ -37,12 +37,11 @@ fun SignInScreen(
 	signInViewModel: SignInViewModel,
 	navController: NavController
 ) {
-	topAppBarViewModel.setTopBar(null, stringResource(R.string.app_name), null)
-
-	val hasConnection by LocalContext.current.observeConnectivityAsFlow()
-		.collectAsState(initial = false)
+	val context = LocalContext.current
 	val coroutineScope = rememberCoroutineScope()
 	val currentLifecycleOwner = LocalLifecycleOwner.current
+	val hasConnection by context.observeConnectivityAsFlow()
+		.collectAsState(initial = false)
 
 	val messageFailed = stringResource(id = R.string.connection_failed)
 
@@ -76,6 +75,12 @@ fun SignInScreen(
 	}
 
 	LaunchedEffect(key1 = null) {
+		topAppBarViewModel.setTopBar(
+			null,
+			context.getString(R.string.app_name),
+			null
+		)
+
 		signInViewModel.serviceAccess.onEach { access ->
 			if (access) navController.navigate(Screen.Files.route) {
 				popUpTo(Screen.SignIn.route) {
