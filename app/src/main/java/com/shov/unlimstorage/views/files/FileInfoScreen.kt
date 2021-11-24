@@ -222,7 +222,7 @@ fun FileInfoScreen(
 								val sendIntent: Intent = Intent().apply {
 									action = Intent.ACTION_SEND
 									putExtra(Intent.EXTRA_TEXT, link)
-									type = TEXT_TYPE
+									type = "text/*"
 								}
 								val shareIntent = Intent.createChooser(sendIntent, null)
 
