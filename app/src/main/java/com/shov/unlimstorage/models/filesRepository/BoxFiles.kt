@@ -23,7 +23,7 @@ class BoxFiles @Inject constructor(
 	private val storeMetadataConverter: StoreMetadataConverter
 ) : FilesInteractor {
 	override fun getFiles(folderId: String?): List<StoreItem> {
-		return if (checkAuth) {
+		return if (authorizerFactory.create(StorageType.BOX).isSuccess()) {
 			try {
 				BoxApiFolder(BoxSession(context)).getItemsRequest(
 					folderId ?: BoxConstants.ROOT_FOLDER_ID
@@ -41,7 +41,7 @@ class BoxFiles @Inject constructor(
 	}
 
 	override fun getFileMetadata(id: String, type: ItemType): StoreMetadataItem? {
-		return if (checkAuth) {
+		return if (authorizerFactory.create(StorageType.BOX).isSuccess()) {
 			storeMetadataConverter.run {
 				(when (type) {
 					ItemType.FILE -> BoxApiFile(BoxSession(context)).getInfoRequest(id)
@@ -54,12 +54,4 @@ class BoxFiles @Inject constructor(
 			null
 		}
 	}
-
-	private val checkAuth: Boolean
-		get() {
-			BoxConfig.CLIENT_ID = Box.CLIENT_ID
-			BoxConfig.CLIENT_SECRET = Box.CLIENT_SECRET
-
-			return authorizerFactory.create(StorageType.BOX).isSuccess()
-		}
 }
