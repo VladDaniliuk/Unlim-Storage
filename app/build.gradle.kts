@@ -85,6 +85,7 @@ android {
 	implementNavigation()
 	implementActivity()
 	implementCompose()
+	implementWorkManager()
 	implementHilt()
 	implementDropbox()
 	implementBoxApi()
