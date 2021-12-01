@@ -16,7 +16,7 @@ object Squareup {
 	}
 
 	object Okhttp {
-		private const val version = "4.9.3"
+		private const val version = "5.0.0-alpha.3"
 		private const val subLib = "$lib.okhttp3"
 
 		object Lib {
