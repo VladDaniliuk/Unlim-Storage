@@ -37,8 +37,6 @@ fun MainNavigation(
 			SignInScreen(
 				navController = mainNavController,
 				scaffoldState = mainNavigationViewModel.scaffoldState,
-				signInViewModel = hiltViewModel(),
-				topAppBarViewModel = singletonViewModel()
 			)
 		}
 		filesComposable(

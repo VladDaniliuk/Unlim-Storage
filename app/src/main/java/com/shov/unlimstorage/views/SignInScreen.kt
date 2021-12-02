@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views
 
+import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +17,8 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.shov.unlimstorage.R
@@ -27,23 +30,22 @@ import com.shov.unlimstorage.values.PADDING_BIG
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @Composable
 fun SignInScreen(
+	context: Context = LocalContext.current,
+	coroutineScope: CoroutineScope = rememberCoroutineScope(),
+	lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+	navController: NavController,
 	scaffoldState: ScaffoldState,
-	topAppBarViewModel: TopAppBarViewModel,
-	signInViewModel: SignInViewModel,
-	navController: NavController
+	signInViewModel: SignInViewModel = hiltViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 ) {
-	val context = LocalContext.current
-	val coroutineScope = rememberCoroutineScope()
-	val currentLifecycleOwner = LocalLifecycleOwner.current
-	val hasConnection by context.observeConnectivityAsFlow()
-		.collectAsState(initial = false)
-
-	val messageFailed = stringResource(id = R.string.connection_failed)
+	val hasConnection by context.observeConnectivityAsFlow().collectAsState(false)
 
 	Column(
 		horizontalAlignment = Alignment.CenterHorizontally,
@@ -67,7 +69,9 @@ fun SignInScreen(
 					signInViewModel.getAccess(launcher, storageType)
 				} else {
 					coroutineScope.launch {
-						scaffoldState.snackbarHostState.showSnackbar(message = messageFailed)
+						scaffoldState.snackbarHostState.showSnackbar(
+							message = context.getString(R.string.connection_failed)
+						)
 					}
 				}
 			}
@@ -75,11 +79,7 @@ fun SignInScreen(
 	}
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
-			null,
-			context.getString(R.string.app_name),
-			null
-		)
+		topAppBarViewModel.setTopBar(title = context.getString(R.string.app_name))
 
 		signInViewModel.serviceAccess.onEach { access ->
 			if (access) navController.navigate(Screen.Files.route) {
@@ -87,7 +87,7 @@ fun SignInScreen(
 					inclusive = true
 				}
 			}
-		}.launchWhenStarted(currentLifecycleOwner.lifecycleScope)
+		}.launchWhenStarted(lifecycleOwner.lifecycleScope)
 	}
 }
 
