@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
+import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.android.Auth
-import com.dropbox.core.android.AuthActivity
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.values.*
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -15,13 +15,11 @@ class DropBoxSignIn @Inject constructor(
 	@ApplicationContext val context: Context
 ) : Authorizer {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
-		val intent = AuthActivity.makeIntent(
+		Auth.startOAuth2PKCE(
 			context,
-			DropBox.APP_KEY,
-			DropBox.WEB_HOST,
-			DropBox.API_TYPE
+			Keys.DropBox.APP_KEY,
+			DbxRequestConfig(DROPBOX_CLIENT_IDENTIFIER)
 		)
-		dataForSignIn.launch(intent)
 	}
 
 	@Suppress(NEVER_ACCESSED, UNUSED_VALUE)

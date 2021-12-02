@@ -10,7 +10,7 @@ import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.utils.converters.StoreConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
-import com.shov.unlimstorage.values.Box
+import com.shov.unlimstorage.values.Keys
 import com.shov.unlimstorage.values.getBoxFields
 import com.shov.unlimstorage.values.setItemFields
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -115,8 +115,8 @@ class BoxFiles @Inject constructor(
 
 	private val checkAuth: Boolean
 		get() {
-			BoxConfig.CLIENT_ID = Box.CLIENT_ID
-			BoxConfig.CLIENT_SECRET = Box.CLIENT_SECRET
+			BoxConfig.CLIENT_ID = Keys.Box.CLIENT_ID
+			BoxConfig.CLIENT_SECRET = Keys.Box.CLIENT_SECRET
 
 			return authorizerFactory.create(StorageType.BOX).isSuccess()
 		}

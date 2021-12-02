@@ -20,10 +20,8 @@ jobs:
       run: echo $ENCODED_STRING | base64 -di > ${{ github.workspace }}/Key.jks
     - name: get BuildProperties
       run: echo -e '${{secrets.BUILD_PROPERTIES_KT}}' > ${{ github.workspace }}/buildSrc/src/main/kotlin/BuildProperties.kt
-    - name: get DropBox key
-      run: echo -e '${{secrets.DROP_BOX}}' > ${{ github.workspace }}/app/src/main/java/com/shov/unlimstorage/values/DropBox.kt
-    - name: get Box key
-      run: echo -e '${{secrets.BOX}}' > ${{ github.workspace }}/app/src/main/java/com/shov/unlimstorage/values/Box.kt
+    - name: get online drivers keys
+      run: echo -e '${{secrets.KEYS}}' > ${{ github.workspace }}/app/src/main/java/com/shov/unlimstorage/values/Keys.kt
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Build Release APK
