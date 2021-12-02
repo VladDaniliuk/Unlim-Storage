@@ -19,11 +19,7 @@ fun NavGraphBuilder.settingsComposable(settingsNavController: NavController) {
 		)
 	}
 	composable(Screen.Updates.route) {
-		UpdateScreen(
-			filesNavController = settingsNavController,
-			topAppBarViewModel = singletonViewModel(),
-			updateViewModel = updateViewModel()
-		)
+		UpdateScreen(filesNavController = settingsNavController)
 	}
 	composable(Screen.Accounts.route) {
 		AccountsScreen(

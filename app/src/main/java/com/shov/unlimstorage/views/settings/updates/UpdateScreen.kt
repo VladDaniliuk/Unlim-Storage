@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.settings.updates
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Icon
 import androidx.compose.material.Switch
@@ -16,16 +17,17 @@ import androidx.navigation.NavController
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.unlimstorage.viewModels.provider.updateViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 
 @Composable
 fun UpdateScreen(
-	updateViewModel: UpdateViewModel,
+	context: Context = LocalContext.current,
 	filesNavController: NavController,
-	topAppBarViewModel: TopAppBarViewModel
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	updateViewModel: UpdateViewModel = updateViewModel(),
 ) {
-	val context = LocalContext.current
-
 	Column {
 		SettingsMenuLink(
 			icon = {
