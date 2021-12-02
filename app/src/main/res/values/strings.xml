@@ -48,7 +48,6 @@
 	<string name="revoke">Revoke</string>
 	<string name="revoke_access">Revoke access</string>
 	<string name="revoke_access_to">Revoke access to %1$s?</string>
-	<string name="save">Save</string>
 	<string name="set_dropbox_refresh_token">Set Dropbox refresh token</string>
 	<string name="settings">Settings</string>
 	<string name="share_link">Share link</string>
