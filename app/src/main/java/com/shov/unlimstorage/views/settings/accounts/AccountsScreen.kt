@@ -34,9 +34,12 @@ fun AccountsScreen(
 
 	accountsViewModel.showRevokeDialog?.let { storageType ->
 		RevokeAccountDialog(
-			accountsViewModel = hiltViewModel(),
-			storageType = storageType
-		)
+			nameId = storageType.nameId,
+			onDismiss = accountsViewModel::showRevokeDialog
+		) {
+			accountsViewModel.signOut(storageType)
+			accountsViewModel.setIsAllSignedIn(false)
+		}
 	}
 
 	accountsViewModel.isShowAddAccountBottomSheet?.let {
