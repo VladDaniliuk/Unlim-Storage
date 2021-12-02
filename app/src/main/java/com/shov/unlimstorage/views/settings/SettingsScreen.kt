@@ -1,34 +1,31 @@
 package com.shov.unlimstorage.views.settings
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable
 fun SettingsScreen(
 	filesNavController: NavController,
-	topAppBarViewModel: TopAppBarViewModel
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	context: Context = LocalContext.current
 ) {
-	val context = LocalContext.current
-
 	Column {
 		SettingsMenuLink(
 			icon = {
@@ -64,13 +61,4 @@ fun SettingsScreen(
 			null
 		)
 	}
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun SettingsFragmentPreview() {
-	SettingsScreen(
-		filesNavController = rememberNavController(),
-		topAppBarViewModel = hiltViewModel()
-	)
 }
