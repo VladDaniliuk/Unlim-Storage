@@ -15,7 +15,7 @@ class AccountsViewModel @Inject constructor(
 ) : ViewModel() {
 	var showRevokeDialog by mutableStateOf<StorageType?>(null)
 		private set
-	var isShowAddAccountBottomSheet by mutableStateOf<Boolean?>(null)
+	var isShowAddAccountBottomSheet by mutableStateOf(false)
 		private set
 	var isAllSignedIn by mutableStateOf(true)
 		private set
@@ -24,8 +24,7 @@ class AccountsViewModel @Inject constructor(
 		showRevokeDialog = storageType
 	}
 
-
-	fun showAddAccountBottomSheet(isShow: Boolean? = null) {
+	fun showAddAccountBottomSheet(isShow: Boolean = false) {
 		isShowAddAccountBottomSheet = isShow
 	}
 
