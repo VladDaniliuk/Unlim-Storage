@@ -1,5 +1,10 @@
 package com.shov.unlimstorage.values
 
+//Main routes
+const val navFiles = "nav_files/?"
+const val navFileInfo = "nav_file_info/"
+const val navFileDescription = "nav_file_description/"
+
 //Arguments
 const val argFolderId = "arg_folderId"
 const val argStorageType = "arg_storageType"
@@ -11,17 +16,17 @@ sealed class Screen(val route: String) {
 	object Settings : Screen("nav_settings")
 	object Updates : Screen("nav_updates")
 	object Files :
-		Screen("nav_files/?$argFolderId={$argFolderId}/?$argStorageType={$argStorageType}") {
+		Screen("$navFiles$argFolderId={$argFolderId}/?$argStorageType={$argStorageType}") {
 		fun openFolder(folderId: String, storageType: String) =
-			"nav_files/?$argFolderId=$folderId/?$argStorageType=$storageType"
+			"$navFiles$argFolderId=$folderId/?$argStorageType=$storageType"
 	}
 
-	object FileInfo : Screen("nav_file_info/{$argStoreId}") {
-		fun setStoreItem(storeId: String) = "nav_file_info/$storeId"
+	object FileInfo : Screen("$navFileInfo{$argStoreId}") {
+		fun setStoreItem(storeId: String) = "$navFileInfo$storeId"
 	}
 
-	object FileDescription : Screen("nav_file_description/{$argStoreId}") {
+	object FileDescription : Screen("$navFileDescription{$argStoreId}") {
 		fun setStoreItemId(storeId: String) =
-			"nav_file_description/$storeId"
+			"$navFileDescription$storeId"
 	}
 }
