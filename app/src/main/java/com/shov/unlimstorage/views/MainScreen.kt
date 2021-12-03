@@ -37,7 +37,8 @@ fun MainScreen(
 	downloadViewModel: DownloadViewModel = singletonViewModel(),
 	lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 	scaffoldState: ScaffoldState = rememberScaffoldState(),
-	sheetContent: MutableState<(ColumnScope.() -> Unit)?> = remember { mutableStateOf(null) },
+	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?> =
+		remember { mutableStateOf(null) },
 	sheetState: ModalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden),
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = updateViewModel()
