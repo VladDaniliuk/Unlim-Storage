@@ -4,9 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,14 +31,19 @@ class AccountsViewModel @Inject constructor(
 		isShowAddAccountBottomSheet = isShow
 	}
 
-	fun setIsAllSignedIn(isAllSignedIn: Boolean) {
+	fun setIsAllSignedIn(isAllSignedIn: Boolean = false) {
 		this.isAllSignedIn = isAllSignedIn
 	}
 
 	fun checkAccess(storageType: StorageType): Boolean =
 		authorizerFactory.create(storageType).isSuccess()
 
-	suspend fun signOut(storageType: StorageType) {
-		authorizerFactory.create(storageType).signOut()
+	fun signOut(storageType: StorageType) {
+		viewModelScope.launch(Dispatchers.IO) {
+			authorizerFactory.create(storageType).signOut()
+		}.invokeOnCompletion {
+			setIsAllSignedIn()
+			showRevokeDialog()
+		}
 	}
 }
