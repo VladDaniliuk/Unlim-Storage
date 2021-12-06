@@ -51,5 +51,7 @@ class BoxSignIn @Inject constructor(@ApplicationContext val context: Context) : 
 		} ?: false
 	}
 
-	override fun signOut(): Boolean = BoxSession(context).logout().isDone
+	override suspend fun signOut() {
+		BoxSession(context).logout()
+	}
 }

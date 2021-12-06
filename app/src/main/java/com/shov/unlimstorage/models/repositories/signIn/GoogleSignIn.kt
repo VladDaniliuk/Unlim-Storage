@@ -46,7 +46,7 @@ class GoogleSignIn @Inject constructor(@ApplicationContext val context: Context)
 			google.account != null
 		} ?: false
 
-	override fun signOut(): Boolean {
+	override suspend fun signOut() {
 		val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions
 			.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 			.requestScopes(Scope(DriveScopes.DRIVE_APPDATA))
@@ -60,6 +60,6 @@ class GoogleSignIn @Inject constructor(@ApplicationContext val context: Context)
 				googleSignInOptions
 			)
 
-		return mGoogleSignInClient.signOut().isComplete
+		mGoogleSignInClient.signOut()
 	}
 }

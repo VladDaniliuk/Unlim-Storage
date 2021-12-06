@@ -10,6 +10,7 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,12 +23,16 @@ import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun AccountsScreen(
 	accountsViewModel: AccountsViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
 	onBackClick: () -> Unit,
+	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 ) {
 	accountsViewModel.showRevokeDialog?.let { storageType ->
@@ -35,8 +40,10 @@ fun AccountsScreen(
 			nameId = storageType.nameId,
 			onDismiss = accountsViewModel::showRevokeDialog
 		) {
-			accountsViewModel.signOut(storageType)
-			accountsViewModel.setIsAllSignedIn(false)
+			coroutineScope.launch(Dispatchers.IO) {
+				accountsViewModel.signOut(storageType)
+				accountsViewModel.setIsAllSignedIn(false)
+			}
 		}
 	}
 

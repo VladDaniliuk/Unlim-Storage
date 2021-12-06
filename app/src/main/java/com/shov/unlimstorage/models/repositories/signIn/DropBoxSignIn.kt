@@ -42,11 +42,14 @@ class DropBoxSignIn @Inject constructor(
 	}
 
 	@Suppress(NEVER_ACCESSED, UNUSED_VALUE)
-	override fun signOut(): Boolean {
-		var dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
+	override suspend fun signOut() {
+		var credentialPref by Preference(context, DROPBOX_TOKEN, "")
 
-		dropBoxToken = ""
+		DbxClientV2(
+			DbxRequestConfig(DROPBOX_CLIENT_IDENTIFIER),
+			DbxCredential.Reader.readFully(credentialPref)
+		).auth().tokenRevoke()
 
-		return isSuccess()
+		credentialPref = ""
 	}
 }

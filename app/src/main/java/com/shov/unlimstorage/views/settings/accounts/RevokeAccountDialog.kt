@@ -22,8 +22,8 @@ fun RevokeAccountDialog(
 		},
 		confirmButton = {
 			TextButton(onClick = {
-				onRevoke.invoke()
-				onDismiss.invoke()
+				onRevoke()
+				onDismiss()
 			}) {
 				Text(text = stringResource(id = R.string.revoke))
 			}

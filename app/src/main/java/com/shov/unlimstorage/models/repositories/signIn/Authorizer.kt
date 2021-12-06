@@ -8,5 +8,5 @@ interface Authorizer {
 	fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>)
 	fun isSuccess(result: ActivityResult): Boolean
 	fun isSuccess(): Boolean
-	fun signOut():Boolean
+	suspend fun signOut()
 }
