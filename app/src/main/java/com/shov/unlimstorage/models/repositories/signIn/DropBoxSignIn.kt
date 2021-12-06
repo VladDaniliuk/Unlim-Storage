@@ -6,6 +6,9 @@ import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.android.Auth
+import com.dropbox.core.android.AuthActivity
+import com.dropbox.core.oauth.DbxCredential
+import com.dropbox.core.v2.DbxClientV2
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.values.*
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -22,28 +25,18 @@ class DropBoxSignIn @Inject constructor(
 		)
 	}
 
-	@Suppress(NEVER_ACCESSED, UNUSED_VALUE)
 	override fun isSuccess(result: ActivityResult): Boolean {
-		Auth.getOAuth2Token()?.let { token ->
-			var isLogIn by Preference(context, IS_AUTH, false)
-			var dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
-
-			dropBoxToken = token
-			isLogIn = Auth.getUid().isNullOrEmpty().not()
-
-			return isLogIn
-		} ?: return false
+		return true//haven't access to this function with dropbox,thus only return true
 	}
 
 	override fun isSuccess(): Boolean {
-		val dropBoxToken by Preference(context, DROPBOX_TOKEN, "")
-
-		return dropBoxToken.isEmpty().not()
+		val credentialPref by Preference(context, DROPBOX_CREDENTIAL, "")
+		return credentialPref.isNotEmpty()
 	}
 
 	@Suppress(NEVER_ACCESSED, UNUSED_VALUE)
 	override suspend fun signOut() {
-		var credentialPref by Preference(context, DROPBOX_TOKEN, "")
+		var credentialPref by Preference(context, DROPBOX_CREDENTIAL, "")
 
 		DbxClientV2(
 			DbxRequestConfig(DROPBOX_CLIENT_IDENTIFIER),
@@ -51,5 +44,6 @@ class DropBoxSignIn @Inject constructor(
 		).auth().tokenRevoke()
 
 		credentialPref = ""
+		AuthActivity.result = null//to stop signIn in open dialog when revoke access
 	}
 }
