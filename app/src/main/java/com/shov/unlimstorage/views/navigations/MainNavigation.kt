@@ -20,31 +20,25 @@ import com.shov.unlimstorage.views.SignInScreen
 @Composable
 fun MainNavigation(
 	mainNavigationViewModel: MainNavigationViewModel,
+	navController: NavHostController = rememberNavController(),
 	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>
 ) {
-	val isLogIn by Preference(LocalContext.current, IS_AUTH, false)
-	val mainNavController = rememberNavController()
-
 	NavHost(
-		navController = mainNavController,
-		startDestination = if (isLogIn) {
-			Screen.Files.route
-		} else {
-			Screen.SignIn.route
-		}
+		navController = navController,
+		startDestination = mainNavigationViewModel.startDestination
 	) {
 		composable(Screen.SignIn.route) {
 			SignInScreen(
-				navController = mainNavController,
+				navController = navController,
 				scaffoldState = mainNavigationViewModel.scaffoldState,
 			)
 		}
 		filesComposable(
-			filesNavController = mainNavController,
+			filesNavController = navController,
 			scaffoldState = mainNavigationViewModel.scaffoldState,
 			sheetContent = sheetContent,
 			sheetState = mainNavigationViewModel.sheetState
 		)
-		settingsComposable(settingsNavController = mainNavController)
+		settingsComposable(settingsNavController = navController)
 	}
 }

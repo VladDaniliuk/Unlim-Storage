@@ -14,6 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.di.ViewModelFactoryProvider
 import com.shov.unlimstorage.models.preferences.Preference
+import com.shov.unlimstorage.values.IS_AUTH
 import com.shov.unlimstorage.values.IS_UPDATE_SHOW
 import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
 import com.shov.unlimstorage.viewModels.settings.NewVersionViewModel
@@ -36,7 +37,8 @@ fun mainNavigationViewModel(
 		factory = MainNavigationViewModel.provideFactory(
 			getFactory().mainNavigationViewModelFactory(),
 			scaffoldState,
-			sheetState
+			sheetState,
+			Preference(LocalContext.current, IS_AUTH, false)
 		)
 	)
 }
