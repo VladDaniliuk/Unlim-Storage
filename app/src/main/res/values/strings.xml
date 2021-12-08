@@ -38,8 +38,7 @@
 	<string name="megabytes">MB</string>
 	<string name="modified_time">Modified time:</string>
 	<string name="modifier">Modifier</string>
-	<string name="new_update">New update available</string>
-	<string name="new_version">new version…</string>
+	<string name="update_available">update available</string>
 	<string name="nothing_to_show">It\'s nothing to show. Please, add account in\ </string>
 	<string name="onedrive">OneDrive</string>
 	<string name="open_in_browser">Open in browser</string>
@@ -62,4 +61,8 @@
 	<string name="user_click_message">Long click to copy email</string>
 	<string name="user_long_click_message">Email is copied</string>
 	<string name="version_description">Version:</string>
+	<string name="object">object</string>
+	<string name="folder">Folder</string>
+	<string name="upload">Upload</string>
+	<string name="new_">New %1$s</string>
 </resources>

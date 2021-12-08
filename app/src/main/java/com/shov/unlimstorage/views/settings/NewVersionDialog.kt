@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.settings
 
+import android.content.Context
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
@@ -28,13 +29,12 @@ fun NewVersionDialog(
 	updateViewModel: UpdateViewModel,
 	newVersionViewModel: NewVersionViewModel,
 	downloadViewModel: DownloadViewModel = singletonViewModel(),
-	onDismissRequest: () -> Unit
+	onDismissRequest: () -> Unit,
+	context: Context = LocalContext.current
 ) {
-	val context = LocalContext.current
-
 	CustomHeaderDialog(
 		onDismissRequest = onDismissRequest,
-		header = stringResource(R.string.new_update),
+		header = stringResource(R.string.new_, stringResource(R.string.update_available)),
 		onCompleteText = stringResource(R.string.download).uppercase(),
 		onCancelText = stringResource(android.R.string.cancel).uppercase(),
 		onCancelRequest = onDismissRequest,
