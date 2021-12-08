@@ -45,7 +45,6 @@ fun NavGraphBuilder.filesComposable(
 					sheetState.show()
 				} else {
 					sheetState.hide()
-					sheetContent.value = null
 				}
 			}
 		)

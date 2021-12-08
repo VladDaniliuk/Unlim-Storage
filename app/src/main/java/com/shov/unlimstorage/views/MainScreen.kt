@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.ui.DownloadSnackbar
 import com.shov.unlimstorage.ui.MainTopBar
 import com.shov.unlimstorage.utils.launchWhenStarted
@@ -59,7 +60,7 @@ fun MainScreen(
 			sheetState = sheetState,
 			sheetContent = {
 				sheetContent.value?.invoke(this)
-				Spacer(modifier = Modifier.navigationBarsPadding())
+				Spacer(modifier = Modifier.navigationBarsWithImePadding())
 			},
 			sheetShape = MaterialTheme.shapes.large.copy(
 				bottomEnd = CornerSize(0),
@@ -111,5 +112,11 @@ fun MainScreen(
 		context.observeConnectivityAsFlow().onEach { isConnected ->
 			if (updateViewModel.isShowAgain.and(isConnected)) updateViewModel.checkAppVersion()
 		}.launchWhenStarted(lifecycleOwner.lifecycleScope)
+	}
+
+	LaunchedEffect(key1 = sheetState.isVisible) {
+		if (sheetState.isVisible.not()) {
+			sheetContent.value = null
+		}
 	}
 }
