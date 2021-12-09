@@ -19,6 +19,17 @@ import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.PADDING_SMALL
+import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+
+@Composable
+fun MainTopBar(topAppBarViewModel: TopAppBarViewModel = singletonViewModel()) {
+	MainTopBar(
+		prevRoute = topAppBarViewModel.prevRoute,
+		title = topAppBarViewModel.title,
+		nextRoute = topAppBarViewModel.nextRoute
+	)
+}
 
 @Composable
 fun MainTopBar(

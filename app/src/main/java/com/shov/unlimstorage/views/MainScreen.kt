@@ -77,13 +77,7 @@ fun MainScreen(
 							Snackbar(snackbarData = snackBarData)
 						}
 					},
-					topBar = {
-						MainTopBar(
-							prevRoute = topAppBarViewModel.prevRoute,
-							title = topAppBarViewModel.title,
-							nextRoute = topAppBarViewModel.nextRoute
-						)
-					}
+					topBar = { MainTopBar() }
 				) {
 					MainNavigation(
 						mainNavigationViewModel = mainNavigationViewModel(
