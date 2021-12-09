@@ -82,22 +82,7 @@ fun MainScreen(
 			}
 		)
 
-		when (downloadViewModel.percents) {
-			in 0.01f..0.99f -> {
-				DownloadSnackbar(
-					percents = downloadViewModel.percents,
-					onDismissRequest = downloadViewModel::dismissDownloading,
-					title = downloadViewModel.title
-				)
-			}
-			else -> {}
-		}
-	}
-
-	LaunchedEffect(key1 = null) {
-		context.observeConnectivityAsFlow().onEach { isConnected ->
-			if (updateViewModel.isShowAgain.and(isConnected)) updateViewModel.checkAppVersion()
-		}.launchWhenStarted(lifecycleOwner.lifecycleScope)
+		DownloadSnackbar()
 	}
 
 	LaunchedEffect(key1 = sheetState.isVisible) {
