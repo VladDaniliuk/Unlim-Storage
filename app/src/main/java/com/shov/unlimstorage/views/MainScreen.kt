@@ -44,15 +44,7 @@ fun MainScreen(
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = updateViewModel()
 ) {
-	if (updateViewModel.isDialogShown) {
-		updateViewModel.lastRelease?.let { lastRelease ->
-			NewVersionDialog(
-				updateViewModel = updateViewModel,
-				newVersionViewModel = newVersionViewModel(lastReleaseItem = lastRelease),
-				onDismissRequest = updateViewModel::hideDialog,
-			)
-		}
-	}
+	NewVersionDialog()
 
 	Column(modifier = Modifier.fillMaxSize()) {
 		ModalBottomSheetLayout(

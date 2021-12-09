@@ -16,11 +16,13 @@ import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.ui.CustomDialogContent
+import com.shov.unlimstorage.ui.CustomHeaderIcon
 import com.shov.unlimstorage.ui.CustomText
-import com.shov.unlimstorage.ui.dialog.CustomIconDialog
 
 @Composable
 fun Permission(
@@ -48,32 +50,30 @@ fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 	if (Environment.isExternalStorageManager()) {
 		onHasAccess.invoke()
 	} else {
-		CustomIconDialog(
-			onDismissRequest = onDismissRequest,
-			onCompleteRequest = {
-				context.startActivity(
-					Intent(
-						Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-						Uri.parse(
-							context.getString(
-								R.string.package_path,
-								BuildConfig.APPLICATION_ID
+		Dialog(onDismissRequest = onDismissRequest) {
+			CustomDialogContent(
+				header = { CustomHeaderIcon(icon = Icons.Rounded.Folder) },
+				onCancelRequest = onDismissRequest,
+				onCancelText = stringResource(R.string.deny),
+				onCompleteRequest = {
+					context.startActivity(
+						Intent(
+							Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+							Uri.parse(
+								context.getString(R.string.package_path, BuildConfig.APPLICATION_ID)
 							)
 						)
 					)
-				)
 
-				onDismissRequest.invoke()
-			},
-			onCompleteText = stringResource(R.string.allow),
-			onCancelRequest = onDismissRequest,
-			onCancelText = stringResource(R.string.deny),
-			imageVector = Icons.Rounded.Folder
-		) {
-			CustomText(
-				text = stringResource(id = R.string.allow_access),
-				textStyle = Typography().h6
-			)
+					onDismissRequest()
+				},
+				onCompleteText = stringResource(R.string.allow)
+			) {
+				CustomText(
+					text = stringResource(id = R.string.allow_access),
+					textStyle = Typography().h6
+				)
+			}
 		}
 	}
 }
