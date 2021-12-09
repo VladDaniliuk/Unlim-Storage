@@ -18,18 +18,16 @@ class SignInViewModel @Inject constructor(
 	private val _serviceAccess = MutableStateFlow(false)
 	val serviceAccess = _serviceAccess.asStateFlow()
 
-	val checkAccessWithResult: (result: ActivityResult, storageType: StorageType) -> Unit =
-		{ activityResult: ActivityResult, storageType: StorageType ->
-			authorizerFactory.create(storageType).isSuccess(activityResult).apply {
-				_serviceAccess.value = this
-			}
+	fun checkAccessWithResult(result: ActivityResult, storageType: StorageType) {
+		authorizerFactory.create(storageType).isSuccess(result).apply {
+			_serviceAccess.value = this
 		}
+	}
 
-	val getAccess: (
+	fun getAccess(
 		startForResult: ManagedActivityResultLauncher<Intent, ActivityResult>,
 		storageType: StorageType
-	) -> Unit = { signInForResult: ManagedActivityResultLauncher<Intent, ActivityResult>,
-	              storageType: StorageType ->
-		authorizerFactory.create(storageType).signIn(signInForResult)
+	) {
+		authorizerFactory.create(storageType).signIn(startForResult)
 	}
 }

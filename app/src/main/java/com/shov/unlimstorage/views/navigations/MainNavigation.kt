@@ -25,10 +25,13 @@ fun MainNavigation(
 		startDestination = mainNavigationViewModel.startDestination
 	) {
 		composable(Screen.SignIn.route) {
-			SignInScreen(
-				navController = navController,
-				scaffoldState = mainNavigationViewModel.scaffoldState,
-			)
+			SignInScreen {
+				navController.navigate(Screen.Files.route) {
+					popUpTo(Screen.SignIn.route) {
+						inclusive = true
+					}
+				}
+			}
 		}
 		filesComposable(
 			filesNavController = navController,
