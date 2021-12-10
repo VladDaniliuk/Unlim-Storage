@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.files
 
+import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -9,20 +10,16 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.insets.navigationBarsPadding
@@ -36,6 +33,7 @@ import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.views.Permission
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -45,15 +43,14 @@ fun FileInfoScreen(
 	filesNavController: NavController,
 	scaffoldState: ScaffoldState,
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	downloadViewModel: DownloadViewModel = singletonViewModel()
+	downloadViewModel: DownloadViewModel = singletonViewModel(),
+	coroutineScope: CoroutineScope = rememberCoroutineScope(),
+	currentClipboardManager: ClipboardManager = LocalClipboardManager.current,
+	currentContext: Context = LocalContext.current,
+	currentHapticFeedback: HapticFeedback = LocalHapticFeedback.current,
+	currentUriHandler: UriHandler = LocalUriHandler.current
 ) {
-	val coroutineScope = rememberCoroutineScope()
-	val currentClipboardManager = LocalClipboardManager.current
-	val currentContext = LocalContext.current
-	val currentHapticFeedback = LocalHapticFeedback.current
-	val currentUriHandler = LocalUriHandler.current
-	val isConnected =
-		currentContext.observeConnectivityAsFlow().collectAsState(initial = false).value
+	val isConnected by currentContext.observeConnectivityAsFlow().collectAsState(initial = false)
 
 	if (fileInfoViewModel.isDialogShown) {
 		Permission(
@@ -73,7 +70,7 @@ fun FileInfoScreen(
 		fileInfoViewModel.storeItem?.let { item ->
 			ItemTypeIcon(
 				modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-				iconSize = SIZE_ICON_BIG,
+				iconSize = 64.dp,
 				mainIcon = item.type.imageVector,
 				mainTint = MaterialTheme.colors.onBackground,
 				contentDescription = item.type.name,
@@ -202,34 +199,37 @@ fun FileInfoScreen(
 			metadata.link?.let { link ->
 				val message = stringResource(R.string.link_copied)
 
-				LazyRow {
-					items(
-						items = listOf(
-							Triple(Icons.Rounded.OpenInBrowser, R.string.open_in_browser) {
-								currentUriHandler.openUri(link)
-							}, Triple(Icons.Rounded.CopyAll, R.string.copy_link) {
+				Row {
+					CustomIconButton(
+						imageVector = Icons.Rounded.OpenInBrowser,
+						text = stringResource(R.string.open_in_browser),
+						onClick = { currentUriHandler.openUri(link) }
+					)
 
-								currentClipboardManager.setText(AnnotatedString(link))
+					CustomIconButton(
+						imageVector = Icons.Rounded.CopyAll,
+						text = stringResource(R.string.copy_link)
+					) {
+						currentClipboardManager.setText(AnnotatedString(link))
 
-								coroutineScope.launch {
-									scaffoldState.snackbarHostState.showSnackbar(message = message)
-								}
-							}, Triple(Icons.Rounded.Share, R.string.share_link) {
-								val sendIntent: Intent = Intent().apply {
+						coroutineScope.launch {
+							scaffoldState.snackbarHostState.showSnackbar(message = message)
+						}
+					}
+
+					CustomIconButton(
+						imageVector = Icons.Rounded.Share,
+						text = stringResource(R.string.share_link),
+					) {
+						currentContext.startActivity(
+							Intent.createChooser(
+								Intent().apply {
 									action = Intent.ACTION_SEND
 									putExtra(Intent.EXTRA_TEXT, link)
 									type = TEXT_TYPE
-								}
-								val shareIntent = Intent.createChooser(sendIntent, null)
-
-								currentContext.startActivity(shareIntent)
-							}
-						)
-					) { item ->
-						CustomIconButton(
-							image = item.first,
-							text = stringResource(item.second),
-							onClick = item.third
+								},
+								null
+							)
 						)
 					}
 				}

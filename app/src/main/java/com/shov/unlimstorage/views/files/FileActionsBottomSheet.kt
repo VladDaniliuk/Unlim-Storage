@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.files
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FileActionsBottomSheet(
+	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	disk: StorageType,
 	name: String,
 	onDontWork: suspend CoroutineScope.() -> Unit,
@@ -33,7 +35,11 @@ fun FileActionsBottomSheet(
 	size: String?,
 	type: ItemType
 ) {
-	val coroutineScope = rememberCoroutineScope()
+	BackHandler {
+		coroutineScope.launch {
+			onHideSheet()
+		}
+	}
 
 	Column {
 		StoreItem(
@@ -50,40 +56,40 @@ fun FileActionsBottomSheet(
 
 		Row(modifier = Modifier.padding(vertical = 12.dp)) {
 			CustomIconButton(
-				image = Icons.Rounded.Download,
-				text = stringResource(id = R.string.download),
-				onClick = {
-					coroutineScope.launch(block = onDontWork)
-				}
-			)
+				imageVector = Icons.Rounded.Download,
+				text = stringResource(id = R.string.download)
+			) {
+				coroutineScope.launch(block = onDontWork)
+			}
 
 			CustomIconButton(
-				image = Icons.Rounded.OpenInBrowser,
-				text = stringResource(id = R.string.open_in_browser),
-				onClick = {
-					coroutineScope.launch(block = onDontWork)
-				}
-			)
+				imageVector = Icons.Rounded.OpenInBrowser,
+				text = stringResource(id = R.string.open_in_browser)
+			) {
+				coroutineScope.launch(block = onDontWork)
+			}
 
 			CustomIconButton(
-				image = Icons.Rounded.Share,
-				text = stringResource(id = R.string.share_link),
-				onClick = {
-					coroutineScope.launch(block = onDontWork)
-				}
-			)
+				imageVector = Icons.Rounded.Share,
+				text = stringResource(id = R.string.share_link)
+			) {
+				coroutineScope.launch(block = onDontWork)
+			}
 
 			CustomIconButton(
-				image = Icons.Rounded.Info,
-				text = stringResource(id = R.string.show_info),
-				onClick = {
-					coroutineScope.launch {
-						onShowSheet(false)
-					}
+				imageVector = Icons.Rounded.Info,
+				text = stringResource(id = R.string.show_info)
+			) {
+				coroutineScope.launch {
+					onShowSheet(false)
+				}
 
+				/*onNavigate()
+
+				coroutineScope.launch(block = onHideSheet).invokeOnCompletion {
 					onNavigate()
-				}
-			)
+				}*/
+			}
 		}
 
 		Divider()
