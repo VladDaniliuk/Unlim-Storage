@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.filesRepository
+package com.shov.unlimstorage.models.repositories.files
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -12,7 +12,7 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
-import com.shov.unlimstorage.utils.converters.StoreItemConverter
+import com.shov.unlimstorage.utils.converters.StoreConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.values.GOOGLE_FIELDS
 import com.shov.unlimstorage.values.GOOGLE_METADATA
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class GoogleFiles @Inject constructor(
 	@ApplicationContext val context: Context,
-	private val storeItemConverter: StoreItemConverter,
+	private val storeItemConverter: StoreConverter,
 	private val storeMetadataConverter: StoreMetadataConverter
 ) : FilesInteractor {
 	override fun getFiles(folderId: String?): List<StoreItem> {

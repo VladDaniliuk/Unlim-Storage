@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.values.PADDING_SMALL
 import com.shov.unlimstorage.values.SIZE_ICON_MEDIUM
 

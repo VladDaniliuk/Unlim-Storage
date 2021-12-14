@@ -35,4 +35,4 @@ jobs:
         VERSION_VARIABLE: versionName
         APP_FILE: ./buildSrc/src/main/kotlin/Android.kt
         APP_FOLDER: app
-        RELEASE_TITLE: New Build
+        RELEASE_TITLE: Unlim Storage

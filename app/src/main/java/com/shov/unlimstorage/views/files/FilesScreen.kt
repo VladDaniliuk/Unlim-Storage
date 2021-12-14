@@ -13,7 +13,6 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -22,11 +21,12 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.ui.TextNavigation
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -40,32 +40,24 @@ fun FilesScreen(
 	filesNavController: NavController,
 	filesViewModel: FilesViewModel,
 	folderId: String? = null,
-	setTopBar: (
-		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		title: String?,
-		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit,
+	topAppBarViewModel: TopAppBarViewModel,
 	storageType: StorageType? = null,
 	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>,
 	sheetState: ModalBottomSheetState
 ) {
-	setTopBar(
+	topAppBarViewModel.setTopBar(
 		folderId?.let { Icons.Rounded.ArrowBack to { filesNavController.popBackStack() } },
 		stringResource(R.string.app_name),
 		Icons.Rounded.AccountCircle to { filesNavController.navigate(navSettings) }
 	)
 
 	val coroutineScope = rememberCoroutineScope()
-	val isClickable by filesViewModel.isClickable.collectAsState()
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
-	val isRefreshing by filesViewModel.isRefreshing.collectAsState()
-	val storeItemList by filesViewModel.storeItemList.collectAsState()
-
 	val messageFailed = stringResource(id = R.string.connection_failed)
 
 	SwipeRefresh(
 		modifier = Modifier.fillMaxSize(),
-		state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+		state = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
 		onRefresh = {
 			if (isConnected) {
 				filesViewModel.refreshFiles(folderId, storageType)
@@ -76,7 +68,7 @@ fun FilesScreen(
 			}
 		}
 	) {
-		if (storeItemList.isEmpty()) {
+		if (filesViewModel.storeItemList.isEmpty()) {
 			Box(
 				modifier = Modifier
 					.fillMaxSize()
@@ -100,10 +92,10 @@ fun FilesScreen(
 					.fillMaxSize()
 					.verticalScroll(state = rememberScrollState())
 			) {
-				storeItemList.forEach { storeItem ->
+				filesViewModel.storeItemList.forEach { storeItem ->
 					StoreItem(
 						storeItem = storeItem,
-						enabled = isClickable,
+						enabled = filesViewModel.isClickable,
 						onClick = {
 							when (storeItem.type) {
 								ItemType.FOLDER -> {

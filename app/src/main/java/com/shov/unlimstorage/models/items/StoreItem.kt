@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 
 enum class ItemType(val imageVector: ImageVector) {
 	FILE(Icons.Rounded.Description), FOLDER(Icons.Rounded.Folder);

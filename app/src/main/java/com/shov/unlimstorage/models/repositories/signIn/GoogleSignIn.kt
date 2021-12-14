@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.signInModels
+package com.shov.unlimstorage.models.repositories.signIn
 
 import android.app.Activity
 import android.content.Context

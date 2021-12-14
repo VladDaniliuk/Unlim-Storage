@@ -1,13 +1,11 @@
 package com.shov.unlimstorage.views.navigations
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -18,6 +16,7 @@ import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.values.IS_AUTH
 import com.shov.unlimstorage.values.navMain
 import com.shov.unlimstorage.values.navSignIn
+import com.shov.unlimstorage.viewModels.MainNavigationViewModel
 import com.shov.unlimstorage.views.SignInScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -27,17 +26,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @Composable
 fun MainNavigation(
-	scaffoldState: ScaffoldState,
-	setTopBar: (
-		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		title: String?,
-		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit,
-	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>,
-	sheetState: ModalBottomSheetState
+	mainNavigationViewModel: MainNavigationViewModel,
+	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>
 ) {
 	val isLogIn by Preference(LocalContext.current, IS_AUTH, false)
 	val mainNavController = rememberNavController()
+	val context = LocalContext.current as AppCompatActivity
 
 	NavHost(
 		navController = mainNavController,
@@ -49,19 +43,18 @@ fun MainNavigation(
 	) {
 		composable(navSignIn) {
 			SignInScreen(
-				scaffoldState = scaffoldState,
-				setTopBar = setTopBar,
+				navController = mainNavController,
+				scaffoldState = mainNavigationViewModel.scaffoldState,
 				signInViewModel = hiltViewModel(),
-				navController = mainNavController
+				topAppBarViewModel = hiltViewModel(context)
 			)
 		}
 
 		composable(navMain) {
 			FilesNavigation(
-				scaffoldState = scaffoldState,
-				setTopBar = setTopBar,
+				scaffoldState = mainNavigationViewModel.scaffoldState,
 				sheetContent = sheetContent,
-				sheetState = sheetState
+				sheetState = mainNavigationViewModel.sheetState
 			)
 		}
 	}

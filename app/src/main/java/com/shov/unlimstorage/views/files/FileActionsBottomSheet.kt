@@ -23,7 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.CustomIconButton
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.values.argStoreItem

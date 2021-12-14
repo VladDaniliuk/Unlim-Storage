@@ -7,24 +7,26 @@ import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import coil.annotation.ExperimentalCoilApi
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
-import com.shov.unlimstorage.models.signInModels.StorageType
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.values.*
 import com.shov.unlimstorage.viewModels.fileDescriptionViewModel
 import com.shov.unlimstorage.viewModels.fileInfoViewModel
+import com.shov.unlimstorage.viewModels.singletonViewModel
 import com.shov.unlimstorage.views.files.FileDescriptionScreen
+import com.shov.unlimstorage.viewModels.updateViewModel
 import com.shov.unlimstorage.views.files.FileInfoScreen
 import com.shov.unlimstorage.views.files.FilesScreen
 import com.shov.unlimstorage.views.settings.SettingsScreen
 import com.shov.unlimstorage.views.settings.accounts.AccountsScreen
+import com.shov.unlimstorage.views.settings.updates.UpdateScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoilApi
@@ -34,11 +36,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun FilesNavigation(
 	scaffoldState: ScaffoldState,
-	setTopBar: (
-		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		title: String?,
-		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit,
 	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>,
 	sheetState: ModalBottomSheetState
 ) {
@@ -49,7 +46,7 @@ fun FilesNavigation(
 			AccountsScreen(
 				accountsViewModel = hiltViewModel(),
 				filesNavController = filesNavController,
-				setTopBar = setTopBar
+				topAppBarViewModel = singletonViewModel()
 			)
 		}
 		composable(navFileInfo) {
@@ -61,11 +58,10 @@ fun FilesNavigation(
 						fileInfoViewModel = fileInfoViewModel(item),
 						filesNavController = filesNavController,
 						scaffoldState = scaffoldState,
-						setTopBar = setTopBar
+						topAppBarViewModel = singletonViewModel()
 					)
 				}
 		}
-
 		composable(navFileDescription) {
 			filesNavController.previousBackStackEntry
 				?.arguments
@@ -74,7 +70,7 @@ fun FilesNavigation(
 					FileDescriptionScreen(
 						filesNavController = filesNavController,
 						fileDescriptionViewModel = fileDescriptionViewModel(storeMetadata),
-						setTopBar = setTopBar,
+						topAppBarViewModel = singletonViewModel(),
 						scaffoldState = scaffoldState
 					)
 				}
@@ -92,7 +88,7 @@ fun FilesNavigation(
 					filesNavController = filesNavController,
 					filesViewModel = hiltViewModel(),
 					folderId = arguments.getString(argFolderId),
-					setTopBar = setTopBar,
+					topAppBarViewModel = singletonViewModel(),
 					storageType = arguments.getString(argStorageType)
 						?.let { storageType ->
 							StorageType.valueOf(storageType)
@@ -105,7 +101,14 @@ fun FilesNavigation(
 		composable(navSettings) {
 			SettingsScreen(
 				filesNavController = filesNavController,
-				setTopBar = setTopBar
+				topAppBarViewModel = singletonViewModel()
+			)
+		}
+		composable(navUpdates) {
+			UpdateScreen(
+				filesNavController = filesNavController,
+				topAppBarViewModel = singletonViewModel(),
+				updateViewModel = updateViewModel()
 			)
 		}
 	}

@@ -8,11 +8,11 @@ import androidx.compose.material.icons.rounded.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
 import kotlinx.coroutines.launch
 
@@ -20,16 +20,12 @@ import kotlinx.coroutines.launch
 fun FileDescriptionScreen(
 	fileDescriptionViewModel: FileDescriptionViewModel,
 	filesNavController: NavController,
-	setTopBar: (
-		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		title: String?,
-		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit,
+	topAppBarViewModel: TopAppBarViewModel,
 	scaffoldState: ScaffoldState
 ) {
 	val coroutineScope = rememberCoroutineScope()
 
-	setTopBar(
+	topAppBarViewModel.setTopBar(
 		Icons.Rounded.Close to { filesNavController.popBackStack() },
 		fileDescriptionViewModel.storeMetadata.name,
 		Icons.Rounded.Done to {

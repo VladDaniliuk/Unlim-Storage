@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.signInModels
+package com.shov.unlimstorage.models.repositories.signIn
 
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.ARGUMENT_SIGN_IN

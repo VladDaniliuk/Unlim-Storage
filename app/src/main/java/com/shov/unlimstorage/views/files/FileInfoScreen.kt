@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
@@ -33,6 +32,7 @@ import com.shov.unlimstorage.ui.*
 import com.shov.unlimstorage.utils.converters.toPrettyString
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -45,11 +45,7 @@ fun FileInfoScreen(
 	fileInfoViewModel: FileInfoViewModel,
 	filesNavController: NavController,
 	scaffoldState: ScaffoldState,
-	setTopBar: (
-		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		title: String?,
-		nextRoute: Pair<ImageVector, (() -> Unit)>?
-	) -> Unit
+	topAppBarViewModel: TopAppBarViewModel
 ) {
 	val coroutineScope = rememberCoroutineScope()
 	val currentClipboardManager = LocalClipboardManager.current
@@ -59,7 +55,7 @@ fun FileInfoScreen(
 	val isConnected =
 		currentContext.observeConnectivityAsFlow().collectAsState(initial = false).value
 
-	setTopBar(
+	topAppBarViewModel.setTopBar(
 		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
 		fileInfoViewModel.storeItem.name,
 		if (fileInfoViewModel.storeMetadata?.isStarred == true) {

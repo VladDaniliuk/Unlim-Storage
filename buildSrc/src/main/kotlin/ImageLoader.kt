@@ -2,7 +2,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 object ImageLoaderVersion {
-	const val coilVersion = "1.3.2"
+	const val coilVersion = "1.4.0"
 }
 
 object ImageLoaderLib {

@@ -2,7 +2,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 object CoroutinesVersion {
-	const val kotlinxCoroutinesVersion = "1.5.1"
+	const val kotlinxCoroutinesVersion = "1.5.2"
 }
 
 object CoroutinesLib {

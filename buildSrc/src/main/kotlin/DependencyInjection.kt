@@ -6,6 +6,7 @@ object DependencyInjectionVersion {
 	const val databindingVersion = "3.1.4"
 	const val hiltAndroidVersion = "2.39.1"
 	const val navigationVersion = "2.3.5"
+	const val fragmentKtxVersion = "1.3.6"
 }
 
 object DependencyInjectionLib {
@@ -24,6 +25,8 @@ object DependencyInjectionLib {
 	}"
 	const val navigationUiKtx =
 		"androidx.navigation:navigation-ui-ktx:${DependencyInjectionVersion.navigationVersion}"
+	const val fragmetKtx =
+		"androidx.fragment:fragment-ktx:${DependencyInjectionVersion.fragmentKtxVersion}"
 }
 
 fun Project.implementDependencyInjection() {

@@ -7,7 +7,7 @@ object AndroidVersion {
 object Application {
 	const val name = "Unlim Storage"
 	const val versionCode = 6
-	const val versionName = "0.2.0"
+	const val versionName = "0.2.1"
 }
 
 object Config {
@@ -18,6 +18,8 @@ object Config {
 object BuildType {
 	const val release = "release"
 	const val debug = "debug"
+	const val outputName = "Unlim Storage.apk"
+	const val outputNameDebug = "Unlim Storage-debug.apk"
 	const val proguardFile = "proguard-android-optimize.txt"
 	const val proguardRules = "proguard-rules.pro"
 }

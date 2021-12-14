@@ -1,8 +1,11 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.models.filesRepository.*
-import com.shov.unlimstorage.models.signInModels.*
-import com.shov.unlimstorage.utils.converters.*
+import com.shov.unlimstorage.models.repositories.DownloadRepository
+import com.shov.unlimstorage.models.repositories.DownloadRepositoryImpl
+import com.shov.unlimstorage.models.repositories.GitHubRepository
+import com.shov.unlimstorage.models.repositories.GitHubRepositoryImpl
+import com.shov.unlimstorage.models.repositories.files.*
+import com.shov.unlimstorage.models.repositories.signIn.*
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -56,14 +59,8 @@ abstract class ApplicationModule {
 	abstract fun provideFilesRepository(filesRepositoryImpl: FilesRepositoryImpl): FilesRepository
 
 	@Binds
-	abstract fun provideSizeConverter(sizeConverterImpl: SizeConverterImpl): SizeConverter
+	abstract fun provideGitHub(gitHubRepositoryImpl: GitHubRepositoryImpl): GitHubRepository
 
 	@Binds
-	abstract fun provideStoreItemConverter(storeItemConverterImpl: StoreItemConverterImpl):
-			StoreItemConverter
-
-	@Binds
-	abstract fun provideStoreMetadataConverter(
-		storeMetadataConverterImpl: StoreMetadataConverterImpl
-	): StoreMetadataConverter
+	abstract fun provideDownload(downloadRepositoryImpl: DownloadRepositoryImpl): DownloadRepository
 }

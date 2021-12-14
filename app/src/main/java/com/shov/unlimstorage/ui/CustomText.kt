@@ -1,10 +1,13 @@
 package com.shov.unlimstorage.ui
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
@@ -14,6 +17,8 @@ fun CustomText(
 	textStyle: TextStyle = Typography().subtitle1,
 	overflow: TextOverflow = TextOverflow.Clip,
 	maxLines: Int = Int.MAX_VALUE,
+	textAlign: TextAlign? = null,
+	color: Color = MaterialTheme.colors.onSurface
 ) {
 	Text(
 		modifier = modifier,
@@ -22,6 +27,8 @@ fun CustomText(
 		fontStyle = textStyle.fontStyle,
 		fontWeight = textStyle.fontWeight,
 		overflow = overflow,
-		maxLines = maxLines
+		maxLines = maxLines,
+		textAlign = textAlign,
+		color = color
 	)
 }

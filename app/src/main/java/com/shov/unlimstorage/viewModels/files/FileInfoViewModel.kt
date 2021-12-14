@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.FileInfoViewModelFactory
-import com.shov.unlimstorage.models.filesRepository.FilesRepository
+import com.shov.unlimstorage.models.repositories.files.FilesRepository
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.values.UNCHECKED_CAST
