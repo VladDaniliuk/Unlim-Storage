@@ -16,6 +16,6 @@ object DesignLib {
 
 fun Project.implementDesign() {
 	dependencies {
-		add("implementation", DesignLib.appcompat)
+		implement(DesignLib.appcompat)
 	}
 }
