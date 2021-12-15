@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -84,8 +85,6 @@ fun FileInfoScreen(
 
 			TextInfo(name = stringResource(R.string.id_description), value = item.id)
 		}
-
-
 
 		fileInfoViewModel.storeMetadata?.let { metadata ->
 			listOf(
@@ -246,8 +245,14 @@ fun FileInfoScreen(
 				Text(text = stringResource(R.string.create_link))
 			}
 
-			Button(onClick = { fileInfoViewModel.setShowDialog() }) {
-				Text(text = "Download")
+			Button(
+				modifier = Modifier
+					.fillMaxWidth()
+					.padding(horizontal = 8.dp),
+				shape = CircleShape,
+				onClick = fileInfoViewModel::setShowDialog
+			) {
+				Text(text = stringResource(id = R.string.download))
 			}
 
 			Spacer(modifier = Modifier.navigationBarsPadding())
