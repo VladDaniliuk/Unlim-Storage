@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.Info
@@ -21,12 +22,16 @@ import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.CustomIconButton
 import com.shov.unlimstorage.ui.StoreItem
+import com.shov.unlimstorage.viewModels.BottomSheetViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FileActionsBottomSheet(
 	coroutineScope: CoroutineScope = rememberCoroutineScope(),
+	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	disk: StorageType,
 	name: String,
 	onDontWork: suspend CoroutineScope.() -> Unit,
@@ -37,7 +42,7 @@ fun FileActionsBottomSheet(
 ) {
 	BackHandler {
 		coroutineScope.launch {
-			onHideSheet()
+			bottomSheetViewModel.sheetState.hide()
 		}
 	}
 
@@ -78,18 +83,15 @@ fun FileActionsBottomSheet(
 
 			CustomIconButton(
 				imageVector = Icons.Rounded.Info,
-				text = stringResource(id = R.string.show_info)
-			) {
-				coroutineScope.launch {
-					onShowSheet(false)
+				text = stringResource(id = R.string.show_info),
+				onClick = {
+					coroutineScope.launch {
+						bottomSheetViewModel.sheetState.hide()
+					}.invokeOnCompletion {
+						onNavigate.invoke()
+					}
 				}
-
-				/*onNavigate()
-
-				coroutineScope.launch(block = onHideSheet).invokeOnCompletion {
-					onNavigate()
-				}*/
-			}
+			)
 		}
 
 		Divider()

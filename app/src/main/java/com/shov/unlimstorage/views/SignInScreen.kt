@@ -27,11 +27,11 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.CustomIconButton
-import com.shov.unlimstorage.ui.ScaffoldViewModel
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.onEach
