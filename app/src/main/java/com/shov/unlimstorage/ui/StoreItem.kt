@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.values.PADDING_SMALL
-import com.shov.unlimstorage.values.SIZE_ICON_MEDIUM
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -48,7 +47,7 @@ fun StoreItem(
 			modifier = Modifier
 				.padding(horizontal = PADDING_SMALL)
 				.align(Alignment.CenterVertically)
-				.size(SIZE_ICON_MEDIUM),
+				.size(48.dp),
 			imageVector = type.imageVector,
 			contentDescription = type.name
 		)
