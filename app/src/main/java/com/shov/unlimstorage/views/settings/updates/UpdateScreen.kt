@@ -15,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.ScaffoldViewModel
@@ -28,7 +27,7 @@ import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 @Composable
 fun UpdateScreen(
 	context: Context = LocalContext.current,
-	filesNavController: NavController,
+	onBackClick: () -> Unit,
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = updateViewModel(),
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel()
@@ -71,7 +70,7 @@ fun UpdateScreen(
 
 	LaunchedEffect(key1 = null) {
 		topAppBarViewModel.setTopBar(
-			Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
+			Icons.Rounded.ArrowBack to onBackClick,
 			context.getString(R.string.updates),
 			null
 		)
