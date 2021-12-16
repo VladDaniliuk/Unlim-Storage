@@ -22,32 +22,27 @@ fun AddAccountDialog(
 ) {
 	Dialog(onDismissRequest = { accountsViewModel.showAddAccountBottomSheet() }) {
 		CustomDialogContent(header = { customHeaderText(stringResource(R.string.choose_drive)) }) {
-			StorageType.values().forEach { storageType ->
-				if (accountsViewModel.checkAccess(storageType).not()) {
-					val startForResult = rememberLauncherForActivityResult(
-						ActivityResultContracts.StartActivityForResult()
-					) { result ->
-						signInViewModel.checkAccessWithResult(result, storageType)
-						accountsViewModel.setIsAllSignedIn(true)
-						accountsViewModel.showAddAccountBottomSheet()
-					}
+			accountsViewModel.checkAllAccess(false).forEach { storageType ->
+				val startForResult = rememberLauncherForActivityResult(
+					ActivityResultContracts.StartActivityForResult()
+				) { result ->
+					signInViewModel.checkAccessWithResult(result, storageType)
+					accountsViewModel.showAddAccountBottomSheet()
+				}
 
-					AccountMenuLink(
-						accountId = storageType.nameId,
-						imageId = storageType.imageId,
-						titleId = R.string.add_account
-					) {
-						signInViewModel.getAccess(startForResult, storageType)
-					}
+				AccountMenuLink(
+					accountId = storageType.nameId,
+					imageId = storageType.imageId,
+					titleId = R.string.add_account
+				) {
+					signInViewModel.getAccess(startForResult, storageType)
 				}
 			}
 		}
 	}
 
 	CheckDropboxCredential(
-		additionalCheck = accountsViewModel.checkAccess(StorageType.DROPBOX).not()
-	) {
-		accountsViewModel.setIsAllSignedIn(true)
-		accountsViewModel.showAddAccountBottomSheet()
-	}
+		additionalCheck = accountsViewModel.checkAccess(StorageType.DROPBOX).not(),
+		onGetCredential = accountsViewModel::showAddAccountBottomSheet
+	)
 }
