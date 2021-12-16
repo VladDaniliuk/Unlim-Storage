@@ -23,8 +23,10 @@ fun NavGraphBuilder.filesComposable(
 ) {
 	composable(route = Screen.FileInfo.route) {
 		FileInfoScreen(
-			filesNavController = filesNavController,
-			scaffoldState = scaffoldState,
+			navigateTo = { id ->
+				filesNavController.navigate(Screen.FileDescription.setStoreItemId(id))
+			},
+			popBack= filesNavController::popBackStack
 		)
 	}
 	composable(route = Screen.FileDescription.route) {
