@@ -18,7 +18,6 @@ import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
-import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
@@ -44,27 +43,25 @@ fun AccountsScreen(
 	}
 
 	Column {
-		StorageType.values().forEach { storageType ->
-			if (accountsViewModel.checkAccess(storageType)) {
-				AccountMenuLink(
-					accountId = storageType.nameId,
-					imageId = storageType.imageId,
-					subtitleId = R.string.click_to_delete,
-					titleId = R.string.account
-				) {
-					accountsViewModel.showRevokeDialog(storageType)
-				}
-			} else accountsViewModel.setIsAllSignedIn(false)
+		accountsViewModel.checkAllAccess().forEach { storageType ->
+			AccountMenuLink(
+				accountId = storageType.nameId,
+				imageId = storageType.imageId,
+				subtitleId = R.string.click_to_delete,
+				titleId = R.string.account
+			) {
+				accountsViewModel.showRevokeDialog(storageType)
+			}
 		}
 
 		Divider()
 
-		if (accountsViewModel.isAllSignedIn.not()) {
+		if (accountsViewModel.checkAllAccess(false).isNotEmpty()) {
 			SettingsMenuLink(
 				icon = {
 					Icon(
 						imageVector = Icons.Rounded.Add,
-						contentDescription = ACCOUNTS
+						contentDescription = Icons.Rounded.Add.name
 					)
 				},
 				title = { Text(text = stringResource(R.string.add_other_account)) }
@@ -101,7 +98,7 @@ fun AccountFragmentPreview() {
 			icon = {
 				Icon(
 					imageVector = Icons.Rounded.Add,
-					contentDescription = ACCOUNTS
+					contentDescription = Icons.Rounded.Add.name
 				)
 			},
 			title = { Text(text = stringResource(R.string.add_other_account)) }
