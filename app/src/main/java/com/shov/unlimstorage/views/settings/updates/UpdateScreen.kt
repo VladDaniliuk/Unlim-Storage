@@ -11,11 +11,15 @@ import androidx.compose.material.icons.rounded.Autorenew
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.ui.ScaffoldViewModel
+import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.provider.updateViewModel
@@ -27,7 +31,10 @@ fun UpdateScreen(
 	filesNavController: NavController,
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = updateViewModel(),
+	scaffoldViewModel: ScaffoldViewModel = singletonViewModel()
 ) {
+	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
+
 	Column {
 		SettingsMenuLink(
 			icon = {
@@ -38,7 +45,11 @@ fun UpdateScreen(
 			},
 			title = { Text(text = stringResource(R.string.check_for_updates)) },
 		) {
-			updateViewModel.checkAppVersion()
+			if (isConnected) {
+				updateViewModel.checkAppVersion()
+			} else {
+				scaffoldViewModel.showSnackbar(context.getString(R.string.connection_failed))
+			}
 		}
 
 		SettingsMenuLink(
