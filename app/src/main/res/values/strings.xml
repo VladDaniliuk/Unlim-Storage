@@ -65,4 +65,7 @@
 	<string name="folder">Folder</string>
 	<string name="upload">Upload</string>
 	<string name="new_">New %1$s</string>
+	<string name="dont_have_email">User doesn\'t have email</string>
+	<string name="user">User</string>
+	<string name="doesnt_work_now">Doesn\'t work now</string>
 </resources>

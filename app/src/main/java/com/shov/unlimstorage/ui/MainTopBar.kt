@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.values.PADDING_SMALL
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
@@ -46,7 +45,7 @@ fun MainTopBar(
 		Box(
 			modifier = Modifier
 				.fillMaxSize()
-				.padding(all = PADDING_SMALL)
+				.padding(all = 4.dp)
 		) {
 			prevRoute?.let { prevRoute ->
 				IconButton(
