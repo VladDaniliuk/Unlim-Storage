@@ -12,17 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable
 fun SettingsScreen(
-	filesNavController: NavController,
+	filesNavController: NavHostController,
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	context: Context = LocalContext.current
 ) {
@@ -31,7 +30,7 @@ fun SettingsScreen(
 			icon = {
 				Icon(
 					imageVector = Icons.Rounded.AccountCircle,
-					contentDescription = ACCOUNTS
+					contentDescription = Icons.Rounded.AccountCircle.name
 				)
 			},
 			subtitle = { Text(text = stringResource(R.string.accounts_description)) },
