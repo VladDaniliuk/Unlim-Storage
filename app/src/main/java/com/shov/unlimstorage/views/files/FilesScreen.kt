@@ -34,8 +34,8 @@ import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewStates.FilesScreenState
+import com.shov.unlimstorage.viewStates.rememberUploadNavigationState
 import com.shov.unlimstorage.views.navigations.UploadNavigation
-import com.shov.unlimstorage.views.navigations.rememberUploadNavigationState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)

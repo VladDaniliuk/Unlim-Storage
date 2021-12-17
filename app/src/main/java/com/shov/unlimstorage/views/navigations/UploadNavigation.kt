@@ -3,20 +3,14 @@ package com.shov.unlimstorage.views.navigations
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.values.BottomSheet
+import com.shov.unlimstorage.viewStates.UploadNavigationState
 import com.shov.unlimstorage.viewStates.rememberNewFolderBottomSheet
 import com.shov.unlimstorage.views.files.newFile.ChooseDriveBottomSheet
 import com.shov.unlimstorage.views.files.newFile.NewFolderBottomSheet
 import com.shov.unlimstorage.views.files.newFile.UploadBottomSheet
-import java.io.File
 
 @Composable
 fun UploadNavigation(uploadNavigationState: UploadNavigationState) {
@@ -55,19 +49,4 @@ fun UploadNavigation(uploadNavigationState: UploadNavigationState) {
 			}
 		}
 	}
-}
-
-class UploadNavigationState(
-	val storageType: MutableState<StorageType?>,
-	val navController: NavHostController,
-	val file: MutableState<File?>
-)
-
-@Composable
-fun rememberUploadNavigationState(
-	type: StorageType?,
-	storageType: MutableState<StorageType?> = mutableStateOf(type),
-	navController: NavHostController = rememberNavController()
-) = remember(storageType.value, navController, mutableStateOf<File?>(null)) {
-	UploadNavigationState(storageType, navController, mutableStateOf(null))
 }
