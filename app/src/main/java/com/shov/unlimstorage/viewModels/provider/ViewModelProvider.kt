@@ -3,8 +3,6 @@ package com.shov.unlimstorage.viewModels.provider
 import android.app.Activity
 import androidx.activity.ComponentActivity
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,21 +24,13 @@ private fun getFactory() = EntryPointAccessors.fromActivity(
 	ViewModelFactoryProvider::class.java
 )
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun mainNavigationViewModel(
-	scaffoldState: ScaffoldState,
-	sheetState: ModalBottomSheetState
-): MainNavigationViewModel {
-	return viewModel(
-		factory = MainNavigationViewModel.provideFactory(
-			getFactory().mainNavigationViewModelFactory(),
-			scaffoldState,
-			sheetState,
-			Preference(LocalContext.current, IS_AUTH, false)
-		)
+fun mainNavigationViewModel(): MainNavigationViewModel = viewModel(
+	factory = MainNavigationViewModel.provideFactory(
+		getFactory().mainNavigationViewModelFactory(),
+		Preference(LocalContext.current, IS_AUTH, false)
 	)
-}
+)
 
 @Composable
 fun newVersionViewModel(lastReleaseItem: LastReleaseItem): NewVersionViewModel {
