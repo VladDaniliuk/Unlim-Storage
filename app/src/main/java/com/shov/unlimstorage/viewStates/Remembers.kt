@@ -1,14 +1,13 @@
 package com.shov.unlimstorage.viewStates
 
 import android.content.Context
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.platform.*
+import androidx.navigation.NavController
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import kotlinx.coroutines.CoroutineScope
 
 
 @Composable
@@ -28,4 +27,17 @@ fun rememberNewFolderBottomSheet(
 	text: MutableState<String> = remember { mutableStateOf("") }
 ) = remember(focusRequester, storageType, text) {
 	NewFolderBottomSheetState(focusRequester, mutableStateOf(storageType), text)
+}
+
+@Composable
+fun rememberFilesScreenState(
+	navController: NavController,
+	context: Context = LocalContext.current,
+	coroutineScope: CoroutineScope = rememberCoroutineScope()
+) = remember(navController) {
+	FilesScreenState(
+		navController,
+		context,
+		coroutineScope
+	)
 }
