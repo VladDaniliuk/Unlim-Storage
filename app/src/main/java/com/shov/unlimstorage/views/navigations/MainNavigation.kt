@@ -1,9 +1,6 @@
 package com.shov.unlimstorage.views.navigations
 
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,12 +10,10 @@ import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
 import com.shov.unlimstorage.views.SignInScreen
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainNavigation(
 	mainNavigationViewModel: MainNavigationViewModel,
-	navController: NavHostController = rememberNavController(),
-	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>
+	navController: NavHostController = rememberNavController()
 ) {
 	NavHost(
 		navController = navController,
@@ -33,17 +28,13 @@ fun MainNavigation(
 				}
 			}
 		}
-		filesComposable(
-			filesNavController = navController,
-			scaffoldState = mainNavigationViewModel.scaffoldState,
-			sheetContent = sheetContent,
-			sheetState = mainNavigationViewModel.sheetState
-		)
+		filesComposable(filesNavController = navController)
 		settingsComposable(settingsNavController = navController)
 	}
 
 	CheckDropboxCredential {
 		mainNavigationViewModel.setIsLogIn()
+
 		if (navController.currentBackStackEntry?.destination?.route == Screen.SignIn.route) {
 			navController.navigate(Screen.Files.route) {
 				popUpTo(Screen.SignIn.route) {
