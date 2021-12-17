@@ -26,7 +26,12 @@ sealed class Screen(val route: String) {
 	}
 
 	object FileDescription : Screen("$navFileDescription{$argStoreId}") {
-		fun setStoreItemId(storeId: String) =
-			"$navFileDescription$storeId"
+		fun setStoreItemId(storeId: String) = "$navFileDescription$storeId"
 	}
+}
+
+sealed class BottomSheet(val route: String) {
+	object Main : BottomSheet("nav_main")
+	object NewFolder : BottomSheet("nav_new_folder")
+	object ChooseFile : BottomSheet("nav_choose_file")
 }
