@@ -30,12 +30,7 @@ fun NavGraphBuilder.filesComposable(
 		)
 	}
 	composable(route = Screen.FileDescription.route) {
-		FileDescriptionScreen(
-			onCloseClick = filesNavController::popBackStack,
-			onDoneClick = {
-				scaffoldState.snackbarHostState.showSnackbar("Doesn't work now")
-			}
-		)
+		FileDescriptionScreen(onCloseClick = filesNavController::popBackStack)
 	}
 	composable(route = Screen.Files.route) {
 		FilesScreen(
