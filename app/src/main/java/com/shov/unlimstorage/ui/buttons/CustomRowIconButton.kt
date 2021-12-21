@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui
+package com.shov.unlimstorage.ui.buttons
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

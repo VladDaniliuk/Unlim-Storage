@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import com.shov.unlimstorage.ui.CustomIconButton
+import com.shov.unlimstorage.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.viewModels.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel

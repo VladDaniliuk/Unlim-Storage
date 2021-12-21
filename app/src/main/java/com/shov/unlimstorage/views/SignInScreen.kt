@@ -26,7 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import com.shov.unlimstorage.ui.CustomIconButton
+import com.shov.unlimstorage.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.SignInViewModel

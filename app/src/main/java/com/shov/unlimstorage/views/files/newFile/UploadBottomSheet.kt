@@ -21,14 +21,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.CustomIconButton
+import com.shov.unlimstorage.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.viewModels.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.File
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun UploadBottomSheet(
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
@@ -38,6 +37,7 @@ fun UploadBottomSheet(
 ) {
 	BackHandler {
 		coroutineScope.launch {
+			@OptIn(ExperimentalMaterialApi::class)
 			bottomSheetViewModel.sheetState.hide()
 		}
 	}

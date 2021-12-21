@@ -12,7 +12,6 @@ import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import kotlinx.coroutines.CoroutineScope
 import java.io.File
 
-
 @Composable
 fun rememberFileInfoState(
 	clipboardManager: ClipboardManager = LocalClipboardManager.current,
