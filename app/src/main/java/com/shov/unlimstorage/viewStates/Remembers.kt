@@ -25,11 +25,12 @@ fun rememberFileInfoState(
 
 @Composable
 fun rememberNewFolderBottomSheet(
+	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	focusRequester: FocusRequester = remember { FocusRequester() },
 	storageType: StorageType?,
 	text: MutableState<String> = remember { mutableStateOf("") }
 ) = remember(focusRequester, storageType, text) {
-	NewFolderBottomSheetState(focusRequester, mutableStateOf(storageType), text)
+	NewFolderBottomSheetState(coroutineScope, focusRequester, mutableStateOf(storageType), text)
 }
 
 @Composable

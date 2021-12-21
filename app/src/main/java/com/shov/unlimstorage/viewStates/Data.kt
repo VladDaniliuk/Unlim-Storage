@@ -20,6 +20,7 @@ data class FileInfoState(
 )
 
 data class NewFolderBottomSheetState(
+	val coroutineScope: CoroutineScope,
 	val focusRequester: FocusRequester,
 	var storageType: MutableState<StorageType?>,
 	val text: MutableState<String>
