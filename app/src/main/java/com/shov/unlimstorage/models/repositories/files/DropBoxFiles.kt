@@ -64,8 +64,10 @@ class DropBoxFiles @Inject constructor(
 		if (f.exists()) {
 			val fos = FileOutputStream(f)
 			try {
-				getFiles()?.download(getFiles()?.getMetadata(id)?.pathLower)?.download(fos) {
-					setPercents(it.toFloat() / size.toFloat(), name)
+				getFiles()?.let { file ->
+					file.download(file.getMetadata(id).pathLower).download(fos) {
+						setPercents(it.toFloat() / size.toFloat(), name)
+					}
 				}
 			} catch (e: RateLimitException) {
 			} catch (e: IllegalArgumentException) {

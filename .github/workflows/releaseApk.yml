@@ -27,7 +27,7 @@ jobs:
     - name: Build Release APK
       run: ./gradlew assembleRelease
     - name: Releasing using Hub
-      uses: VladDaniliuk/action-release-releaseapk@1.3.0
+      uses: VladDaniliuk/action-release-releaseapk@1.3.3.unlim-storage
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
         VERSION_VARIABLE: versionName
