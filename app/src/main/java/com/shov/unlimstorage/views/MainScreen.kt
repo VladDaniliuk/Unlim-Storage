@@ -1,10 +1,7 @@
 package com.shov.unlimstorage.views
 
 import android.content.Context
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -12,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.LifecycleOwner
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.ui.DownloadSnackbar
@@ -59,7 +57,12 @@ fun MainScreen(
 			sheetState = sheetState,
 			sheetContent = {
 				sheetContent.value?.invoke(this)
-				Spacer(modifier = Modifier.navigationBarsPadding())
+
+				Spacer(
+					modifier = Modifier
+						.padding(bottom = 4.dp)
+						.navigationBarsPadding()
+				)
 			},
 			sheetShape = MaterialTheme.shapes.large.copy(
 				bottomEnd = CornerSize(0),

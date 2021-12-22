@@ -152,37 +152,42 @@ fun FileInfoScreen(
 
 			LazyRow(modifier = Modifier.padding(vertical = PADDING_SMALL_PLUS)) {
 				items(items = users) { user ->
-					val onClickMessage = stringResource(R.string.user_click_message)
-					val onLongClickMessage = stringResource(R.string.user_long_click_message)
-
 					UserInfo(
 						modifier = Modifier.padding(start = PADDING_SMALL_PLUS),
 						onClick = {
 							coroutineScope.launch {
 								scaffoldState.snackbarHostState
-									.showSnackbar(message = onClickMessage)
+									.showSnackbar(
+										currentContext.getString(R.string.user_click_message)
+									)
 							}
 						},
 						onLongClick = {
 							currentHapticFeedback.performHapticFeedback(
 								HapticFeedbackType.LongPress
 							)
-							user.email?.let {
-								currentClipboardManager.setText(AnnotatedString(user.email))
+
+							user.email?.let { email ->
+								currentClipboardManager.setText(AnnotatedString(email))
 
 								coroutineScope.launch {
 									scaffoldState.snackbarHostState
-										.showSnackbar(message = onLongClickMessage)
+										.showSnackbar(
+											currentContext.getString(
+												R.string.user_long_click_message
+											)
+										)
 								}
 							} ?: coroutineScope.launch {
 								scaffoldState.snackbarHostState
-									.showSnackbar(message = "User doesn't have email")
+									.showSnackbar(
+										currentContext.getString(R.string.dont_have_email)
+									)
 							}
 						},
-						contentDescription = user.name ?: "User",
 						iconLink = user.photoLink,
 						iconSize = SIZE_ICON_SMALL,
-						title = user.name ?: "User",
+						title = user.name ?: stringResource(R.string.user),
 						subtitle = user.role
 					)
 				}

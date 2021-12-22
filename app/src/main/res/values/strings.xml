@@ -24,6 +24,7 @@
 	<string name="deny">Deny</string>
 	<string name="description">Description:</string>
 	<string name="dont_ask_again">Don\'t ask me again</string>
+	<string name="dont_have_email">User doesn\'t have email</string>
 	<string name="dont_show_again">Don\'t show me again</string>
 	<string name="dot">.</string>
 	<string name="download">Download</string>
@@ -59,6 +60,7 @@
 	<string name="terabytes">TB</string>
 	<string name="update_text">Update %1$s is available to download %2$s.\nRelease date: %3$s\nSize: %4$s\nRelease name: %5$s</string>
 	<string name="updates">Updates</string>
+	<string name="user">User</string>
 	<string name="user_click_message">Long click to copy email</string>
 	<string name="user_long_click_message">Email is copied</string>
 	<string name="version_description">Version:</string>
