@@ -1,7 +1,6 @@
 package com.shov.unlimstorage.views.files
 
 import android.content.Intent
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -24,28 +23,29 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.*
 import com.shov.unlimstorage.utils.converters.toPrettyString
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.*
+import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.unlimstorage.views.Permission
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
 @Composable
 fun FileInfoScreen(
-	fileInfoViewModel: FileInfoViewModel,
+	fileInfoViewModel: FileInfoViewModel = hiltViewModel(),
 	filesNavController: NavController,
 	scaffoldState: ScaffoldState,
-	topAppBarViewModel: TopAppBarViewModel
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	downloadViewModel: DownloadViewModel = singletonViewModel()
 ) {
 	val coroutineScope = rememberCoroutineScope()
 	val currentClipboardManager = LocalClipboardManager.current
@@ -57,7 +57,7 @@ fun FileInfoScreen(
 
 	topAppBarViewModel.setTopBar(
 		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		fileInfoViewModel.storeItem.name,
+		fileInfoViewModel.storeItem?.name,
 		if (fileInfoViewModel.storeMetadata?.isStarred == true) {
 			Icons.Rounded.Star
 		} else {
@@ -69,28 +69,37 @@ fun FileInfoScreen(
 		}
 	)
 
+	if (fileInfoViewModel.isDialogShown) {
+		Permission(
+			onDismissRequest = { fileInfoViewModel.setShowDialog(false) },
+			onHasAccess = {
+				fileInfoViewModel.setShowDialog(false)
+				fileInfoViewModel.downloadFile(downloadViewModel::setProgress)
+			}
+		)
+	}
+
 	Column(
 		modifier = Modifier
 			.fillMaxWidth()
 			.verticalScroll(state = rememberScrollState())
 	) {
-		ItemTypeIcon(
-			modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-			iconSize = SIZE_ICON_BIG,
-			mainIcon = fileInfoViewModel.storeItem.type.imageVector,
-			mainTint = MaterialTheme.colors.onBackground,
-			contentDescription = fileInfoViewModel.storeItem.type.name,
-			secondaryIcon = painterResource(fileInfoViewModel.storeItem.disk.imageId),
-			secondaryAlignment = Alignment.BottomEnd
-		)
+		fileInfoViewModel.storeItem?.let { item ->
+			ItemTypeIcon(
+				modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+				iconSize = SIZE_ICON_BIG,
+				mainIcon = item.type.imageVector,
+				mainTint = MaterialTheme.colors.onBackground,
+				contentDescription = item.type.name,
+				secondaryIcon = painterResource(item.disk.imageId),
+				secondaryAlignment = Alignment.BottomEnd
+			)
 
-		listOf(
-			stringResource(R.string.size_description) to fileInfoViewModel.storeItem.size,
-			stringResource(R.string.id_description) to fileInfoViewModel.storeItem.id
-		).forEach { pair ->
-			pair.second?.let { value ->
-				TextInfo(name = pair.first, value = value)
+			fileInfoViewModel.getBeautySize()?.let { size ->
+				TextInfo(name = stringResource(R.string.size_description), value = size)
 			}
+
+			TextInfo(name = stringResource(R.string.id_description), value = item.id)
 		}
 
 
@@ -125,10 +134,11 @@ fun FileInfoScreen(
 					.padding(end = PADDING_MEDIUM)
 					.align(Alignment.CenterEnd),
 				onClick = {
-					filesNavController.currentBackStackEntry
-						?.arguments
-						?.putParcelable(argStoreMetadata, fileInfoViewModel.storeMetadata)
-					filesNavController.navigate(navFileDescription)
+					fileInfoViewModel.storeMetadata?.let { metadata ->
+						filesNavController.navigate(
+							Screen.FileDescription.setStoreItemId(metadata.id)
+						)
+					}
 				}
 			) {
 				Icon(
@@ -171,18 +181,22 @@ fun FileInfoScreen(
 							currentHapticFeedback.performHapticFeedback(
 								HapticFeedbackType.LongPress
 							)
+							user.email?.let {
+								currentClipboardManager.setText(AnnotatedString(user.email))
 
-							currentClipboardManager.setText(AnnotatedString(user.email))
-
-							coroutineScope.launch {
+								coroutineScope.launch {
+									scaffoldState.snackbarHostState
+										.showSnackbar(message = onLongClickMessage)
+								}
+							} ?: coroutineScope.launch {
 								scaffoldState.snackbarHostState
-									.showSnackbar(message = onLongClickMessage)
+									.showSnackbar(message = "User doesn't have email")
 							}
 						},
-						contentDescription = user.name,
+						contentDescription = user.name ?: "User",
 						iconLink = user.photoLink,
 						iconSize = SIZE_ICON_SMALL,
-						title = user.name,
+						title = user.name ?: "User",
 						subtitle = user.role
 					)
 				}
@@ -246,7 +260,21 @@ fun FileInfoScreen(
 				Text(text = stringResource(R.string.create_link))
 			}
 
+			Button(onClick = { fileInfoViewModel.setShowDialog() }) {
+				Text(text = "Download")
+			}
+
 			Spacer(modifier = Modifier.navigationBarsPadding())
+		}
+	}
+
+	LaunchedEffect(key1 = null) {
+		launch(Dispatchers.IO) {
+			fileInfoViewModel.getStoreItem()
+		}.invokeOnCompletion {
+			if (isConnected) {
+				fileInfoViewModel.getFileMetadata()
+			}
 		}
 	}
 

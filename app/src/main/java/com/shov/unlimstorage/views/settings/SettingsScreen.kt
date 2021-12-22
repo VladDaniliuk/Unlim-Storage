@@ -13,11 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.alorma.settings.composables.SettingsMenuLink
+import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.ACCOUNTS
-import com.shov.unlimstorage.values.navAccounts
-import com.shov.unlimstorage.values.navUpdates
+import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 
 @Composable
@@ -42,7 +41,7 @@ fun SettingsScreen(
 			subtitle = { Text(text = stringResource(R.string.accounts_description)) },
 			title = { Text(text = stringResource(R.string.accounts)) }
 		) {
-			filesNavController.navigate(navAccounts)
+			filesNavController.navigate(Screen.Accounts.route)
 		}
 
 		SettingsMenuLink(
@@ -55,7 +54,7 @@ fun SettingsScreen(
 			title = { Text(text = stringResource(R.string.about_updates)) },
 			subtitle = { Text(text = stringResource(R.string.check_update_disable_auto)) }
 		) {
-			filesNavController.navigate(navUpdates)
+			filesNavController.navigate(Screen.Updates.route)
 		}
 	}
 }

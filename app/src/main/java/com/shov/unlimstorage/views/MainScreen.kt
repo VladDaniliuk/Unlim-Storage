@@ -1,6 +1,5 @@
 package com.shov.unlimstorage.views
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
@@ -12,24 +11,36 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import coil.annotation.ExperimentalCoilApi
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.ui.DownloadSnackbar
 import com.shov.unlimstorage.ui.MainTopBar
-import com.shov.unlimstorage.viewModels.*
+import com.shov.unlimstorage.utils.launchWhenStarted
+import com.shov.unlimstorage.utils.observeConnectivityAsFlow
+import com.shov.unlimstorage.viewModels.DownloadViewModel
+import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.provider.mainNavigationViewModel
+import com.shov.unlimstorage.viewModels.provider.newVersionViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.unlimstorage.viewModels.provider.updateViewModel
+import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 import com.shov.unlimstorage.views.navigations.MainNavigation
+import com.shov.unlimstorage.views.settings.NewVersionDialog
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.onEach
 
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun MainScreen(
-	topAppBarViewModel: TopAppBarViewModel,
-	updateViewModel: UpdateViewModel,
-	downloadViewModel: DownloadViewModel
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	updateViewModel: UpdateViewModel = updateViewModel(),
+	downloadViewModel: DownloadViewModel = singletonViewModel()
 ) {
+	val context = LocalContext.current
+	val currentLifecycleOwner = LocalLifecycleOwner.current
+
 	/**States*/
 	val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 	val scaffoldState = rememberScaffoldState()
@@ -43,7 +54,6 @@ fun MainScreen(
 				updateViewModel = updateViewModel,
 				newVersionViewModel = newVersionViewModel(lastReleaseItem = lastRelease),
 				onDismissRequest = updateViewModel::hideDialog,
-				downloadViewModel = singletonViewModel()
 			)
 		}
 	}
@@ -90,17 +100,21 @@ fun MainScreen(
 			}
 		)
 
-		if (downloadViewModel.percents > 0) {
-			DownloadSnackbar(
-				percents = downloadViewModel.percents,
-				onDismissRequest = downloadViewModel::dismissDownloading
-			)
+		when (downloadViewModel.percents) {
+			in 0.01f..0.99f -> {
+				DownloadSnackbar(
+					percents = downloadViewModel.percents,
+					onDismissRequest = downloadViewModel::dismissDownloading,
+					title = downloadViewModel.title
+				)
+			}
+			else -> {}
 		}
 	}
 
 	LaunchedEffect(key1 = null) {
-		if (updateViewModel.isShowAgain) {
-			updateViewModel.checkAppVersion()
-		}
+		context.observeConnectivityAsFlow().onEach { isConnected ->
+			if (updateViewModel.isShowAgain.and(isConnected)) updateViewModel.checkAppVersion()
+		}.launchWhenStarted(currentLifecycleOwner.lifecycleScope)
 	}
 }

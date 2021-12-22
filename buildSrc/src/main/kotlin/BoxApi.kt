@@ -1,16 +1,17 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-object BoxVersion {
-	const val boxAndroidSdkVersion = "5.0.0"
-}
+object Box {
+	private const val version = "5.0.0"
+	private const val lib = "com.box:box-android-sdk:"
 
-object BoxLib {
-	const val boxAndroidSdk = "com.box:box-android-sdk:${BoxVersion.boxAndroidSdkVersion}"
+	object Lib {
+		const val androidSdk = "$lib$version"
+	}
 }
 
 fun Project.implementBoxApi() {
 	dependencies {
-		add("implementation", BoxLib.boxAndroidSdk)
+		implement(Box.Lib.androidSdk)
 	}
 }

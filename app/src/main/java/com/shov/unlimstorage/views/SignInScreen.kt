@@ -24,15 +24,12 @@ import com.shov.unlimstorage.ui.SignInButton
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.PADDING_BIG
-import com.shov.unlimstorage.values.navMain
-import com.shov.unlimstorage.values.navSignIn
+import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 @Composable
 fun SignInScreen(
 	scaffoldState: ScaffoldState,
@@ -80,8 +77,8 @@ fun SignInScreen(
 
 	LaunchedEffect(key1 = null) {
 		signInViewModel.serviceAccess.onEach { access ->
-			if (access) navController.navigate(navMain) {
-				popUpTo(navSignIn) {
+			if (access) navController.navigate(Screen.Files.route) {
+				popUpTo(Screen.SignIn.route) {
 					inclusive = true
 				}
 			}

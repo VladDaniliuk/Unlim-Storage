@@ -15,31 +15,35 @@ import javax.inject.Inject
 class DownloadViewModel @Inject constructor(
 	private val downloadRepository: DownloadRepository
 ) : ViewModel() {
+	private var _downloadId by mutableStateOf<Long?>(null)
+	var title by mutableStateOf("")
+		private set
+	var percents by mutableStateOf(0f)
+		private set
+
 	fun downloadNewVersion(name: String, url: String): Long? {
 		return downloadRepository.downloadFile(Uri.parse(url), name)
 	}
-
-	private var _downloadId by mutableStateOf<Long?>(null)
 
 	fun subscribeToDownload(id: Long?, name: String) {
 		id?.let {
 			_downloadId = id
 
 			viewModelScope.launch {
-				downloadRepository.checkDownload(id, name) {
-					_percents = it
-				}
+				downloadRepository.checkDownload(id, name, ::setProgress)
 			}
 		}
 	}
 
-	private var _percents by mutableStateOf(0f)
-	val percents get() = _percents
+	fun setProgress(percents: Float, title: String) {
+		this.percents = percents
+		this.title = title
+	}
 
 	fun dismissDownloading() {
 		_downloadId?.let { id ->
-			downloadRepository.dismissDownloading(id) {
-				_percents = it
+			downloadRepository.dismissDownloading(id) { percents ->
+				setProgress(percents, title)
 			}
 		}
 	}

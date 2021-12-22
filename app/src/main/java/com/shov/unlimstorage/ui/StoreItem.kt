@@ -18,16 +18,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.values.PADDING_SMALL
 import com.shov.unlimstorage.values.SIZE_ICON_MEDIUM
 
-
-@ExperimentalFoundationApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun StoreItem(
-	storeItem: StoreItem,
+	name: String,
+	type: ItemType,
+	size: String?,
+	disk: StorageType,
 	enabled: Boolean = true,
 	isDividerVisible: Boolean = true,
 	isOptionVisible: Boolean = true,
@@ -48,8 +49,8 @@ fun StoreItem(
 				.padding(horizontal = PADDING_SMALL)
 				.align(Alignment.CenterVertically)
 				.size(SIZE_ICON_MEDIUM),
-			imageVector = storeItem.type.imageVector,
-			contentDescription = storeItem.type.name
+			imageVector = type.imageVector,
+			contentDescription = type.name
 		)
 
 		Column {
@@ -58,18 +59,18 @@ fun StoreItem(
 					CustomText(
 						overflow = TextOverflow.Ellipsis,
 						maxLines = 1,
-						text = storeItem.name,
+						text = name,
 						textStyle = Typography().h5
 					)
 
 					CustomText(
-						text = storeItem.size,
+						text = size,
 						textStyle = Typography().body2
 					)
 
 					Icon(
-						painter = painterResource(id = storeItem.disk.imageId),
-						contentDescription = storeItem.disk.name,
+						painter = painterResource(id = disk.imageId),
+						contentDescription = disk.name,
 						modifier = Modifier
 							.padding(vertical = PADDING_SMALL)
 							.height(24.dp),
@@ -102,14 +103,10 @@ fun StoreItem(
 @Composable
 fun FilePreview() {
 	StoreItem(
-		storeItem = StoreItem(
-			id = "000000",
-			type = ItemType.FILE,
-			name = "Test test test test test test test test test",
-			size = "1210 MB",
-			parentFolder = null,
-			disk = StorageType.GOOGLE
-		)
+		disk = StorageType.GOOGLE,
+		name = "Test test test test test test test test test",
+		size = "1210 MB",
+		type = ItemType.FILE
 	)
 }
 
@@ -118,13 +115,9 @@ fun FilePreview() {
 @Composable
 fun FolderPreview() {
 	StoreItem(
-		storeItem = StoreItem(
-			id = "000001",
-			type = ItemType.FOLDER,
-			name = "Folder preview",
-			size = null,
-			parentFolder = null,
-			disk = StorageType.BOX
-		)
+		disk = StorageType.BOX,
+		name = "Folder preview",
+		size = "1210 MB",
+		type = ItemType.FOLDER
 	)
 }

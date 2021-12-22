@@ -2,9 +2,9 @@ package com.shov.unlimstorage.models.repositories.files
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
+import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
@@ -18,6 +18,8 @@ import com.shov.unlimstorage.values.GOOGLE_FIELDS
 import com.shov.unlimstorage.values.GOOGLE_METADATA
 import com.shov.unlimstorage.values.getGoogleQ
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 class GoogleFiles @Inject constructor(
@@ -54,10 +56,20 @@ class GoogleFiles @Inject constructor(
 		}
 	}
 
+	override fun downloadFile(id: String, name: String, size: Long, setPercents: (Float, String) -> Unit) {
+		val f = File(File("/storage/emulated/0/Download"), name)
+		f.createNewFile()
+		if (f.exists()) {
+			val fos = FileOutputStream(f)
+			val request = getGoogleFiles().get(id)
+			request.executeMediaAndDownloadTo(fos)//TODO GOOGLE PERCENTS
+		}
+	}
+
 	private fun getGoogleFiles(): Drive.Files {
 		GoogleSignIn.getLastSignedInAccount(context)?.let { googleAccount ->
 			return Drive.Builder(
-				AndroidHttp.newCompatibleTransport(),
+				NetHttpTransport(),
 				JacksonFactory.getDefaultInstance(),
 				GoogleAccountCredential.usingOAuth2(context, listOf(DriveScopes.DRIVE))
 					.apply { selectedAccount = googleAccount.account })

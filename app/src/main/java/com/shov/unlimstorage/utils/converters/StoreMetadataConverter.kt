@@ -25,7 +25,6 @@ interface StoreMetadataConverter {
 }
 
 class StoreMetadataConverterImpl @Inject constructor(
-	private val sizeConverter: SizeConverter,
 	@ApplicationContext val context: Context
 ) : StoreMetadataConverter {
 
@@ -49,7 +48,7 @@ class StoreMetadataConverterImpl @Inject constructor(
 			)
 		),
 		size = when (ItemType.valueOf(this@toStoreMetadata.type.uppercase())) {
-			ItemType.FILE -> sizeConverter.run { this@toStoreMetadata.size.toBytes() }
+			ItemType.FILE -> size
 			ItemType.FOLDER -> null
 		}
 	)
@@ -80,7 +79,7 @@ class StoreMetadataConverterImpl @Inject constructor(
 			modifiedTime = Instant.fromEpochMilliseconds(this.clientModified.time)
 				.toLocalDateTime(TimeZone.currentSystemDefault()),
 			sharingUsers = null,
-			size = sizeConverter.run { this@toStoreMetadata.size.toBytes() }
+			size = size
 		)
 		else -> throw UnknownClassInheritance(ARGUMENT_METADATA, this.javaClass.name)
 	}
@@ -109,6 +108,6 @@ class StoreMetadataConverterImpl @Inject constructor(
 				it.photoLink
 			)
 		},
-		size = sizeConverter.run { this@toStoreMetadata.size.toLong().toBytes() }
+		size = this.getSize()
 	)
 }

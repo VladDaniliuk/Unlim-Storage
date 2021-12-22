@@ -1,53 +1,28 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-object ComposeVersion {
-	const val activityComposeVersion = "1.3.1"
-	const val composeVersion = "1.0.4"
-	const val kotlinStdlibVersion = "1.5.31"
-	const val runtimeLivedataVersion = "1.0.0"
-	const val navigationComposeVersion = "2.4.0-alpha10"
-	const val hiltNavigationComposeVersion = "1.0.0-alpha03"
-	const val composeMaterialIconsVersion = "1.1.0-alpha06"
-	const val accompanistSwiperefreshVersion = "0.19.0"
-	const val composeMaterial3Version = "1.0.0-alpha01" //TODO migrate to material3
-}                                                       //TODO color scheme of material3
+object Compose {
+	private const val lib = "androidx.compose"
+	const val version = "1.1.0-beta02"
+	private const val versionMaterial3 = "1.0.0-alpha01"
 
-object ComposeLib {
-	const val activityCompose =
-		"androidx.activity:activity-compose:${ComposeVersion.activityComposeVersion}"
-	const val composeMaterial =
-		"androidx.compose.material:material:${ComposeVersion.composeVersion}"
-	const val composeUi = "androidx.compose.ui:ui:${ComposeVersion.composeVersion}"
-	const val composeUiTooling = "androidx.compose.ui:ui-tooling:${ComposeVersion.composeVersion}"
-	const val kotlinStdlib =
-		"org.jetbrains.kotlin:kotlin-stdlib:${ComposeVersion.kotlinStdlibVersion}"
-	const val runtimeLivedata =
-		"androidx.compose.runtime:runtime-livedata:${ComposeVersion.runtimeLivedataVersion}"
-	const val navigationCompose =
-		"androidx.navigation:navigation-compose:${ComposeVersion.navigationComposeVersion}"
-	const val hiltNavigationCompose =
-		"androidx.hilt:hilt-navigation-compose:${ComposeVersion.hiltNavigationComposeVersion}"
-	const val composeMaterialIcons = "androidx.compose.material:material-icons-extended:${
-		ComposeVersion.composeMaterialIconsVersion
-	}"
-	const val accompanistSwiperefresh = "com.google.accompanist:accompanist-swiperefresh:${
-		ComposeVersion.accompanistSwiperefreshVersion
-	}"
-	const val composeMaterial3 =
-		"androidx.compose.material3:material3:${ComposeVersion.composeMaterial3Version}"
-}
+	object Lib {
+		const val material = "$lib.material:material:$version"
+		const val material3 = "$lib.material3:material3:$versionMaterial3"
+		const val materialIconsExtended = "$lib.material:material-icons-extended:$version"
+		const val runtime = "$lib.runtime:runtime:$version"
+		const val runtimeLivedata = "$lib.runtime:runtime-livedata:$version"
+		const val ui = "$lib.ui:ui:$version"
+		const val uiTooling = "$lib.ui:ui-tooling:$version"
+	} //TODO migrate to material3
+}//TODO color scheme of material3
 
 fun Project.implementCompose() {
 	dependencies {
-		add("implementation", ComposeLib.kotlinStdlib)
-		add("implementation", ComposeLib.composeUi)
-		add("implementation", ComposeLib.activityCompose)
-		add("implementation", ComposeLib.composeMaterial)
-		add("implementation", ComposeLib.composeUiTooling)
-		add("implementation", ComposeLib.navigationCompose)
-		add("implementation", ComposeLib.hiltNavigationCompose)
-		add("implementation", ComposeLib.composeMaterialIcons)
-		add("implementation", ComposeLib.accompanistSwiperefresh)
+		implement(Compose.Lib.material)
+		implement(Compose.Lib.materialIconsExtended)
+		implement(Compose.Lib.runtime)
+		implement(Compose.Lib.ui)
+		implement(Compose.Lib.uiTooling)
 	}
 }

@@ -11,10 +11,10 @@ import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import com.alorma.settings.composables.SettingsMenuLink
+import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
-import com.shov.unlimstorage.viewModels.UpdateViewModel
+import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 
 @Composable
 fun UpdateScreen(

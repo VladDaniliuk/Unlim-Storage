@@ -12,13 +12,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.alorma.settings.composables.SettingsMenuLink
+import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.values.ACCOUNTS
-import com.shov.unlimstorage.viewModels.AccountsViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 
 @Composable
 fun AccountsScreen(
@@ -39,7 +39,7 @@ fun AccountsScreen(
 		)
 	}
 
-	accountsViewModel.showAddAccountBottomSheet?.let {
+	accountsViewModel.isShowAddAccountBottomSheet?.let {
 		AddAccountDialog(
 			accountsViewModel = hiltViewModel(),
 			signInViewModel = hiltViewModel()
@@ -55,9 +55,9 @@ fun AccountsScreen(
 					subtitleId = R.string.click_to_delete,
 					titleId = R.string.account
 				) {
-					accountsViewModel.setShowRevokeDialog(storageType)
+					accountsViewModel.showRevokeDialog(storageType)
 				}
-			} else accountsViewModel.setAllSignedIn(false)
+			} else accountsViewModel.setIsAllSignedIn(false)
 		}
 
 		Divider()
@@ -72,7 +72,7 @@ fun AccountsScreen(
 				},
 				title = { Text(text = stringResource(R.string.add_other_account)) }
 			) {
-				accountsViewModel.setShowAddAccountBottomSheet(true)
+				accountsViewModel.showAddAccountBottomSheet(true)
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.unlimstorage.viewModels.navigations
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
@@ -10,18 +10,18 @@ import com.shov.unlimstorage.values.UNCHECKED_CAST
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
-class MainNavigationViewModel @ExperimentalMaterialApi @AssistedInject constructor(
+class MainNavigationViewModel @OptIn(ExperimentalMaterialApi::class) @AssistedInject constructor(
 	@Assisted private val _scaffoldState: ScaffoldState,
 	@Assisted private val _sheetState: ModalBottomSheetState
 ) : ViewModel() {
 	val scaffoldState get() = _scaffoldState
 
-	@ExperimentalMaterialApi
+	@OptIn(ExperimentalMaterialApi::class)
 	val sheetState = _sheetState
 
 	@Suppress(UNCHECKED_CAST)
 	companion object {
-		@ExperimentalMaterialApi
+		@OptIn(ExperimentalMaterialApi::class)
 		fun provideFactory(
 			assistedFactory: MainNavigationViewModelFactory,
 			scaffoldState: ScaffoldState,

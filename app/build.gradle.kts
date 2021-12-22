@@ -50,7 +50,7 @@ android {
 	}
 
 	composeOptions {
-		kotlinCompilerExtensionVersion = ComposeVersion.composeVersion
+		kotlinCompilerExtensionVersion = Compose.version
 	}
 
 	defaultConfig {
@@ -66,19 +66,29 @@ android {
 		jvmTarget = KotlinOptions.jvmTarget
 	}
 
+	tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+		kotlinOptions.freeCompilerArgs += BuildType.requiresOptIn
+	}
+
 	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
 
+	implementKotlinx()
 	implementCore()
 	implementDesign()
+	implementGithub()
 	implementFirebase()
 	implementGoogle()
-	implementCoroutines()
-	implementNetwork()
-	implementDependencyInjection()
+	implementSquareup()
 	implementTest()
+	implementLifecycle()
+	implementKotlin()
+	implementNavigation()
+	implementActivity()
 	implementCompose()
-	implementDropBox()
+	implementHilt()
+	implementDropbox()
 	implementBoxApi()
 	implementLocalDataBase()
-	implementImageLoader()
+	implementCoil()
+	implementAccompanist()
 }

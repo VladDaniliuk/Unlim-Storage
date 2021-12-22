@@ -1,26 +1,23 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-object FirebaseVersion {
-	const val firebaseAnalyticsKtxVersion = "19.0.0"
-	const val firebaseAuthVersion = "21.0.1"
-	const val firebaseBomVersion = "28.2.1"
-}
+object Firebase {
+	private const val lib = "com.google.firebase:firebase"
+	private const val versionAnalyticsKtx = "19.0.0"
+	private const val versionAuth = "21.0.1"
+	private const val versionBom = "28.2.1"
 
-object FirebaseLib {
-	const val firebaseAnalyticsKtx = "com.google.firebase:firebase-analytics-ktx:${
-		FirebaseVersion.firebaseAnalyticsKtxVersion
-	}"
-	const val firebaseAuth =
-		"com.google.firebase:firebase-auth:${FirebaseVersion.firebaseAuthVersion}"
-	const val firebaseBom =
-		"com.google.firebase:firebase-bom:${FirebaseVersion.firebaseBomVersion}"
+	object Lib {
+		const val analyticsKtx = "$lib-analytics-ktx:$versionAnalyticsKtx"
+		const val auth = "$lib-auth:$versionAuth"
+		const val bom = "$lib-bom:$versionBom"
+	}
 }
 
 fun Project.implementFirebase() {
 	dependencies {
-		add("implementation", FirebaseLib.firebaseAnalyticsKtx)
-		add("implementation", FirebaseLib.firebaseAuth)
-		add("implementation", FirebaseLib.firebaseBom)
+		implement(Firebase.Lib.analyticsKtx)
+		implement(Firebase.Lib.auth)
+		implement(Firebase.Lib.bom)
 	}
 }

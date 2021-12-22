@@ -1,20 +1,16 @@
 import org.gradle.kotlin.dsl.ScriptHandlerScope
 
-object GradleVersion {
-	const val kotlinGradlePluginVersion =
-		"1.5.31"
-	const val gradleVersion = "7.0.3"
-}
+object Gradle {
+	private const val lib = "com.android.tools.build:gradle:"
+	private const val version = "7.0.3"
 
-object GradleLib {
-	const val buildGradle = "com.android.tools.build:gradle:${GradleVersion.gradleVersion}"
-	const val kotlinGradlePlugin =
-		"org.jetbrains.kotlin:kotlin-gradle-plugin:${GradleVersion.kotlinGradlePluginVersion}"
+	object Lib {
+		const val gradle = "$lib$version"
+	}
 }
 
 fun ScriptHandlerScope.gradleClasspath() {
 	dependencies {
-		add("classpath", GradleLib.buildGradle)
-		add("classpath", GradleLib.kotlinGradlePlugin)
+		classpath(Gradle.Lib.gradle)
 	}
 }

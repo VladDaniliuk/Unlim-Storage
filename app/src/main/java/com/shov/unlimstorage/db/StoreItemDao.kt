@@ -15,6 +15,9 @@ interface StoreItemDao {
 	@Query("SELECT * FROM StoreItem WHERE parentFolder is :parentFolder")
 	fun getFiles(parentFolder: String? = null): List<StoreItem>
 
+	@Query("SELECT * FROM StoreItem WHERE id is :id")
+	fun getFile(id: String): StoreItem
+
 	@Query("DELETE FROM StoreItem WHERE parentFolder is :parentFolder and disk is :disk")
 	fun deleteFiles(parentFolder: String? = null, disk: StorageType)
 

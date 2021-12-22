@@ -3,45 +3,72 @@ package com.shov.unlimstorage.viewModels.files
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.shov.unlimstorage.models.FileInfoViewModelFactory
-import com.shov.unlimstorage.models.repositories.files.FilesRepository
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
-import com.shov.unlimstorage.values.UNCHECKED_CAST
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
+import com.shov.unlimstorage.models.repositories.files.FilesRepository
+import com.shov.unlimstorage.utils.converters.SizeConverter
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FileInfoViewModel @AssistedInject constructor(
+@HiltViewModel
+class FileInfoViewModel @Inject constructor(
 	private val filesRepository: FilesRepository,
-	@Assisted private val item: StoreItem
+	private val sizeConverter: SizeConverter,
+	savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-	private var _storeMetadata by mutableStateOf<StoreMetadataItem?>(null)
-	val storeMetadata get() = _storeMetadata
+	var id by mutableStateOf<String?>(null)
+		private set
+	var isDialogShown by mutableStateOf(false)
+		private set
+	var storeItem by mutableStateOf<StoreItem?>(null)
+		private set
+	var storeMetadata by mutableStateOf<StoreMetadataItem?>(null)
+		private set
 
-	private var _storeItem by mutableStateOf(item)
-	val storeItem get() = _storeItem
+	fun getBeautySize() = sizeConverter.run { storeItem?.size?.toBytes() }
+
+	fun setShowDialog(isShow: Boolean = true) {
+		isDialogShown = isShow
+	}
 
 	fun getFileMetadata() {
-		viewModelScope.launch(Dispatchers.IO) {
-			_storeMetadata =
-				filesRepository.getRemoteMetadata(item.id, item.disk, item.type)
+		this.storeItem?.let { item ->
+			viewModelScope.launch(Dispatchers.IO) {
+				storeMetadata = filesRepository.getRemoteMetadata(id!!, item.disk, item.type)
+			}
 		}
 	}
 
-	@Suppress(UNCHECKED_CAST)
-	companion object {
-		fun provideFactory(
-			assistedFactory: FileInfoViewModelFactory,
-			storeItem: StoreItem
-		): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-			override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-				return assistedFactory.createFileInfoViewModel(storeItem) as T
-			}
-		}
+	fun downloadFile(setPercents: (Float, String) -> Unit) {
+		setShowDialog(false)
+
+		this.storeMetadata?.let { metadata ->
+			this.storeItem?.let { item ->
+				viewModelScope.launch(Dispatchers.IO) {
+					filesRepository.downloadFile(
+						item.disk,
+						id!!,
+						metadata.name,
+						metadata.size,
+						setPercents
+					)
+				}
+			} ?: setShowDialog(false)
+		} ?: setShowDialog(false)
+	}
+
+	fun getStoreItem() {
+		this.storeItem = filesRepository.getLocalItem(id!!)
+	}
+
+	init {
+		savedStateHandle.get<String>("arg_storeId")?.let { id ->
+			this.id = id
+		} ?: throw NullPointerException()
 	}
 }

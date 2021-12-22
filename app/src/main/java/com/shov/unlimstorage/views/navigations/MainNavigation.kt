@@ -1,7 +1,6 @@
 package com.shov.unlimstorage.views.navigations
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -11,19 +10,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import coil.annotation.ExperimentalCoilApi
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.values.IS_AUTH
-import com.shov.unlimstorage.values.navMain
-import com.shov.unlimstorage.values.navSignIn
-import com.shov.unlimstorage.viewModels.MainNavigationViewModel
+import com.shov.unlimstorage.values.Screen
+import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
 import com.shov.unlimstorage.views.SignInScreen
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainNavigation(
 	mainNavigationViewModel: MainNavigationViewModel,
@@ -36,12 +29,12 @@ fun MainNavigation(
 	NavHost(
 		navController = mainNavController,
 		startDestination = if (isLogIn) {
-			navMain
+			Screen.Files.route
 		} else {
-			navSignIn
+			Screen.SignIn.route
 		}
 	) {
-		composable(navSignIn) {
+		composable(Screen.SignIn.route) {
 			SignInScreen(
 				navController = mainNavController,
 				scaffoldState = mainNavigationViewModel.scaffoldState,
@@ -49,13 +42,12 @@ fun MainNavigation(
 				topAppBarViewModel = hiltViewModel(context)
 			)
 		}
-
-		composable(navMain) {
-			FilesNavigation(
-				scaffoldState = mainNavigationViewModel.scaffoldState,
-				sheetContent = sheetContent,
-				sheetState = mainNavigationViewModel.sheetState
-			)
-		}
+		filesComposable(
+			filesNavController = mainNavController,
+			scaffoldState = mainNavigationViewModel.scaffoldState,
+			sheetContent = sheetContent,
+			sheetState = mainNavigationViewModel.sheetState
+		)
+		settingsComposable(settingsNavController = mainNavController)
 	}
 }

@@ -21,6 +21,7 @@ import com.shov.unlimstorage.R
 @Composable
 fun DownloadSnackbar(
 	modifier: Modifier = Modifier,
+	title: String,
 	backgroundColor: Color = MaterialTheme.colors.background,
 	percents: Float = 0f,
 	onDismissRequest: () -> Unit = {}
@@ -37,7 +38,10 @@ fun DownloadSnackbar(
 					.align(Alignment.CenterVertically)
 					.weight(1f)
 					.padding(start = 8.dp),
-				text = stringResource(R.string.download_new_version)
+				text = stringResource(
+					id = R.string.downloading,
+					title
+				)
 			)
 
 			Box(
@@ -67,5 +71,5 @@ fun DownloadSnackbar(
 @Preview
 @Composable
 fun DownloadSnackbarPreview() {
-	DownloadSnackbar()
+	DownloadSnackbar(title = "r.txt")
 }

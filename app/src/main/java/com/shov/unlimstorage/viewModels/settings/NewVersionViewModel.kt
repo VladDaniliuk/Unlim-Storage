@@ -1,7 +1,8 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.unlimstorage.viewModels.settings
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.shov.unlimstorage.api.models.LastReleaseItem
@@ -13,15 +14,19 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
 class NewVersionViewModel @AssistedInject constructor(
-	@Assisted private val lastReleaseItem: LastReleaseItem,
+	@Assisted val lastReleaseItem: LastReleaseItem,
 	private val sizeConverter: SizeConverter
 ) : ViewModel() {
-	private val _lastRelease by mutableStateOf(lastReleaseItem)
-	val lastRelease get() = _lastRelease
+	var isCheckPermissionShow by mutableStateOf(false)
+		private set
 
-	fun getSize() = sizeConverter.run { _lastRelease.applicationSize.toBytes() }
+	fun showCheckPermission(isShow: Boolean = isCheckPermissionShow.not()) {
+		isCheckPermissionShow = isShow
+	}
 
-	fun getReleaseDate() = _lastRelease.releaseDate.toPrettyString()
+	fun getSize() = sizeConverter.run { lastReleaseItem.applicationSize.toBytes() }
+
+	fun getReleaseDate() = lastReleaseItem.releaseDate.toPrettyString()
 
 	@Suppress(UNCHECKED_CAST)
 	companion object {

@@ -9,10 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 
-@ExperimentalCoilApi
 @Composable
 fun LoadIcon(
 	modifier: Modifier = Modifier,

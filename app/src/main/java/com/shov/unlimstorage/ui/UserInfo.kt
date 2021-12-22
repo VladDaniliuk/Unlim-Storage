@@ -14,10 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun UserInfo(
 	modifier: Modifier = Modifier,
