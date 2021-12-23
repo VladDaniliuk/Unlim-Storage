@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.shov.unlimstorage.values.BottomSheet
 import com.shov.unlimstorage.viewStates.UploadNavigationState
-import com.shov.unlimstorage.viewStates.rememberNewFolderBottomSheet
 import com.shov.unlimstorage.views.files.newFile.ChooseDriveBottomSheet
 import com.shov.unlimstorage.views.files.newFile.NewFolderBottomSheet
 import com.shov.unlimstorage.views.files.newFile.UploadBottomSheet
@@ -18,10 +17,14 @@ fun UploadNavigation(uploadNavigationState: UploadNavigationState) {
 		navController = uploadNavigationState.navController,
 		startDestination = BottomSheet.Main.route
 	) {
-		composable(BottomSheet.Main.route) {
+		composable(route = BottomSheet.Main.route, arguments = listOf()) {
 			UploadBottomSheet(
 				onFolderCreateClick = {
-					uploadNavigationState.navController.navigate(BottomSheet.NewFolder.route)
+					uploadNavigationState.navController.navigate(
+						BottomSheet.NewFolder.setStorageType(
+							uploadNavigationState.storageType.value?.name
+						)
+					)
 				}
 			) { uri ->
 				uploadNavigationState.file.value = uri
@@ -29,9 +32,7 @@ fun UploadNavigation(uploadNavigationState: UploadNavigationState) {
 			}
 		}
 		composable(BottomSheet.NewFolder.route) {
-			NewFolderBottomSheet(
-				rememberNewFolderBottomSheet(storageType = uploadNavigationState.storageType.value)
-			)
+			NewFolderBottomSheet()
 		}
 		composable(BottomSheet.ChooseFile.route) {
 			if (uploadNavigationState.storageType.value != null) {

@@ -1,5 +1,7 @@
 package com.shov.unlimstorage.views.files.newFile
 
+import android.content.Context
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,28 +9,46 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import com.shov.unlimstorage.viewStates.NewFolderBottomSheetState
-import com.shov.unlimstorage.viewStates.rememberNewFolderBottomSheet
+import com.shov.unlimstorage.ui.buttons.ProgressButton
+import com.shov.unlimstorage.utils.observeConnectivityAsFlow
+import com.shov.unlimstorage.viewModels.BottomSheetViewModel
+import com.shov.unlimstorage.viewModels.files.NewFolderViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
-fun NewFolderBottomSheet(newFolderBottomSheetState: NewFolderBottomSheetState) {
-	if (newFolderBottomSheetState.storageType.value != null) {
-		Column {
+fun NewFolderBottomSheet(
+	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
+	context: Context = LocalContext.current,
+	coroutineScope: CoroutineScope = rememberCoroutineScope(),
+	newFolderViewModel: NewFolderViewModel = hiltViewModel(),
+) {
+	val isConnected by context.observeConnectivityAsFlow()
+		.collectAsState(false)
+
+	if (newFolderViewModel.type != null) {
+		Column(
+			modifier = Modifier.padding(
+				horizontal = 8.dp,
+				vertical = 8.dp
+			)
+		) {
 			Text(
 				modifier = Modifier
 					.fillMaxWidth()
-					.padding(top = 8.dp),
+					.padding(bottom = 8.dp),
 				text = stringResource(R.string.create_new_folder),
 				textAlign = TextAlign.Center,
 				fontSize = Typography().h6.fontSize
@@ -36,17 +56,18 @@ fun NewFolderBottomSheet(newFolderBottomSheetState: NewFolderBottomSheetState) {
 
 			Row {
 				OutlinedTextField(
+					isError = newFolderViewModel.textError.isNotEmpty(),
 					modifier = Modifier
+						.padding(end = 8.dp)
 						.weight(1f)
-						.focusRequester(newFolderBottomSheetState.focusRequester)
-						.padding(vertical = 8.dp)
-						.padding(start = 8.dp),
-					value = newFolderBottomSheetState.text.value,
-					onValueChange = { newFolderBottomSheetState.text.value = it },
+						.align(Alignment.CenterVertically)
+						.focusRequester(newFolderViewModel.focusRequester),
+					value = newFolderViewModel.text,
+					onValueChange = newFolderViewModel::onTextChange,
 					placeholder = { Text(text = stringResource(R.string.folder_name)) },
 					trailingIcon = {
-						if (newFolderBottomSheetState.text.value.isNotEmpty()) {
-							IconButton(onClick = { newFolderBottomSheetState.text.value = "" }) {
+						if (newFolderViewModel.text.isNotEmpty()) {
+							IconButton(onClick = newFolderViewModel::onTextChange) {
 								Icon(
 									imageVector = Icons.Rounded.Close,
 									contentDescription = Icons.Rounded.Close.name
@@ -57,31 +78,49 @@ fun NewFolderBottomSheet(newFolderBottomSheetState: NewFolderBottomSheetState) {
 					singleLine = true
 				)
 
-				Button(
-					onClick = {},
-					modifier = Modifier
-						.padding(horizontal = 8.dp)
-						.align(Alignment.CenterVertically)
-				) {
-					Text(text = stringResource(R.string.create))
-				}
+				ProgressButton(
+					modifier = Modifier.align(Alignment.CenterVertically),
+					onClick = { onError ->
+						if (isConnected) {
+							newFolderViewModel.createFolder(
+								onCompletion = {
+									coroutineScope.launch {
+										@OptIn(ExperimentalMaterialApi::class)
+										bottomSheetViewModel.sheetState.hide()
+									}
+								},
+								textError = context.getString(R.string.check_name),
+								onError = onError
+							)
+						} else {
+							newFolderViewModel.textError =
+								context.getString(R.string.check_connection)
+							onError()
+						}
+					}
+				)
 			}
+
+			if (newFolderViewModel.textError.isNotEmpty()) Text(
+				text = newFolderViewModel.textError,
+				color = MaterialTheme.colors.error,
+				style = MaterialTheme.typography.caption,
+			)
 		}
 
 		LaunchedEffect(key1 = null) {
-			newFolderBottomSheetState.focusRequester.requestFocus()
+			newFolderViewModel.focusRequester.requestFocus()
 		}
 	} else {
-		ChooseDriveBottomSheet {
-			newFolderBottomSheetState.storageType.value = it
+		ChooseDriveBottomSheet { type ->
+			newFolderViewModel.type = type
 		}
 	}
 }
 
+@ExperimentalAnimationApi
 @Preview
 @Composable
 fun NewFolderBottomSheetPreview() {
-	NewFolderBottomSheet(
-		newFolderBottomSheetState = rememberNewFolderBottomSheet(storageType = StorageType.BOX)
-	)
+	NewFolderBottomSheet()
 }

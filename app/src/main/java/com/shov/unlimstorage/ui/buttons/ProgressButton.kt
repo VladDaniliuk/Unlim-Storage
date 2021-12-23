@@ -27,7 +27,7 @@ import com.shov.unlimstorage.ui.utils.animateComposeSize
 @Composable
 fun ProgressButton(
 	modifier: Modifier = Modifier,
-	onClick: () -> Unit,
+	onClick: (onError: () -> Unit) -> Unit,
 ) {
 	var state by remember { mutableStateOf(ButtonState.IDLE) }
 	val transition = updateButtonTransition(state)
@@ -44,7 +44,10 @@ fun ProgressButton(
 			.clip(RoundedCornerShape(shapes))
 			.clickable(enabled = state == ButtonState.IDLE) {
 				state = ButtonState.PRESSED
-				onClick()
+
+				onClick {
+					state = ButtonState.IDLE
+				}
 			}
 			.padding(
 				horizontal = horizontalPadding,

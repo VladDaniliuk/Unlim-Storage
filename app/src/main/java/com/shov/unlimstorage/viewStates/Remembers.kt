@@ -2,7 +2,6 @@ package com.shov.unlimstorage.viewStates
 
 import android.content.Context
 import androidx.compose.runtime.*
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.platform.*
 import androidx.navigation.NavController
@@ -20,16 +19,6 @@ fun rememberFileInfoState(
 	uriHandler: UriHandler = LocalUriHandler.current
 ) = remember {
 	FileInfoState(clipboardManager, context, hapticFeedback, uriHandler)
-}
-
-@Composable
-fun rememberNewFolderBottomSheet(
-	coroutineScope: CoroutineScope = rememberCoroutineScope(),
-	focusRequester: FocusRequester = remember { FocusRequester() },
-	storageType: StorageType?,
-	text: MutableState<String> = remember { mutableStateOf("") }
-) = remember(focusRequester, storageType, text) {
-	NewFolderBottomSheetState(coroutineScope, focusRequester, mutableStateOf(storageType), text)
 }
 
 @Composable
