@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.buttons.animation.ButtonState
 import com.shov.unlimstorage.ui.buttons.animation.animateButtonHorizontalPadding
-import com.shov.unlimstorage.ui.buttons.animation.animateButtonShapes
 import com.shov.unlimstorage.ui.buttons.animation.updateButtonTransition
-import com.shov.unlimstorage.ui.circularProgressIndicator.animateButtonProgressSize
+import com.shov.unlimstorage.ui.utils.animateComposeShapes
+import com.shov.unlimstorage.ui.utils.animateComposeSize
 
 @Composable
 fun ProgressButton(
@@ -31,8 +31,8 @@ fun ProgressButton(
 ) {
 	var state by remember { mutableStateOf(ButtonState.IDLE) }
 	val transition = updateButtonTransition(state)
-	val shapes by transition.animateButtonShapes()
-	val progressSize by transition.animateButtonProgressSize()
+	val shapes by transition.animateComposeShapes()
+	val progressSize by transition.animateComposeSize(pressed = 40.dp)
 	val horizontalPadding by transition.animateButtonHorizontalPadding()
 
 	Box(
