@@ -7,12 +7,10 @@ import com.box.androidsdk.content.BoxConstants
 import com.box.androidsdk.content.BoxException
 import com.box.androidsdk.content.models.BoxSession
 import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import com.shov.unlimstorage.utils.converters.StoreConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
+import com.shov.unlimstorage.utils.converters.toStoreItem
 import com.shov.unlimstorage.values.getBoxFields
 import com.shov.unlimstorage.values.setItemFields
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -23,40 +21,22 @@ import javax.inject.Inject
 class BoxFiles @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val authorizerFactory: AuthorizerFactory,
-	private val storeItemConverter: StoreConverter,
 	private val storeMetadataConverter: StoreMetadataConverter
 ) : FilesInteractor {
-	override fun getFiles(folderId: String?): List<StoreItem> {
-		return if (checkAuth) {
-			try {
-				BoxApiFolder(BoxSession(context)).getItemsRequest(
-					folderId ?: BoxConstants.ROOT_FOLDER_ID
-				).setItemFields().send().map { boxItem ->
-					storeItemConverter.run {
-						boxItem.toStoreItem(parentFolder = folderId)
-					}
-				}.toList()
-			} catch (e: BoxException) {
-				emptyList()
-			}
-		} else {
-			emptyList()
-		}
-	}
+	private val checkAuth: Boolean
+		get() = authorizerFactory.create(StorageType.BOX).isSuccess()
 
-	override fun getFileMetadata(id: String, type: ItemType): StoreMetadataItem? {
-		return if (checkAuth) {
-			storeMetadataConverter.run {
-				(when (type) {
-					ItemType.FILE -> BoxApiFile(BoxSession(context)).getInfoRequest(id)
-						.setFields(*getBoxFields()).send()
-					ItemType.FOLDER -> BoxApiFolder(BoxSession(context)).getInfoRequest(id)
-						.setFields(*getBoxFields()).send()
-				}).toStoreMetadata()
-			}
-		} else {
-			null
-		}
+	override fun createFolder(folderName: String) = try {
+		if (checkAuth) {
+			BoxApiFolder(BoxSession(context)).getCreateRequest(
+				BoxConstants.ROOT_FOLDER_ID,
+				folderName
+			).send()
+
+			true
+		} else false
+	} catch (e: BoxException) {
+		false
 	}
 
 	override fun downloadFile(
@@ -87,6 +67,30 @@ class BoxFiles @Inject constructor(
 		}
 	}
 
+	override fun getFileMetadata(id: String, type: ItemType) = if (checkAuth) {
+		storeMetadataConverter.run {
+			(when (type) {
+				ItemType.FILE -> BoxApiFile(BoxSession(context)).getInfoRequest(id)
+					.setFields(*getBoxFields()).send()
+				ItemType.FOLDER -> BoxApiFolder(BoxSession(context)).getInfoRequest(id)
+					.setFields(*getBoxFields()).send()
+			}).toStoreMetadata()
+		}
+	} else null
+
+	override fun getFiles(folderId: String?) = if (checkAuth) {
+		try {
+			BoxApiFolder(BoxSession(context))
+				.getItemsRequest(folderId ?: BoxConstants.ROOT_FOLDER_ID)
+				.setItemFields().send()
+				.map { boxItem ->
+					boxItem.toStoreItem(folderId)
+				}.toList()
+		} catch (e: BoxException) {
+			emptyList()
+		}
+	} else emptyList()
+
 	/**Upload file*/
 	/*
 	* try {
@@ -114,7 +118,4 @@ class BoxFiles @Inject constructor(
                 } finally {
                     mDialog.dismiss();
                 }*/
-
-	private val checkAuth: Boolean
-		get() = authorizerFactory.create(StorageType.BOX).isSuccess()
 }
