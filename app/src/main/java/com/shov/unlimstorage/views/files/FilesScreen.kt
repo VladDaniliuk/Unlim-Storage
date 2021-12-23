@@ -56,6 +56,7 @@ fun FilesScreen(
 			bottomSheetViewModel.sheetContent = {
 				UploadNavigation(
 					uploadNavigationState = rememberUploadNavigationState(
+						folderId = filesViewModel.folderId,
 						type = filesViewModel.storageType
 					)
 				)

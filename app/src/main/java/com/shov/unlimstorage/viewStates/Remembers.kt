@@ -36,9 +36,10 @@ fun rememberFilesScreenState(
 
 @Composable
 fun rememberUploadNavigationState(
+	folderId: String?,
+	navController: NavHostController = rememberNavController(),
 	type: StorageType?,
-	storageType: MutableState<StorageType?> = mutableStateOf(type),
-	navController: NavHostController = rememberNavController()
+	storageType: MutableState<StorageType?> = mutableStateOf(type)
 ) = remember(storageType.value, navController, mutableStateOf<File?>(null)) {
-	UploadNavigationState(storageType, navController, mutableStateOf(null))
+	UploadNavigationState(mutableStateOf(null), folderId, navController, storageType)
 }

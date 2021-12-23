@@ -34,8 +34,9 @@ sealed class Screen(val route: String) {
 sealed class BottomSheet(val route: String) {
 	object ChooseFile : BottomSheet("nav_choose_file")
 	object Main : BottomSheet("nav_main")
-	object NewFolder : BottomSheet("$navNewFolder$argStorageType={$argStorageType}") {
-		fun setStorageType(type: String?) =
-			"$navNewFolder$argStorageType=${type ?: "{$argStorageType}"}"
+	object NewFolder :
+		BottomSheet("$navNewFolder$argStorageType={$argStorageType}/?$argFolderId={$argFolderId}") {
+		fun setParent(type: String?, folderId: String?) =
+			"$navNewFolder$argStorageType=${type ?: "{$argStorageType}"}/?$argFolderId=${folderId ?: "{$argFolderId}"}"
 	}
 }

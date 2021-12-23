@@ -67,8 +67,8 @@ class DropBoxFiles @Inject constructor(
 		}
 	}
 
-	override fun createFolder(folderName: String) = try {
-		getFiles()?.createFolderV2("$DROPBOX_ROOT_FOLDER/$folderName", true)
+	override fun createFolder(folderId: String?, folderName: String) = try {
+		getFiles()?.createFolderV2("${getPath(folderId)}/$folderName", true)
 
 		true
 	} catch (e: BadRequestException) {
@@ -85,4 +85,6 @@ class DropBoxFiles @Inject constructor(
 			).files()
 		else null
 	}
+
+	private fun getPath(id: String?) = getFiles()?.getMetadata(id)?.pathLower ?: DROPBOX_ROOT_FOLDER
 }

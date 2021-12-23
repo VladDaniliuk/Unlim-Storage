@@ -25,9 +25,10 @@ class GoogleFiles @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val storeMetadataConverter: StoreMetadataConverter
 ) : FilesInteractor {
-	override fun createFolder(folderName: String): Boolean {
+	override fun createFolder(folderId: String?, folderName: String): Boolean {
 		getGoogleFiles().create(
 			GoogleFile().apply {
+				parents = listOf(folderId)
 				name = folderName
 				mimeType = "application/vnd.google-apps.folder"
 			}

@@ -25,7 +25,8 @@ data class FilesScreenState(
 )
 
 data class UploadNavigationState(
-	val storageType: MutableState<StorageType?>,
+	val file: MutableState<File?>,
+	val folderId: String?,
 	val navController: NavHostController,
-	val file: MutableState<File?>
+	val storageType: MutableState<StorageType?>
 )

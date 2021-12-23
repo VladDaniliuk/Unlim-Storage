@@ -26,10 +26,10 @@ class BoxFiles @Inject constructor(
 	private val checkAuth: Boolean
 		get() = authorizerFactory.create(StorageType.BOX).isSuccess()
 
-	override fun createFolder(folderName: String) = try {
+	override fun createFolder(folderId: String?, folderName: String) = try {
 		if (checkAuth) {
 			BoxApiFolder(BoxSession(context)).getCreateRequest(
-				BoxConstants.ROOT_FOLDER_ID,
+				folderId ?: BoxConstants.ROOT_FOLDER_ID,
 				folderName
 			).send()
 

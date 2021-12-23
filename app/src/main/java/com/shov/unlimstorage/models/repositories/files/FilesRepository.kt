@@ -23,7 +23,11 @@ interface FilesRepository {
 	fun getLocalItem(id: String): StoreItem
 	fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem?
 	fun setToLocal(storeItemList: List<StoreItem>)
-	suspend fun createFolder(storageType: StorageType, folderName: String): Boolean
+	suspend fun createFolder(
+		folderId: String?,
+		folderName: String,
+		storageType: StorageType
+	): Boolean
 }
 
 class FilesRepositoryImpl @Inject constructor(
@@ -111,6 +115,9 @@ class FilesRepositoryImpl @Inject constructor(
 		storeItemDao.setAll(storeItems = storeItemList)
 	}
 
-	override suspend fun createFolder(storageType: StorageType, folderName: String) =
-		filesFactory.create(storageType).createFolder(folderName)
+	override suspend fun createFolder(
+		folderId: String?,
+		folderName: String,
+		storageType: StorageType
+	) = filesFactory.create(storageType).createFolder(folderId, folderName)
 }

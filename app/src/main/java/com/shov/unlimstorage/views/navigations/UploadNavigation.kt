@@ -21,8 +21,9 @@ fun UploadNavigation(uploadNavigationState: UploadNavigationState) {
 			UploadBottomSheet(
 				onFolderCreateClick = {
 					uploadNavigationState.navController.navigate(
-						BottomSheet.NewFolder.setStorageType(
-							uploadNavigationState.storageType.value?.name
+						BottomSheet.NewFolder.setParent(
+							uploadNavigationState.storageType.value?.name,
+							uploadNavigationState.folderId
 						)
 					)
 				}
