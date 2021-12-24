@@ -12,6 +12,9 @@
 #   public *;
 #}
 
+-keep class com.google.api.services.drive.** { *;}
+-keep class com.google.api.client.googleapis.services.** {*;}
+
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
