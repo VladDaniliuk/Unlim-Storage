@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.unlimstorage.viewModels.common
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.ExperimentalMaterialApi

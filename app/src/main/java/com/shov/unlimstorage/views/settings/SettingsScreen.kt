@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.Screen
-import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable

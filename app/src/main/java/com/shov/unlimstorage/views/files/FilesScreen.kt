@@ -27,9 +27,9 @@ import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.PADDING_FAB
 import com.shov.unlimstorage.values.SIZE_FAB
 import com.shov.unlimstorage.values.Screen
-import com.shov.unlimstorage.viewModels.BottomSheetViewModel
+import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.SizeConverterViewModel
-import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel

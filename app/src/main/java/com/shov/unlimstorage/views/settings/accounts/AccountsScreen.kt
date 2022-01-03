@@ -18,7 +18,7 @@ import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
-import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 

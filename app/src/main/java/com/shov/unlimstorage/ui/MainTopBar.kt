@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable

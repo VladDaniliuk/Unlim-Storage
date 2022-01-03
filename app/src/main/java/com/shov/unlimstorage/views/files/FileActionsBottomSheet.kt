@@ -24,7 +24,7 @@ import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.ui.StoreItem
-import com.shov.unlimstorage.viewModels.BottomSheetViewModel
+import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import kotlinx.coroutines.CoroutineScope

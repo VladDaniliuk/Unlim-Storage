@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.ui.CustomScaffold
 import com.shov.unlimstorage.ui.DownloadSnackbar
-import com.shov.unlimstorage.viewModels.BottomSheetViewModel
+import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.provider.mainNavigationViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.views.navigations.MainNavigation

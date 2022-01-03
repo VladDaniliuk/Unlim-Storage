@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.buttons.ProgressButton
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
-import com.shov.unlimstorage.viewModels.BottomSheetViewModel
+import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.files.NewFolderViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
