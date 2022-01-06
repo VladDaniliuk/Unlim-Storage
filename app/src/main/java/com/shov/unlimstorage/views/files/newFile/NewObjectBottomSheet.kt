@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.files.newFile
 
+import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,7 +19,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.buttons.CustomIconButton
@@ -26,14 +26,13 @@ import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.io.File
 
 @Composable
-fun UploadBottomSheet(
+fun NewObjectBottomSheet(
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	onFolderCreateClick: () -> Unit,
-	onUploadClick: (File) -> Unit,
+	onUploadClick: (Uri?) -> Unit
 ) {
 	BackHandler {
 		coroutineScope.launch {
@@ -43,11 +42,7 @@ fun UploadBottomSheet(
 	}
 
 	val pickPictureLauncher =
-		rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { fileUri ->
-			fileUri?.path?.let {
-				onUploadClick(File(it))
-			}
-		}
+		rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument(), onUploadClick)
 
 	Column {
 		Text(
@@ -70,16 +65,8 @@ fun UploadBottomSheet(
 				imageVector = Icons.Rounded.Upload,
 				text = stringResource(R.string.upload)
 			) {
-				pickPictureLauncher.launch("*/*")
+				pickPictureLauncher.launch(arrayOf("*/*"))
 			}
 		}
 	}
-}
-
-@Preview
-@Composable
-fun NewObjectBottomSheetPreview() {
-	UploadBottomSheet(
-		onFolderCreateClick = {}
-	) {}
 }

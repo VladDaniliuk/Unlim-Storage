@@ -9,7 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import kotlinx.coroutines.CoroutineScope
-import java.io.File
 
 @Composable
 fun rememberFileInfoState(
@@ -38,8 +37,7 @@ fun rememberFilesScreenState(
 fun rememberUploadNavigationState(
 	folderId: String?,
 	navController: NavHostController = rememberNavController(),
-	type: StorageType?,
-	storageType: MutableState<StorageType?> = mutableStateOf(type)
-) = remember(storageType.value, navController, mutableStateOf<File?>(null)) {
-	UploadNavigationState(mutableStateOf(null), folderId, navController, storageType)
+	storageType: StorageType?
+) = remember(navController) {
+	UploadNavigationState(null, folderId, navController, storageType)
 }

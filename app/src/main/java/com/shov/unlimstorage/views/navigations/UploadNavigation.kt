@@ -1,54 +1,62 @@
 package com.shov.unlimstorage.views.navigations
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
+import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.shov.unlimstorage.utils.getName
 import com.shov.unlimstorage.values.BottomSheet
 import com.shov.unlimstorage.viewStates.UploadNavigationState
-import com.shov.unlimstorage.views.files.newFile.ChooseDriveBottomSheet
 import com.shov.unlimstorage.views.files.newFile.NewFolderBottomSheet
+import com.shov.unlimstorage.views.files.newFile.NewObjectBottomSheet
 import com.shov.unlimstorage.views.files.newFile.UploadBottomSheet
+import java.io.FileInputStream
 
 @Composable
-fun UploadNavigation(uploadNavigationState: UploadNavigationState) {
+fun UploadNavigation(
+	uploadNavigationState: UploadNavigationState,
+	context: Context = LocalContext.current
+) {
 	NavHost(
 		navController = uploadNavigationState.navController,
 		startDestination = BottomSheet.Main.route
 	) {
-		composable(route = BottomSheet.Main.route, arguments = listOf()) {
-			UploadBottomSheet(
+		composable(BottomSheet.Main.route) {
+			NewObjectBottomSheet(
 				onFolderCreateClick = {
 					uploadNavigationState.navController.navigate(
 						BottomSheet.NewFolder.setParent(
-							uploadNavigationState.storageType.value?.name,
+							uploadNavigationState.storageType?.name,
 							uploadNavigationState.folderId
 						)
 					)
 				}
-			) { uri ->
-				uploadNavigationState.file.value = uri
-				uploadNavigationState.navController.navigate(BottomSheet.ChooseFile.route)
+			) { fileUri ->
+				fileUri?.let { uri ->
+					uploadNavigationState.file = FileInputStream(
+						context.contentResolver.openFileDescriptor(
+							uri,
+							"r",
+							null
+						)?.fileDescriptor
+					)
+
+					uploadNavigationState.navController.navigate(
+						BottomSheet.ChooseFile.setParent(
+							uploadNavigationState.storageType?.name,
+							uploadNavigationState.folderId,
+							context.contentResolver.getName(uri)
+						)
+					)
+				}
 			}
 		}
 		composable(BottomSheet.NewFolder.route) {
 			NewFolderBottomSheet()
 		}
 		composable(BottomSheet.ChooseFile.route) {
-			if (uploadNavigationState.storageType.value != null) {
-				Column {
-					uploadNavigationState.file.value?.let { file ->
-						Text(text = file.name)
-						Text(text = file.path)
-						Text(text = file.absolutePath)
-					}
-				}
-			} else {
-				ChooseDriveBottomSheet { storageType ->
-					uploadNavigationState.storageType.value = storageType
-				}
-			}
+			UploadBottomSheet(uploadNavigationState.file)
 		}
 	}
 }
