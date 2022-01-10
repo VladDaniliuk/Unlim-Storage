@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui
+package com.shov.unlimstorage.ui.texts
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

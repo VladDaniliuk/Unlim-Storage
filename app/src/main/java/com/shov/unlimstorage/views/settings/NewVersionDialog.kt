@@ -20,7 +20,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.CustomText
+import com.shov.unlimstorage.ui.texts.CustomText
 import com.shov.unlimstorage.ui.CustomDialogContent
 import com.shov.unlimstorage.ui.customHeaderText
 import com.shov.unlimstorage.utils.launchWhenStarted

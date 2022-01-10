@@ -17,6 +17,19 @@ class TopAppBarViewModel @Inject constructor() : ViewModel() {
 	var nextRoute by mutableStateOf<Pair<ImageVector, (() -> Unit)>?>(null)
 		private set
 
+	var prevRouteOld by mutableStateOf<Pair<ImageVector, (() -> Unit)>?>(null)
+		private set
+	var nextRouteOld by mutableStateOf<Pair<ImageVector, (() -> Unit)>?>(null)
+		private set
+
+	fun onPrevRouteChange() {
+		if (prevRoute != null) prevRouteOld = prevRoute
+	}
+
+	fun onNextRouteChange() {
+		if (nextRoute != null) nextRouteOld = nextRoute
+	}
+
 	fun setTopBar(
 		prevRoute: Pair<ImageVector, (() -> Unit)>? = null,
 		title: String? = null,

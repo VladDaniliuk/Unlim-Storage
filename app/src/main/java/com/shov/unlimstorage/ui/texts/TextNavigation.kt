@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui
+package com.shov.unlimstorage.ui.texts
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.MaterialTheme

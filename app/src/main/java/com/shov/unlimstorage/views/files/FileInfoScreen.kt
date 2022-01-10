@@ -26,6 +26,8 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.*
 import com.shov.unlimstorage.ui.buttons.CustomIconButton
+import com.shov.unlimstorage.ui.texts.CustomText
+import com.shov.unlimstorage.ui.texts.TextInfo
 import com.shov.unlimstorage.utils.converters.toPrettyString
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.DownloadViewModel

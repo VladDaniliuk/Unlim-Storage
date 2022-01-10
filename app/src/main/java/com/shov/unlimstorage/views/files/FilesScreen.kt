@@ -22,7 +22,7 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.ui.FABScaffold
 import com.shov.unlimstorage.ui.StoreItem
-import com.shov.unlimstorage.ui.TextNavigation
+import com.shov.unlimstorage.ui.texts.TextNavigation
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.PADDING_FAB
 import com.shov.unlimstorage.values.SIZE_FAB

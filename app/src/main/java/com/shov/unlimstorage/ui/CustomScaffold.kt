@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
@@ -40,7 +41,8 @@ fun FABScaffold(onClick: () -> Unit, content: @Composable (PaddingValues) -> Uni
 			) {
 				Icon(
 					imageVector = Icons.Rounded.Add,
-					contentDescription = Icons.Rounded.Add.name
+					contentDescription = Icons.Rounded.Add.name,
+					tint = Color.White
 				)
 			}
 		},
