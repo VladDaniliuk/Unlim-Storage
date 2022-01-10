@@ -1,15 +1,14 @@
 package com.shov.unlimstorage.views
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.insets.navigationBarsPadding
@@ -32,20 +31,16 @@ import kotlinx.coroutines.flow.onEach
 @OptIn(ExperimentalMaterialApi::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun MainScreen(
+	context: Context = LocalContext.current,
+	downloadViewModel: DownloadViewModel = singletonViewModel(),
+	lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+	scaffoldState: ScaffoldState = rememberScaffoldState(),
+	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?> =
+		remember { mutableStateOf(null) },
+	sheetState: ModalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden),
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	updateViewModel: UpdateViewModel = updateViewModel(),
-	downloadViewModel: DownloadViewModel = singletonViewModel()
+	updateViewModel: UpdateViewModel = updateViewModel()
 ) {
-	val context = LocalContext.current
-	val currentLifecycleOwner = LocalLifecycleOwner.current
-
-	/**States*/
-	val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-	val scaffoldState = rememberScaffoldState()
-
-	/**BottomSheet content*/
-	val sheetContent = remember { mutableStateOf<(@Composable ColumnScope.() -> Unit)?>(null) }
-
 	if (updateViewModel.isDialogShown) {
 		updateViewModel.lastRelease?.let { lastRelease ->
 			NewVersionDialog(
@@ -118,6 +113,6 @@ fun MainScreen(
 	LaunchedEffect(key1 = null) {
 		context.observeConnectivityAsFlow().onEach { isConnected ->
 			if (updateViewModel.isShowAgain.and(isConnected)) updateViewModel.checkAppVersion()
-		}.launchWhenStarted(currentLifecycleOwner.lifecycleScope)
+		}.launchWhenStarted(lifecycleOwner.lifecycleScope)
 	}
 }

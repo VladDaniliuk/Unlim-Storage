@@ -10,7 +10,7 @@ import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.utils.converters.StoreConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
-import com.shov.unlimstorage.values.Box
+import com.shov.unlimstorage.values.Keys
 import com.shov.unlimstorage.values.getBoxFields
 import com.shov.unlimstorage.values.setItemFields
 import dagger.hilt.android.qualifiers.ApplicationContext

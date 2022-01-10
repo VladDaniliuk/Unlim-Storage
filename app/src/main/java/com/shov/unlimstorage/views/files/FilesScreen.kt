@@ -40,12 +40,7 @@ fun FilesScreen(
 	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?>,
 	sizeConverter: SizeConverterViewModel = singletonViewModel()
 ) {
-	topAppBarViewModel.setTopBar(
-		filesViewModel.folderId?.let { Icons.Rounded.ArrowBack to { filesNavController.popBackStack() } },
-		stringResource(R.string.app_name),
-		Icons.Rounded.AccountCircle to { filesNavController.navigate(Screen.Settings.route) }
-	)
-
+	val context = LocalContext.current
 	val coroutineScope = rememberCoroutineScope()
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 	val messageFailed = stringResource(id = R.string.connection_failed)
@@ -160,5 +155,13 @@ fun FilesScreen(
 		} else {
 			filesViewModel.checkLocalFiles()
 		}
+	}
+
+	LaunchedEffect(key1 = null) {
+		topAppBarViewModel.setTopBar(
+			filesViewModel.folderId?.let { Icons.Rounded.ArrowBack to { filesNavController.popBackStack() } },
+			context.getString(R.string.app_name),
+			Icons.Rounded.AccountCircle to { filesNavController.navigate(Screen.Settings.route) }
+		)
 	}
 }

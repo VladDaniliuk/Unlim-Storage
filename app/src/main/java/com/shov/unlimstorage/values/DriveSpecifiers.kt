@@ -3,6 +3,7 @@ package com.shov.unlimstorage.values
 import com.box.androidsdk.content.requests.BoxRequestsFolder
 
 const val DROPBOX_ROOT_FOLDER = ""
+const val DROPBOX_CLIENT_IDENTIFIER = "Dbx_US/0.1.0"
 
 const val GOOGLE_FIELDS = "files(id,size,name,mimeType,parents)"
 const val GOOGLE_METADATA = "id,name,mimeType,description,permissions,shared,starred,version," +

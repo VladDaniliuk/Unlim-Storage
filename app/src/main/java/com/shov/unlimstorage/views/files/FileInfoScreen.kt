@@ -55,20 +55,6 @@ fun FileInfoScreen(
 	val isConnected =
 		currentContext.observeConnectivityAsFlow().collectAsState(initial = false).value
 
-	topAppBarViewModel.setTopBar(
-		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		fileInfoViewModel.storeItem?.name,
-		if (fileInfoViewModel.storeMetadata?.isStarred == true) {
-			Icons.Rounded.Star
-		} else {
-			Icons.Rounded.StarBorder
-		} to {
-			coroutineScope.launch {
-				scaffoldState.snackbarHostState.showSnackbar("Doesn't work now")
-			}
-		}
-	)
-
 	if (fileInfoViewModel.isDialogShown) {
 		Permission(
 			onDismissRequest = { fileInfoViewModel.setShowDialog(false) },
@@ -287,5 +273,21 @@ fun FileInfoScreen(
 		if (isConnected.and(fileInfoViewModel.storeMetadata == null)) {
 			fileInfoViewModel.getFileMetadata()
 		}
+	}
+
+	LaunchedEffect(key1 = fileInfoViewModel.storeItem?.name) {
+		topAppBarViewModel.setTopBar(
+			Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
+			fileInfoViewModel.storeItem?.name,
+			if (fileInfoViewModel.storeMetadata?.isStarred == true) {
+				Icons.Rounded.Star
+			} else {
+				Icons.Rounded.StarBorder
+			} to {
+				coroutineScope.launch {
+					scaffoldState.snackbarHostState.showSnackbar("Doesn't work now")
+				}
+			}
+		)
 	}
 }

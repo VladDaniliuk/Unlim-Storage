@@ -12,19 +12,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.models.repositories.signIn.CheckDropboxCredential
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.values.MEDIUM_SHAPES
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
-import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 import com.shov.unlimstorage.viewModels.SignInViewModel
+import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 
 @Composable
-fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: SignInViewModel) {
+fun AddAccountDialog(
+	accountsViewModel: AccountsViewModel = hiltViewModel(),
+	signInViewModel: SignInViewModel = hiltViewModel(),
+) {
 	Dialog(onDismissRequest = { accountsViewModel.showAddAccountBottomSheet() }) {
 		Column(
 			modifier = Modifier.background(
@@ -46,7 +49,7 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: Sign
 					) { result ->
 						signInViewModel.checkAccessWithResult(result, storageType)
 						accountsViewModel.setIsAllSignedIn(true)
-						accountsViewModel.showAddAccountBottomSheet(null)
+						accountsViewModel.showAddAccountBottomSheet()
 					}
 
 					AccountMenuLink(
@@ -62,13 +65,11 @@ fun AddAccountDialog(accountsViewModel: AccountsViewModel, signInViewModel: Sign
 			Spacer(modifier = Modifier.padding(bottom = MEDIUM_SHAPES))
 		}
 	}
-}
 
-@Preview
-@Composable
-fun AddAccountBottomSheetPreview() {
-	AddAccountDialog(
-		accountsViewModel = hiltViewModel(),
-		signInViewModel = hiltViewModel()
-	)
+	CheckDropboxCredential(
+		additionalCheck = accountsViewModel.checkAccess(StorageType.DROPBOX).not()
+	) {
+		accountsViewModel.setIsAllSignedIn(true)
+		accountsViewModel.showAddAccountBottomSheet()
+	}
 }

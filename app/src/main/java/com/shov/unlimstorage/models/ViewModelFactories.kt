@@ -15,7 +15,8 @@ interface MainNavigationViewModelFactory {
 	@OptIn(ExperimentalMaterialApi::class)
 	fun createMainNavigationViewModel(
 		scaffoldState: ScaffoldState,
-		sheetState: ModalBottomSheetState
+		sheetState: ModalBottomSheetState,
+		isLogInPref: Preference<Boolean>
 	): MainNavigationViewModel
 }
 

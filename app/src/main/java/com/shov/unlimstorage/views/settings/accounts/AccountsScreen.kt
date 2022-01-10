@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.settings.accounts
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -8,42 +9,38 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.values.ACCOUNTS
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 
 @Composable
 fun AccountsScreen(
-	accountsViewModel: AccountsViewModel,
-	filesNavController: NavController,
-	topAppBarViewModel: TopAppBarViewModel
+	accountsViewModel: AccountsViewModel = hiltViewModel(),
+	context: Context = LocalContext.current,
+	onBackClick: () -> Unit,
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 ) {
-	topAppBarViewModel.setTopBar(
-		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		stringResource(id = R.string.accounts),
-		null
-	)
-
 	accountsViewModel.showRevokeDialog?.let { storageType ->
 		RevokeAccountDialog(
-			accountsViewModel = hiltViewModel(),
-			storageType = storageType
-		)
+			nameId = storageType.nameId,
+			onDismiss = accountsViewModel::showRevokeDialog
+		) {
+			accountsViewModel.signOut(storageType)
+		}
 	}
 
-	accountsViewModel.isShowAddAccountBottomSheet?.let {
-		AddAccountDialog(
-			accountsViewModel = hiltViewModel(),
-			signInViewModel = hiltViewModel()
-		)
+	if (accountsViewModel.isShowAddAccountBottomSheet) {
+		AddAccountDialog()
 	}
 
 	Column {
@@ -75,6 +72,13 @@ fun AccountsScreen(
 				accountsViewModel.showAddAccountBottomSheet(true)
 			}
 		}
+	}
+
+	LaunchedEffect(key1 = null) {
+		topAppBarViewModel.setTopBar(
+			Icons.Rounded.ArrowBack to onBackClick,
+			context.getString(R.string.accounts)
+		)
 	}
 }
 

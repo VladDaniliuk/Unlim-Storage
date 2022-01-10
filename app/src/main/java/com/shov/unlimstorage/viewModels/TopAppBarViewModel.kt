@@ -18,9 +18,9 @@ class TopAppBarViewModel @Inject constructor() : ViewModel() {
 		private set
 
 	fun setTopBar(
-		prevRoute: Pair<ImageVector, (() -> Unit)>?,
-		title: String?,
-		nextRoute: Pair<ImageVector, (() -> Unit)>?
+		prevRoute: Pair<ImageVector, (() -> Unit)>? = null,
+		title: String? = null,
+		nextRoute: Pair<ImageVector, (() -> Unit)>? = null
 	) {
 		this.prevRoute = prevRoute
 		this.title = title

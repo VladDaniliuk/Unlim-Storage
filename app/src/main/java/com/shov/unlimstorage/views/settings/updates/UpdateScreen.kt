@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.settings.updates
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Icon
 import androidx.compose.material.Switch
@@ -9,25 +10,24 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Autorenew
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.unlimstorage.viewModels.provider.updateViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 
 @Composable
 fun UpdateScreen(
-	updateViewModel: UpdateViewModel,
+	context: Context = LocalContext.current,
 	filesNavController: NavController,
-	topAppBarViewModel: TopAppBarViewModel
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	updateViewModel: UpdateViewModel = updateViewModel(),
 ) {
-	topAppBarViewModel.setTopBar(
-		Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-		stringResource(R.string.updates),
-		null
-	)
-
 	Column {
 		SettingsMenuLink(
 			icon = {
@@ -56,5 +56,13 @@ fun UpdateScreen(
 				)
 			}
 		) {}
+	}
+
+	LaunchedEffect(key1 = null) {
+		topAppBarViewModel.setTopBar(
+			Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
+			context.getString(R.string.updates),
+			null
+		)
 	}
 }
