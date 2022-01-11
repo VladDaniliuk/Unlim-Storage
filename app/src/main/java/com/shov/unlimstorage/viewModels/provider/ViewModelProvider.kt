@@ -2,7 +2,6 @@ package com.shov.unlimstorage.viewModels.provider
 
 import android.app.Activity
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ScaffoldState
@@ -62,7 +61,7 @@ inline fun <reified VM : ViewModel> singletonViewModel(): VM {
 
 @Composable
 fun updateViewModel(): UpdateViewModel {
-	val context = LocalContext.current as AppCompatActivity
+	val context = LocalContext.current as ComponentActivity
 
 	return viewModel(
 		context,
