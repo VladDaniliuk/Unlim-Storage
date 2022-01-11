@@ -10,6 +10,7 @@ object Accompanist {
 		const val systemuicontroller = "$lib-systemuicontroller:$version"
 		const val insets = "$lib-insets:$version"
 		const val permissions = "$lib-permissions:$version"
+		const val navigationAnimation = "$lib-navigation-animation:$version"
 	}
 }
 
