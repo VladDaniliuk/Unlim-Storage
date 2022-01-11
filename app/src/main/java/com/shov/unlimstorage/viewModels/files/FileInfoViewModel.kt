@@ -49,15 +49,17 @@ class FileInfoViewModel @Inject constructor(
 
 		this.storeMetadata?.let { metadata ->
 			this.storeItem?.let { item ->
-				viewModelScope.launch(Dispatchers.IO) {
-					filesRepository.downloadFile(
-						item.disk,
-						id!!,
-						metadata.name,
-						metadata.size,
-						setPercents
-					)
-				}
+				metadata.size?.let { size ->
+					viewModelScope.launch(Dispatchers.IO) {
+						filesRepository.downloadFile(
+							item.disk,
+							id!!,
+							metadata.name,
+							size,
+							setPercents
+						)
+					}
+				} ?: setShowDialog(false)
 			} ?: setShowDialog(false)
 		} ?: setShowDialog(false)
 	}
