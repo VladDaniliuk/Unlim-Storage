@@ -12,13 +12,11 @@
 		tools:ignore="ScopedStorage" />
 
 	<application
-		android:allowBackup="false"
 		android:icon="@mipmap/ic_launcher"
 		android:label="@string/app_name"
 		android:name=".UnlimStorageApp"
 		android:requestLegacyExternalStorage="true"
 		android:roundIcon="@mipmap/ic_launcher_round"
-		android:supportsRtl="true"
 		android:theme="@style/Theme.Splash">
 		<provider
 			android:name="androidx.core.content.FileProvider"

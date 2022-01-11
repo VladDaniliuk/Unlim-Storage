@@ -16,7 +16,10 @@ android {
 	buildTypes {
 		getByName(BuildType.release) {
 			signingConfig = signingConfigs.getByName(BuildType.debug)
-			isMinifyEnabled = false
+
+			isMinifyEnabled = true
+			isShrinkResources = true
+
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 
 			applicationVariants.all {
@@ -30,6 +33,11 @@ android {
 		getByName(BuildType.debug) {
 			signingConfig = signingConfigs.getByName(BuildType.debug)
 			isDebuggable = true
+
+			isMinifyEnabled = true
+			isShrinkResources = true
+
+			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 
 			applicationVariants.all {
 				outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
@@ -74,7 +82,6 @@ android {
 
 	implementKotlinx()
 	implementCore()
-	implementDesign()
 	implementGithub()
 	implementFirebase()
 	implementGoogle()
