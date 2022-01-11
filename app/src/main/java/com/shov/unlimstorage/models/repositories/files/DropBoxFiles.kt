@@ -7,6 +7,7 @@ import com.dropbox.core.RateLimitException
 import com.dropbox.core.oauth.DbxCredential
 import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.DbxUserFilesRequests
+import com.dropbox.core.v2.files.WriteMode
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
@@ -17,6 +18,7 @@ import com.shov.unlimstorage.values.DROPBOX_ROOT_FOLDER
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream
+import java.io.InputStream
 import javax.inject.Inject
 
 class DropBoxFiles @Inject constructor(
@@ -33,6 +35,14 @@ class DropBoxFiles @Inject constructor(
 		emptyList()
 	} catch (e: IllegalArgumentException) {
 		emptyList()
+	}
+
+	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
+		getFiles()?.apply {
+			uploadBuilder("${getPath(folderId)}/$name")
+				.withMode(WriteMode.ADD)
+				.uploadAndFinish(inputStream)
+		}
 	}
 
 	override fun getFileMetadata(id: String, type: ItemType) = try {
@@ -86,5 +96,6 @@ class DropBoxFiles @Inject constructor(
 		else null
 	}
 
-	private fun getPath(id: String?) = getFiles()?.getMetadata(id)?.pathLower ?: DROPBOX_ROOT_FOLDER
+	private fun getPath(id: String?) =
+		if (id.isNullOrEmpty()) DROPBOX_ROOT_FOLDER else getFiles()?.getMetadata(id)?.pathLower
 }
