@@ -5,7 +5,8 @@ import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
 
 interface FilesInteractor {
-	fun getFiles(folderId: String? = null): List<StoreItem>
+	fun createFolder(folderId: String?, folderName: String): Boolean
+	fun downloadFile(id: String, name: String, size: Long, setPercents: (Float, String) -> Unit)
 	fun getFileMetadata(id: String, type: ItemType): StoreMetadataItem?
-	fun downloadFile(id: String, name: String, size: Long, setPercents: (Float,String) -> Unit)
+	fun getFiles(folderId: String? = null): List<StoreItem>
 }
