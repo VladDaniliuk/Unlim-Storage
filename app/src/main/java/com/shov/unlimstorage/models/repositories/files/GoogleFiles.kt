@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
+import com.google.api.client.http.InputStreamContent
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
@@ -18,6 +19,7 @@ import com.shov.unlimstorage.values.getGoogleQ
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream
+import java.io.InputStream
 import javax.inject.Inject
 import com.google.api.services.drive.model.File as GoogleFile
 
@@ -72,6 +74,16 @@ class GoogleFiles @Inject constructor(
 		emptyList()
 	} catch (e: IllegalArgumentException) {
 		emptyList()
+	}
+
+	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
+		getGoogleFiles().create(
+			GoogleFile().apply {
+				parents = listOf(folderId)
+				this.name = name
+			},
+			InputStreamContent(null, inputStream)
+		).execute()
 	}
 
 	private fun getGoogleFiles() = GoogleSignIn.getLastSignedInAccount(context)?.run {

@@ -16,6 +16,7 @@ import com.shov.unlimstorage.values.setItemFields
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream
+import java.io.InputStream
 import javax.inject.Inject
 
 class BoxFiles @Inject constructor(
@@ -92,30 +93,12 @@ class BoxFiles @Inject constructor(
 	} else emptyList()
 
 	/**Upload file*/
-	/*
-	* try {
-                    String uploadFileName = "box_logo.png";
-                    InputStream uploadStream = getResources().getAssets().open(uploadFileName);
-                    String destinationFolderId = "0";
-                    String uploadName = "BoxSDKUpload.png";
-                    BoxRequestsFile.UploadFile request = mFileApi.getUploadRequest(uploadStream, uploadName, destinationFolderId);
-                    final BoxFile uploadFileInfo = request.send();
-                    showToast("Uploaded " + uploadFileInfo.getName());
-                    loadRootFolder();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (BoxException e) {
-                    e.printStackTrace();
-                    BoxError error = e.getAsBoxError();
-                    if (error != null && error.getStatus() == HttpURLConnection.HTTP_CONFLICT) {
-                        ArrayList<BoxEntity> conflicts = error.getContextInfo().getConflicts();
-                        if (conflicts != null && conflicts.size() == 1 && conflicts.get(0) instanceof BoxFile) {
-                            uploadNewVersion((BoxFile) conflicts.get(0));
-                            return;
-                        }
-                    }
-                    showToast("Upload failed");
-                } finally {
-                    mDialog.dismiss();
-                }*/
+
+	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
+		BoxApiFile(BoxSession(context)).getUploadRequest(
+			inputStream,
+			name,
+			folderId ?: BoxConstants.ROOT_FOLDER_ID
+		).send()
+	}
 }
