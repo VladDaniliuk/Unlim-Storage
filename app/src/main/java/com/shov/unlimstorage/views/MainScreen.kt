@@ -17,7 +17,6 @@ import com.shov.unlimstorage.ui.MainTopBar
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.DownloadViewModel
-import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.mainNavigationViewModel
 import com.shov.unlimstorage.viewModels.provider.newVersionViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
@@ -38,7 +37,6 @@ fun MainScreen(
 	sheetContent: MutableState<(@Composable ColumnScope.() -> Unit)?> =
 		remember { mutableStateOf(null) },
 	sheetState: ModalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = updateViewModel()
 ) {
 	if (updateViewModel.isDialogShown) {
