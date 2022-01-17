@@ -46,7 +46,7 @@ fun StoreItem(
 			modifier = Modifier
 				.padding(horizontal = 4.dp)
 				.align(Alignment.CenterVertically)
-				.size(SIZE_ICON_MEDIUM),
+				.size(48.dp),
 			imageVector = type.imageVector,
 			contentDescription = type.name
 		)
