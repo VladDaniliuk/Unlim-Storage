@@ -19,8 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import com.shov.unlimstorage.values.PADDING_SMALL
-import com.shov.unlimstorage.values.SIZE_ICON_MEDIUM
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -46,7 +44,7 @@ fun StoreItem(
 	) {
 		Icon(
 			modifier = Modifier
-				.padding(horizontal = PADDING_SMALL)
+				.padding(horizontal = 4.dp)
 				.align(Alignment.CenterVertically)
 				.size(SIZE_ICON_MEDIUM),
 			imageVector = type.imageVector,
@@ -72,7 +70,7 @@ fun StoreItem(
 						painter = painterResource(id = disk.imageId),
 						contentDescription = disk.name,
 						modifier = Modifier
-							.padding(vertical = PADDING_SMALL)
+							.padding(vertical = 4.dp)
 							.height(24.dp),
 						tint = Color.Unspecified
 					)
