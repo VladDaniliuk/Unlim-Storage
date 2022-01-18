@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.shov.unlimstorage.ui.icons.LoadIcon
 import com.shov.unlimstorage.ui.texts.CustomText
 
 @OptIn(ExperimentalFoundationApi::class)
