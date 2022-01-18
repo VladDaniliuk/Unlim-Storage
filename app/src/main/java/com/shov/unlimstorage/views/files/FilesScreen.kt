@@ -19,6 +19,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.ui.FABScaffold
 import com.shov.unlimstorage.ui.StoreItem
@@ -90,15 +91,15 @@ fun FilesScreen(
 						.verticalScroll(state = rememberScrollState())
 				) {
 					TextNavigation(
+						modifier = Modifier.align(Alignment.Center),
 						stringIdArray = arrayOf(
 							R.string.nothing_to_show,
 							R.string.settings,
 							R.string.dot
 						),
-						taggedStringId = R.string.settings,
-						modifier = Modifier.align(Alignment.Center)
+						taggedStringId = R.string.settings
 					) {
-						filesScreenState.navController.navigate(Screen.Accounts.route)
+						filesScreenState.navHostController.navigate(Screen.Accounts.route)
 					}
 				}
 			} else {
@@ -131,7 +132,7 @@ fun FilesScreen(
 									ItemType.FILE -> {
 										filesViewModel.setOpenable(false)
 
-										filesScreenState.navController.navigate(
+										filesScreenState.navHostController.navigate(
 											Screen.FileInfo.setStoreItem(storeItem.id)
 										)
 
@@ -145,7 +146,7 @@ fun FilesScreen(
 										disk = storeItem.disk,
 										name = storeItem.name,
 										onNavigate = {
-											filesScreenState.navController.navigate(
+											filesScreenState.navHostController.navigate(
 												Screen.FileInfo.setStoreItem(storeItem.id)
 											)
 										},
@@ -186,7 +187,7 @@ fun FilesScreen(
 			},
 			filesScreenState.context.getString(R.string.app_name),
 			Icons.Rounded.AccountCircle to {
-				filesScreenState.navController.navigate(Screen.Settings.route)
+				filesScreenState.navHostController.navigate(Screen.Settings.route)
 			}
 		)
 	}
