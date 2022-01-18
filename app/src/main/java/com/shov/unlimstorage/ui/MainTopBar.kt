@@ -65,8 +65,8 @@ fun MainTopBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterStart),
 				imageVector = prevRouteImageVector,
-				onClick = onPrevRouteClick,
-				visible = prevRouteVisible
+				visible = prevRouteVisible,
+				onClick = onPrevRouteClick
 			)
 
 			AnimatedText(
@@ -80,8 +80,8 @@ fun MainTopBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterEnd),
 				imageVector = nextRouteImageVector,
-				onClick = onNextRouteClick,
-				visible = nextRouteVisible
+				visible = nextRouteVisible,
+				onClick = onNextRouteClick
 			)
 		}
 	}
