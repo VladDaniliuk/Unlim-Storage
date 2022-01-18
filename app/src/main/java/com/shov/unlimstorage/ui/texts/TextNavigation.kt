@@ -1,9 +1,11 @@
 package com.shov.unlimstorage.ui.texts
 
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -12,9 +14,10 @@ import com.shov.unlimstorage.R
 
 @Composable
 fun TextNavigation(
+	modifier: Modifier = Modifier,
 	stringIdArray: Array<Int>,
 	taggedStringId: Int,
-	modifier: Modifier = Modifier,
+	textColor: Color = LocalContentColor.current,
 	onClick: () -> Unit
 ) {
 	val annotatedString = buildAnnotatedString {
@@ -26,7 +29,7 @@ fun TextNavigation(
 				)
 				pushStyle(style = SpanStyle(color = MaterialTheme.colors.error))
 			} else {
-				pushStyle(style = SpanStyle(color = MaterialTheme.colors.onSecondary))
+				pushStyle(style = SpanStyle(color = textColor))
 			}
 
 			append(stringResource(id = stringId))
