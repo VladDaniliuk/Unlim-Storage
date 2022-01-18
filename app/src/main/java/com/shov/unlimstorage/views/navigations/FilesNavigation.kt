@@ -1,15 +1,14 @@
 package com.shov.unlimstorage.views.navigations
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shov.unlimstorage.values.Screen
-import com.shov.unlimstorage.viewStates.rememberFilesScreenState
 import com.shov.unlimstorage.views.files.FileDescriptionScreen
 import com.shov.unlimstorage.views.files.FileInfoScreen
-import com.shov.unlimstorage.views.files.FilesScreen
+import com.shov.unlimstorage.views.files.FileListScreen
 
-fun NavGraphBuilder.filesComposable(filesNavController: NavController) {
+fun NavGraphBuilder.filesComposable(filesNavController: NavHostController) {
 	composable(route = Screen.FileInfo.route) {
 		FileInfoScreen(
 			navigateTo = { id ->
@@ -22,10 +21,6 @@ fun NavGraphBuilder.filesComposable(filesNavController: NavController) {
 		FileDescriptionScreen(onCloseClick = filesNavController::popBackStack)
 	}
 	composable(route = Screen.Files.route) {
-		FilesScreen(
-			filesScreenState = rememberFilesScreenState(
-				navController = filesNavController
-			)
-		)
+		FileListScreen(navHostController = filesNavController)
 	}
 }

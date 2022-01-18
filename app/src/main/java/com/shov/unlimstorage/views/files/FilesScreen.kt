@@ -47,7 +47,9 @@ fun FilesScreen(
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	sizeConverter: SizeConverterViewModel = singletonViewModel(),
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
-	filesScreenState: FilesScreenState
+	filesScreenState: FilesScreenState,
+	onBackPress: () -> Unit,
+	onFolderOpen: (BackStack) -> Unit
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(false)
@@ -120,10 +122,11 @@ fun FilesScreen(
 									ItemType.FOLDER -> {
 										filesViewModel.setOpenable(false)
 
-										filesScreenState.navController.navigate(
-											Screen.Files.openFolder(
+										onFolderOpen(
+											BackStack(
 												storeItem.id,
-												storeItem.disk.name
+												storeItem.disk.name,
+												storeItem.name
 											)
 										)
 
@@ -183,7 +186,7 @@ fun FilesScreen(
 	LaunchedEffect(key1 = null) {
 		topAppBarViewModel.setTopBar(
 			filesViewModel.folderId?.let {
-				Icons.Rounded.ArrowBack to { filesScreenState.navController.popBackStack() }
+				Icons.Rounded.ArrowBack to onBackPress
 			},
 			filesScreenState.context.getString(R.string.app_name),
 			Icons.Rounded.AccountCircle to {
