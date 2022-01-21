@@ -38,7 +38,7 @@ fun MainScreen(bottomSheetViewModel: BottomSheetViewModel = singletonViewModel()
 			),
 			content = {
 				CustomScaffold {
-					MainNavigation(mainNavigationViewModel = mainNavigationViewModel())
+					MainNavigation()
 				}
 			}
 		)

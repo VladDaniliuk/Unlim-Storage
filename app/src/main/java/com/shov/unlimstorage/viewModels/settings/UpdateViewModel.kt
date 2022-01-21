@@ -4,27 +4,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.api.models.LastReleaseItem
-import com.shov.unlimstorage.models.UpdateViewModelFactory
-import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.models.repositories.GitHubRepository
-import com.shov.unlimstorage.values.UNCHECKED_CAST
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
+import com.shov.unlimstorage.models.repositories.PreferenceRepository
+import com.shov.unlimstorage.values.IS_UPDATE_SHOW
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UpdateViewModel @AssistedInject constructor(
+@HiltViewModel
+class UpdateViewModel @Inject constructor(
 	private val gitHubRepository: GitHubRepository,
-	@Assisted private var isShowAgainPreference: Preference<Boolean>
+	preference: PreferenceRepository
 ) : ViewModel() {
 	var lastRelease by mutableStateOf<LastReleaseItem?>(null)
 		private set
 	var isDialogShown by mutableStateOf(false)
 		private set
-	private var _isShowAgain by isShowAgainPreference
+	private var _isShowAgain by preference.getPref(IS_UPDATE_SHOW, true)
 	var isShowAgain by mutableStateOf(_isShowAgain)
 		private set
 
@@ -62,17 +61,5 @@ class UpdateViewModel @AssistedInject constructor(
 
 	fun hideDialog() {
 		isDialogShown = false
-	}
-
-	@Suppress(UNCHECKED_CAST)
-	companion object {
-		fun provideFactory(
-			assistedFactory: UpdateViewModelFactory,
-			isShowAgain: Preference<Boolean>
-		): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-			override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-				return assistedFactory.createUpdateViewModel(isShowAgain) as T
-			}
-		}
 	}
 }
