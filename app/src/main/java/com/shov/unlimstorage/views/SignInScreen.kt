@@ -29,7 +29,7 @@ import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.PADDING_BIG
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.SignInViewModel
-import com.shov.unlimstorage.viewModels.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.onEach

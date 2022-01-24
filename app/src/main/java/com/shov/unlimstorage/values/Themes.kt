@@ -8,6 +8,7 @@ import androidx.compose.material.Shapes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -21,9 +22,9 @@ fun CustomTheme(
 		colors = if (darkTheme) DARK_THEME else LIGHT_THEME,
 		content = content,
 		shapes = Shapes(
-			small = RoundedCornerShape(size = SMALL_SHAPES),
-			medium = RoundedCornerShape(size = MEDIUM_SHAPES),
-			large = RoundedCornerShape(size = LARGE_SHAPES)
+			small = RoundedCornerShape(size = 4.dp),
+			medium = RoundedCornerShape(size = 8.dp),
+			large = RoundedCornerShape(size = 12.dp)
 		)
 	)
 
