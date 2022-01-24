@@ -24,7 +24,6 @@ fun Project.implementGoogle() {
 	dependencies {
 		implement(Google.Lib.auth)
 		implement(Google.Lib.clientAndroid)
-		implement(Google.Lib.clientJetty)
 		implement(Google.Lib.drive)
 		implement(Google.Lib.gson)
 	}
