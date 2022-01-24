@@ -35,7 +35,7 @@ import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.views.Permission
+import com.shov.unlimstorage.views.permissions.PermissionDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -56,7 +56,7 @@ fun FileInfoScreen(
 		currentContext.observeConnectivityAsFlow().collectAsState(initial = false).value
 
 	if (fileInfoViewModel.isDialogShown) {
-		Permission(
+		PermissionDialog(
 			onDismissRequest = { fileInfoViewModel.setShowDialog(false) },
 			onHasAccess = {
 				fileInfoViewModel.setShowDialog(false)

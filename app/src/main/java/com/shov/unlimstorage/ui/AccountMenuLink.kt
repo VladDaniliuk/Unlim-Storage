@@ -10,7 +10,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.values.ACCOUNTS
 
 @Composable
 fun AccountMenuLink(
@@ -24,7 +23,10 @@ fun AccountMenuLink(
 		icon = {
 			Icon(
 				painter = painterResource(id = imageId),
-				contentDescription = ACCOUNTS,
+				contentDescription = stringResource(
+					id = titleId,
+					stringResource(id = accountId)
+				),
 				tint = Color.Unspecified
 			)
 		},

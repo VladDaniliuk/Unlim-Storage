@@ -8,8 +8,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.lifecycle.LifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.ui.DownloadSnackbar
@@ -19,12 +19,11 @@ import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.mainNavigationViewModel
-import com.shov.unlimstorage.viewModels.provider.newVersionViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.provider.updateViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 import com.shov.unlimstorage.views.navigations.MainNavigation
-import com.shov.unlimstorage.views.settings.NewVersionDialog
+import com.shov.unlimstorage.views.settings.newVersion.NewVersionObserver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.onEach
 
@@ -41,15 +40,7 @@ fun MainScreen(
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = updateViewModel()
 ) {
-	if (updateViewModel.isDialogShown) {
-		updateViewModel.lastRelease?.let { lastRelease ->
-			NewVersionDialog(
-				updateViewModel = updateViewModel,
-				newVersionViewModel = newVersionViewModel(lastReleaseItem = lastRelease),
-				onDismissRequest = updateViewModel::hideDialog,
-			)
-		}
-	}
+	NewVersionObserver()
 
 	Column(modifier = Modifier.fillMaxSize()) {
 		ModalBottomSheetLayout(
