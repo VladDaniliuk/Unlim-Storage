@@ -12,13 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.CheckDropboxCredential
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
-import com.shov.unlimstorage.values.MEDIUM_SHAPES
 import com.shov.unlimstorage.values.PADDING_SMALL_PLUS
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
@@ -62,7 +62,7 @@ fun AddAccountDialog(
 				}
 			}
 
-			Spacer(modifier = Modifier.padding(bottom = MEDIUM_SHAPES))
+			Spacer(modifier = Modifier.padding(bottom = 8.dp))
 		}
 	}
 

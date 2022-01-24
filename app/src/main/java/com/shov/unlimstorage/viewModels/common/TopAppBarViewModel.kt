@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.unlimstorage.viewModels.common
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
