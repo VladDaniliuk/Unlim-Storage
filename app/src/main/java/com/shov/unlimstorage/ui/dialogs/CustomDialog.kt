@@ -45,31 +45,33 @@ fun CustomDialogContent(
 		content = content
 	)
 
-	Row(
-		modifier = Modifier
-			.align(Alignment.End)
-			.padding(top = 36.dp)
-	) {
-		onCancelText?.let { onCancelText ->
-			TextButton(onClick = onCancelRequest) {
-				CustomText(
-					text = onCancelText,
-					textStyle = Typography().button,
-					color = MaterialTheme.colors.primary
-				)
+	if ((onCancelText != null) and (onCompleteText != null)) {
+		Row(
+			modifier = Modifier
+				.align(Alignment.End)
+				.padding(top = 36.dp)
+		) {
+			onCancelText?.let { onCancelText ->
+				TextButton(onClick = onCancelRequest) {
+					CustomText(
+						text = onCancelText,
+						textStyle = Typography().button,
+						color = MaterialTheme.colors.primary
+					)
+				}
 			}
-		}
 
-		onCompleteText?.let { onCompleteText ->
-			TextButton(
-				modifier = Modifier.padding(start = 8.dp),
-				onClick = onCompleteRequest
-			) {
-				CustomText(
-					text = onCompleteText,
-					textStyle = Typography().button,
-					color = MaterialTheme.colors.primary
-				)
+			onCompleteText?.let { onCompleteText ->
+				TextButton(
+					modifier = Modifier.padding(start = 8.dp),
+					onClick = onCompleteRequest
+				) {
+					CustomText(
+						text = onCompleteText,
+						textStyle = Typography().button,
+						color = MaterialTheme.colors.primary
+					)
+				}
 			}
 		}
 	}
