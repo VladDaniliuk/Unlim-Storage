@@ -6,9 +6,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.repositories.files.FilesRepository
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.values.argFolderId
 import com.shov.unlimstorage.values.argStorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,10 +34,6 @@ class FilesViewModel @Inject constructor(
 	var isClickable by mutableStateOf(true)
 		private set
 
-	fun setOpenable(isClickable: Boolean) {
-		this.isClickable = isClickable
-	}
-
 	fun getFiles() {
 		isRefreshing = true
 
@@ -47,6 +45,22 @@ class FilesViewModel @Inject constructor(
 		}.invokeOnCompletion {
 			isRefreshing = false
 		}
+	}
+
+	fun navigate(
+		id: String,
+		itemType: ItemType,
+		storageType: StorageType,
+		navigateTo: (String) -> Unit
+	) {
+		isClickable = false
+
+		when (itemType) {
+			ItemType.FILE -> navigateTo(Screen.FileInfo.setStoreItem(id))
+			ItemType.FOLDER -> navigateTo(Screen.Files.openFolder(id, storageType.name))
+		}
+
+		isClickable = true
 	}
 
 	fun refreshFiles() {

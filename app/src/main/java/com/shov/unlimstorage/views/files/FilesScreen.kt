@@ -1,17 +1,17 @@
 package com.shov.unlimstorage.views.files
 
-import androidx.compose.foundation.layout.*
+import android.content.Context
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,10 +19,8 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.ui.FABScaffold
 import com.shov.unlimstorage.ui.StoreItem
-import com.shov.unlimstorage.ui.TextNavigation
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.PADDING_FAB
 import com.shov.unlimstorage.values.SIZE_FAB
@@ -33,20 +31,24 @@ import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewStates.FilesScreenState
 import com.shov.unlimstorage.viewStates.rememberUploadNavigationState
+import com.shov.unlimstorage.views.files.bottomSheets.FileActionsBottomSheet
 import com.shov.unlimstorage.views.navigations.UploadNavigation
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FilesScreen(
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
-	filesViewModel: FilesViewModel = hiltViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	sizeConverter: SizeConverterViewModel = singletonViewModel(),
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
-	filesScreenState: FilesScreenState
+	context: Context = LocalContext.current,
+	coroutineScope: CoroutineScope = rememberCoroutineScope(),
+	filesViewModel: FilesViewModel = hiltViewModel(),
+	navigateTo: (String) -> Unit,
+	popBackStack: () -> Unit,
+	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
+	sizeConverter: SizeConverterViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(false)
@@ -62,7 +64,7 @@ fun FilesScreen(
 				)
 			}
 
-			filesScreenState.coroutineScope.launch {
+			coroutineScope.launch {
 				bottomSheetViewModel.sheetState.show()
 			}
 		}
@@ -75,7 +77,7 @@ fun FilesScreen(
 					filesViewModel.refreshFiles()
 				} else {
 					scaffoldViewModel.showSnackbar(
-						filesScreenState.context.getString(R.string.connection_failed)
+						context.getString(R.string.connection_failed)
 					)
 				}
 			}/*,
@@ -84,22 +86,8 @@ fun FilesScreen(
 		}*///TODO Do progress with linear progress
 		) {
 			if (filesViewModel.storeItemList.isEmpty()) {
-				Box(
-					modifier = Modifier
-						.fillMaxSize()
-						.verticalScroll(state = rememberScrollState())
-				) {
-					TextNavigation(
-						stringIdArray = arrayOf(
-							R.string.nothing_to_show,
-							R.string.settings,
-							R.string.dot
-						),
-						taggedStringId = R.string.settings,
-						modifier = Modifier.align(Alignment.Center)
-					) {
-						filesScreenState.navController.navigate(Screen.Accounts.route)
-					}
+				FilesEmptyView {
+					navigateTo(Screen.Accounts.route)
 				}
 			} else {
 				Column(
@@ -115,46 +103,22 @@ fun FilesScreen(
 							disk = storeItem.disk,
 							enabled = filesViewModel.isClickable,
 							onClick = {
-								when (storeItem.type) {
-									ItemType.FOLDER -> {
-										filesViewModel.setOpenable(false)
-
-										filesScreenState.navController.navigate(
-											Screen.Files.openFolder(
-												storeItem.id,
-												storeItem.disk.name
-											)
-										)
-
-										filesViewModel.setOpenable(true)
-									}
-									ItemType.FILE -> {
-										filesViewModel.setOpenable(false)
-
-										filesScreenState.navController.navigate(
-											Screen.FileInfo.setStoreItem(storeItem.id)
-										)
-
-										filesViewModel.setOpenable(true)
-									}
-								}
+								filesViewModel.navigate(
+									id = storeItem.id,
+									itemType = storeItem.type,
+									storageType = storeItem.disk,
+									navigateTo = navigateTo
+								)
 							},
 							onOptionClick = {
-								bottomSheetViewModel.sheetContent = {
+								bottomSheetViewModel.setContent {
 									FileActionsBottomSheet(
-										disk = storeItem.disk,
-										name = storeItem.name,
-										onNavigate = {
-											filesScreenState.navController.navigate(
-												Screen.FileInfo.setStoreItem(storeItem.id)
-											)
-										},
-										size = sizeConverter.toBytes(storeItem.size),
-										type = storeItem.type
+										storeItem = storeItem,
+										navigateTo = navigateTo
 									)
 								}
 
-								filesScreenState.coroutineScope.launch {
+								coroutineScope.launch {
 									bottomSheetViewModel.sheetState.show()
 								}
 							}
@@ -182,12 +146,10 @@ fun FilesScreen(
 	LaunchedEffect(key1 = null) {
 		topAppBarViewModel.setTopBar(
 			filesViewModel.folderId?.let {
-				Icons.Rounded.ArrowBack to { filesScreenState.navController.popBackStack() }
+				Icons.Rounded.ArrowBack to popBackStack
 			},
-			filesScreenState.context.getString(R.string.app_name),
-			Icons.Rounded.AccountCircle to {
-				filesScreenState.navController.navigate(Screen.Settings.route)
-			}
+			context.getString(R.string.app_name),
+			Icons.Rounded.AccountCircle to { navigateTo(Screen.Settings.route) }
 		)
 	}
 }
