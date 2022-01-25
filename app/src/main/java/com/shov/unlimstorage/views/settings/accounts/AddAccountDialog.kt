@@ -4,15 +4,14 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.CheckDropboxCredential
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.AccountMenuLink
-import com.shov.unlimstorage.ui.CustomDialogContent
-import com.shov.unlimstorage.ui.customHeaderText
+import com.shov.unlimstorage.ui.dialogs.CustomDialogContent
+import com.shov.unlimstorage.ui.dialogs.CustomHeaderText
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 
@@ -22,7 +21,7 @@ fun AddAccountDialog(
 	signInViewModel: SignInViewModel = hiltViewModel(),
 ) {
 	Dialog(onDismissRequest = { accountsViewModel.showAddAccountBottomSheet() }) {
-		CustomDialogContent(header = { customHeaderText(stringResource(R.string.choose_drive)) }) {
+		CustomDialogContent(header = { CustomHeaderText(stringResource(R.string.choose_drive)) }) {
 			accountsViewModel.checkAllAccess(false).forEach { storageType ->
 				val startForResult = rememberLauncherForActivityResult(
 					ActivityResultContracts.StartActivityForResult()

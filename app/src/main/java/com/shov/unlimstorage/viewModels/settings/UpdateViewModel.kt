@@ -35,12 +35,12 @@ class UpdateViewModel @AssistedInject constructor(
 
 	fun checkAppVersion() {
 		viewModelScope.launch {
-			gitHubRepository.getLastRelease().apply {
-				if (this.isSuccessful) {
-					lastRelease = this.body()
+			gitHubRepository.getLastRelease().let { response ->
+				if (response.isSuccessful) {
+					response.body()?.let { lastReleaseItem ->
+						lastRelease = lastReleaseItem
 
-					this.body()?.let { lastReleaseItem ->
-						checkNeedUpdate(lastReleaseItem.version)
+						checkNeedUpdate(lastRelease!!.version)
 					}
 				}
 			}
