@@ -1,49 +1,51 @@
-package com.shov.unlimstorage.ui.dialog
+package com.shov.unlimstorage.ui.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.Typography
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Sailing
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.shov.unlimstorage.ui.CustomText
 
 @Composable
-fun CustomDialog(
-	content: @Composable ColumnScope.() -> Unit = {},
+fun CustomDialogContent(
 	header: @Composable ColumnScope.() -> Unit = {},
 	onCancelRequest: (() -> Unit) = {},
 	onCancelText: String? = null,
 	onCompleteRequest: (() -> Unit) = {},
 	onCompleteText: String? = null,
-	onDismissRequest: () -> Unit,
-) = Dialog(onDismissRequest = onDismissRequest) {
+	content: @Composable ColumnScope.() -> Unit = {},
+) = Column(
+	modifier = Modifier
+		.background(
+			color = MaterialTheme.colors.surface,
+			shape = MaterialTheme.shapes.medium
+		)
+		.fillMaxWidth()
+		.padding(
+			start = 24.dp,
+			end = 8.dp,
+			bottom = 8.dp
+		)
+) {
+	header.invoke(this)
+
 	Column(
 		modifier = Modifier
-			.background(
-				color = MaterialTheme.colors.surface,
-				shape = MaterialTheme.shapes.medium
-			)
-			.fillMaxWidth()
-			.padding(
-				start = 24.dp,
-				end = 8.dp,
-				bottom = 8.dp
-			)
-	) {
-		header.invoke(this)
+			.paddingFromBaseline(top = 36.dp)
+			.padding(end = 16.dp),
+		content = content
+	)
 
-		Column(
-			modifier = Modifier
-				.paddingFromBaseline(top = 36.dp)
-				.padding(end = 16.dp),
-			content = content
-		)
-
+	if ((onCancelText != null) and (onCompleteText != null)) {
 		Row(
 			modifier = Modifier
 				.align(Alignment.End)
@@ -70,8 +72,27 @@ fun CustomDialog(
 						color = MaterialTheme.colors.primary
 					)
 				}
-
 			}
 		}
 	}
+}
+
+@Preview
+@Composable
+fun CustomDialogTextPreview() {
+	CustomDialogContent(
+		header = { CustomHeaderText("Text") },
+		onCancelText = "Text",
+		onCompleteText = "Text"
+	) { Text("Text") }
+}
+
+@Preview
+@Composable
+fun CustomDialogIconPreview() {
+	CustomDialogContent(
+		header = { CustomHeaderIcon(Icons.Default.Sailing) },
+		onCancelText = "Text",
+		onCompleteText = "Text",
+	) { Text("Text") }
 }
