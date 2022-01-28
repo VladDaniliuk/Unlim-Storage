@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.shov.unlimstorage.values.Screen
-import com.shov.unlimstorage.viewStates.rememberFilesScreenState
 import com.shov.unlimstorage.views.files.FileDescriptionScreen
 import com.shov.unlimstorage.views.files.FileInfoScreen
 import com.shov.unlimstorage.views.files.FilesScreen
@@ -23,9 +22,8 @@ fun NavGraphBuilder.filesComposable(filesNavController: NavController) {
 	}
 	composable(route = Screen.Files.route) {
 		FilesScreen(
-			filesScreenState = rememberFilesScreenState(
-				navController = filesNavController
-			)
+			navigateTo = filesNavController::navigate,
+			popBackStack = filesNavController::popBackStack
 		)
 	}
 }

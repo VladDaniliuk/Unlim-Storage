@@ -18,20 +18,22 @@ import kotlin.reflect.typeOf
 @Module
 @InstallIn(SingletonComponent::class)
 class RetrofitModule {
-	@ExperimentalStdlibApi
 	@Provides
 	@Singleton
-	fun provideRetrofit(): Retrofit = Retrofit.Builder()
+	fun provideRetrofit(gsonConverterFactory: GsonConverterFactory): Retrofit = Retrofit.Builder()
 		.baseUrl(GitHub.baseUrl)
-		.addConverterFactory(
-			GsonConverterFactory.create(
-				GsonBuilder().registerTypeAdapter(
-					typeOf<LastReleaseItem>().javaType,
-					LastReleaseDeserializer()
-				).create()
-			)
-		)
+		.addConverterFactory(gsonConverterFactory)
 		.build()
+
+	@Provides
+	@Singleton
+	@OptIn(ExperimentalStdlibApi::class)
+	fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create(
+		GsonBuilder().registerTypeAdapter(
+			typeOf<LastReleaseItem>().javaType,
+			LastReleaseDeserializer()
+		).create()
+	)
 
 	@Provides
 	@Singleton

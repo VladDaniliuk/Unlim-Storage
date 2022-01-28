@@ -42,7 +42,7 @@ android {
 			applicationVariants.all {
 				outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
 					.forEach { output ->
-						output.outputFileName = BuildType.outputNameDebug
+						output.outputFileName = BuildType.outputName
 					}
 			}
 		}
