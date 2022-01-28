@@ -31,7 +31,6 @@ import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewStates.FilesScreenState
 import com.shov.unlimstorage.viewStates.rememberUploadNavigationState
 import com.shov.unlimstorage.views.files.bottomSheets.FileActionsBottomSheet
 import com.shov.unlimstorage.views.navigations.UploadNavigation
@@ -42,13 +41,14 @@ import kotlinx.coroutines.launch
 @Composable
 fun FilesScreen(
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
+	context: Context = LocalContext.current,
+	coroutine: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
 	navigateTo: (String) -> Unit,
 	popBackStack: () -> Unit,
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	sizeConverter: SizeConverterViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	filesScreenState: FilesScreenState
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(false)
@@ -64,7 +64,7 @@ fun FilesScreen(
 				)
 			}
 
-			filesScreenState.coroutineScope.launch {
+			coroutine.launch {
 				bottomSheetViewModel.sheetState.show()
 			}
 		}
@@ -77,7 +77,7 @@ fun FilesScreen(
 					filesViewModel.refreshFiles()
 				} else {
 					scaffoldViewModel.showSnackbar(
-						filesScreenState.context.getString(R.string.connection_failed)
+						context.getString(R.string.connection_failed)
 					)
 				}
 			}/*,
@@ -118,7 +118,7 @@ fun FilesScreen(
 									)
 								}
 
-								filesScreenState.coroutineScope.launch {
+								coroutine.launch {
 									bottomSheetViewModel.sheetState.show()
 								}
 							}
@@ -148,7 +148,7 @@ fun FilesScreen(
 			filesViewModel.folderId?.let {
 				Icons.Rounded.ArrowBack to popBackStack
 			},
-			filesScreenState.context.getString(R.string.app_name),
+			context.getString(R.string.app_name),
 			Icons.Rounded.AccountCircle to { navigateTo(Screen.Settings.route) }
 		)
 	}
