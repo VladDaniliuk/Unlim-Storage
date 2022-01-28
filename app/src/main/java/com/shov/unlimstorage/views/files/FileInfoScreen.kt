@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,48 +13,44 @@ import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.*
+import com.shov.unlimstorage.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.utils.converters.toPrettyString
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
-import com.shov.unlimstorage.values.*
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.unlimstorage.viewStates.FileInfoState
+import com.shov.unlimstorage.viewStates.rememberFileInfoState
 import com.shov.unlimstorage.views.permissions.PermissionDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
 fun FileInfoScreen(
+	downloadViewModel: DownloadViewModel = singletonViewModel(),
+	fileInfoState: FileInfoState = rememberFileInfoState(),
 	fileInfoViewModel: FileInfoViewModel = hiltViewModel(),
-	filesNavController: NavController,
-	scaffoldState: ScaffoldState,
+	navigateTo: (String) -> Unit,
+	popBack: () -> Unit,
+	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	downloadViewModel: DownloadViewModel = singletonViewModel()
 ) {
-	val coroutineScope = rememberCoroutineScope()
-	val currentClipboardManager = LocalClipboardManager.current
-	val currentContext = LocalContext.current
-	val currentHapticFeedback = LocalHapticFeedback.current
-	val currentUriHandler = LocalUriHandler.current
-	val isConnected =
-		currentContext.observeConnectivityAsFlow().collectAsState(initial = false).value
+	val isConnected by fileInfoState.context.observeConnectivityAsFlow()
+		.collectAsState(initial = false)
 
 	if (fileInfoViewModel.isDialogShown) {
 		PermissionDialog(
@@ -73,7 +70,7 @@ fun FileInfoScreen(
 		fileInfoViewModel.storeItem?.let { item ->
 			ItemTypeIcon(
 				modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-				iconSize = SIZE_ICON_BIG,
+				iconSize = 64.dp,
 				mainIcon = item.type.imageVector,
 				mainTint = MaterialTheme.colors.onBackground,
 				contentDescription = item.type.name,
@@ -87,8 +84,6 @@ fun FileInfoScreen(
 
 			TextInfo(name = stringResource(R.string.id_description), value = item.id)
 		}
-
-
 
 		fileInfoViewModel.storeMetadata?.let { metadata ->
 			listOf(
@@ -107,7 +102,7 @@ fun FileInfoScreen(
 		Box(modifier = Modifier.fillMaxWidth()) {
 			Text(
 				modifier = Modifier
-					.padding(start = PADDING_MEDIUM)
+					.padding(start = 16.dp)
 					.align(Alignment.CenterStart),
 				text = stringResource(R.string.description),
 				fontSize = Typography().subtitle2.fontSize,
@@ -117,15 +112,9 @@ fun FileInfoScreen(
 
 			IconButton(
 				modifier = Modifier
-					.padding(end = PADDING_MEDIUM)
+					.padding(end = 16.dp)
 					.align(Alignment.CenterEnd),
-				onClick = {
-					fileInfoViewModel.storeMetadata?.let { metadata ->
-						filesNavController.navigate(
-							Screen.FileDescription.setStoreItemId(metadata.id)
-						)
-					}
-				}
+				onClick = { fileInfoViewModel.storeMetadata?.id?.let(navigateTo) }
 			) {
 				Icon(
 					imageVector = Icons.Rounded.Edit,
@@ -135,7 +124,7 @@ fun FileInfoScreen(
 		}
 
 		CustomText(
-			modifier = Modifier.padding(horizontal = PADDING_MEDIUM),
+			modifier = Modifier.padding(horizontal = 16.dp),
 			text = fileInfoViewModel.storeMetadata?.description,
 			textStyle = Typography().subtitle1
 		)
@@ -145,48 +134,37 @@ fun FileInfoScreen(
 
 		fileInfoViewModel.storeMetadata?.sharingUsers?.let { users ->
 			CustomText(
-				modifier = Modifier.padding(horizontal = PADDING_MEDIUM),
+				modifier = Modifier.padding(horizontal = 16.dp),
 				text = stringResource(R.string.sharing_access),
 				textStyle = Typography().subtitle2
 			)
 
-			LazyRow(modifier = Modifier.padding(vertical = PADDING_SMALL_PLUS)) {
+			LazyRow(modifier = Modifier.padding(vertical = 8.dp)) {
 				items(items = users) { user ->
 					UserInfo(
-						modifier = Modifier.padding(start = PADDING_SMALL_PLUS),
+						modifier = Modifier.padding(start = 8.dp),
 						onClick = {
-							coroutineScope.launch {
-								scaffoldState.snackbarHostState
-									.showSnackbar(
-										currentContext.getString(R.string.user_click_message)
-									)
-							}
+							scaffoldViewModel.showSnackbar(
+								fileInfoState.context.getString(R.string.user_click_message)
+							)
 						},
 						onLongClick = {
-							currentHapticFeedback.performHapticFeedback(
+							fileInfoState.hapticFeedback.performHapticFeedback(
 								HapticFeedbackType.LongPress
 							)
+							user.email?.let {
+								fileInfoState.clipboardManager.setText(AnnotatedString(user.email))
 
-							user.email?.let { email ->
-								currentClipboardManager.setText(AnnotatedString(email))
-
-								coroutineScope.launch {
-									scaffoldState.snackbarHostState
-										.showSnackbar(
-											currentContext.getString(
-												R.string.user_long_click_message
-											)
-										)
-								}
-							} ?: coroutineScope.launch {
-								scaffoldState.snackbarHostState
-									.showSnackbar(
-										currentContext.getString(R.string.dont_have_email)
-									)
-							}
+								scaffoldViewModel.showSnackbar(
+									fileInfoState.context
+										.getString(R.string.user_long_click_message)
+								)
+							} ?: scaffoldViewModel.showSnackbar(
+								fileInfoState.context.getString(R.string.dont_have_email)
+							)
 						},
 						iconLink = user.photoLink,
-						iconSize = SIZE_ICON_SMALL,
+						iconSize = 32.dp,
 						title = user.name ?: stringResource(R.string.user),
 						subtitle = user.role
 					)
@@ -199,60 +177,67 @@ fun FileInfoScreen(
 		fileInfoViewModel.storeMetadata?.let { metadata ->
 
 			CustomText(
-				modifier = Modifier.padding(horizontal = PADDING_MEDIUM),
+				modifier = Modifier.padding(horizontal = 16.dp),
 				text = stringResource(R.string.link_description),
 				textStyle = Typography().subtitle2
 			)
 
 			metadata.link?.let { link ->
-				val message = stringResource(R.string.link_copied)
+				Row {
+					CustomIconButton(
+						imageVector = Icons.Rounded.OpenInBrowser,
+						text = stringResource(R.string.open_in_browser),
+						onClick = { fileInfoState.uriHandler.openUri(link) }
+					)
 
-				LazyRow {
-					items(
-						items = listOf(
-							Triple(Icons.Rounded.OpenInBrowser, R.string.open_in_browser) {
-								currentUriHandler.openUri(link)
-							}, Triple(Icons.Rounded.CopyAll, R.string.copy_link) {
+					CustomIconButton(
+						imageVector = Icons.Rounded.CopyAll,
+						text = stringResource(R.string.copy_link)
+					) {
+						fileInfoState.clipboardManager.setText(AnnotatedString(link))
 
-								currentClipboardManager.setText(AnnotatedString(link))
+						scaffoldViewModel.showSnackbar(
+							fileInfoState.context.getString(R.string.link_copied)
+						)
+					}
 
-								coroutineScope.launch {
-									scaffoldState.snackbarHostState.showSnackbar(message = message)
-								}
-							}, Triple(Icons.Rounded.Share, R.string.share_link) {
-								val sendIntent: Intent = Intent().apply {
+					CustomIconButton(
+						imageVector = Icons.Rounded.Share,
+						text = stringResource(R.string.share_link),
+					) {
+						fileInfoState.context.startActivity(
+							Intent.createChooser(
+								Intent().apply {
 									action = Intent.ACTION_SEND
 									putExtra(Intent.EXTRA_TEXT, link)
 									type = "text/*"
-								}
-								val shareIntent = Intent.createChooser(sendIntent, null)
-
-								currentContext.startActivity(shareIntent)
-							}
-						)
-					) { item ->
-						CustomIconButton(
-							image = item.first,
-							text = stringResource(item.second),
-							onClick = item.third
+								},
+								null
+							)
 						)
 					}
 				}
 			} ?: Button(
 				modifier = Modifier
-					.padding(horizontal = PADDING_MEDIUM)
+					.padding(horizontal = 16.dp)
 					.fillMaxWidth(),
 				onClick = {
-					coroutineScope.launch {
-						scaffoldState.snackbarHostState.showSnackbar("Doesn't work now")
-					}
+					scaffoldViewModel.showSnackbar(
+						fileInfoState.context.getString(R.string.doesnt_work_now)
+					)
 				}
 			) {
 				Text(text = stringResource(R.string.create_link))
 			}
 
-			Button(onClick = { fileInfoViewModel.setShowDialog() }) {
-				Text(text = "Download")
+			Button(
+				modifier = Modifier
+					.fillMaxWidth()
+					.padding(horizontal = 8.dp),
+				shape = CircleShape,
+				onClick = fileInfoViewModel::setShowDialog
+			) {
+				Text(text = stringResource(id = R.string.download))
 			}
 
 			Spacer(modifier = Modifier.navigationBarsPadding())
@@ -277,16 +262,16 @@ fun FileInfoScreen(
 
 	LaunchedEffect(key1 = fileInfoViewModel.storeItem?.name) {
 		topAppBarViewModel.setTopBar(
-			Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
+			Icons.Rounded.ArrowBack to popBack,
 			fileInfoViewModel.storeItem?.name,
 			if (fileInfoViewModel.storeMetadata?.isStarred == true) {
 				Icons.Rounded.Star
 			} else {
 				Icons.Rounded.StarBorder
 			} to {
-				coroutineScope.launch {
-					scaffoldState.snackbarHostState.showSnackbar("Doesn't work now")
-				}
+				scaffoldViewModel.showSnackbar(
+					fileInfoState.context.getString(R.string.doesnt_work_now)
+				)
 			}
 		)
 	}

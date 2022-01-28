@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.files
 
+import android.content.Context
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -8,7 +9,10 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Done
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -17,20 +21,19 @@ import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
 fun FileDescriptionScreen(
+	context: Context = LocalContext.current,
 	fileDescriptionViewModel: FileDescriptionViewModel = hiltViewModel(),
 	onCloseClick: () -> Unit,
-	onDoneClick: suspend CoroutineScope.() -> Unit,
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
 ) {
-	val coroutineScope = rememberCoroutineScope()
-	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
+	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
 	TextField(
 		enabled = isConnected,
@@ -63,7 +66,9 @@ fun FileDescriptionScreen(
 		topAppBarViewModel.setTopBar(
 			Icons.Rounded.Close to onCloseClick,
 			fileDescriptionViewModel.storeItem?.name,
-			Icons.Rounded.Done to { coroutineScope.launch(block = onDoneClick) }
+			Icons.Rounded.Done to {
+				scaffoldViewModel.showSnackbar(context.getString(R.string.doesnt_work_now))
+			}
 		)
 	}
 }

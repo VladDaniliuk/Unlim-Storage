@@ -45,7 +45,7 @@ fun CustomDialogContent(
 		content = content
 	)
 
-	if ((onCancelText != null) and (onCompleteText != null)) {
+	if ((onCancelText != null) or (onCompleteText != null)) {
 		Row(
 			modifier = Modifier
 				.align(Alignment.End)

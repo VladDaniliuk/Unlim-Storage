@@ -1,8 +1,5 @@
 package com.shov.unlimstorage.models
 
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ScaffoldState
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.models.preferences.Preference
 import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
@@ -12,12 +9,7 @@ import dagger.assisted.AssistedFactory
 
 @AssistedFactory
 interface MainNavigationViewModelFactory {
-	@OptIn(ExperimentalMaterialApi::class)
-	fun createMainNavigationViewModel(
-		scaffoldState: ScaffoldState,
-		sheetState: ModalBottomSheetState,
-		isLogInPref: Preference<Boolean>
-	): MainNavigationViewModel
+	fun createMainNavigationViewModel(isLogInPref: Preference<Boolean>): MainNavigationViewModel
 }
 
 @AssistedFactory

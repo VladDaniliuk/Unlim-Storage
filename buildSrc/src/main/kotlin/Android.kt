@@ -7,7 +7,7 @@ object AndroidVersion {
 object Application {
 	const val name = "Unlim Storage"
 	const val versionCode = 6
-	const val versionName = "0.2.4.6"
+	const val versionName = "0.2.5"
 }
 
 object Config {
