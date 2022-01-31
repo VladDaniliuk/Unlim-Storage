@@ -34,7 +34,7 @@ class NewVersionViewModel @AssistedInject constructor(
 			assistedFactory: NewVersionViewModelFactory,
 			lastReleaseItem: LastReleaseItem
 		): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-			override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+			override fun <T : ViewModel> create(modelClass: Class<T>): T {
 				return assistedFactory.createNewVersionViewModel(lastReleaseItem) as T
 			}
 		}

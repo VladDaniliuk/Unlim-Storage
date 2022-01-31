@@ -7,5 +7,4 @@ buildscript {
 	gradleClasspath()
 	kotlinClasspath()
 	hiltClasspath()
-	googleClasspath()
 }
