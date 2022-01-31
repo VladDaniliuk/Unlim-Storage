@@ -24,13 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.*
+import com.shov.unlimstorage.ui.ItemTypeIcon
+import com.shov.unlimstorage.ui.UserInfo
 import com.shov.unlimstorage.ui.buttons.CustomIconButton
-import com.shov.unlimstorage.utils.converters.toPrettyString
+import com.shov.unlimstorage.ui.CustomText
+import com.shov.unlimstorage.ui.TextInfo
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.DownloadViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
+import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewStates.FileInfoState
@@ -87,8 +89,8 @@ fun FileInfoScreen(
 
 		fileInfoViewModel.storeMetadata?.let { metadata ->
 			listOf(
-				stringResource(R.string.created_time) to metadata.createdTime?.toPrettyString(),
-				stringResource(R.string.modified_time) to metadata.modifiedTime?.toPrettyString(),
+				stringResource(R.string.created_time) to metadata.createdTime,
+				stringResource(R.string.modified_time) to metadata.modifiedTime,
 				stringResource(R.string.version_description) to metadata.version
 			).forEach { pair ->
 				pair.second?.let { value ->
