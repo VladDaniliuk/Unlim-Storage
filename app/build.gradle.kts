@@ -2,7 +2,6 @@ plugins {
 	id(Plugin.application)
 	id(Plugin.hilt)
 	id(Plugin.kotlinAndroid)
-	id(Plugin.googleServices)
 	id(Plugin.kotlinKapt)
 }
 
@@ -76,14 +75,16 @@ android {
 
 	tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
 		kotlinOptions.freeCompilerArgs += BuildType.requiresOptIn
+		kotlinOptions.freeCompilerArgs += BuildType.jvmDefaultCompatibility
 	}
+
+	packagingOptions.resources.excludes.excludeDependencies()//httpcore >< httpclient
 
 	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
 
 	implementKotlinx()
 	implementCore()
 	implementGithub()
-	implementFirebase()
 	implementGoogle()
 	implementSquareup()
 	implementTest()

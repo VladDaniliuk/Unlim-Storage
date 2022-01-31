@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Activity {
 	private const val lib = "androidx.activity:activity"
-	private const val version = "1.3.1"
+	private const val version = "1.5.0-alpha01"
 
 	object Lib {
 		const val compose = "$lib-compose:$version"
