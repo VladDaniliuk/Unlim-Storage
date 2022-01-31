@@ -15,7 +15,6 @@ object Kotlinx {
 
 fun Project.implementKotlinx() {
 	dependencies {
-		implement(Kotlinx.Lib.datetime)
 		implement(Kotlinx.Lib.coroutinesAndroid)
 		implement(Kotlinx.Lib.coroutinesCore)
 	}
