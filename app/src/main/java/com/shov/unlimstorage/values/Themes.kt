@@ -33,6 +33,11 @@ fun CustomTheme(
 			color = Color.Transparent,
 			darkIcons = false
 		)
+
+		systemUiController.setNavigationBarColor(
+			color = Color.Transparent,
+			darkIcons = darkTheme.not()
+		)
 	}
 }
 

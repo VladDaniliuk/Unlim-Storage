@@ -2,18 +2,17 @@ package com.shov.unlimstorage.models.items
 
 import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.datetime.LocalDateTime
 
 data class StoreMetadataItem(
 	val id: String,
 	val name: String,
 	val type: ItemType,
-	var description: String?,
+	var description: String? = null,
 	val isStarred: Boolean = false,
-	val version: String?,
-	val link: String?,
-	val createdTime: LocalDateTime?,
-	val modifiedTime: LocalDateTime?,
+	val version: String? = null,
+	val link: String? = null,
+	val createdTime: String? = null,
+	val modifiedTime: String? = null,
 	val sharingUsers: List<User>? = null,
 	val size: Long? = null
 ) : Parcelable {
@@ -25,8 +24,8 @@ data class StoreMetadataItem(
 		parcel.readByte() != 0.toByte(),
 		parcel.readString(),
 		parcel.readString(),
-		LocalDateTime.parse(parcel.readString().toString()),
-		LocalDateTime.parse(parcel.readString().toString()),
+		parcel.readString(),
+		parcel.readString(),
 		arrayListOf<User>().apply {
 			parcel.readList(
 				this,
@@ -43,8 +42,8 @@ data class StoreMetadataItem(
 		parcel.writeByte(if (isStarred) 1 else 0)
 		parcel.writeString(version)
 		parcel.writeString(link)
-		parcel.writeString(createdTime.toString())
-		parcel.writeString(modifiedTime.toString())
+		parcel.writeString(createdTime)
+		parcel.writeString(modifiedTime)
 		parcel.writeList(sharingUsers)
 		parcel.writeValue(size)
 	}
