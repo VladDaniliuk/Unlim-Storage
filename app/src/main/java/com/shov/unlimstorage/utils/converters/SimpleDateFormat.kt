@@ -18,4 +18,4 @@ fun Long.toPrettyTime(
 fun DateTime.toPrettyTime(
 	pattern: String = DEFAULT_DATE_FORMAT,
 	locale: Locale = Locale.getDefault()
-): String = SimpleDateFormat(pattern, locale).format(this)
+): String = SimpleDateFormat(pattern, locale).format(Date(value))
