@@ -28,7 +28,7 @@ class MainNavigationViewModel @AssistedInject constructor(
 			assistedFactory: MainNavigationViewModelFactory,
 			isLogInPref: Preference<Boolean>
 		): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-			override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+			override fun <T : ViewModel> create(modelClass: Class<T>): T {
 				return assistedFactory.createMainNavigationViewModel(isLogInPref) as T
 			}
 		}

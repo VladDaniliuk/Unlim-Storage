@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Accompanist {
 	private const val lib = "com.google.accompanist:accompanist"
-	private const val version = "0.21.0-beta"
+	private const val version = "0.24.1-alpha"
 
 	object Lib {
 		const val swiperefresh = "$lib-swiperefresh:$version"
@@ -19,6 +19,5 @@ fun Project.implementAccompanist() {
 		implement(Accompanist.Lib.swiperefresh)
 		implement(Accompanist.Lib.insets)
 		implement(Accompanist.Lib.systemuicontroller)
-		implement(Accompanist.Lib.permissions)
 	}
 }

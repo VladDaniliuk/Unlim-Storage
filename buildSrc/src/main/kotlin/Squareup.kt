@@ -26,7 +26,7 @@ object Squareup {
 	}
 
 	object Moshi {
-		private const val version = "1.12.0"
+		private const val version = "1.13.0"
 		private const val subLib = "$lib.moshi:moshi"
 
 		object Lib {
@@ -38,8 +38,6 @@ object Squareup {
 
 fun Project.implementSquareup() {
 	dependencies {
-		implement(Squareup.Okhttp.Lib.loggingInterceptor)
-		implement(Squareup.Okhttp.Lib.okhttp)
 		implement(Squareup.Retrofit.Lib.retrofit)
 		implement(Squareup.Retrofit.Lib.converterGson)
 	}

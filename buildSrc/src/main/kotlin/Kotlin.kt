@@ -4,12 +4,11 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Kotlin {
 	private const val lib = "org.jetbrains.kotlin:kotlin"
-	private const val version = "1.6.0-RC2"
-	private const val pluginVersion = "1.5.31"//for compose 1.0.4
+	private const val version = "1.6.10"
 
 	object Lib {
 		const val stdLib = "$lib-stdlib:$version"
-		const val gradlePlugin = "$lib-gradle-plugin:$pluginVersion"
+		const val gradlePlugin = "$lib-gradle-plugin:$version"
 	}
 }
 
