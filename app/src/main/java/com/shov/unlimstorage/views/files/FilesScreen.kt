@@ -42,13 +42,13 @@ import kotlinx.coroutines.launch
 fun FilesScreen(
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
-	coroutineScope: CoroutineScope = rememberCoroutineScope(),
+	coroutine: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
 	navigateTo: (String) -> Unit,
 	popBackStack: () -> Unit,
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	sizeConverter: SizeConverterViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(false)
@@ -64,7 +64,7 @@ fun FilesScreen(
 				)
 			}
 
-			coroutineScope.launch {
+			coroutine.launch {
 				bottomSheetViewModel.sheetState.show()
 			}
 		}
@@ -118,7 +118,7 @@ fun FilesScreen(
 									)
 								}
 
-								coroutineScope.launch {
+								coroutine.launch {
 									bottomSheetViewModel.sheetState.show()
 								}
 							}

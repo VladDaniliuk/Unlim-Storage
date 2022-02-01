@@ -12,9 +12,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.CustomText
 import com.shov.unlimstorage.ui.dialogs.CustomDialogContent
 import com.shov.unlimstorage.ui.dialogs.CustomHeaderText
+import com.shov.unlimstorage.ui.texts.CustomText
 
 @Composable
 fun NewVersionView(

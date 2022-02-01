@@ -2,39 +2,51 @@ package com.shov.unlimstorage.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.BackHand
+import androidx.compose.material.icons.rounded.NextPlan
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
-import com.shov.unlimstorage.R
+import com.shov.unlimstorage.ui.buttons.animation.AnimatedIconButton
+import com.shov.unlimstorage.ui.texts.animation.AnimatedText
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable
 fun MainTopBar(topAppBarViewModel: TopAppBarViewModel = singletonViewModel()) {
 	MainTopBar(
-		prevRoute = topAppBarViewModel.prevRoute,
+		prevRouteImageVector = topAppBarViewModel.prevRouteOld?.first,
+		onPrevRouteClick = topAppBarViewModel.prevRouteOld?.second ?: {},
+		prevRouteVisible = topAppBarViewModel.prevRoute != null,
 		title = topAppBarViewModel.title,
-		nextRoute = topAppBarViewModel.nextRoute
+		nextRouteImageVector = topAppBarViewModel.nextRouteOld?.first,
+		onNextRouteClick = topAppBarViewModel.nextRouteOld?.second ?: {},
+		nextRouteVisible = topAppBarViewModel.nextRoute != null
 	)
+
+	LaunchedEffect(key1 = topAppBarViewModel.prevRoute) { topAppBarViewModel.onPrevRouteChange() }
+	LaunchedEffect(key1 = topAppBarViewModel.nextRoute) { topAppBarViewModel.onNextRouteChange() }
 }
 
 @Composable
 fun MainTopBar(
-	prevRoute: Pair<ImageVector, () -> Unit>? = null,
-	title: String? = null,
-	nextRoute: Pair<ImageVector, () -> Unit>? = null
+	prevRouteImageVector: ImageVector?,
+	onPrevRouteClick: () -> Unit,
+	prevRouteVisible: Boolean,
+	title: String?,
+	nextRouteImageVector: ImageVector?,
+	onNextRouteClick: () -> Unit,
+	nextRouteVisible: Boolean,
 ) {
 	TopAppBar(
 		contentPadding = rememberInsetsPaddingValues(
@@ -47,65 +59,41 @@ fun MainTopBar(
 				.fillMaxSize()
 				.padding(all = 4.dp)
 		) {
-			prevRoute?.let { prevRoute ->
-				IconButton(
-					modifier = Modifier.align(Alignment.CenterStart),
-					onClick = prevRoute.second
-				) {
-					Icon(
-						contentDescription = prevRoute.first.name,
-						imageVector = prevRoute.first
-					)
-				}
-			}
-
-			CustomText(
-				modifier = Modifier
-					.padding(horizontal = 48.dp)
-					.align(Alignment.Center),
-				maxLines = 1,
-				overflow = TextOverflow.Ellipsis,
-				text = title,
-				textStyle = Typography().h6,
-				color = MaterialTheme.colors.onPrimary
+			AnimatedIconButton(
+				modifier = Modifier.align(Alignment.CenterStart),
+				imageVector = prevRouteImageVector,
+				onClick = onPrevRouteClick,
+				visible = prevRouteVisible
 			)
 
-			nextRoute?.let { nextRoute ->
-				IconButton(
-					modifier = Modifier.align(Alignment.CenterEnd),
-					onClick = nextRoute.second
-				) {
-					Icon(
-						contentDescription = nextRoute.first.name,
-						imageVector = nextRoute.first
-					)
-				}
-			}
+			AnimatedText(
+				modifier = Modifier
+					.fillMaxWidth()
+					.align(Alignment.Center)
+					.padding(horizontal = 48.dp),
+				text = title
+			)
+
+			AnimatedIconButton(
+				modifier = Modifier.align(Alignment.CenterEnd),
+				imageVector = nextRouteImageVector,
+				onClick = onNextRouteClick,
+				visible = nextRouteVisible
+			)
 		}
 	}
 }
 
-@Preview(name = "without buttons | Long name")
+@Preview
 @Composable
 fun MainTopBarPreview() {
-	MainTopBar(title = "Long name Long name Long name")
-}
-
-@Preview(name = "backstack button")
-@Composable
-fun MainTopBarBackPreview() {
 	MainTopBar(
-		prevRoute = Icons.Rounded.ArrowBack to {},
-		title = stringResource(id = R.string.app_name)
-	)
-}
-
-@Preview(name = "two buttons")
-@Composable
-fun MainTopBarTwoButtonsPreview() {
-	MainTopBar(
-		prevRoute = Icons.Rounded.ArrowBack to {},
-		title = stringResource(id = R.string.app_name),
-		nextRoute = Icons.Rounded.AccountCircle to {}
+		prevRouteImageVector = Icons.Rounded.BackHand,
+		onPrevRouteClick = {},
+		prevRouteVisible = true,
+		title = "Title",
+		nextRouteImageVector = Icons.Rounded.NextPlan,
+		onNextRouteClick = {},
+		nextRouteVisible = true
 	)
 }

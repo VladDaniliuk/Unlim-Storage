@@ -20,10 +20,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.CustomText
 import com.shov.unlimstorage.ui.dialogs.CustomDialogContent
 import com.shov.unlimstorage.ui.dialogs.CustomHeaderIcon
 import com.shov.unlimstorage.utils.checkPermissionList
+import com.shov.unlimstorage.ui.texts.CustomText
 
 @RequiresApi(Build.VERSION_CODES.R)
 @Composable
