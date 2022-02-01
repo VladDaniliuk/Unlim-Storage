@@ -46,7 +46,11 @@ fun FileListScreen(
 			fileListViewModel.dropFromBackStack(filesNavHostController, index)
 		}
 
-		FileListNavigation(filesNavHostController = filesNavHostController)
+		FileListNavigation(
+			filesNavHostController = filesNavHostController,
+			navigateToFileInfo = { navHostController.navigate(it) }) {
+			navHostController.navigate(Screen.Accounts.route)
+		}
 	}
 
 	LaunchedEffect(key1 = filesNavHostController.currentBackStackEntryAsState().value) {
@@ -56,7 +60,9 @@ fun FileListScreen(
 	LaunchedEffect(key1 = fileListViewModel.backStacks) {
 		topAppBarViewModel.setTopBar(
 			if (fileListViewModel.backStacks.isNotEmpty())
-				Icons.Rounded.ArrowBack to { filesNavHostController.popBackStack() }
+				Icons.Rounded.ArrowBack to {
+					fileListViewModel.dropFromBackStack(filesNavHostController)
+				}
 			else null,
 			context.getString(R.string.app_name),
 			Icons.Rounded.AccountCircle to { navHostController.navigate(Screen.Settings.route) }

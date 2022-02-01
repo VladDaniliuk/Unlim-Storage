@@ -50,13 +50,14 @@ class FilesViewModel @Inject constructor(
 		id: String,
 		itemType: ItemType,
 		storageType: StorageType,
-		navigateTo: (String) -> Unit
+		navigateToFileInfo: (String) -> Unit,
+		navigateToFolder: (String) -> Unit
 	) {
 		isClickable = false
 
 		when (itemType) {
-			ItemType.FILE -> navigateTo(Screen.FileInfo.setStoreItem(id))
-			ItemType.FOLDER -> navigateTo(
+			ItemType.FILE -> navigateToFileInfo(Screen.FileInfo.setStoreItem(id))
+			ItemType.FOLDER -> navigateToFolder(
 				Screen.Files.openFolder(BackStack(id, storageType.name, folderName))
 			)
 		}

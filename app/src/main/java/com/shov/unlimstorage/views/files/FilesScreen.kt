@@ -21,7 +21,6 @@ import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.PADDING_FAB
 import com.shov.unlimstorage.values.SIZE_FAB
-import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.SizeConverterViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
@@ -40,7 +39,9 @@ fun FilesScreen(
 	context: Context = LocalContext.current,
 	coroutine: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
-	navigateTo: (String) -> Unit,
+	navigateToFolder: (String) -> Unit,
+	navigateToFileInfo: (String) -> Unit,
+	navigateToSettings: () -> Unit,
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	sizeConverter: SizeConverterViewModel = singletonViewModel(),
 ) {
@@ -80,9 +81,7 @@ fun FilesScreen(
 		}*///TODO Do progress with linear progress
 		) {
 			if (filesViewModel.storeItemList.isEmpty()) {
-				FilesEmptyView {
-					navigateTo(Screen.Accounts.route)
-				}
+				FilesEmptyView(navigateToSettings)
 			} else {
 				Column(
 					modifier = Modifier
@@ -101,7 +100,8 @@ fun FilesScreen(
 									id = storeItem.id,
 									itemType = storeItem.type,
 									storageType = storeItem.disk,
-									navigateTo = navigateTo,
+									navigateToFileInfo = navigateToFileInfo,
+									navigateToFolder = navigateToFolder,
 									folderName = storeItem.name
 								)
 							},
@@ -109,7 +109,7 @@ fun FilesScreen(
 								bottomSheetViewModel.setContent {
 									FileActionsBottomSheet(
 										storeItem = storeItem,
-										navigateTo = navigateTo
+										navigateTo = navigateToFileInfo
 									)
 								}
 

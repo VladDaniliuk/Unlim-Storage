@@ -8,13 +8,21 @@ import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.views.files.FilesScreen
 
 @Composable
-fun FileListNavigation(filesNavHostController: NavHostController) {
+fun FileListNavigation(
+	filesNavHostController: NavHostController,
+	navigateToFileInfo: (String) -> Unit,
+	navigateToSettings: () -> Unit
+) {
 	NavHost(
 		navController = filesNavHostController,
 		startDestination = Screen.Files.route
 	) {
 		composable(route = Screen.Files.route) {
-			FilesScreen(navigateTo = filesNavHostController::navigate)
+			FilesScreen(
+				navigateToFolder = filesNavHostController::navigate,
+				navigateToFileInfo = navigateToFileInfo,
+				navigateToSettings = navigateToSettings
+			)
 		}
 	}
 }
