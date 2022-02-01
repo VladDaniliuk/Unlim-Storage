@@ -6,7 +6,6 @@ import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.UriHandler
 import androidx.navigation.NavHostController
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import kotlinx.coroutines.CoroutineScope
 import java.io.InputStream
 
 data class FileInfoState(
@@ -14,12 +13,6 @@ data class FileInfoState(
 	val context: Context,
 	val hapticFeedback: HapticFeedback,
 	val uriHandler: UriHandler
-)
-
-data class FilesScreenState(
-	val navHostController: NavHostController,
-	val context: Context,
-	val coroutineScope: CoroutineScope
 )
 
 data class UploadNavigationState(

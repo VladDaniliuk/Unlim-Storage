@@ -1,55 +1,38 @@
-package com.shov.unlimstorage.views
+package com.shov.unlimstorage.views.permissions
 
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
-import androidx.core.content.ContextCompat
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.CustomDialogContent
-import com.shov.unlimstorage.ui.CustomHeaderIcon
+import com.shov.unlimstorage.ui.dialogs.CustomDialogContent
+import com.shov.unlimstorage.ui.dialogs.CustomHeaderIcon
+import com.shov.unlimstorage.utils.checkPermissionList
 import com.shov.unlimstorage.ui.texts.CustomText
-
-@Composable
-fun Permission(
-	onDismissRequest: () -> Unit,
-	onHasAccess: () -> Unit
-) {
-	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-		PermissionSdkR(
-			onDismissRequest = onDismissRequest,
-			onHasAccess = onHasAccess
-		)
-	} else {
-		PermissionSdkQ(
-			onDismissRequest = onDismissRequest,
-			onHasAccess = onHasAccess
-		)
-	}
-}
 
 @RequiresApi(Build.VERSION_CODES.R)
 @Composable
-fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
-	val context = LocalContext.current as Activity
-
-	if (Environment.isExternalStorageManager()) {
-		onHasAccess.invoke()
-	} else {
+fun PermissionSdkR(
+	context: Activity = LocalContext.current as Activity,
+	onDismissRequest: () -> Unit,
+	onHasAccess: () -> Unit
+) {
+	if (!Environment.isExternalStorageManager()) {
 		Dialog(onDismissRequest = onDismissRequest) {
 			CustomDialogContent(
 				header = { CustomHeaderIcon(icon = Icons.Rounded.Folder) },
@@ -64,8 +47,6 @@ fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 							)
 						)
 					)
-
-					onDismissRequest()
 				},
 				onCompleteText = stringResource(R.string.allow)
 			) {
@@ -76,27 +57,40 @@ fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 			}
 		}
 	}
+
+	SideEffect {
+		if (Environment.isExternalStorageManager()) {
+			onHasAccess()
+			onDismissRequest()
+		}
+	}
 }
 
 @Composable
 fun PermissionSdkQ(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
-	val context = LocalContext.current as Activity
-
-	if (
-		(ContextCompat.checkSelfPermission(
-			context,
-			READ_EXTERNAL_STORAGE
-		) == PackageManager.PERMISSION_GRANTED)
-			.and(
-				ContextCompat.checkSelfPermission(
-					context,
-					WRITE_EXTERNAL_STORAGE
-				) == PackageManager.PERMISSION_GRANTED
-			)
+	if ((LocalContext.current as Activity).checkPermissionList(
+			Manifest.permission.READ_EXTERNAL_STORAGE,
+			Manifest.permission.WRITE_EXTERNAL_STORAGE
+		)
 	) {
-		onHasAccess.invoke()
+		onHasAccess()
 	} else {
-		onDismissRequest.invoke()
-		context.requestPermissions(arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE), 10)
+		val launcher = rememberLauncherForActivityResult(
+			ActivityResultContracts.RequestMultiplePermissions()
+		) { permissions ->
+			if (permissions.checkPermissionList()) {
+				onHasAccess()
+				onDismissRequest()
+			}
+		}
+
+		SideEffect {
+			launcher.launch(
+				arrayOf(
+					Manifest.permission.WRITE_EXTERNAL_STORAGE,
+					Manifest.permission.READ_EXTERNAL_STORAGE
+				)
+			)
+		}
 	}
 }

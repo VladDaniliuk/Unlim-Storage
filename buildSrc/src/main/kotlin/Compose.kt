@@ -3,8 +3,8 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Compose {
 	private const val lib = "androidx.compose"
-	const val version = "1.2.0-alpha01"
-	private const val versionMaterial3 = "1.0.0-alpha03"
+	const val version = "1.2.0-alpha02"
+	private const val versionMaterial3 = "1.0.0-alpha04"
 
 	object Lib {
 		const val material = "$lib.material:material:$version"
@@ -22,7 +22,6 @@ fun Project.implementCompose() {
 		implement(Compose.Lib.material)
 		implement(Compose.Lib.materialIconsExtended)
 		implement(Compose.Lib.runtime)
-		implement(Compose.Lib.ui)
 		implement(Compose.Lib.uiTooling)
 	}
 }

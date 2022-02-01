@@ -5,8 +5,7 @@ import org.gradle.kotlin.dsl.dependencies
 object Hilt {
 	private const val hiltLib = "androidx.hilt:hilt"
 	private const val daggerLib = "com.google.dagger:hilt-android"
-	private const val hiltVersion = "1.0.0-beta01"
-	private const val workVersion = "1.0.0"
+	private const val hiltVersion = "1.0.0"
 	private const val daggerVersion = "2.40.5"
 
 	object Lib {
@@ -14,7 +13,7 @@ object Hilt {
 		const val gradlePlugin = "$daggerLib-gradle-plugin:$daggerVersion"
 		const val hilt = "$daggerLib:$daggerVersion"
 		const val navigationCompose = "$hiltLib-navigation-compose:$hiltVersion"
-		const val work = "$hiltLib-work:$workVersion"
+		const val work = "$hiltLib-work:$hiltVersion"
 	}
 }
 
