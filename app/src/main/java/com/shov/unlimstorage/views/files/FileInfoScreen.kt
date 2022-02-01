@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.icons.ItemTypeIcon
 import com.shov.unlimstorage.ui.UserInfo
 import com.shov.unlimstorage.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.ui.icons.ItemTypeIcon
@@ -38,6 +37,7 @@ import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewStates.FileInfoState
 import com.shov.unlimstorage.viewStates.rememberFileInfoState
+import com.shov.unlimstorage.views.permissions.PermissionDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

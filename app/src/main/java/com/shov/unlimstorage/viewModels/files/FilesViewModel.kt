@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.repositories.files.FilesRepository
@@ -38,16 +39,14 @@ class FilesViewModel @Inject constructor(
 		isRefreshing = true
 
 		viewModelScope.launch(Dispatchers.IO) {
-			storeItemList = filesRepository.checkLocal(
-				parentFolder = folderId,
-				disk = storageType
-			)
+			storeItemList = filesRepository.checkLocal(folderId, storageType)
 		}.invokeOnCompletion {
 			isRefreshing = false
 		}
 	}
 
 	fun navigate(
+		folderName: String,
 		id: String,
 		itemType: ItemType,
 		storageType: StorageType,
@@ -57,7 +56,9 @@ class FilesViewModel @Inject constructor(
 
 		when (itemType) {
 			ItemType.FILE -> navigateTo(Screen.FileInfo.setStoreItem(id))
-			ItemType.FOLDER -> navigateTo(Screen.Files.openFolder(id, storageType.name))
+			ItemType.FOLDER -> navigateTo(
+				Screen.Files.openFolder(BackStack(id, storageType.name, folderName))
+			)
 		}
 
 		isClickable = true
@@ -67,10 +68,7 @@ class FilesViewModel @Inject constructor(
 		isRefreshing = true
 
 		viewModelScope.launch(Dispatchers.IO) {
-			storeItemList = filesRepository.checkRemote(
-				parentFolder = folderId,
-				disk = storageType
-			)
+			storeItemList = filesRepository.checkRemote(folderId, storageType)
 		}.invokeOnCompletion {
 			isRefreshing = false
 		}
@@ -80,8 +78,7 @@ class FilesViewModel @Inject constructor(
 		isRefreshing = true
 
 		viewModelScope.launch(Dispatchers.IO) {
-			storeItemList =
-				filesRepository.getFromLocal(parentFolder = folderId)
+			storeItemList = filesRepository.getFromLocal(folderId)
 		}.invokeOnCompletion {
 			isRefreshing = false
 		}

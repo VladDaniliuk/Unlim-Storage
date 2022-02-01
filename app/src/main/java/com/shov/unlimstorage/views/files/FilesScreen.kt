@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,7 +25,6 @@ import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.SizeConverterViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewStates.rememberUploadNavigationState
@@ -45,10 +41,8 @@ fun FilesScreen(
 	coroutine: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
 	navigateTo: (String) -> Unit,
-	popBackStack: () -> Unit,
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	sizeConverter: SizeConverterViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(false)
@@ -107,7 +101,8 @@ fun FilesScreen(
 									id = storeItem.id,
 									itemType = storeItem.type,
 									storageType = storeItem.disk,
-									navigateTo = navigateTo
+									navigateTo = navigateTo,
+									folderName = storeItem.name
 								)
 							},
 							onOptionClick = {
@@ -141,15 +136,5 @@ fun FilesScreen(
 		} else {
 			filesViewModel.checkLocalFiles()
 		}
-	}
-
-	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
-			filesViewModel.folderId?.let {
-				Icons.Rounded.ArrowBack to popBackStack
-			},
-			context.getString(R.string.app_name),
-			Icons.Rounded.AccountCircle to { navigateTo(Screen.Settings.route) }
-		)
 	}
 }
