@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.BackHand
@@ -49,6 +50,8 @@ fun MainTopBar(
 	nextRouteVisible: Boolean,
 ) {
 	TopAppBar(
+		backgroundColor = MaterialTheme.colors.primary,
+		contentColor = MaterialTheme.colors.onPrimary,
 		contentPadding = rememberInsetsPaddingValues(
 			applyBottom = false,
 			insets = LocalWindowInsets.current.statusBars
@@ -62,8 +65,8 @@ fun MainTopBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterStart),
 				imageVector = prevRouteImageVector,
-				onClick = onPrevRouteClick,
-				visible = prevRouteVisible
+				visible = prevRouteVisible,
+				onClick = onPrevRouteClick
 			)
 
 			AnimatedText(
@@ -77,8 +80,8 @@ fun MainTopBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterEnd),
 				imageVector = nextRouteImageVector,
-				onClick = onNextRouteClick,
-				visible = nextRouteVisible
+				visible = nextRouteVisible,
+				onClick = onNextRouteClick
 			)
 		}
 	}

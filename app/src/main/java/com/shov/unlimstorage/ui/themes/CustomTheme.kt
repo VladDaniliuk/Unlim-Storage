@@ -1,11 +1,12 @@
-package com.shov.unlimstorage.values
+package com.shov.unlimstorage.ui.themes
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -19,19 +20,23 @@ fun CustomTheme(
 	content: @Composable () -> Unit
 ) {
 	MaterialTheme(
-		colors = if (darkTheme) DARK_THEME else LIGHT_THEME,
-		content = content,
+		colors = if (darkTheme) DarkTheme else LightTheme,
 		shapes = Shapes(
 			small = RoundedCornerShape(size = 4.dp),
 			medium = RoundedCornerShape(size = 8.dp),
 			large = RoundedCornerShape(size = 12.dp)
 		)
-	)
+	) {
+		CompositionLocalProvider(
+			LocalRippleTheme provides CustomRippleTheme(),
+			content = content
+		)
+	}
 
 	SideEffect {
 		systemUiController.setSystemBarsColor(
 			color = Color.Transparent,
-			darkIcons = false
+			darkIcons = darkTheme
 		)
 
 		systemUiController.setNavigationBarColor(
@@ -40,35 +45,3 @@ fun CustomTheme(
 		)
 	}
 }
-
-val DARK_THEME = Colors(
-	primary = DEEP_PURPLE_900_LIGHT,
-	primaryVariant = DEEP_PURPLE_900_DARK,
-	onPrimary = WHITE,
-	secondary = LIGHT_BLUE_900,
-	secondaryVariant = LIGHT_BLUE_900_DARK,
-	onSecondary = WHITE,
-	background = BACKGROUND,
-	error = ERROR_DARK,
-	surface = BACKGROUND,
-	onBackground = WHITE,
-	onSurface = WHITE,
-	onError = BLACK,
-	isLight = false
-)
-
-val LIGHT_THEME = Colors(
-	primary = DEEP_PURPLE_900,
-	primaryVariant = DEEP_PURPLE_900_DARK,
-	onPrimary = WHITE,
-	secondary = LIGHT_BLUE_900,
-	secondaryVariant = LIGHT_BLUE_900_DARK,
-	onSecondary = BLACK,
-	background = WHITE,
-	error = ERROR_LIGHT,
-	surface = WHITE,
-	onBackground = BLACK,
-	onSurface = BLACK,
-	onError = WHITE,
-	isLight = true
-)

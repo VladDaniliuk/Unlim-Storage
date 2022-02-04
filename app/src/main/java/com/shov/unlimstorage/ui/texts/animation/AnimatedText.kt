@@ -1,7 +1,7 @@
 package com.shov.unlimstorage.ui.texts.animation
 
 import androidx.compose.animation.*
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,7 +16,7 @@ import com.shov.unlimstorage.ui.texts.CustomText
 @Composable
 fun AnimatedText(
 	modifier: Modifier,
-	color: Color = MaterialTheme.colors.onPrimary,
+	color: Color = LocalContentColor.current,
 	maxLines: Int = 1,
 	text: String?,
 	textAlign: TextAlign = TextAlign.Center,

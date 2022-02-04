@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui
+package com.shov.unlimstorage.ui.icons
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
