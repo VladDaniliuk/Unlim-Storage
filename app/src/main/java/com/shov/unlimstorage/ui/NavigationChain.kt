@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.ui.icons.IconButton
 import com.shov.unlimstorage.ui.texts.TextButton
-import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
+import com.shov.unlimstorage.ui.themes.CustomTheme
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
