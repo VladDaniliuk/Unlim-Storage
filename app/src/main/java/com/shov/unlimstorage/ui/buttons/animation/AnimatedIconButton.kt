@@ -3,8 +3,10 @@ package com.shov.unlimstorage.ui.buttons.animation
 import androidx.compose.animation.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -12,8 +14,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 fun AnimatedIconButton(
 	modifier: Modifier = Modifier,
 	imageVector: ImageVector?,
-	onClick: () -> Unit,
-	visible: Boolean
+	tint: Color = LocalContentColor.current,
+	visible: Boolean,
+	onClick: () -> Unit
 ) {
 	AnimatedVisibility(
 		modifier = modifier,
@@ -31,7 +34,8 @@ fun AnimatedIconButton(
 				IconButton(onClick = onClick) {
 					Icon(
 						contentDescription = image.name,
-						imageVector = image
+						imageVector = image,
+						tint = tint
 					)
 				}
 			}
