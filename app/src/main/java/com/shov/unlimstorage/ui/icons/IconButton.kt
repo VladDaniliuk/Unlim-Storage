@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
+import com.shov.unlimstorage.ui.themes.CustomTheme
 
 @Composable
 fun IconButton(

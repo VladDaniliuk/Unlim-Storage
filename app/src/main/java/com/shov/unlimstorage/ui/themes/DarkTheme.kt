@@ -1,7 +1,6 @@
-package com.shov.unlimstorage.ui.themes.customTheme
+package com.shov.unlimstorage.ui.themes
 
 import androidx.compose.material.Colors
-import com.shov.unlimstorage.ui.themes.*
 
 val DarkTheme = Colors(
 	primary = md_theme_dark_primary,
