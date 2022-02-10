@@ -4,7 +4,7 @@ data class StoreMetadataItem(
 	val id: String,
 	val name: String,
 	val type: ItemType,
-	var description: String? = null,
+	var description: String? = "",
 	val isStarred: Boolean = false,
 	val version: String? = null,
 	val link: String? = null,

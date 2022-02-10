@@ -26,6 +26,8 @@ object Google {
 		const val drive = "$lib.apis:google-api-services-drive:$versionDrive"
 		const val gson = "$lib.code.gson:gson:$versionGson"
 		const val services = "$lib.gms:google-services:$versionServices"
+		const val listenablefuture =
+			"com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
 	}
 }
 
@@ -36,5 +38,6 @@ fun Project.implementGoogle() {
 		implement(Google.Lib.clientAndroid)
 		implement(Google.Lib.drive)
 		implement(Google.Lib.gson)
+		//implement(Google.Lib.listenablefuture)//For resolving problem with duplicates
 	}
 }
