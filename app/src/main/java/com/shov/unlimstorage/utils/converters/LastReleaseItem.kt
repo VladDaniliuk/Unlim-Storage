@@ -6,8 +6,9 @@ import com.google.gson.JsonElement
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.values.LastRelease
 import java.lang.reflect.Type
+import javax.inject.Inject
 
-class LastReleaseDeserializer : JsonDeserializer<LastReleaseItem> {
+class LastReleaseDeserializer @Inject constructor() : JsonDeserializer<LastReleaseItem> {
 	override fun deserialize(
 		json: JsonElement,
 		typeOfT: Type?,
