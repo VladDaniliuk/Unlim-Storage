@@ -75,28 +75,12 @@ android {
 
 	tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
 		kotlinOptions.freeCompilerArgs += BuildType.requiresOptIn
-		kotlinOptions.freeCompilerArgs += BuildType.jvmDefaultCompatibility
+		kotlinOptions.freeCompilerArgs += BuildType.xjvmDefault
 	}
 
-	packagingOptions.resources.excludes.excludeDependencies()//httpcore >< httpclient
+	packagingOptions.resources.excludes.customExclude()
 
 	setCompileSdkVersion(AndroidVersion.compileSdkVersion)
 
-	implementKotlinx()
-	implementCore()
-	implementGithub()
-	implementGoogle()
-	implementSquareup()
-	implementTest()
-	implementLifecycle()
-	implementKotlin()
-	implementNavigation()
-	implementActivity()
-	implementCompose()
-	implementHilt()
-	implementDropbox()
-	implementBoxApi()
-	implementLocalDataBase()
-	implementCoil()
-	implementAccompanist()
+	implementAll()
 }

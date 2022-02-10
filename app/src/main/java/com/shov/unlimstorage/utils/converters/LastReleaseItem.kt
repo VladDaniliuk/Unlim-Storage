@@ -18,7 +18,7 @@ class LastReleaseDeserializer : JsonDeserializer<LastReleaseItem> {
 			releaseName = json.getString(LastRelease.name),
 			applicationName = json.getArrayedObject(LastRelease.assets).getString(LastRelease.name),
 			applicationSize = json.getArrayedObject(LastRelease.assets).getLong(LastRelease.size),
-			releaseDate = json.getString(LastRelease.publishedAt),
+			releaseDate = json.getString(LastRelease.publishedAt).toPrettyTime(),
 			downloadUrl = json.getArrayedObject(LastRelease.assets)
 				.getString(LastRelease.browserDownloadUrl)
 		)

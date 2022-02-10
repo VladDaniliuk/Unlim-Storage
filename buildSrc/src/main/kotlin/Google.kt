@@ -1,11 +1,10 @@
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.ScriptHandlerScope
 import org.gradle.kotlin.dsl.dependencies
 
 object Google {
 	private const val lib = "com.google"
 	private const val versionServices = "4.3.10"
-	private const val versionClient = "1.33.1"
+	private const val versionClient = "1.33.2"
 	private const val versionDrive = "v3-rev197-1.25.0"
 	private const val versionGson = "2.8.9"
 
