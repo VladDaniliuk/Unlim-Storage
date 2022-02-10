@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Room {
 	private const val lib = "androidx.room:room"
-	private const val roomVersion = "2.3.0"
+	private const val roomVersion = "2.4.1"
 
 	object Lib {
 		const val runtime = "$lib-runtime:$roomVersion"

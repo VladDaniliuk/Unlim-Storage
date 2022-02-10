@@ -13,9 +13,6 @@ import com.shov.unlimstorage.models.items.User
 import com.shov.unlimstorage.values.ARGUMENT_METADATA
 import com.shov.unlimstorage.values.UnknownClassInheritance
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import javax.inject.Inject
 
 interface StoreMetadataConverter {
@@ -36,10 +33,8 @@ class StoreMetadataConverterImpl @Inject constructor(
 		isStarred = this.collections?.let { it.size > 0 } ?: false,
 		version = null,
 		link = this.sharedLink?.url,
-		createdTime = Instant.fromEpochMilliseconds(this.createdAt.time)
-			.toLocalDateTime(TimeZone.currentSystemDefault()),
-		modifiedTime = Instant.fromEpochMilliseconds(this.modifiedAt.time)
-			.toLocalDateTime(TimeZone.currentSystemDefault()),
+		createdTime = createdAt.toPrettyTime(),
+		modifiedTime = modifiedAt.toPrettyTime(),
 		sharingUsers = listOf(
 			User(
 				this.createdBy.login,
@@ -47,10 +42,7 @@ class StoreMetadataConverterImpl @Inject constructor(
 				this.createdBy.name
 			)
 		),
-		size = when (ItemType.valueOf(this@toStoreMetadata.type.uppercase())) {
-			ItemType.FILE -> size
-			ItemType.FOLDER -> null
-		}
+		size = if (ItemType.valueOf(type.uppercase()) == ItemType.FILE) size else null
 	)
 
 	override fun Metadata.toStoreMetadata(): StoreMetadataItem = when (this) {
@@ -58,14 +50,7 @@ class StoreMetadataConverterImpl @Inject constructor(
 			id = this.id,
 			name = this.name,
 			type = ItemType.FOLDER,
-			description = null,
 			isStarred = false,
-			version = null,
-			link = null,
-			createdTime = null,
-			modifiedTime = null,
-			sharingUsers = null,
-			size = null
 		)
 		is FileMetadata -> StoreMetadataItem(
 			id = this.id,
@@ -75,10 +60,8 @@ class StoreMetadataConverterImpl @Inject constructor(
 			isStarred = false,
 			version = null,
 			link = null,
-			createdTime = null,
-			modifiedTime = Instant.fromEpochMilliseconds(this.clientModified.time)
-				.toLocalDateTime(TimeZone.currentSystemDefault()),
-			sharingUsers = null,
+			createdTime = fileLockInfo?.created?.toPrettyTime(),
+			modifiedTime = clientModified?.time?.toPrettyTime(),
 			size = size
 		)
 		else -> throw UnknownClassInheritance(ARGUMENT_METADATA, this.javaClass.name)
@@ -96,10 +79,8 @@ class StoreMetadataConverterImpl @Inject constructor(
 		isStarred = this.starred,
 		version = this.version.toString(),
 		link = this.webViewLink,
-		createdTime = Instant.fromEpochMilliseconds(this.createdTime.value)
-			.toLocalDateTime(TimeZone.UTC),
-		modifiedTime = Instant.fromEpochMilliseconds(this.modifiedTime.value)
-			.toLocalDateTime(TimeZone.UTC),
+		createdTime = createdTime.toPrettyTime(),
+		modifiedTime = modifiedTime.toPrettyTime(),
 		sharingUsers = this.permissions.map {
 			User(
 				it.emailAddress,

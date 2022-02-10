@@ -65,7 +65,7 @@ fun NewVersionDialog(
 				formatArgs = arrayOf(
 					newVersionViewModel.lastReleaseItem.version,
 					newVersionViewModel.lastReleaseItem.applicationName,
-					newVersionViewModel.getReleaseDate(),
+					newVersionViewModel.lastReleaseItem.releaseDate,
 					newVersionViewModel.getSize(),
 					newVersionViewModel.lastReleaseItem.releaseName
 				),
