@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun LoadIcon(
@@ -24,7 +24,7 @@ fun LoadIcon(
 		iconLink?.let {
 			Icon(
 				modifier = Modifier.fillMaxSize(),
-				painter = rememberImagePainter(iconLink),
+				painter = rememberAsyncImagePainter(iconLink),
 				contentDescription = contentDescription,
 				tint = iconTint
 			)

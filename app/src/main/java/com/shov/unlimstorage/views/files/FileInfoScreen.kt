@@ -29,7 +29,6 @@ import com.shov.unlimstorage.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.ui.icons.ItemTypeIcon
 import com.shov.unlimstorage.ui.texts.CustomText
 import com.shov.unlimstorage.ui.texts.TextInfo
-import com.shov.unlimstorage.utils.converters.toPrettyString
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
@@ -90,8 +89,8 @@ fun FileInfoScreen(
 
 		fileInfoViewModel.storeMetadata?.let { metadata ->
 			listOf(
-				stringResource(R.string.created_time) to metadata.createdTime?.toPrettyString(),
-				stringResource(R.string.modified_time) to metadata.modifiedTime?.toPrettyString(),
+				stringResource(R.string.created_time) to metadata.createdTime,
+				stringResource(R.string.modified_time) to metadata.modifiedTime,
 				stringResource(R.string.version_description) to metadata.version
 			).forEach { pair ->
 				pair.second?.let { value ->
