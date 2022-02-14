@@ -16,6 +16,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.ui.FABScaffold
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
@@ -35,26 +36,27 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FilesScreen(
+	backStack: BackStack?,
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	coroutine: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
-	navigateToFolder: (String) -> Unit,
-	navigateToFileInfo: (String) -> Unit,
+	navigateToFolder: (BackStack) -> Unit,
 	navigateToSettings: () -> Unit,
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	sizeConverter: SizeConverterViewModel = singletonViewModel(),
+	navigateToFileInfo: (id: String) -> Unit,
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(false)
 
 	FABScaffold(
 		onClick = {
-			bottomSheetViewModel.sheetContent = {
+			bottomSheetViewModel.setContent {
 				UploadNavigation(
 					uploadNavigationState = rememberUploadNavigationState(
-						folderId = filesViewModel.folderId,
-						storageType = filesViewModel.storageType
+						folderId = backStack?.folderId,
+						storageType = backStack?.storageType
 					)
 				)
 			}
@@ -68,17 +70,14 @@ fun FilesScreen(
 			modifier = Modifier.fillMaxSize(),
 			state = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
 			onRefresh = {
-				if (isConnected) {
-					filesViewModel.refreshFiles()
-				} else {
-					scaffoldViewModel.showSnackbar(
-						context.getString(R.string.connection_failed)
-					)
+				filesViewModel.onRefresh(
+					isConnected,
+					backStack?.folderId,
+					backStack?.storageType
+				) {
+					scaffoldViewModel.showSnackbar(context.getString(R.string.connection_failed))
 				}
-			}/*,
-		indicator = { _, _ ->
-			LinearProgressIndicator()
-		}*///TODO Do progress with linear progress
+			}//TODO Do progress with linear progress
 		) {
 			if (filesViewModel.storeItemList.isEmpty()) {
 				FilesEmptyView(navigateToSettings)
@@ -109,7 +108,7 @@ fun FilesScreen(
 								bottomSheetViewModel.setContent {
 									FileActionsBottomSheet(
 										storeItem = storeItem,
-										navigateTo = navigateToFileInfo
+										navigateToFileInfo = navigateToFileInfo
 									)
 								}
 
@@ -130,11 +129,7 @@ fun FilesScreen(
 		}
 	}
 
-	LaunchedEffect(key1 = isConnected) {
-		if (isConnected) {
-			filesViewModel.getFiles()
-		} else {
-			filesViewModel.checkLocalFiles()
-		}
+	LaunchedEffect(key1 = isConnected, key2 = backStack) {
+		filesViewModel.onConnectionChange(isConnected, backStack)
 	}
 }

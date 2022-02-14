@@ -8,7 +8,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.SizeConverterViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
@@ -25,7 +24,7 @@ fun FileActionsBottomSheet(
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	sizeConverter: SizeConverterViewModel = singletonViewModel(),
 	storeItem: StoreItem,
-	navigateTo: (String) -> Unit
+	navigateToFileInfo: (id: String) -> Unit
 ) {
 	BackHandler {
 		coroutineScope.launch {
@@ -51,7 +50,7 @@ fun FileActionsBottomSheet(
 		coroutineScope.launch {
 			bottomSheetViewModel.sheetState.hide()
 		}.invokeOnCompletion {
-			navigateTo(Screen.FileInfo.setStoreItem(storeItem.id))
+			navigateToFileInfo(storeItem.id)
 		}
 	}
 }

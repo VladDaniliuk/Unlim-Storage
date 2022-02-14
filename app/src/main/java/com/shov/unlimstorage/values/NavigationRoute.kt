@@ -1,9 +1,6 @@
 package com.shov.unlimstorage.values
 
-import com.shov.unlimstorage.models.items.BackStack
-
 //Main routes
-const val navFiles = "nav_files/?"
 const val navFileInfo = "nav_file_info/"
 const val navFileDescription = "nav_file_description/"
 const val navNewFolder = "nav_new_folder/?"
@@ -11,7 +8,6 @@ const val navChooseFile = "nav_choose_file/?"
 
 //Arguments
 const val argFolderId = "arg_folderId"
-const val argFolderName = "arg_folderName"
 const val argStorageType = "arg_storageType"
 const val argStoreId = "arg_storeId"
 const val argFileName = "arg_fileName"
@@ -21,13 +17,7 @@ sealed class Screen(val route: String) {
 	object Accounts : Screen("nav_accounts")
 	object Settings : Screen("nav_settings")
 	object Updates : Screen("nav_updates")
-	object Files : Screen(
-		"$navFiles$argFolderId={$argFolderId}/?$argStorageType={$argStorageType}/?" +
-				"$argFolderName={$argFolderName}"
-	) {
-		fun openFolder(backStack: BackStack) = "$navFiles$argFolderId=${backStack.folderId}" +
-				"/?$argStorageType=${backStack.storageType}/?$argFolderName=${backStack.folderName}"
-	}
+	object Files : Screen("nav_files")
 
 	object FileInfo : Screen("$navFileInfo{$argStoreId}") {
 		fun setStoreItem(storeId: String) = "$navFileInfo$storeId"
