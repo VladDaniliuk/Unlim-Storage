@@ -29,7 +29,7 @@ import com.shov.unlimstorage.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.ui.icons.ItemTypeIcon
 import com.shov.unlimstorage.ui.texts.CustomText
 import com.shov.unlimstorage.ui.texts.TextInfo
-import com.shov.unlimstorage.utils.observeConnectivityAsFlow
+import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
