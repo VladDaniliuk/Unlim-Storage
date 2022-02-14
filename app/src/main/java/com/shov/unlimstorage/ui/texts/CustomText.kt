@@ -9,26 +9,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
 
 @Composable
 fun CustomText(
 	modifier: Modifier = Modifier,
-	text: String? = "",
-	textStyle: TextStyle = Typography().subtitle1,
-	overflow: TextOverflow = TextOverflow.Clip,
+	color: Color = LocalContentColor.current,
+	letterSpacing: TextUnit = TextUnit.Unspecified,
 	maxLines: Int = Int.MAX_VALUE,
+	overflow: TextOverflow = TextOverflow.Clip,
+	text: String?,
 	textAlign: TextAlign? = null,
-	color: Color = LocalContentColor.current
+	textStyle: TextStyle = Typography().subtitle1
 ) {
 	Text(
 		modifier = modifier,
-		text = text ?: "",
+		color = color,
 		fontSize = textStyle.fontSize,
 		fontStyle = textStyle.fontStyle,
 		fontWeight = textStyle.fontWeight,
-		overflow = overflow,
+		letterSpacing = letterSpacing,
 		maxLines = maxLines,
-		textAlign = textAlign,
-		color = color
+		overflow = overflow,
+		text = text ?: "",
+		textAlign = textAlign
 	)
 }

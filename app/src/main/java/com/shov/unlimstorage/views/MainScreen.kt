@@ -26,7 +26,11 @@ import com.shov.unlimstorage.views.settings.newVersion.NewVersionObserver
 fun MainScreen(bottomSheetViewModel: BottomSheetViewModel = singletonViewModel()) {
 	NewVersionObserver()
 
-	Column(modifier = Modifier.fillMaxSize()) {
+	Column(
+		modifier = Modifier
+			.fillMaxSize()
+			.navigationBarsPadding(bottom = false)
+	) {
 		ModalBottomSheetLayout(
 			modifier = Modifier.weight(1f),
 			sheetState = bottomSheetViewModel.sheetState,

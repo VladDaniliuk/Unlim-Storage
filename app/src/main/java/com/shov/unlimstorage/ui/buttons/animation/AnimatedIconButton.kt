@@ -1,13 +1,13 @@
 package com.shov.unlimstorage.ui.buttons.animation
 
 import androidx.compose.animation.*
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.shov.unlimstorage.ui.icons.CustomIcon
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -18,27 +18,21 @@ fun AnimatedIconButton(
 	visible: Boolean,
 	onClick: () -> Unit
 ) {
-	AnimatedVisibility(
+	AnimatedContent(
 		modifier = modifier,
-		enter = fadeIn() + scaleIn(),
-		exit = fadeOut() + scaleOut(),
-		visible = visible
-	) {
-		imageVector?.let { imageVector ->
-			AnimatedContent(
-				targetState = imageVector,
-				transitionSpec = {
-					fadeIn() + scaleIn() with fadeOut() + scaleOut()
-				}
-			) { image ->
-				IconButton(onClick = onClick) {
-					Icon(
-						contentDescription = image.name,
-						imageVector = image,
-						tint = tint
-					)
-				}
-			}
+		targetState = imageVector,
+		transitionSpec = {
+			fadeIn() + scaleIn() with fadeOut() + scaleOut()
+		}
+	) { icon ->
+		IconButton(
+			onClick = onClick,
+			enabled = visible
+		) {
+			CustomIcon(
+				imageVector = icon,
+				tint = tint
+			)
 		}
 	}
 }
