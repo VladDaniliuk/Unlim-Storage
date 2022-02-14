@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.ui.CustomScaffold
 import com.shov.unlimstorage.ui.DownloadSnackbar
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
