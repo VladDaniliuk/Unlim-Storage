@@ -21,10 +21,23 @@ import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable
 fun SettingsScreen(
-	filesNavController: NavHostController,
+	context: Context = LocalContext.current,
+	navigateTo: (String) -> Unit,
+	onBackClick: () -> Unit,
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	context: Context = LocalContext.current
 ) {
+	SettingsView(onNavigate = navigateTo)
+
+	LaunchedEffect(key1 = null) {
+		topAppBarViewModel.setTopBar(
+			prevRoute = Icons.Rounded.ArrowBack to onBackClick,
+			title = context.getString(R.string.settings)
+		)
+	}
+}
+
+@Composable
+fun SettingsView(onNavigate: (String) -> Unit) {
 	Column {
 		SettingsMenuLink(
 			icon = {
@@ -36,7 +49,7 @@ fun SettingsScreen(
 			subtitle = { Text(text = stringResource(R.string.accounts_description)) },
 			title = { Text(text = stringResource(R.string.accounts)) }
 		) {
-			filesNavController.navigate(Screen.Accounts.route)
+			onNavigate(Screen.Accounts.route)
 		}
 
 		SettingsMenuLink(
@@ -46,18 +59,18 @@ fun SettingsScreen(
 					contentDescription = Icons.Rounded.Update.name
 				)
 			},
-			title = { Text(text = stringResource(R.string.about_updates)) },
-			subtitle = { Text(text = stringResource(R.string.check_update_disable_auto)) }
+			subtitle = { Text(text = stringResource(R.string.check_update_disable_auto)) },
+			title = { Text(text = stringResource(R.string.about_updates)) }
 		) {
-			filesNavController.navigate(Screen.Updates.route)
+			onNavigate(Screen.Updates.route)
 		}
 	}
+}
 
-	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
-			Icons.Rounded.ArrowBack to { filesNavController.popBackStack() },
-			context.getString(R.string.settings),
-			null
-		)
+@Preview
+@Composable
+fun SettingsScreenPreview() {
+	CustomTheme {
+		SettingsView {}
 	}
 }

@@ -9,8 +9,14 @@ import com.shov.unlimstorage.views.settings.accounts.AccountsScreen
 import com.shov.unlimstorage.views.settings.updates.UpdateScreen
 
 fun NavGraphBuilder.settingsComposable(settingsNavController: NavHostController) {
+	composable(Screen.Accounts.route) {
+		AccountsScreen(onBackClick = settingsNavController::popBackStack)
+	}
 	composable(Screen.Settings.route) {
-		SettingsScreen(filesNavController = settingsNavController)
+		SettingsScreen(
+			navigateTo = settingsNavController::navigate,
+			onBackClick = settingsNavController::popBackStack
+		)
 	}
 	composable(Screen.Updates.route) {
 		UpdateScreen(onBackClick = settingsNavController::popBackStack)
