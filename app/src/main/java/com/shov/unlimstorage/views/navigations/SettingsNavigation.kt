@@ -21,7 +21,4 @@ fun NavGraphBuilder.settingsComposable(settingsNavController: NavHostController)
 	composable(Screen.Updates.route) {
 		UpdateScreen(onBackClick = settingsNavController::popBackStack)
 	}
-	composable(Screen.Accounts.route) {
-		AccountsScreen(onBackClick = settingsNavController::popBackStack)
-	}
 }
