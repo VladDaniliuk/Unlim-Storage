@@ -8,6 +8,8 @@ import com.google.api.client.http.InputStreamContent
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
+import com.shov.unlimstorage.utils.converters.toStoreItem
+import com.shov.unlimstorage.values.GOOGLE_FIELDS
 import com.google.api.services.drive.DriveScopes
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.ItemType

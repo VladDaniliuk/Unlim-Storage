@@ -8,6 +8,7 @@ import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.DbxUserFilesRequests
 import com.dropbox.core.v2.files.WriteMode
 import com.shov.unlimstorage.models.items.ItemType
+import com.shov.unlimstorage.utils.converters.toStoreItem
 import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.files.createDbxUserFilesRequests
