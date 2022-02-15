@@ -5,29 +5,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
+import com.shov.unlimstorage.models.items.TopAppBar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class TopAppBarViewModel @Inject constructor() : ViewModel() {
-	var prevRoute by mutableStateOf<Pair<ImageVector, (() -> Unit)>?>(null)
-		private set
-	var title by mutableStateOf<String?>(null)
-		private set
-	var nextRoute by mutableStateOf<Pair<ImageVector, (() -> Unit)>?>(null)
+	var topAppBar by mutableStateOf(TopAppBar())
 		private set
 
-	var prevRouteOld by mutableStateOf<Pair<ImageVector, (() -> Unit)>?>(null)
+	var prevRouteOld by mutableStateOf<ImageVector?>(null)
 		private set
-	var nextRouteOld by mutableStateOf<Pair<ImageVector, (() -> Unit)>?>(null)
+	var nextRouteOld by mutableStateOf<ImageVector?>(null)
 		private set
 
 	fun onPrevRouteChange() {
-		if (prevRoute != null) prevRouteOld = prevRoute
+		if (topAppBar.prevRoute != null) prevRouteOld = topAppBar.prevRoute?.first
 	}
 
 	fun onNextRouteChange() {
-		if (nextRoute != null) nextRouteOld = nextRoute
+		if (topAppBar.nextRoute != null) nextRouteOld = topAppBar.nextRoute?.first
 	}
 
 	fun setTopBar(
@@ -35,8 +32,6 @@ class TopAppBarViewModel @Inject constructor() : ViewModel() {
 		title: String? = null,
 		nextRoute: Pair<ImageVector, (() -> Unit)>? = null
 	) {
-		this.prevRoute = prevRoute
-		this.title = title
-		this.nextRoute = nextRoute
+		topAppBar = TopAppBar(prevRoute, title, nextRoute)
 	}
 }

@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.unlimstorage.views.common.MainTopBar
 
 @Composable
 fun CustomScaffold(

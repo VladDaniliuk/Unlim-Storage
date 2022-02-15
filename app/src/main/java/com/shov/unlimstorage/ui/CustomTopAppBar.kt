@@ -10,7 +10,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.BackHand
 import androidx.compose.material.icons.rounded.NextPlan
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -20,27 +19,9 @@ import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.shov.unlimstorage.ui.buttons.animation.AnimatedIconButton
 import com.shov.unlimstorage.ui.texts.animation.AnimatedText
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable
-fun MainTopBar(topAppBarViewModel: TopAppBarViewModel = singletonViewModel()) {
-	MainTopBar(
-		prevRouteImageVector = topAppBarViewModel.prevRouteOld?.first,
-		onPrevRouteClick = topAppBarViewModel.prevRouteOld?.second ?: {},
-		prevRouteVisible = topAppBarViewModel.prevRoute != null,
-		title = topAppBarViewModel.title,
-		nextRouteImageVector = topAppBarViewModel.nextRouteOld?.first,
-		onNextRouteClick = topAppBarViewModel.nextRouteOld?.second ?: {},
-		nextRouteVisible = topAppBarViewModel.nextRoute != null
-	)
-
-	LaunchedEffect(key1 = topAppBarViewModel.prevRoute) { topAppBarViewModel.onPrevRouteChange() }
-	LaunchedEffect(key1 = topAppBarViewModel.nextRoute) { topAppBarViewModel.onNextRouteChange() }
-}
-
-@Composable
-fun MainTopBar(
+fun CustomTopAppBar(
 	prevRouteImageVector: ImageVector?,
 	onPrevRouteClick: () -> Unit,
 	prevRouteVisible: Boolean,
@@ -90,7 +71,7 @@ fun MainTopBar(
 @Preview
 @Composable
 fun MainTopBarPreview() {
-	MainTopBar(
+	CustomTopAppBar(
 		prevRouteImageVector = Icons.Rounded.BackHand,
 		onPrevRouteClick = {},
 		prevRouteVisible = true,
