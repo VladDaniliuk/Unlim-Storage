@@ -29,13 +29,7 @@ class GoogleFiles @Inject constructor(
 	private val storeMetadataConverter: StoreMetadataConverter
 ) : FilesInteractor {
 	override fun createFolder(folderId: String?, folderName: String): Boolean {
-		getGoogleFiles().create(
-			GoogleFile().apply {
-				parents = listOf(folderId)
-				name = folderName
-				mimeType = "application/vnd.google-apps.folder"
-			}
-		).execute()
+		getGoogleFiles().createFolder(folderName, listOf(folderId))
 		return true
 	}
 
@@ -45,13 +39,12 @@ class GoogleFiles @Inject constructor(
 		size: Long,
 		setPercents: (Float, String) -> Unit
 	) {
-		val f = File(File("/storage/emulated/0/Download"), name)
-		f.createNewFile()
-		if (f.exists()) {
-			val fos = FileOutputStream(f)
-			val request = getGoogleFiles().get(id)
-			request.executeMediaAndDownloadTo(fos)//TODO GOOGLE PERCENTS
-		}
+		File(DOWNLOAD_PATH).createFile(
+			name = name,
+			onCreate = {
+				getGoogleFiles().get(id).executeMediaAndDownloadTo(FileOutputStream(this))
+			}//TODO onExist onError
+		)//TODO GOOGLE PERCENTS
 	}
 
 	override fun getFileMetadata(id: String, type: ItemType) = try {
@@ -75,13 +68,7 @@ class GoogleFiles @Inject constructor(
 	}
 
 	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
-		getGoogleFiles().create(
-			GoogleFile().apply {
-				parents = listOf(folderId)
-				this.name = name
-			},
-			InputStreamContent(null, inputStream)
-		).execute()
+		getGoogleFiles().uploadFile(name, listOf(folderId), inputStream)
 	}
 
 	private fun getGoogleFiles() = GoogleSignIn.getLastSignedInAccount(context)?.run {
