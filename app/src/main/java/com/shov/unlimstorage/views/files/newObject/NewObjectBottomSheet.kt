@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files.newFile
+package com.shov.unlimstorage.views.files.newObject
 
 import android.net.Uri
 import androidx.activity.compose.BackHandler

@@ -8,9 +8,9 @@ import androidx.navigation.compose.composable
 import com.shov.unlimstorage.utils.getName
 import com.shov.unlimstorage.values.BottomSheet
 import com.shov.unlimstorage.viewStates.UploadNavigationState
-import com.shov.unlimstorage.views.files.newFile.NewFolderBottomSheet
-import com.shov.unlimstorage.views.files.newFile.NewObjectBottomSheet
-import com.shov.unlimstorage.views.files.newFile.UploadBottomSheet
+import com.shov.unlimstorage.views.files.newObject.newFolder.NewFolderBottomSheet
+import com.shov.unlimstorage.views.files.newObject.NewObjectBottomSheet
+import com.shov.unlimstorage.views.files.newObject.UploadBottomSheet
 import java.io.FileInputStream
 
 @Composable

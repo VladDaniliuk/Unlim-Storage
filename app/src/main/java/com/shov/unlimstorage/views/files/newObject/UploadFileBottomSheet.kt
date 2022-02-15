@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files.newFile
+package com.shov.unlimstorage.views.files.newObject
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.ExperimentalMaterialApi
