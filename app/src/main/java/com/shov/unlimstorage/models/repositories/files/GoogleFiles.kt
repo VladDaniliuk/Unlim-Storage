@@ -63,11 +63,8 @@ class GoogleFiles @Inject constructor(
 
 	override fun getFiles(folderId: String?) = try {
 		getGoogleFiles().getFileList(folderId) { file ->
-			fields = GOOGLE_FIELDS                      //requests fields(id,name,etc.)
-			q = getGoogleQ(folderId)                    //sorting (add folder, remove trashed)
-		}.execute().files.map { googleDriveItem ->
-			googleDriveItem.toStoreItem(folderId)
-		}.toList()
+			file.toStoreItem(folderId)
+		}
 	} catch (e: GoogleJsonResponseException) {
 		emptyList()
 	} catch (e: IllegalArgumentException) {
