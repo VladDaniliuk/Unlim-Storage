@@ -34,13 +34,9 @@ fun UploadNavigation(
 				}
 			) { fileUri ->
 				fileUri?.let { uri ->
-					uploadNavigationState.file = FileInputStream(
-						context.contentResolver.openFileDescriptor(
-							uri,
-							"r",
-							null
-						)?.fileDescriptor
-					)
+					context.contentResolver.openFileDescriptor(uri, "r", null)?.also { parcelFile ->
+						uploadNavigationState.file = FileInputStream(parcelFile.fileDescriptor)
+					}?.close()
 
 					uploadNavigationState.navController.navigate(
 						BottomSheet.ChooseFile.setParent(

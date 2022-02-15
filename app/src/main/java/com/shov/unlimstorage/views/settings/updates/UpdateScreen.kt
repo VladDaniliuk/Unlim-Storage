@@ -70,9 +70,8 @@ fun UpdateScreen(
 
 	LaunchedEffect(key1 = null) {
 		topAppBarViewModel.setTopBar(
-			Icons.Rounded.ArrowBack to onBackClick,
-			context.getString(R.string.updates),
-			null
+			prevRoute = Icons.Rounded.ArrowBack to onBackClick,
+			title = context.getString(R.string.updates)
 		)
 	}
 }

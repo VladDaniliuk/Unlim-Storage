@@ -17,7 +17,7 @@ fun CustomScaffold(
 	content: @Composable (PaddingValues) -> Unit
 ) {
 	Scaffold(
-		content = content,
+		scaffoldState = scaffoldViewModel.scaffoldState,
 		snackbarHost = { hostState ->
 			SnackbarHost(
 				hostState = hostState,
@@ -26,8 +26,8 @@ fun CustomScaffold(
 				Snackbar(snackbarData = snackBarData)
 			}
 		},
-		scaffoldState = scaffoldViewModel.scaffoldState,
-		topBar = { MainTopBar() }
+		topBar = { MainTopBar() },
+		content = content
 	)
 }
 
