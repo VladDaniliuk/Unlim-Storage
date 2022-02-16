@@ -15,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BottomSheetViewModel @Inject constructor() : ViewModel() {
 	var sheetContent by mutableStateOf<(@Composable ColumnScope.() -> Unit)?>(null)
+		private set
 
 	@OptIn(ExperimentalMaterialApi::class)
 	val sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)

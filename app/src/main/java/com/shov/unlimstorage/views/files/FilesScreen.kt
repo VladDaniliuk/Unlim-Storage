@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,16 +16,15 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.ui.FABScaffold
 import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.PADDING_FAB
 import com.shov.unlimstorage.values.SIZE_FAB
-import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.SizeConverterViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewStates.rememberUploadNavigationState
@@ -40,26 +36,27 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FilesScreen(
+	backStack: BackStack?,
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	coroutine: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
-	navigateTo: (String) -> Unit,
-	popBackStack: () -> Unit,
+	navigateToFolder: (BackStack) -> Unit,
+	navigateToSettings: () -> Unit,
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	sizeConverter: SizeConverterViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
+	navigateToFileInfo: (id: String) -> Unit,
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow()
 		.collectAsState(false)
 
 	FABScaffold(
 		onClick = {
-			bottomSheetViewModel.sheetContent = {
+			bottomSheetViewModel.setContent {
 				UploadNavigation(
 					uploadNavigationState = rememberUploadNavigationState(
-						folderId = filesViewModel.folderId,
-						storageType = filesViewModel.storageType
+						folderId = backStack?.folderId,
+						storageType = backStack?.storageType
 					)
 				)
 			}
@@ -73,22 +70,17 @@ fun FilesScreen(
 			modifier = Modifier.fillMaxSize(),
 			state = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
 			onRefresh = {
-				if (isConnected) {
-					filesViewModel.refreshFiles()
-				} else {
-					scaffoldViewModel.showSnackbar(
-						context.getString(R.string.connection_failed)
-					)
+				filesViewModel.onRefresh(
+					isConnected,
+					backStack?.folderId,
+					backStack?.storageType
+				) {
+					scaffoldViewModel.showSnackbar(context.getString(R.string.connection_failed))
 				}
-			}/*,
-		indicator = { _, _ ->
-			LinearProgressIndicator()
-		}*///TODO Do progress with linear progress
+			}//TODO Do progress with linear progress
 		) {
 			if (filesViewModel.storeItemList.isEmpty()) {
-				FilesEmptyView {
-					navigateTo(Screen.Accounts.route)
-				}
+				FilesEmptyView(navigateToSettings)
 			} else {
 				Column(
 					modifier = Modifier
@@ -107,14 +99,16 @@ fun FilesScreen(
 									id = storeItem.id,
 									itemType = storeItem.type,
 									storageType = storeItem.disk,
-									navigateTo = navigateTo
+									navigateToFileInfo = navigateToFileInfo,
+									navigateToFolder = navigateToFolder,
+									folderName = storeItem.name
 								)
 							},
 							onOptionClick = {
 								bottomSheetViewModel.setContent {
 									FileActionsBottomSheet(
 										storeItem = storeItem,
-										navigateTo = navigateTo
+										navigateToFileInfo = navigateToFileInfo
 									)
 								}
 
@@ -135,21 +129,7 @@ fun FilesScreen(
 		}
 	}
 
-	LaunchedEffect(key1 = isConnected) {
-		if (isConnected) {
-			filesViewModel.getFiles()
-		} else {
-			filesViewModel.checkLocalFiles()
-		}
-	}
-
-	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
-			filesViewModel.folderId?.let {
-				Icons.Rounded.ArrowBack to popBackStack
-			},
-			context.getString(R.string.app_name),
-			Icons.Rounded.AccountCircle to { navigateTo(Screen.Settings.route) }
-		)
+	LaunchedEffect(key1 = isConnected, key2 = backStack) {
+		filesViewModel.onConnectionChange(isConnected, backStack)
 	}
 }

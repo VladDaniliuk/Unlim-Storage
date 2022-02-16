@@ -7,7 +7,7 @@ object AndroidVersion {
 object Application {
 	const val name = "Unlim Storage"
 	const val versionCode = 6
-	const val versionName = "0.2.6.1"
+	const val versionName = "0.2.7"
 }
 
 object Config {
@@ -27,5 +27,5 @@ object BuildType {
 }
 
 object KotlinOptions {
-	const val jvmTarget = "1.8"
+	const val jvmTarget = "11"
 }
