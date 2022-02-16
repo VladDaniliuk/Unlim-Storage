@@ -2,7 +2,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 object Core {
-	private const val version = "1.8.0-alpha03"
+	private const val version = "1.7.0"
 	private const val versionSplashscreen = "1.0.0-beta01"
 	private const val lib = "androidx.core:core"
 
