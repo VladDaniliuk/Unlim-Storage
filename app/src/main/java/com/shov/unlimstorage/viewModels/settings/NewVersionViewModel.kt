@@ -7,14 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.models.NewVersionViewModelFactory
-import com.shov.unlimstorage.utils.converters.SizeConverter
 import com.shov.unlimstorage.values.UNCHECKED_CAST
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
 class NewVersionViewModel @AssistedInject constructor(
 	@Assisted val lastReleaseItem: LastReleaseItem,
-	private val sizeConverter: SizeConverter
 ) : ViewModel() {
 	var isCheckPermissionShow by mutableStateOf(false)
 		private set
@@ -22,9 +20,6 @@ class NewVersionViewModel @AssistedInject constructor(
 	fun showCheckPermission(isShow: Boolean = isCheckPermissionShow.not()) {
 		isCheckPermissionShow = isShow
 	}
-
-	fun getSize() = sizeConverter.run { lastReleaseItem.applicationSize.toBytes() }
-
 
 	@Suppress(UNCHECKED_CAST)
 	companion object {

@@ -7,9 +7,9 @@ import com.box.androidsdk.content.BoxConstants
 import com.box.androidsdk.content.BoxException
 import com.box.androidsdk.content.models.BoxSession
 import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.utils.converters.toStoreItem
 import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.files.createFile
 import com.shov.unlimstorage.values.DOWNLOAD_PATH
@@ -24,7 +24,8 @@ import javax.inject.Inject
 class BoxFiles @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val authorizerFactory: AuthorizerFactory,
-	private val storeMetadataConverter: StoreMetadataConverter
+	private val storeMetadataConverter: StoreMetadataConverter,
+	private val storeItemConverter: StoreItemConverter
 ) : FilesInteractor {
 	private val checkAuth: Boolean
 		get() = authorizerFactory.create(StorageType.BOX).isSuccess()
@@ -79,7 +80,7 @@ class BoxFiles @Inject constructor(
 				.getItemsRequest(folderId ?: BoxConstants.ROOT_FOLDER_ID)
 				.setItemFields().send()
 				.map { boxItem ->
-					boxItem.toStoreItem(folderId)
+					storeItemConverter.run { boxItem.toStoreItem(folderId) }
 				}.toList()
 		} catch (e: BoxException) {
 			emptyList()

@@ -1,7 +1,7 @@
 package com.shov.unlimstorage.di
 
-import com.shov.unlimstorage.utils.converters.SizeConverter
-import com.shov.unlimstorage.utils.converters.SizeConverterImpl
+import com.shov.unlimstorage.utils.converters.StoreItemConverter
+import com.shov.unlimstorage.utils.converters.StoreItemConverterImpl
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverterImpl
 import dagger.Binds
@@ -13,10 +13,11 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface ConverterModule {
 	@Binds
-	fun provideSizeConverter(sizeConverterImpl: SizeConverterImpl): SizeConverter
-
-	@Binds
 	fun provideStoreMetadataConverter(
 		storeMetadataConverterImpl: StoreMetadataConverterImpl
 	): StoreMetadataConverter
+
+	@Binds
+	fun provideStoreItemConverter(storeItemConverterImpl: StoreItemConverterImpl):
+			StoreItemConverter
 }

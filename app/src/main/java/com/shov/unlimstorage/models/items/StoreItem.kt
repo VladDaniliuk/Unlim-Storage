@@ -1,7 +1,5 @@
 package com.shov.unlimstorage.models.items
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Description
 import androidx.compose.material.icons.rounded.Folder
@@ -20,39 +18,7 @@ data class StoreItem(
 	@PrimaryKey val id: String,
 	@ColumnInfo val type: ItemType,
 	@ColumnInfo val name: String,
-	@ColumnInfo val size: Long? = null,
-	@ColumnInfo val parentFolder: String? = null,
-	@ColumnInfo val disk: StorageType
-) : Parcelable {
-	constructor(parcel: Parcel) : this(
-		parcel.readString().toString(),
-		ItemType.valueOf(parcel.readString().toString()),
-		parcel.readString().toString(),
-		parcel.readValue(Long::class.java.classLoader) as? Long,
-		parcel.readString(),
-		StorageType.valueOf(parcel.readString().toString())
-	)
-
-	override fun writeToParcel(parcel: Parcel, flags: Int) {
-		parcel.writeString(id)
-		parcel.writeString(type.name)
-		parcel.writeString(name)
-		parcel.writeValue(size)
-		parcel.writeString(parentFolder)
-		parcel.writeString(disk.name)
-	}
-
-	override fun describeContents(): Int {
-		return 0
-	}
-
-	companion object CREATOR : Parcelable.Creator<StoreItem> {
-		override fun createFromParcel(parcel: Parcel): StoreItem {
-			return StoreItem(parcel)
-		}
-
-		override fun newArray(size: Int): Array<StoreItem?> {
-			return arrayOfNulls(size)
-		}
-	}
-}
+	@ColumnInfo val disk: StorageType,
+	@ColumnInfo val size: String? = null,
+	@ColumnInfo val parentFolder: String? = null
+)

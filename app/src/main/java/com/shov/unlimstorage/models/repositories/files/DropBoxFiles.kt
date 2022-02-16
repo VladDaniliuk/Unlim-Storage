@@ -1,15 +1,12 @@
 package com.shov.unlimstorage.models.repositories.files
 
 import com.dropbox.core.BadRequestException
-import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.RateLimitException
-import com.dropbox.core.oauth.DbxCredential
-import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.DbxUserFilesRequests
 import com.dropbox.core.v2.files.WriteMode
 import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.utils.converters.toStoreItem
 import com.shov.unlimstorage.models.repositories.PreferenceRepository
+import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.files.createDbxUserFilesRequests
 import com.shov.unlimstorage.utils.files.createFile
@@ -23,14 +20,14 @@ import javax.inject.Inject
 
 class DropBoxFiles @Inject constructor(
 	private val preference: PreferenceRepository,
-	private val storeMetadataConverter: StoreMetadataConverter
+	private val storeMetadataConverter: StoreMetadataConverter,
+	private val storeItemConverter: StoreItemConverter,
 ) : FilesInteractor {
 	override fun getFiles(folderId: String?) = try {
-		dbxUserFilesRequests()?.listFolder(
-			folderId ?: DROPBOX_ROOT_FOLDER
-		)?.entries?.map { dropBoxItem ->
-			dropBoxItem.toStoreItem(parentFolder = folderId)
-		}?.toList() ?: emptyList()
+		dbxUserFilesRequests()?.listFolder(folderId ?: DROPBOX_ROOT_FOLDER)
+			?.entries
+			?.map { dropBoxItem -> storeItemConverter.run { dropBoxItem.toStoreItem(folderId) } }
+			?.toList() ?: emptyList()
 	} catch (e: RateLimitException) {
 		emptyList()
 	} catch (e: IllegalArgumentException) {

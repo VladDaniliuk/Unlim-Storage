@@ -23,8 +23,9 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.CustomDialogContent
 import com.shov.unlimstorage.ui.customHeaderText
 import com.shov.unlimstorage.ui.texts.CustomText
-import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
+import com.shov.unlimstorage.utils.converters.toBytes
+import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.provider.newVersionViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
@@ -66,7 +67,9 @@ fun NewVersionDialog(
 					newVersionViewModel.lastReleaseItem.version,
 					newVersionViewModel.lastReleaseItem.applicationName,
 					newVersionViewModel.lastReleaseItem.releaseDate,
-					newVersionViewModel.getSize(),
+					newVersionViewModel.lastReleaseItem.applicationSize.toBytes().let { size ->
+						context.getString(size.second, size.first)
+					},
 					newVersionViewModel.lastReleaseItem.releaseName
 				),
 				isChecked = updateViewModel.isShowAgain.not(),
