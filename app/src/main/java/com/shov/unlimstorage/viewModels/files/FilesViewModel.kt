@@ -6,12 +6,16 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shov.unlimstorage.models.items.BackStack
+import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.values.argFolderId
 import com.shov.unlimstorage.values.argStorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,43 +36,48 @@ class FilesViewModel @Inject constructor(
 	var isClickable by mutableStateOf(true)
 		private set
 
-	fun setOpenable(isClickable: Boolean) {
-		this.isClickable = isClickable
+	fun onStoreItemClick(
+		storeItem: StoreItem,
+		onFolderOpen: (BackStack) -> Unit,
+		onFileInfoOpen: (String) -> Unit
+	) {
+		isClickable = false
+
+		when (storeItem.type) {
+			ItemType.FILE -> onFileInfoOpen(Screen.FileInfo.setStoreItem(storeItem.id))
+			ItemType.FOLDER -> onFolderOpen(
+				BackStack(storeItem.id, storeItem.disk.name, storeItem.name)
+			)
+		}
+
+		isClickable = true
 	}
 
-	fun getFiles() {
-		isRefreshing = true
+	fun onRefresh(isConnected: Boolean, onConnectionFailed: () -> Unit) {
+		if (isConnected) {
+			launch {
+				storeItemList = filesInfoRepository.checkRemote(folderId, storageType)
+			}
+		} else {
+			onConnectionFailed() } }
 
-		viewModelScope.launch(Dispatchers.IO) {
-			storeItemList = filesInfoRepository.checkLocal(
-				parentFolder = folderId,
-				disk = storageType
-			)
-		}.invokeOnCompletion {
-			isRefreshing = false
+	fun onConnectionChange(isConnected: Boolean) {
+		launch {
+			storeItemList = if (isConnected) {
+				filesInfoRepository.checkLocal(folderId, storageType)
+			} else {
+				filesInfoRepository.getFromLocal(folderId)
+			}
 		}
 	}
 
-	fun refreshFiles() {
+	private fun launch(block: suspend CoroutineScope.() -> Unit) {
 		isRefreshing = true
 
-		viewModelScope.launch(Dispatchers.IO) {
-			storeItemList = filesInfoRepository.checkRemote(
-				parentFolder = folderId,
-				disk = storageType
-			)
-		}.invokeOnCompletion {
-			isRefreshing = false
-		}
-	}
-
-	fun checkLocalFiles() {
-		isRefreshing = true
-
-		viewModelScope.launch(Dispatchers.IO) {
-			storeItemList =
-				filesInfoRepository.getFromLocal(parentFolder = folderId)
-		}.invokeOnCompletion {
+		viewModelScope.launch(
+			context = Dispatchers.IO,
+			block = block
+		).invokeOnCompletion {
 			isRefreshing = false
 		}
 	}
