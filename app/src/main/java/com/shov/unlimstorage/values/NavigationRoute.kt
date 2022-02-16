@@ -22,6 +22,14 @@ sealed class Screen(val route: String) {
 	//Settings routes
 	object Updates : Screen("nav_updates")
 	object Accounts : Screen("nav_accounts")
+	object Security : Screen("nav_security")
+
+	//Password routes
+	object CreatePassword : Screen("nav_createPassword")
+	object ChangePassword : Screen("nav_changePassword")
+	object CheckPassword : Screen("nav_checkPassword")
+	object RemovePassword : Screen("nav_removePassword")
+
 	object Settings : Screen("nav_settings")
 	object Files : Screen(
 		"$navFiles$argFolderId={$argFolderId}/?$argStorageType={$argStorageType}/?" +

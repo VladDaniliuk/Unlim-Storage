@@ -30,6 +30,7 @@ fun MainNavigation(
 			}
 		}
 		filesComposable(filesNavController = navHostController)
+		securityComposable(securityNavHostController = navHostController)
 		settingsComposable(settingsNavController = navHostController)
 	}
 

@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Security
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -52,6 +53,17 @@ fun SettingsView(onNavigate: (String) -> Unit) {
 		) {
 			onNavigate(Screen.Accounts.route)
 		}
+
+		SettingsMenuLink(
+			icon = {
+				Icon(
+					imageVector = Icons.Rounded.Security,
+					contentDescription = Icons.Rounded.Security.name
+				)
+			},
+			subtitle = { Text(text = stringResource(R.string.use_pin_code)) },
+			title = { Text(text = stringResource(R.string.security)) }
+		) { onNavigate(Screen.Security.route) }
 
 		SettingsMenuLink(
 			icon = {
