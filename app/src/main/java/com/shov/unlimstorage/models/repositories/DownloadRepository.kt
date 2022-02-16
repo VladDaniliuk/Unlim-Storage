@@ -2,22 +2,17 @@ package com.shov.unlimstorage.models.repositories
 
 import android.app.DownloadManager
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Environment
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.database.getIntOrNull
 import androidx.core.net.toUri
-import com.shov.unlimstorage.BuildConfig
-import com.shov.unlimstorage.R
+import com.shov.unlimstorage.utils.context.installFile
 import com.shov.unlimstorage.utils.getPercent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
-
 
 interface DownloadRepository {
 	fun downloadFile(link: Uri, name: String): Long?
@@ -47,17 +42,7 @@ class DownloadRepositoryImpl @Inject constructor(
 	}
 
 	private fun showInstalling(file: File) {
-		val contentUri = FileProvider.getUriForFile(
-			context,
-			BuildConfig.APPLICATION_ID + context.getString(R.string.provider),
-			file
-		)
-		val install = Intent(Intent.ACTION_VIEW)
-		install.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
-				Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-		install.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
-		install.data = contentUri
-		context.startActivity(install)
+		context.installFile(file)
 	}
 
 	override suspend fun checkDownload(id: Long, name: String, onCheck: (Float, String) -> Unit) {
@@ -103,6 +88,5 @@ class DownloadRepositoryImpl @Inject constructor(
 		onCheck(0f)
 	}
 
-	private fun getDownloadManagerService() =
-		ContextCompat.getSystemService(context, DownloadManager::class.java)
+	private fun getDownloadManagerService() = context.getSystemService(DownloadManager::class.java)
 }

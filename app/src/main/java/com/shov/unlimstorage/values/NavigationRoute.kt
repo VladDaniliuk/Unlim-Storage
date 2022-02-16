@@ -2,7 +2,7 @@ package com.shov.unlimstorage.values
 
 import com.shov.unlimstorage.models.items.BackStack
 
-//Main routes
+//Routes
 const val navFiles = "nav_files/?"
 const val navFileInfo = "nav_file_info/"
 const val navFileDescription = "nav_file_description/"
@@ -18,9 +18,11 @@ const val argFileName = "arg_fileName"
 
 sealed class Screen(val route: String) {
 	object SignIn : Screen("nav_signIn")
+
+	//Settings routes
+	object Updates : Screen("nav_updates")
 	object Accounts : Screen("nav_accounts")
 	object Settings : Screen("nav_settings")
-	object Updates : Screen("nav_updates")
 	object Files : Screen(
 		"$navFiles$argFolderId={$argFolderId}/?$argStorageType={$argStorageType}/?" +
 				"$argFolderName={$argFolderName}"
