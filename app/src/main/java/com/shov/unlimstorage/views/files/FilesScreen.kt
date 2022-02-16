@@ -22,7 +22,6 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.ui.FABScaffold
-import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.ui.texts.TextNavigation
 import com.shov.unlimstorage.ui.StoreItemView
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
