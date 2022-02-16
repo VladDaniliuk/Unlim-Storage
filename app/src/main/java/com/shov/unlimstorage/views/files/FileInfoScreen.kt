@@ -80,9 +80,7 @@ fun FileInfoScreen(
 				secondaryAlignment = Alignment.BottomEnd
 			)
 
-			fileInfoViewModel.getBeautySize()?.let { size ->
-				TextInfo(name = stringResource(R.string.size_description), value = size)
-			}
+			TextInfo(name = stringResource(R.string.size_description), value = item.size)
 
 			TextInfo(name = stringResource(R.string.id_description), value = item.id)
 		}

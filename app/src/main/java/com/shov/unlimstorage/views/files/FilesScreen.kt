@@ -28,7 +28,6 @@ import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.values.PADDING_FAB
 import com.shov.unlimstorage.values.SIZE_FAB
 import com.shov.unlimstorage.values.Screen
-import com.shov.unlimstorage.viewModels.SizeConverterViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
@@ -45,7 +44,6 @@ fun FilesScreen(
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	sizeConverter: SizeConverterViewModel = singletonViewModel(),
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	filesScreenState: FilesScreenState,
 	onBackPress: () -> Unit,
@@ -114,7 +112,7 @@ fun FilesScreen(
 						StoreItem(
 							name = storeItem.name,
 							type = storeItem.type,
-							size = sizeConverter.toBytes(storeItem.size),
+							size = storeItem.size,
 							disk = storeItem.disk,
 							enabled = filesViewModel.isClickable,
 							onClick = {
@@ -153,7 +151,7 @@ fun FilesScreen(
 												Screen.FileInfo.setStoreItem(storeItem.id)
 											)
 										},
-										size = sizeConverter.toBytes(storeItem.size),
+										size = storeItem.size,
 										type = storeItem.type
 									)
 								}

@@ -8,8 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
-import com.shov.unlimstorage.models.repositories.files.FilesRepository
-import com.shov.unlimstorage.utils.converters.SizeConverter
+import com.shov.unlimstorage.values.argStoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class FileInfoViewModel @Inject constructor(
 	private val filesRepository: FilesRepository,
-	private val sizeConverter: SizeConverter,
 	savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 	var id by mutableStateOf<String?>(null)
@@ -29,8 +27,6 @@ class FileInfoViewModel @Inject constructor(
 		private set
 	var storeMetadata by mutableStateOf<StoreMetadataItem?>(null)
 		private set
-
-	fun getBeautySize() = sizeConverter.run { storeItem?.size?.toBytes() }
 
 	fun setShowDialog(isShow: Boolean = true) {
 		isDialogShown = isShow
@@ -69,7 +65,7 @@ class FileInfoViewModel @Inject constructor(
 	}
 
 	init {
-		savedStateHandle.get<String>("arg_storeId")?.let { id ->
+		savedStateHandle.get<String>(argStoreId)?.let { id ->
 			this.id = id
 		} ?: throw NullPointerException()
 	}
