@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.models.items.BackStack
+import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.icons.IconButton
 import com.shov.unlimstorage.ui.texts.TextButton
 import com.shov.unlimstorage.ui.themes.CustomTheme
@@ -73,7 +74,9 @@ fun NavigationChainPreview() {
 		NavigationChain(
 			iconEnabled = true,
 			iconOnClick = {},
-			backStacks = listOf(BackStack("1", "1", "1"), BackStack("1", "1", "1"))
+			backStacks = List(10) {
+				BackStack("1", StorageType.GOOGLE, "1")
+			}
 		) {}
 	}
 }
@@ -85,7 +88,9 @@ fun NavigationChainDarkPreview() {
 		NavigationChain(
 			iconEnabled = true,
 			iconOnClick = {},
-			backStacks = listOf(BackStack("1", "1", "1"), BackStack("1", "1", "1"))
+			backStacks = List(10) {
+				BackStack("1", StorageType.GOOGLE, "1")
+			}
 		) {}
 	}
 }

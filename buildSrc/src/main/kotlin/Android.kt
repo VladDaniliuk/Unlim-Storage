@@ -27,5 +27,5 @@ object BuildType {
 }
 
 object KotlinOptions {
-	const val jvmTarget = "1.8"
+	const val jvmTarget = "11"
 }
