@@ -23,7 +23,7 @@ import com.shov.unlimstorage.ui.texts.CustomText
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun StoreItem(
+fun StoreItemView(
 	name: String,
 	type: ItemType,
 	size: String?,
@@ -101,7 +101,7 @@ fun StoreItem(
 @Preview(name = "File with long name")
 @Composable
 fun FilePreview() {
-	StoreItem(
+	StoreItemView(
 		disk = StorageType.GOOGLE,
 		name = "Test test test test test test test test test",
 		size = "1210 MB",
@@ -113,7 +113,7 @@ fun FilePreview() {
 @Preview
 @Composable
 fun FolderPreview() {
-	StoreItem(
+	StoreItemView(
 		disk = StorageType.BOX,
 		name = "Folder preview",
 		size = "1210 MB",
