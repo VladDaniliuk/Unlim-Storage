@@ -94,7 +94,7 @@ class FilesRepositoryImpl @Inject constructor(
 	override fun getFromRemote(parentFolder: String?, disk: StorageType?): List<StoreItem> {
 		return disk?.let {
 			filesFactory.create(disk).getFiles(folderId = parentFolder)
-		} ?: run {
+		} ?: run {//TODO run with async
 			filesFactory
 				.create(StorageType.DROPBOX)
 				.getFiles(folderId = parentFolder)
