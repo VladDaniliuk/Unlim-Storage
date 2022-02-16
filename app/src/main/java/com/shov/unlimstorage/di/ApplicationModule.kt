@@ -21,7 +21,6 @@ internal annotation class MyKey(val value: StorageType)
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class ApplicationModule {
-
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.BOX)
@@ -60,6 +59,10 @@ abstract class ApplicationModule {
 
 	@Binds
 	abstract fun provideDownload(downloadRepositoryImpl: DownloadRepositoryImpl): DownloadRepository
+
+	@Binds
+	abstract fun provideNewFileRepository(newFileRepositoryImpl: NewFileRepositoryImpl):
+			NewFileRepository
 
 	@Binds
 	abstract fun providePreference(preferenceRepositoryImpl: PreferenceRepositoryImpl):
