@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
-import com.shov.unlimstorage.models.repositories.files.FilesRepository
+import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.values.argStoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FileInfoViewModel @Inject constructor(
-	private val filesRepository: FilesRepository,
+	private val filesInfoRepository: FilesInfoRepository,
 	savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 	var id by mutableStateOf<String?>(null)
@@ -43,7 +43,7 @@ class FileInfoViewModel @Inject constructor(
 	fun getFileMetadata() {
 		this.storeItem?.let { item ->
 			viewModelScope.launch(Dispatchers.IO) {
-				storeMetadata = filesRepository.getRemoteMetadata(id!!, item.disk, item.type)
+				storeMetadata = filesInfoRepository.getRemoteMetadata(id!!, item.disk, item.type)
 			}
 		}
 	}
@@ -55,7 +55,7 @@ class FileInfoViewModel @Inject constructor(
 			this.storeItem?.let { item ->
 				metadata.size?.let { size ->
 					viewModelScope.launch(Dispatchers.IO) {
-						filesRepository.downloadFile(
+						filesInfoRepository.downloadFile(
 							item.disk,
 							id!!,
 							metadata.name,
@@ -69,7 +69,7 @@ class FileInfoViewModel @Inject constructor(
 	}
 
 	fun getStoreItem() {
-		this.storeItem = filesRepository.getLocalItem(id!!)
+		this.storeItem = filesInfoRepository.getLocalItem(id!!)
 	}
 
 	init {

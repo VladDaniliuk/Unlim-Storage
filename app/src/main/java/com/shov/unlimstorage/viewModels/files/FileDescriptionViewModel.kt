@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.repositories.files.FilesRepository
+import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.values.argStoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FileDescriptionViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val filesRepository: FilesRepository
+	private val filesInfoRepository: FilesInfoRepository
 ) : ViewModel() {
 	var id by mutableStateOf<String?>(null)
 		private set
@@ -32,14 +32,14 @@ class FileDescriptionViewModel @Inject constructor(
 
 	fun getStoreItem() {
 		viewModelScope.launch(Dispatchers.IO) {
-			storeItem = filesRepository.getLocalItem(id!!)
+			storeItem = filesInfoRepository.getLocalItem(id!!)
 		}
 	}
 
 	fun getDescription() {
 		storeItem?.let { storeItem ->
 			viewModelScope.launch(Dispatchers.IO) {
-				description = filesRepository.getRemoteMetadata(
+				description = filesInfoRepository.getRemoteMetadata(
 					id!!,
 					storeItem.disk,
 					storeItem.type

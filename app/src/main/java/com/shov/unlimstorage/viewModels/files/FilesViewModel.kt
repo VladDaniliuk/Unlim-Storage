@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.repositories.files.FilesRepository
+import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.values.argFolderId
 import com.shov.unlimstorage.values.argStorageType
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilesViewModel @Inject constructor(
-	private val filesRepository: FilesRepository,
+	private val filesInfoRepository: FilesInfoRepository,
 	savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 	var folderId by mutableStateOf<String?>(null)
@@ -40,7 +40,7 @@ class FilesViewModel @Inject constructor(
 		isRefreshing = true
 
 		viewModelScope.launch(Dispatchers.IO) {
-			storeItemList = filesRepository.checkLocal(
+			storeItemList = filesInfoRepository.checkLocal(
 				parentFolder = folderId,
 				disk = storageType
 			)
@@ -53,7 +53,7 @@ class FilesViewModel @Inject constructor(
 		isRefreshing = true
 
 		viewModelScope.launch(Dispatchers.IO) {
-			storeItemList = filesRepository.checkRemote(
+			storeItemList = filesInfoRepository.checkRemote(
 				parentFolder = folderId,
 				disk = storageType
 			)
@@ -67,7 +67,7 @@ class FilesViewModel @Inject constructor(
 
 		viewModelScope.launch(Dispatchers.IO) {
 			storeItemList =
-				filesRepository.getFromLocal(parentFolder = folderId)
+				filesInfoRepository.getFromLocal(parentFolder = folderId)
 		}.invokeOnCompletion {
 			isRefreshing = false
 		}

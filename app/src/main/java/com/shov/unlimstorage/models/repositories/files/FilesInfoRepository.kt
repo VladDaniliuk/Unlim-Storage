@@ -5,10 +5,10 @@ import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import java.io.InputStream
+import com.shov.unlimstorage.utils.reduce
 import javax.inject.Inject
 
-interface FilesRepository {
+interface FilesInfoRepository {
 	fun checkLocal(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
 	fun checkRemote(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
 	fun downloadFile(
@@ -26,19 +26,15 @@ interface FilesRepository {
 	fun setToLocal(storeItemList: List<StoreItem>)
 }
 
-class FilesRepositoryImpl @Inject constructor(
+class FilesInfoRepositoryImpl @Inject constructor(
 	private val filesFactory: FilesFactory,
 	private val storeItemDao: StoreItemDao
-) :
-	FilesRepository {
+) : FilesInfoRepository {
 	override fun checkLocal(parentFolder: String?, disk: StorageType?): List<StoreItem> {
-		var storeItemList = getFromLocal(parentFolder = parentFolder)
+		var storeItemList = getFromLocal(parentFolder)
 
 		if (storeItemList.isEmpty()) {
-			storeItemList = getFromRemote(
-				parentFolder = parentFolder,
-				disk = disk
-			)
+			storeItemList = getFromRemote(parentFolder, disk)
 		}
 
 		setToLocal(storeItemList)
@@ -46,19 +42,13 @@ class FilesRepositoryImpl @Inject constructor(
 	}
 
 	override fun checkRemote(parentFolder: String?, disk: StorageType?): List<StoreItem> {
-		val storeItemList = getFromRemote(
-			parentFolder = parentFolder,
-			disk = disk
-		)
+		val storeItemList = getFromRemote(parentFolder, disk)
 
 		disk?.let {
-			storeItemDao.deleteFiles(
-				parentFolder = parentFolder,
-				disk = disk
-			)
-		} ?: storeItemDao.deleteFiles(parentFolder = parentFolder)
+			storeItemDao.deleteFiles(parentFolder, disk)
+		} ?: storeItemDao.deleteFiles(parentFolder)
 
-		setToLocal(storeItemList = storeItemList)
+		setToLocal(storeItemList)
 		return storeItemList
 	}
 
@@ -73,7 +63,7 @@ class FilesRepositoryImpl @Inject constructor(
 	}
 
 	override fun getFromLocal(parentFolder: String?): List<StoreItem> {
-		return storeItemDao.getFiles(parentFolder = parentFolder)
+		return storeItemDao.getFiles(parentFolder)
 			.sortedBy { storeItem ->
 				storeItem.name.uppercase()
 			}
@@ -83,22 +73,11 @@ class FilesRepositoryImpl @Inject constructor(
 		return disk?.let {
 			filesFactory.create(disk).getFiles(folderId = parentFolder)
 		} ?: run {
-			filesFactory
-				.create(StorageType.DROPBOX)
-				.getFiles(folderId = parentFolder)
-				.plus(
-					filesFactory
-						.create(StorageType.BOX)
-						.getFiles(folderId = parentFolder)
-						.asIterable()
-				).plus(
-					filesFactory
-						.create(StorageType.GOOGLE)
-						.getFiles(folderId = parentFolder)
-						.asIterable()
-				)
-		}.sortedBy { storeItem ->
-			storeItem.name.uppercase()
+			reduce { storageType ->
+				filesFactory.create(storageType).getFiles(parentFolder)
+			}.sortedBy { storeItem ->
+				storeItem.name.uppercase()
+			}
 		}
 	}
 
@@ -108,6 +87,6 @@ class FilesRepositoryImpl @Inject constructor(
 		filesFactory.create(disk).getFileMetadata(id, type)
 
 	override fun setToLocal(storeItemList: List<StoreItem>) {
-		storeItemDao.setAll(storeItems = storeItemList)
+		storeItemDao.setAll(storeItemList)
 	}
 }
