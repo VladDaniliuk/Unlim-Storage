@@ -54,7 +54,7 @@ fun FilesScreen(
 
 	FABScaffold(
 		onClick = {
-			bottomSheetViewModel.sheetContent = {
+			bottomSheetViewModel.setContent {
 				UploadNavigation(
 					uploadNavigationState = rememberUploadNavigationState(
 						folderId = filesViewModel.folderId,
@@ -142,7 +142,7 @@ fun FilesScreen(
 								}
 							},
 							onOptionClick = {
-								bottomSheetViewModel.sheetContent = {
+								bottomSheetViewModel.setContent {
 									FileActionsBottomSheet(
 										disk = storeItem.disk,
 										name = storeItem.name,
