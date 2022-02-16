@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.items.StoreItem
 import com.shov.unlimstorage.models.items.StoreMetadataItem
+import com.shov.unlimstorage.models.repositories.files.FilesRepository
 import com.shov.unlimstorage.values.argStoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
