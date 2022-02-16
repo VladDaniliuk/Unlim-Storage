@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.ui.CustomScaffold
 import com.shov.unlimstorage.ui.DownloadSnackbar
@@ -49,7 +50,7 @@ fun MainScreen(bottomSheetViewModel: BottomSheetViewModel = singletonViewModel()
 			),
 			content = {
 				CustomScaffold {
-					MainNavigation(mainNavigationViewModel = mainNavigationViewModel())
+					MainNavigation(mainNavigationViewModel())
 				}
 			}
 		)
