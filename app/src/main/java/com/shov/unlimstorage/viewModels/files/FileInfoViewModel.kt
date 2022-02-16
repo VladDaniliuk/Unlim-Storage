@@ -1,8 +1,12 @@
 package com.shov.unlimstorage.viewModels.files
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,6 +36,9 @@ class FileInfoViewModel @Inject constructor(
 	fun setShowDialog(isShow: Boolean = true) {
 		isDialogShown = isShow
 	}
+
+	val staredIcon: ImageVector
+		get() = Icons.Rounded.run { if (storeMetadata?.isStarred == true) Star else StarBorder }
 
 	fun getFileMetadata() {
 		this.storeItem?.let { item ->
