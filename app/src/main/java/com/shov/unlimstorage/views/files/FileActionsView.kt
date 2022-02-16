@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.ItemType
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
-import com.shov.unlimstorage.ui.StoreItemView
+import com.shov.unlimstorage.ui.StoreItem
 import com.shov.unlimstorage.ui.buttons.CustomIconButton
 
 @Composable
@@ -29,7 +29,7 @@ fun FileActionsView(
 	onShowInfo: () -> Unit
 ) {
 	Column {
-		StoreItemView(
+		StoreItem(
 			disk = disk,
 			enabled = false,
 			isDividerVisible = false,
