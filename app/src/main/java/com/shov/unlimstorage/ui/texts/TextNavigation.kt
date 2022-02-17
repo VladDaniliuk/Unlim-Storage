@@ -58,9 +58,9 @@ fun TextNavigationPreview() {
 	TextNavigation(
 		stringIdArray = arrayOf(
 			R.string.accounts_description,
-			R.string.google,
+			R.string.deny,
 			R.string.accounts_description
-		), taggedStringId = R.string.google
+		), taggedStringId = R.string.deny
 	) {}
 }
 

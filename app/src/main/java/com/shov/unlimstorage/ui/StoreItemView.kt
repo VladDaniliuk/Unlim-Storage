@@ -17,8 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.coremodels.ItemType
+import com.shov.coremodels.StorageType
 import com.shov.unlimstorage.ui.texts.CustomText
 
 @OptIn(ExperimentalFoundationApi::class)

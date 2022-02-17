@@ -9,7 +9,7 @@ import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.items.ItemType
+import com.shov.coremodels.ItemType
 import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.files.createFile

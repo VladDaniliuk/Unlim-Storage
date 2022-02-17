@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.di
 
+import com.shov.coremodels.StorageType
 import com.shov.unlimstorage.models.repositories.*
 import com.shov.unlimstorage.models.repositories.files.*
 import com.shov.unlimstorage.models.repositories.signIn.*

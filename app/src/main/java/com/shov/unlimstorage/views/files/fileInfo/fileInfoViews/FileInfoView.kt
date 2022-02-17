@@ -8,10 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.insets.navigationBarsPadding
+import com.shov.coremodels.ItemType
+import com.shov.coremodels.StorageType
+import com.shov.coremodels.UserItem
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.items.User
-import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.ui.buttons.MaxWidthButton
 
 @Composable
@@ -25,7 +25,7 @@ fun FileInfoView(
 	version: String?,
 	onDescriptionClick: () -> Unit,
 	description: String?,
-	sharingUsers: List<User>?,
+	sharingUsers: List<UserItem>?,
 	link: String?,
 	onShareLink: () -> Unit,
 	onDownloadClick: () -> Unit,
@@ -83,7 +83,7 @@ fun FileInfoPreview() {
 		onDescriptionClick = {},
 		description = "Description",
 		sharingUsers = List(10) {
-			User(
+			UserItem(
 				email = "email1",
 				role = "Role1",
 				name = "Name1"

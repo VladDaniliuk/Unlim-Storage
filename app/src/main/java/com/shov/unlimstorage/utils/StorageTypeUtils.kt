@@ -1,6 +1,6 @@
 package com.shov.unlimstorage.utils
 
-import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.coremodels.StorageType
 
 fun <T> reduce(operation: (StorageType) -> List<T>?): List<T> {
 	val list = mutableListOf<T>()

@@ -7,3 +7,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Unlim Storage"
 include(":app")
+include(":coreModels")

@@ -17,13 +17,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.shov.coremodels.UserItem
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.items.User
 import com.shov.unlimstorage.ui.UserInfo
 import com.shov.unlimstorage.ui.texts.CustomText
 
 @Composable
-fun FileUsersView(sharingUsers: List<User>?, onShowSnackbar: (String) -> Unit) {
+fun FileUsersView(sharingUsers: List<UserItem>?, onShowSnackbar: (String) -> Unit) {
 	val context = LocalContext.current
 	val hapticFeedback = LocalHapticFeedback.current
 	val clipboardManager = LocalClipboardManager.current
@@ -50,13 +50,11 @@ fun FileUsersView(sharingUsers: List<User>?, onShowSnackbar: (String) -> Unit) {
 						onLongClick = {
 							hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
 
-							if (user.email.isNullOrEmpty()) {
-								onShowSnackbar(context.getString(R.string.dont_have_email))
-							} else {
-								clipboardManager.setText(AnnotatedString(user.email))
+							user.email?.let { email ->
+								clipboardManager.setText(AnnotatedString(email))
 
 								onShowSnackbar(context.getString(R.string.user_long_click_message))
-							}
+							} ?: onShowSnackbar(context.getString(R.string.dont_have_email))
 						},
 						iconLink = user.photoLink,
 						iconSize = 32.dp,
@@ -76,7 +74,7 @@ fun FileUsersView(sharingUsers: List<User>?, onShowSnackbar: (String) -> Unit) {
 fun FileUsersPreview() {
 	FileUsersView(
 		sharingUsers = List(size = 9) {
-			User(
+			UserItem(
 				email = "email1",
 				role = "Role1",
 				name = "Name1"

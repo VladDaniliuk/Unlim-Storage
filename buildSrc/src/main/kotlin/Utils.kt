@@ -31,7 +31,7 @@ fun Project.implementAll() {
 	implementAccompanist()
 	implementSecurity()
 	implementBiometric()
-	//implementModules()
+	implementModules()
 }
 
 fun Project.implementForStorage() {

@@ -68,7 +68,7 @@ fun FileAdditionalInfoPreview() {
 	FileAdditionalInfoView(
 		id = "123456",
 		mainIcon = Icons.Rounded.Face,
-		secondaryIconId = R.drawable.ic_google_drive,
+		secondaryIconId = R.drawable.common_google_signin_btn_icon_dark,
 		fileSize = "12 MB",
 		createdTime = "12:00:00 January 12, 2020",
 		modifiedTime = "12:00:00 January 12, 2020",

@@ -10,9 +10,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.coremodels.StorageType
+import com.shov.coremodels.StoreItem
+import com.shov.coremodels.ItemType
 import com.shov.unlimstorage.ui.FABScaffold
 import com.shov.unlimstorage.ui.StoreItemView
 import com.shov.unlimstorage.ui.spacers.FabSpacer

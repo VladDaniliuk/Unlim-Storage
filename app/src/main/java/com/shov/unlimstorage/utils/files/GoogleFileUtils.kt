@@ -3,7 +3,7 @@ package com.shov.unlimstorage.utils.files
 import com.google.api.client.http.InputStreamContent
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.model.File
-import com.shov.unlimstorage.models.items.StoreItem
+import com.shov.coremodels.StoreItem
 import com.shov.unlimstorage.values.GOOGLE_FIELDS
 import com.shov.unlimstorage.values.getGoogleQ
 import java.io.InputStream

@@ -1,18 +1,11 @@
 package com.shov.unlimstorage.models.repositories.signIn
 
-import com.shov.unlimstorage.R
+import com.shov.coremodels.StorageType
 import com.shov.unlimstorage.values.ARGUMENT_SIGN_IN
 import com.shov.unlimstorage.values.UnknownClassInheritance
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
-
-enum class StorageType(val imageId: Int, val nameId: Int) {
-	GOOGLE(R.drawable.ic_google_drive, R.string.google),
-	BOX(R.drawable.ic_box, R.string.box),
-	DROPBOX(R.drawable.ic_drop_box, R.string.dropbox),
-	//ONEDRIVE(R.drawable.ic_one_drive, R.string.onedrive)
-}
 
 interface Factory {
 	fun create(type: StorageType): Authorizer

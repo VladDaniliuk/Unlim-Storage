@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.unlimstorage.models.items.StoreItem
+import com.shov.coremodels.StoreItem
 import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.values.argStoreId
 import dagger.hilt.android.lifecycle.HiltViewModel

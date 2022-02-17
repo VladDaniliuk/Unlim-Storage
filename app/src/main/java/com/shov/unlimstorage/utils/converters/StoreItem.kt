@@ -6,9 +6,9 @@ import com.dropbox.core.v2.files.FileMetadata
 import com.dropbox.core.v2.files.FolderMetadata
 import com.dropbox.core.v2.files.Metadata
 import com.google.api.services.drive.model.File
-import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.coremodels.ItemType
+import com.shov.coremodels.StoreItem
+import com.shov.coremodels.StorageType
 import com.shov.unlimstorage.values.ARGUMENT_METADATA
 import com.shov.unlimstorage.values.UnknownClassInheritance
 import dagger.hilt.android.qualifiers.ApplicationContext

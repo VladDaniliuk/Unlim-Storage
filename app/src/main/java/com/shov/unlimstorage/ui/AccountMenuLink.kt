@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.alorma.compose.settings.ui.SettingsMenuLink
-import com.shov.unlimstorage.R
+import com.shov.coremodels.StorageType
 
 @Composable
 fun AccountMenuLink(
@@ -52,9 +52,9 @@ fun AccountMenuLink(
 fun AccountMenuLinkPreview() {
 	AccountMenuLink(
 		accountId = 0,
-		imageId = R.drawable.ic_box,
-		titleId = R.string.box,
-		subtitleId = R.string.box
+		imageId = StorageType.GOOGLE.imageId,
+		titleId = StorageType.GOOGLE.nameId,
+		subtitleId = StorageType.GOOGLE.nameId
 	) {}
 }
 

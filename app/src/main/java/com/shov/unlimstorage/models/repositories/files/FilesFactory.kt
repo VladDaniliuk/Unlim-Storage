@@ -1,6 +1,6 @@
 package com.shov.unlimstorage.models.repositories.files
 
-import com.shov.unlimstorage.models.repositories.signIn.StorageType
+import com.shov.coremodels.StorageType
 import com.shov.unlimstorage.values.ARGUMENT_FILES
 import com.shov.unlimstorage.values.UnknownClassInheritance
 import javax.inject.Inject

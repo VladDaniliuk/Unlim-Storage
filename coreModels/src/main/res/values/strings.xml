@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="google" translatable="false">Google</string>
+	<string name="box" translatable="false">Box</string>
+	<string name="onedrive">OneDrive</string>
+	<string name="dropbox" translatable="false">Dropbox</string>
+</resources>

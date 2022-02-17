@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.items
+package com.shov.coremodels
 
 data class StoreMetadataItem(
 	val id: String,
@@ -10,6 +10,6 @@ data class StoreMetadataItem(
 	val link: String? = null,
 	val createdTime: String? = null,
 	val modifiedTime: String? = null,
-	val sharingUsers: List<User> = emptyList(),
+	val sharingUsers: List<UserItem> = emptyList(),
 	val size: Long? = null
 )

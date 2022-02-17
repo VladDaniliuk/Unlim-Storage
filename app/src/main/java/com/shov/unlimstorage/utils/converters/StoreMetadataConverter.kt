@@ -6,10 +6,10 @@ import com.dropbox.core.v2.files.FileMetadata
 import com.dropbox.core.v2.files.FolderMetadata
 import com.dropbox.core.v2.files.Metadata
 import com.google.api.services.drive.model.File
+import com.shov.coremodels.UserItem
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.items.StoreMetadataItem
-import com.shov.unlimstorage.models.items.User
+import com.shov.coremodels.StoreMetadataItem
+import com.shov.coremodels.ItemType
 import com.shov.unlimstorage.values.ARGUMENT_METADATA
 import com.shov.unlimstorage.values.UnknownClassInheritance
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -36,7 +36,7 @@ class StoreMetadataConverterImpl @Inject constructor(
 		createdTime = createdAt.toPrettyTime(),
 		modifiedTime = modifiedAt.toPrettyTime(),
 		sharingUsers = listOf(
-			User(
+			UserItem(
 				this.createdBy.login,
 				context.getString(R.string.modifier),
 				this.createdBy.name
@@ -82,7 +82,7 @@ class StoreMetadataConverterImpl @Inject constructor(
 		createdTime = createdTime.toPrettyTime(),
 		modifiedTime = modifiedTime.toPrettyTime(),
 		sharingUsers = this.permissions.map {
-			User(
+			UserItem(
 				it.emailAddress,
 				it.role,
 				it.displayName,

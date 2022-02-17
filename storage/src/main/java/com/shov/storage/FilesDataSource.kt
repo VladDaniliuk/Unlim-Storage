@@ -1,8 +1,8 @@
 package com.shov.unlimstorage.models.repositories.files
 
-import com.shov.unlimstorage.models.items.ItemType
-import com.shov.unlimstorage.models.items.StoreItem
-import com.shov.unlimstorage.models.items.StoreMetadataItem
+import com.shov.coremodels.ItemType
+import com.shov.coremodels.StoreItem
+import com.shov.coremodels.StoreMetadataItem
 import java.io.InputStream
 
 interface FilesInteractor {
