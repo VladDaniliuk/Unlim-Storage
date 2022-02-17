@@ -19,3 +19,9 @@ fun Project.implementLocalDataBase() {
 		implement(Room.Lib.ktx)
 	}
 }
+
+fun Project.implementRoomKtx() {
+	dependencies {
+		implement(Room.Lib.ktx)
+	}
+}

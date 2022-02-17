@@ -1,5 +1,5 @@
 object AndroidVersion {
-	const val compileSdkVersion = 31
+	const val compileSdkVersion = 32
 	const val buildToolsVersion = "30.0.3"
 	const val minSdkVersion = 25
 }
@@ -8,6 +8,14 @@ object Application {
 	const val name = "Unlim Storage"
 	const val versionCode = 6
 	const val versionName = "0.2.7.1"
+}
+
+object Storage {
+	const val namespace = "com.shov.storage"
+}
+
+object CoreModels {
+	const val namespace = "com.shov.coremodels"
 }
 
 object Config {
@@ -29,5 +37,5 @@ object BuildType {
 }
 
 object KotlinOptions {
-	const val jvmTarget = "1.8"
+	const val jvmTarget = "11"
 }

@@ -26,3 +26,9 @@ fun Project.implementCompose() {
 		implement(Compose.Lib.uiTooling)
 	}
 }
+
+fun Project.implementIcons() {
+	dependencies {
+		implement(Compose.Lib.materialIconsExtended)
+	}
+}
