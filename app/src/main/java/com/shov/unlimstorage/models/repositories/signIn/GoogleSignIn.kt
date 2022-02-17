@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.Scope
 import com.google.api.services.drive.DriveScopes
+import com.shov.storage.SignInDataSource
 import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.values.IS_AUTH
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -17,7 +18,7 @@ import javax.inject.Inject
 class GoogleSignIn @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val preference: PreferenceRepository
-) : Authorizer {
+) : SignInDataSource {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions
 			.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

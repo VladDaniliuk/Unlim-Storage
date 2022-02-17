@@ -11,6 +11,7 @@ import com.google.api.services.drive.DriveScopes
 import com.shov.unlimstorage.R
 import com.shov.coremodels.ItemType
 import com.shov.unlimstorage.utils.converters.StoreItemConverter
+import com.shov.storage.FilesDataSource
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.files.createFile
 import com.shov.unlimstorage.utils.files.createFolder
@@ -28,7 +29,7 @@ class GoogleFiles @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val storeMetadataConverter: StoreMetadataConverter,
 	private val storeItemConverter: StoreItemConverter
-) : FilesInteractor {
+) : FilesDataSource {
 	override fun createFolder(folderId: String?, folderName: String): Boolean {
 		getGoogleFiles().createFolder(folderName, listOf(folderId))
 		return true

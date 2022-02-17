@@ -9,6 +9,7 @@ import com.box.androidsdk.content.auth.BoxAuthentication
 import com.box.androidsdk.content.auth.OAuthActivity
 import com.box.androidsdk.content.models.BoxSession
 import com.box.androidsdk.content.models.BoxUser
+import com.shov.storage.SignInDataSource
 import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.values.IS_AUTH
 import com.shov.unlimstorage.values.Keys
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class BoxSignIn @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val preference: PreferenceRepository
-) : Authorizer {
+) : SignInDataSource {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		BoxConfig.CLIENT_ID = Keys.Box.CLIENT_ID
 		BoxConfig.CLIENT_SECRET = Keys.Box.CLIENT_SECRET

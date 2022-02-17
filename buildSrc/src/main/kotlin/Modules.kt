@@ -9,7 +9,7 @@ object Modules {
 
 fun Project.implementModules() {
 	dependencies {
-		//implement(project(Modules.storage))
+		implement(project(Modules.storage))
 		implement(project(Modules.coreModels))
 	}
 }

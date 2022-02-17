@@ -9,6 +9,7 @@ import com.dropbox.core.android.Auth
 import com.dropbox.core.android.AuthActivity
 import com.dropbox.core.oauth.DbxCredential
 import com.dropbox.core.v2.DbxClientV2
+import com.shov.storage.SignInDataSource
 import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.values.*
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -17,7 +18,7 @@ import javax.inject.Inject
 class DropBoxSignIn @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val preference: PreferenceRepository
-) : Authorizer {
+) : SignInDataSource {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		Auth.startOAuth2PKCE(
 			context,

@@ -8,6 +8,7 @@ import com.box.androidsdk.content.BoxException
 import com.box.androidsdk.content.models.BoxSession
 import com.shov.coremodels.ItemType
 import com.shov.coremodels.StorageType
+import com.shov.storage.FilesDataSource
 import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
@@ -26,7 +27,7 @@ class BoxFiles @Inject constructor(
 	private val authorizerFactory: AuthorizerFactory,
 	private val storeMetadataConverter: StoreMetadataConverter,
 	private val storeItemConverter: StoreItemConverter
-) : FilesInteractor {
+) : FilesDataSource {
 	private val checkAuth: Boolean
 		get() = authorizerFactory.create(StorageType.BOX).isSuccess()
 

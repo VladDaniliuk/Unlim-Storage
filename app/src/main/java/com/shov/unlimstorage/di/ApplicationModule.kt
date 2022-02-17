@@ -1,9 +1,13 @@
 package com.shov.unlimstorage.di
 
 import com.shov.coremodels.StorageType
+import com.shov.storage.FilesDataSource
+import com.shov.storage.SignInDataSource
 import com.shov.unlimstorage.models.repositories.*
 import com.shov.unlimstorage.models.repositories.files.*
-import com.shov.unlimstorage.models.repositories.signIn.*
+import com.shov.unlimstorage.models.repositories.signIn.BoxSignIn
+import com.shov.unlimstorage.models.repositories.signIn.DropBoxSignIn
+import com.shov.unlimstorage.models.repositories.signIn.GoogleSignIn
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -25,32 +29,32 @@ abstract class ApplicationModule {
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.BOX)
-	abstract fun provideBoxFiles(boxFiles: BoxFiles): FilesInteractor
+	abstract fun provideBoxFiles(boxFiles: BoxFiles): FilesDataSource
 
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.BOX)
-	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): Authorizer
+	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInDataSource
 
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.DROPBOX)
-	abstract fun provideDropBoxFiles(dropBoxFiles: DropBoxFiles): FilesInteractor
+	abstract fun provideDropBoxFiles(dropBoxFiles: DropBoxFiles): FilesDataSource
 
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.DROPBOX)
-	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): Authorizer
+	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): SignInDataSource
 
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.GOOGLE)
-	abstract fun provideGoogleFiles(googleFiles: GoogleFiles): FilesInteractor
+	abstract fun provideGoogleFiles(googleFiles: GoogleFiles): FilesDataSource
 
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.GOOGLE)
-	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): Authorizer
+	abstract fun provideGoogleSignIn(googleSignInImpl: GoogleSignIn): SignInDataSource
 
 	@Binds
 	abstract fun provideFilesInfoRepository(filesRepositoryImpl: FilesInfoRepositoryImpl):
