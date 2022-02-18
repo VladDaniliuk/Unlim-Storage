@@ -8,9 +8,9 @@ import androidx.navigation.compose.composable
 import com.shov.unlimstorage.utils.getName
 import com.shov.unlimstorage.values.BottomSheet
 import com.shov.unlimstorage.viewStates.UploadNavigationState
-import com.shov.unlimstorage.views.files.newObject.newFolder.NewFolderBottomSheet
 import com.shov.unlimstorage.views.files.newObject.NewObjectBottomSheet
 import com.shov.unlimstorage.views.files.newObject.UploadBottomSheet
+import com.shov.unlimstorage.views.files.newObject.newFolder.NewFolderBottomSheet
 import java.io.FileInputStream
 
 @Composable
@@ -36,7 +36,7 @@ fun UploadNavigation(
 				fileUri?.let { uri ->
 					context.contentResolver.openFileDescriptor(uri, "r", null)?.also { parcelFile ->
 						uploadNavigationState.file = FileInputStream(parcelFile.fileDescriptor)
-					}?.close()
+					}//TODO need to close file descriptor , but only after uploading
 
 					uploadNavigationState.navController.navigate(
 						BottomSheet.ChooseFile.setParent(
