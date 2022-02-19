@@ -1,7 +1,9 @@
 package com.shov.unlimstorage.views.navigations
 
 import android.content.Context
+import android.os.ParcelFileDescriptor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,6 +20,8 @@ fun UploadNavigation(
 	uploadNavigationState: UploadNavigationState,
 	context: Context = LocalContext.current
 ) {
+	var fileDescriptor: ParcelFileDescriptor? = null
+
 	NavHost(
 		navController = uploadNavigationState.navController,
 		startDestination = BottomSheet.Main.route
@@ -34,9 +38,9 @@ fun UploadNavigation(
 				}
 			) { fileUri ->
 				fileUri?.let { uri ->
-					context.contentResolver.openFileDescriptor(uri, "r", null)?.also { parcelFile ->
-						uploadNavigationState.file = FileInputStream(parcelFile.fileDescriptor)
-					}//TODO need to close file descriptor , but only after uploading
+					fileDescriptor = context.contentResolver.openFileDescriptor(uri, "r", null)
+
+					uploadNavigationState.file = FileInputStream(fileDescriptor?.fileDescriptor)
 
 					uploadNavigationState.navController.navigate(
 						BottomSheet.ChooseFile.setParent(
@@ -53,6 +57,12 @@ fun UploadNavigation(
 		}
 		composable(BottomSheet.ChooseFile.route) {
 			UploadBottomSheet(uploadNavigationState.file)
+		}
+	}
+
+	DisposableEffect(key1 = null) {
+		onDispose {
+			fileDescriptor?.close()
 		}
 	}
 }
