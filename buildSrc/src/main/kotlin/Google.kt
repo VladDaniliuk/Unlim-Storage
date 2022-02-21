@@ -32,6 +32,14 @@ fun Project.implementGoogle() {
 	}
 }
 
+fun Project.implementGoogleForGoogleStorage() {
+	dependencies {
+		implement(Google.Lib.drive)
+		implement(Google.Lib.auth)
+		implement(Google.Lib.clientAndroid)
+	}
+}
+
 fun ScriptHandlerScope.googleClasspath() {
 	dependencies {
 		classpath(Google.Lib.services)

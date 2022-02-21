@@ -14,6 +14,10 @@ object Storage {
 	const val namespace = "com.shov.storage"
 }
 
+object GoogleStorage{
+	const val namespace = "com.shov.googlestorage"
+}
+
 object CoreModels {
 	const val namespace = "com.shov.coremodels"
 }

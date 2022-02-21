@@ -17,8 +17,4 @@ class MainNavigationViewModel @Inject constructor(preference: PreferenceReposito
 		isLogIn -> Screen.CheckPassword.route
 		else -> Screen.SignIn.route
 	}
-
-	fun setIsLogIn() {
-		isLogIn = true
-	}
 }

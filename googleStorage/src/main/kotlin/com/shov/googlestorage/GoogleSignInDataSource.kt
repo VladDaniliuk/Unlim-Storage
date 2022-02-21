@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.repositories.signIn
+package com.shov.googlestorage
 
 import android.app.Activity
 import android.content.Context
@@ -10,14 +10,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.Scope
 import com.google.api.services.drive.DriveScopes
 import com.shov.storage.SignInDataSource
-import com.shov.unlimstorage.models.repositories.PreferenceRepository
-import com.shov.unlimstorage.values.IS_AUTH
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class GoogleSignIn @Inject constructor(
-	@ApplicationContext val context: Context,
-	private val preference: PreferenceRepository
+class GoogleSignInDataSource @Inject constructor(
+	@ApplicationContext val context: Context
 ) : SignInDataSource {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions
@@ -35,15 +32,9 @@ class GoogleSignIn @Inject constructor(
 		dataForSignIn.launch(mGoogleSignInClient.signInIntent)
 	}
 
-	override fun isSuccess(result: ActivityResult): Boolean {
-		var isLogIn by preference.getPref(IS_AUTH, false)
-
-		isLogIn = if (result.resultCode == Activity.RESULT_OK)
-			GoogleSignIn.getSignedInAccountFromIntent(result.data).isSuccessful
-		else false
-
-		return isLogIn
-	}
+	override fun isSuccess(result: ActivityResult): Boolean =
+		(result.resultCode == Activity.RESULT_OK)
+			.and(GoogleSignIn.getSignedInAccountFromIntent(result.data).isSuccessful)
 
 	override fun isSuccess(): Boolean =
 		GoogleSignIn.getLastSignedInAccount(context)?.let { google ->

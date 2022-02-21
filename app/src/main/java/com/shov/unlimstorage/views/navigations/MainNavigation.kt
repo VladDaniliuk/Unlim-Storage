@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.shov.unlimstorage.models.repositories.signIn.CheckDropboxCredential
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
 import com.shov.unlimstorage.views.signIn.SignInScreen
@@ -32,17 +31,5 @@ fun MainNavigation(
 		filesComposable(filesNavController = navHostController)
 		securityComposable(securityNavHostController = navHostController)
 		settingsComposable(settingsNavController = navHostController)
-	}
-
-	CheckDropboxCredential {
-		mainNavigationViewModel.setIsLogIn()
-
-		if (navHostController.currentBackStackEntry?.destination?.route == Screen.SignIn.route) {
-			navHostController.navigate(Screen.Files.route) {
-				popUpTo(Screen.SignIn.route) {
-					inclusive = true
-				}
-			}
-		}
 	}
 }

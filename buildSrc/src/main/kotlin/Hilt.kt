@@ -31,3 +31,9 @@ fun ScriptHandlerScope.hiltClasspath() {
 		classpath(Hilt.Lib.gradlePlugin)
 	}
 }
+
+fun Project.implementHiltForGoogleStorage() {
+	dependencies{
+		implement(Hilt.Lib.hilt)
+	}
+}

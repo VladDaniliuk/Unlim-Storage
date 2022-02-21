@@ -6,11 +6,10 @@ import com.dropbox.core.v2.files.FileMetadata
 import com.dropbox.core.v2.files.FolderMetadata
 import com.shov.coremodels.converters.toBytes
 import com.dropbox.core.v2.files.Metadata
-import com.google.api.services.drive.model.File
-import com.shov.unlimstorage.values.ARGUMENT_METADATA
 import com.shov.coremodels.models.ItemType
-import com.shov.coremodels.models.StoreItem
 import com.shov.coremodels.models.StorageType
+import com.shov.coremodels.models.StoreItem
+import com.shov.unlimstorage.values.ARGUMENT_METADATA
 import com.shov.unlimstorage.values.UnknownClassInheritance
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -18,7 +17,6 @@ import javax.inject.Inject
 interface StoreItemConverter {
 	fun BoxItem.toStoreItem(parentFolder: String?): StoreItem
 	fun Metadata.toStoreItem(parentFolder: String?): StoreItem
-	fun File.toStoreItem(parentFolder: String?): StoreItem
 }
 
 class StoreItemConverterImpl @Inject constructor(@ApplicationContext val context: Context) :
@@ -53,19 +51,4 @@ class StoreItemConverterImpl @Inject constructor(@ApplicationContext val context
 		)
 		else -> throw UnknownClassInheritance(ARGUMENT_METADATA, this.javaClass.name)
 	}
-
-	override fun File.toStoreItem(parentFolder: String?) = StoreItem(
-		id = this.id,
-		type = when (this.mimeType.contains(ItemType.FOLDER.name, ignoreCase = true)) {
-			true -> ItemType.FOLDER
-			false -> ItemType.FILE
-		},
-		name = this.name,
-		size = when (mimeType.contains(ItemType.FOLDER.name, ignoreCase = true)) {
-			true -> null
-			false -> getSize().toBytes().let { context.getString(it.second, it.first) }
-		},
-		parentFolder = parentFolder?.let { this.parents[0] } ?: parentFolder,
-		disk = StorageType.GOOGLE
-	)
 }

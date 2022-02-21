@@ -10,17 +10,29 @@ import androidx.lifecycle.ViewModel
 import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import dagger.hilt.android.lifecycle.HiltViewModel
+import com.shov.unlimstorage.models.repositories.PreferenceRepository
+import com.shov.unlimstorage.values.IS_AUTH
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-	private val authorizerFactory: AuthorizerFactory
+	private val authorizerFactory: AuthorizerFactory,
+	preferences: PreferenceRepository
 ) : ViewModel() {
 	var serviceAccess by mutableStateOf(false)
 		private set
+	var isAuth by preferences.getPref(IS_AUTH, false)
+		private set
 
 	fun singIn(onSignIn: () -> Unit) {
-		if (serviceAccess) onSignIn()
+		if (serviceAccess) {
+			isAuth = true
+			onSignIn()
+		}
+	}
+
+	fun onDropBoxSignIn() {
+		serviceAccess = true
 	}
 
 	fun checkAccessWithResult(result: ActivityResult, storageType: StorageType) {

@@ -1,37 +1,35 @@
-package com.shov.unlimstorage.models.repositories.files
+package com.shov.googlestorage
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
+import com.google.api.client.http.InputStreamContent
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
 import com.shov.coremodels.models.ItemType
+import com.shov.googlestorage.converters.toStoreItem
+import com.shov.googlestorage.converters.toStoreMetadataItem
 import com.shov.storage.FilesDataSource
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.utils.converters.StoreItemConverter
-import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
-import com.shov.unlimstorage.utils.files.createFile
-import com.shov.unlimstorage.utils.files.createFolder
-import com.shov.unlimstorage.utils.files.getFileList
-import com.shov.unlimstorage.utils.files.uploadFile
-import com.shov.unlimstorage.values.DOWNLOAD_PATH
-import com.shov.unlimstorage.values.GOOGLE_METADATA
+import com.shov.storage.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import javax.inject.Inject
+import com.google.api.services.drive.model.File as GoogleFile
 
-class GoogleFiles @Inject constructor(
-	@ApplicationContext val context: Context,
-	private val storeMetadataConverter: StoreMetadataConverter,
-	private val storeItemConverter: StoreItemConverter
+class GoogleFilesDataSource @Inject constructor(
+	@ApplicationContext val context: Context
 ) : FilesDataSource {
 	override fun createFolder(folderId: String?, folderName: String): Boolean {
-		getGoogleFiles().createFolder(folderName, listOf(folderId))
+		getGoogleFiles().create(
+			GoogleFile().setName(folderName)
+				.setParents(listOf(folderId))
+				.setMimeType("application/vnd.google-apps.folder")
+		)
 		return true
 	}
 
@@ -46,9 +44,13 @@ class GoogleFiles @Inject constructor(
 	}
 
 	override fun getFileMetadata(id: String, type: ItemType) = try {
-		getGoogleFiles().get(id).apply {
-			fields = GOOGLE_METADATA
-		}.execute().let { storeMetadataConverter.run { it.toStoreMetadata() } }
+		getGoogleFiles().get(id)
+			.setFields(
+				"id,name,mimeType,description,permissions,shared,starred,version,webViewLink" +
+						",createdTime,modifiedTime,owners,size"
+			)
+			.execute()
+			.toStoreMetadataItem(type)
 	} catch (e: GoogleJsonResponseException) {
 		null
 	} catch (e: IllegalArgumentException) {
@@ -56,9 +58,13 @@ class GoogleFiles @Inject constructor(
 	}
 
 	override fun getFiles(folderId: String?) = try {
-		getGoogleFiles().getFileList(folderId) { file ->
-			storeItemConverter.run { file.toStoreItem(folderId) }
-		}
+		getGoogleFiles().list()
+			.setFields("files(id,size,name,mimeType,parents)")
+			.setQ("parents = '${folderId ?: "root"}' and trashed = false")
+			.execute()
+			.files.map { file ->
+				file.toStoreItem(folderId) { context.getString(second, first) }
+			}
 	} catch (e: GoogleJsonResponseException) {
 		emptyList()
 	} catch (e: IllegalArgumentException) {
@@ -66,7 +72,12 @@ class GoogleFiles @Inject constructor(
 	}
 
 	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
-		getGoogleFiles().uploadFile(name, listOf(folderId), inputStream)
+		getGoogleFiles().create(
+			GoogleFile().setName(name)
+				.setParents(listOf(folderId))
+				.setMimeType("application/vnd.google-apps.folder"),
+			InputStreamContent(null, inputStream)
+		).execute()
 	}
 
 	private fun getGoogleFiles() = GoogleSignIn.getLastSignedInAccount(context)?.run {
@@ -74,7 +85,9 @@ class GoogleFiles @Inject constructor(
 			NetHttpTransport(),
 			JacksonFactory.getDefaultInstance(),
 			GoogleAccountCredential.usingOAuth2(context, listOf(DriveScopes.DRIVE))
-				.apply { selectedAccount = account }
-		).setApplicationName(context.getString(R.string.app_name)).build().Files()
+				.setSelectedAccount(account)
+		).setApplicationName(context.getString(R.string.app_name))
+			.build()
+			.Files()
 	} ?: throw IllegalArgumentException()
 }

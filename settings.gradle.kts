@@ -6,6 +6,7 @@ dependencyResolutionManagement {
 	}
 }
 rootProject.name = "Unlim Storage"
-include(":storage")
 include(":app")
 include(":coreModels")
+include(":googleStorage")
+include(":storage")

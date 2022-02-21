@@ -34,6 +34,13 @@ fun Project.implementAll() {
 	implementModules()
 }
 
+fun Project.implementForGoogleStorage() {
+	implementActivity()
+	implementHiltForGoogleStorage()
+	implementGoogleForGoogleStorage()
+	implementModulesForGoogleStorage()
+}
+
 fun Project.implementForStorage() {
 	implementActivity()
 	implementModulesForStorage()
