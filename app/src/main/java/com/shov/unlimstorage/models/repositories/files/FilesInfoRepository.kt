@@ -6,6 +6,8 @@ import com.shov.coremodels.models.StoreItem
 import com.shov.coremodels.models.StoreMetadataItem
 import com.shov.unlimstorage.db.StoreItemDao
 import com.shov.unlimstorage.utils.reduce
+import com.shov.unlimstorage.utils.files.createFile
+import java.io.File
 import javax.inject.Inject
 
 interface FilesInfoRepository {
@@ -59,7 +61,12 @@ class FilesInfoRepositoryImpl @Inject constructor(
 		size: Long,
 		setPercents: (Float, String) -> Unit
 	) {
-		filesFactory.create(disk).downloadFile(id, name, size, setPercents)
+		File("/storage/emulated/0/Download").createFile(
+			name = name,
+			onCreate = {
+				filesFactory.create(disk).downloadFile(id, name, size, this, setPercents)
+			}//TODO onExist onError
+		)//TODO GOOGLE PERCENTS
 	}
 
 	override fun getFromLocal(parentFolder: String?): List<StoreItem> {

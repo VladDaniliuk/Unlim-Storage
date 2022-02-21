@@ -10,8 +10,6 @@ import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.files.createDbxUserFilesRequests
-import com.shov.unlimstorage.utils.files.createFile
-import com.shov.unlimstorage.values.DOWNLOAD_PATH
 import com.shov.unlimstorage.values.DROPBOX_CREDENTIAL
 import com.shov.unlimstorage.values.DROPBOX_ROOT_FOLDER
 import java.io.File
@@ -55,23 +53,20 @@ class DropBoxFiles @Inject constructor(
 		id: String,
 		name: String,
 		size: Long,
+		file: File,
 		setPercents: (Float, String) -> Unit
 	) {
-		File(DOWNLOAD_PATH).createFile(
-			name = name,
-			onCreate = {
-				try {
-					dbxUserFilesRequests()?.let { file ->
-						file.download(file.getMetadata(id).pathLower)
-							.download(FileOutputStream(this)) {
-								setPercents(it.toFloat() / size.toFloat(), name)
-							}
+		try {
+			dbxUserFilesRequests()?.let { dbxFile ->
+				dbxFile.download(dbxFile.getMetadata(id).pathLower)
+					.download(FileOutputStream(file)) {
+						setPercents(it.toFloat() / size.toFloat(), name)
 					}
-				} catch (e: RateLimitException) {
-				} catch (e: IllegalArgumentException) {
-				}
 			}
-		)
+		} catch (e: RateLimitException) {
+		} catch (e: IllegalArgumentException) {
+		}
+
 	}
 
 	override fun createFolder(folderId: String?, folderName: String) = try {

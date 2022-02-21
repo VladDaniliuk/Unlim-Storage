@@ -39,14 +39,10 @@ class GoogleFiles @Inject constructor(
 		id: String,
 		name: String,
 		size: Long,
+		file: File,
 		setPercents: (Float, String) -> Unit
 	) {
-		File(DOWNLOAD_PATH).createFile(
-			name = name,
-			onCreate = {
-				getGoogleFiles().get(id).executeMediaAndDownloadTo(FileOutputStream(this))
-			}//TODO onExist onError
-		)//TODO GOOGLE PERCENTS
+		getGoogleFiles().get(id).executeMediaAndDownloadTo(FileOutputStream(file))
 	}
 
 	override fun getFileMetadata(id: String, type: ItemType) = try {

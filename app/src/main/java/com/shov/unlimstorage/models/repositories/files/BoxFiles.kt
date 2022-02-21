@@ -12,8 +12,6 @@ import com.shov.storage.FilesDataSource
 import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
-import com.shov.unlimstorage.utils.files.createFile
-import com.shov.unlimstorage.values.DOWNLOAD_PATH
 import com.shov.unlimstorage.values.getBoxFields
 import com.shov.unlimstorage.values.setItemFields
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -48,19 +46,15 @@ class BoxFiles @Inject constructor(
 		id: String,
 		name: String,
 		size: Long,
+		file: File,
 		setPercents: (Float, String) -> Unit
 	) {
 		if (checkAuth) {
-			File(DOWNLOAD_PATH).createFile(
-				name = name,
-				onCreate = {
-					BoxApiFile(BoxSession(context))
-						.getDownloadRequest(FileOutputStream(this), id)
-						.setProgressListener { numBytes, _ ->
-							setPercents((numBytes.toFloat() / size.toFloat()), name)
-						}.send()
-				}
-			)//TODO onExist and onError
+			BoxApiFile(BoxSession(context))
+				.getDownloadRequest(FileOutputStream(file), id)
+				.setProgressListener { numBytes, _ ->
+					setPercents((numBytes.toFloat() / size.toFloat()), name)
+				}.send()
 		}
 	}
 
