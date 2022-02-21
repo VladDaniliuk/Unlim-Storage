@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.coremodels.StoreItem
-import com.shov.coremodels.StoreMetadataItem
+import com.shov.coremodels.models.StoreItem
+import com.shov.coremodels.models.StoreMetadataItem
 import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.values.argStoreId
 import dagger.hilt.android.lifecycle.HiltViewModel

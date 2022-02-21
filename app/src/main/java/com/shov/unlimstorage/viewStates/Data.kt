@@ -2,7 +2,7 @@ package com.shov.unlimstorage.viewStates
 
 import android.content.Context
 import androidx.navigation.NavHostController
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.StorageType
 import kotlinx.coroutines.CoroutineScope
 import java.io.InputStream
 

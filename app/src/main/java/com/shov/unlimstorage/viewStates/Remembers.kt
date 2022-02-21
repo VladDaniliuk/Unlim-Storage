@@ -7,7 +7,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.StorageType
 import kotlinx.coroutines.CoroutineScope
 
 @Composable

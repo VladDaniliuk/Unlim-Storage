@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.repositories.signIn.CheckDropboxCredential
 import com.shov.unlimstorage.ui.AccountMenuLink

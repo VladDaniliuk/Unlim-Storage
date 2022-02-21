@@ -1,4 +1,6 @@
-package com.shov.coremodels
+package com.shov.coremodels.models
+
+import com.shov.coremodels.R
 
 enum class StorageType(val imageId: Int, val nameId: Int) {
 	GOOGLE(R.drawable.ic_google_drive, R.string.google),

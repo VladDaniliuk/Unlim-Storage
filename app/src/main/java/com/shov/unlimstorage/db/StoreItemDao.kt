@@ -4,8 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.shov.coremodels.StorageType
-import com.shov.coremodels.StoreItem
+import com.shov.coremodels.models.StorageType
+import com.shov.coremodels.models.StoreItem
 
 @Dao
 interface StoreItemDao {

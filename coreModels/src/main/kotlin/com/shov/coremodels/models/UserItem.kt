@@ -1,4 +1,4 @@
-package com.shov.coremodels
+package com.shov.coremodels.models
 
 data class UserItem(
 	val email: String?,

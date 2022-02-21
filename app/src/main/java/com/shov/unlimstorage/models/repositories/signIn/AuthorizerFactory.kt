@@ -1,6 +1,6 @@
 package com.shov.unlimstorage.models.repositories.signIn
 
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.StorageType
 import com.shov.storage.SignInDataSource
 import com.shov.unlimstorage.values.ARGUMENT_SIGN_IN
 import com.shov.unlimstorage.values.UnknownClassInheritance

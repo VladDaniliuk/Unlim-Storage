@@ -1,8 +1,8 @@
 package com.shov.storage
 
-import com.shov.coremodels.ItemType
-import com.shov.coremodels.StoreItem
-import com.shov.coremodels.StoreMetadataItem
+import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StoreItem
+import com.shov.coremodels.models.StoreMetadataItem
 import java.io.InputStream
 
 interface FilesDataSource {

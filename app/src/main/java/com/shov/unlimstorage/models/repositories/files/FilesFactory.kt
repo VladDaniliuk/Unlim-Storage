@@ -1,6 +1,6 @@
 package com.shov.unlimstorage.models.repositories.files
 
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.StorageType
 import com.shov.storage.FilesDataSource
 import com.shov.unlimstorage.values.ARGUMENT_FILES
 import com.shov.unlimstorage.values.UnknownClassInheritance

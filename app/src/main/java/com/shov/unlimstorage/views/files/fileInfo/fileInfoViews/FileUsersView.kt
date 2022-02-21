@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shov.coremodels.UserItem
+import com.shov.coremodels.models.UserItem
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.UserInfo
 import com.shov.unlimstorage.ui.texts.CustomText

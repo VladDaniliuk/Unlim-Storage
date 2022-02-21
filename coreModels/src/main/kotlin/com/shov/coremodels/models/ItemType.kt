@@ -1,4 +1,4 @@
-package com.shov.coremodels
+package com.shov.coremodels.models
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Description

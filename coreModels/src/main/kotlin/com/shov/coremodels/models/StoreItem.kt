@@ -1,4 +1,4 @@
-package com.shov.coremodels
+package com.shov.coremodels.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

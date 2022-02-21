@@ -7,10 +7,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.unlimstorage.models.items.BackStack
-import com.shov.coremodels.ItemType
-import com.shov.coremodels.StoreItem
+import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StoreItem
 import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.values.argFolderId
 import com.shov.unlimstorage.values.argStorageType

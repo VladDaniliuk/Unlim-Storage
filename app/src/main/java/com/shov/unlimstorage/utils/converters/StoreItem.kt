@@ -6,10 +6,10 @@ import com.dropbox.core.v2.files.FileMetadata
 import com.dropbox.core.v2.files.FolderMetadata
 import com.dropbox.core.v2.files.Metadata
 import com.google.api.services.drive.model.File
-import com.shov.coremodels.ItemType
-import com.shov.coremodels.StoreItem
-import com.shov.coremodels.StorageType
 import com.shov.unlimstorage.values.ARGUMENT_METADATA
+import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StoreItem
+import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.values.UnknownClassInheritance
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

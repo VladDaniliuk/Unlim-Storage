@@ -8,9 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.insets.navigationBarsPadding
-import com.shov.coremodels.ItemType
-import com.shov.coremodels.StorageType
-import com.shov.coremodels.UserItem
+import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StorageType
+import com.shov.coremodels.models.UserItem
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.buttons.MaxWidthButton
 

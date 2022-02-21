@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.alorma.compose.settings.ui.SettingsMenuLink
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.StorageType
 
 @Composable
 fun AccountMenuLink(

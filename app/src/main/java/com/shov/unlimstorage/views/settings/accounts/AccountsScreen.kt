@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alorma.compose.settings.ui.SettingsMenuLink
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.AccountMenuLink
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel

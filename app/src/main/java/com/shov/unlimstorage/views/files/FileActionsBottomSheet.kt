@@ -8,8 +8,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.shov.unlimstorage.R
-import com.shov.coremodels.ItemType
-import com.shov.coremodels.StorageType
+import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
