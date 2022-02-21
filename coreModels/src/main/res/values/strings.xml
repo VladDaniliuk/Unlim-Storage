@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="google" translatable="false">Google</string>
-	<string name="box" translatable="false">Box</string>
+	<string name="app_name">Unlim Storage</string>
+	<string name="box">Box</string>
+	<string name="bytes">%1$s Bytes</string>
+	<string name="dropbox">Dropbox</string>
+	<string name="gigabytes">%1$s GB</string>
+	<string name="google">Google</string>
+	<string name="kilobytes">%1$s KB</string>
+	<string name="megabytes">%1$s MB</string>
 	<string name="onedrive">OneDrive</string>
-	<string name="dropbox" translatable="false">Dropbox</string>
+	<string name="terabytes">%1$s TB</string>
 </resources>

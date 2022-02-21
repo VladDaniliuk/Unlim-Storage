@@ -1,6 +1,6 @@
-package com.shov.unlimstorage.utils.converters
+package com.shov.coremodels.converters
 
-import com.shov.unlimstorage.R
+import com.shov.coremodels.R
 
 fun Long.toBytes(convertType: Int = 0): Pair<String, Int> {
 	val typeList = listOf(

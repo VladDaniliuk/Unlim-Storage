@@ -4,6 +4,7 @@ import android.content.Context
 import com.box.androidsdk.content.models.BoxItem
 import com.dropbox.core.v2.files.FileMetadata
 import com.dropbox.core.v2.files.FolderMetadata
+import com.shov.coremodels.converters.toBytes
 import com.dropbox.core.v2.files.Metadata
 import com.google.api.services.drive.model.File
 import com.shov.unlimstorage.values.ARGUMENT_METADATA
