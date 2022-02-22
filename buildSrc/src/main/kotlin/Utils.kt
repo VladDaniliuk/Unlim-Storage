@@ -25,7 +25,6 @@ fun Project.implementAll() {
 	implementCompose()
 	implementHilt()
 	implementDropbox()
-	implementBoxApi()
 	implementLocalDataBase()
 	implementCoil()
 	implementAccompanist()
@@ -36,9 +35,16 @@ fun Project.implementAll() {
 
 fun Project.implementForGoogleStorage() {
 	implementActivity()
-	implementHiltForGoogleStorage()
+	implementHiltForStorage()
 	implementGoogleForGoogleStorage()
-	implementModulesForGoogleStorage()
+	implementModulesForChildStorage()
+}
+
+fun Project.implementForBoxStorage() {
+	implementActivity()
+	implementHiltForStorage()
+	implementBoxApi()
+	implementModulesForChildStorage()
 }
 
 fun Project.implementForStorage() {

@@ -32,7 +32,7 @@ fun ScriptHandlerScope.hiltClasspath() {
 	}
 }
 
-fun Project.implementHiltForGoogleStorage() {
+fun Project.implementHiltForStorage() {
 	dependencies{
 		implement(Hilt.Lib.hilt)
 	}

@@ -6,6 +6,7 @@ object Modules {
 	const val storage = ":storage"
 	const val coreModels = ":coreModels"
 	const val googleStorage = ":googleStorage"
+	const val boxStorage = ":boxStorage"
 }
 
 fun Project.implementModules() {
@@ -13,6 +14,7 @@ fun Project.implementModules() {
 		implement(project(Modules.storage))
 		implement(project(Modules.coreModels))
 		implement(project(Modules.googleStorage))
+		implement(project(Modules.boxStorage))
 	}
 }
 
@@ -22,7 +24,7 @@ fun Project.implementModulesForStorage() {
 	}
 }
 
-fun Project.implementModulesForGoogleStorage() {
+fun Project.implementModulesForChildStorage() {
 	dependencies {
 		implement(project(Modules.storage))
 		implement(project(Modules.coreModels))
