@@ -1,5 +1,7 @@
 package com.shov.unlimstorage.di
 
+import com.shov.boxstorage.BoxFilesDataSource
+import com.shov.boxstorage.BoxSignInDataSource
 import com.shov.coremodels.models.StorageType
 import com.shov.googlestorage.GoogleFilesDataSource
 import com.shov.googlestorage.GoogleSignInDataSource
@@ -7,7 +9,6 @@ import com.shov.storage.FilesDataSource
 import com.shov.storage.SignInDataSource
 import com.shov.unlimstorage.models.repositories.*
 import com.shov.unlimstorage.models.repositories.files.*
-import com.shov.unlimstorage.models.repositories.signIn.BoxSignIn
 import com.shov.unlimstorage.models.repositories.signIn.DropBoxSignIn
 import dagger.Binds
 import dagger.MapKey
@@ -30,12 +31,12 @@ abstract class ApplicationModule {
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.BOX)
-	abstract fun provideBoxFiles(boxFiles: BoxFiles): FilesDataSource
+	abstract fun provideBoxFiles(boxFiles: BoxFilesDataSource): FilesDataSource
 
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.BOX)
-	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignIn): SignInDataSource
+	abstract fun provideBoxSignIn(boxSignInImpl: BoxSignInDataSource): SignInDataSource
 
 	@Binds
 	@IntoMap

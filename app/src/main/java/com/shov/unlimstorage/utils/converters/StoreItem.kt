@@ -1,11 +1,10 @@
 package com.shov.unlimstorage.utils.converters
 
 import android.content.Context
-import com.box.androidsdk.content.models.BoxItem
 import com.dropbox.core.v2.files.FileMetadata
 import com.dropbox.core.v2.files.FolderMetadata
-import com.shov.coremodels.converters.toBytes
 import com.dropbox.core.v2.files.Metadata
+import com.shov.coremodels.converters.toBytes
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
@@ -15,23 +14,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 interface StoreItemConverter {
-	fun BoxItem.toStoreItem(parentFolder: String?): StoreItem
 	fun Metadata.toStoreItem(parentFolder: String?): StoreItem
 }
 
 class StoreItemConverterImpl @Inject constructor(@ApplicationContext val context: Context) :
 	StoreItemConverter {
-	override fun BoxItem.toStoreItem(parentFolder: String?) = StoreItem(
-		id = this.id,
-		type = ItemType.valueOf(this.type.uppercase()),
-		name = this.name,
-		size = when (ItemType.valueOf(this.type.uppercase())) {
-			ItemType.FILE -> size.toBytes().let { context.getString(it.second, it.first) }
-			ItemType.FOLDER -> null
-		},
-		parentFolder = parentFolder?.let { this.parent.id } ?: parentFolder,
-		disk = StorageType.BOX
-	)
 
 	override fun Metadata.toStoreItem(parentFolder: String?) = when (this) {
 		is FolderMetadata -> StoreItem(

@@ -22,7 +22,7 @@ class DropBoxSignIn @Inject constructor(
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		Auth.startOAuth2PKCE(
 			context,
-			Keys.DropBox.APP_KEY,
+			DROPBOX_CLIENT_ID,
 			DbxRequestConfig(DROPBOX_CLIENT_IDENTIFIER)
 		)
 	}

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.repositories.signIn
+package com.shov.boxstorage
 
 import android.content.Context
 import android.content.Intent
@@ -10,16 +10,15 @@ import com.box.androidsdk.content.auth.OAuthActivity
 import com.box.androidsdk.content.models.BoxSession
 import com.box.androidsdk.content.models.BoxUser
 import com.shov.storage.SignInDataSource
-import com.shov.unlimstorage.values.Keys
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class BoxSignIn @Inject constructor(
+class BoxSignInDataSource @Inject constructor(
 	@ApplicationContext val context: Context
 ) : SignInDataSource {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
-		BoxConfig.CLIENT_ID = Keys.Box.CLIENT_ID
-		BoxConfig.CLIENT_SECRET = Keys.Box.CLIENT_SECRET
+		BoxConfig.CLIENT_ID = BOX_CLIENT_ID
+		BoxConfig.CLIENT_SECRET = BOX_CLIENT_SECRET
 
 		val intent = OAuthActivity.createOAuthActivityIntent(
 			context,
@@ -35,14 +34,10 @@ class BoxSignIn @Inject constructor(
 		BoxSession(context).user?.status == BoxUser.Status.ACTIVE
 
 	override fun isSuccess(): Boolean {
-		BoxConfig.CLIENT_ID = Keys.Box.CLIENT_ID
-		BoxConfig.CLIENT_SECRET = Keys.Box.CLIENT_SECRET
+		BoxConfig.CLIENT_ID = BOX_CLIENT_ID
+		BoxConfig.CLIENT_SECRET = BOX_CLIENT_SECRET
 
-		return BoxSession(context).user?.let { user ->
-			user.status?.let { status ->
-				status == BoxUser.Status.ACTIVE
-			} ?: false
-		} ?: false
+		return BoxSession(context).user?.status == BoxUser.Status.ACTIVE
 	}
 
 	override suspend fun signOut() {
