@@ -9,7 +9,7 @@ fun FragmentActivity.showBiometricAuthentication(onAuthenticationSucceeded: () -
 	val promptInfo = BiometricPrompt.PromptInfo.Builder()
 		.setTitle(getString(R.string.biometric_logging))
 		.setSubtitle(getString(R.string.log_in_by_biometric))
-		.setNegativeButtonText(getString(R.string.boxsdk_alert_dialog_cancel))
+		.setNegativeButtonText(getString(R.string.cancel))
 		.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
 		.build()
 
