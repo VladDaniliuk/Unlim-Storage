@@ -29,7 +29,7 @@ class GoogleFilesDataSource @Inject constructor(
 			GoogleFile().setName(folderName)
 				.setParents(listOf(folderId))
 				.setMimeType("application/vnd.google-apps.folder")
-		)
+		).execute()
 		return true
 	}
 
@@ -74,8 +74,7 @@ class GoogleFilesDataSource @Inject constructor(
 	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
 		getGoogleFiles().create(
 			GoogleFile().setName(name)
-				.setParents(listOf(folderId))
-				.setMimeType("application/vnd.google-apps.folder"),
+				.setParents(listOf(folderId)),
 			InputStreamContent(null, inputStream)
 		).execute()
 	}
