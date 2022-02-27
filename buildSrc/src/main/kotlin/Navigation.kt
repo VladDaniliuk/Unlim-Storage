@@ -17,7 +17,6 @@ object Navigation {
 fun Project.implementNavigation() {
 	dependencies {
 		implement(Navigation.Lib.compose)
-		implement(Navigation.Lib.fragmentKtx)
 		implement(Navigation.Lib.uiKtx)
 	}
 }

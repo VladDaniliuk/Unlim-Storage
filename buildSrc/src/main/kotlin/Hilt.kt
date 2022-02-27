@@ -6,7 +6,7 @@ object Hilt {
 	private const val hiltLib = "androidx.hilt:hilt"
 	private const val daggerLib = "com.google.dagger:hilt-android"
 	private const val hiltVersion = "1.0.0"
-	private const val daggerVersion = "2.40.5"
+	private const val daggerVersion = "2.41"
 
 	object Lib {
 		const val compiler = "$daggerLib-compiler:$daggerVersion"
@@ -32,7 +32,7 @@ fun ScriptHandlerScope.hiltClasspath() {
 	}
 }
 
-fun Project.implementHiltForStorage() {
+fun Project.implementHiltForModules() {
 	dependencies{
 		implement(Hilt.Lib.hilt)
 	}

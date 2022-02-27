@@ -14,8 +14,6 @@ fun Project.implementAll() {
 	implementKotlinx()
 	implementCore()
 	implementGithub()
-	implementFirebase()
-	implementGoogle()
 	implementSquareup()
 	implementTest()
 	implementLifecycle()
@@ -28,21 +26,20 @@ fun Project.implementAll() {
 	implementLocalDataBase()
 	implementCoil()
 	implementAccompanist()
-	implementSecurity()
 	implementBiometric()
 	implementModules()
 }
 
 fun Project.implementForGoogleStorage() {
 	implementActivity()
-	implementHiltForStorage()
+	implementHiltForModules()
 	implementGoogleForGoogleStorage()
 	implementModulesForChildStorage()
 }
 
 fun Project.implementForBoxStorage() {
 	implementActivity()
-	implementHiltForStorage()
+	implementHiltForModules()
 	implementBoxApi()
 	implementModulesForChildStorage()
 }
@@ -56,4 +53,9 @@ fun Project.implementForCoreModels() {
 	implementActivity()
 	implementIcons()
 	implementRoomKtx()
+}
+
+fun Project.implementForPreferences() {
+	implementHiltForModules()
+	implementSecurity()
 }

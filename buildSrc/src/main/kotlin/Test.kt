@@ -17,9 +17,6 @@ object TestLib {
 
 fun Project.implementTest() {
 	dependencies {
-		androidTestImplement(TestLib.espresso)
-		androidTestImplement(TestLib.extJunit)
-		testImplement(TestLib.junit)
 		implement(TestLib.timber)
 	}
 }

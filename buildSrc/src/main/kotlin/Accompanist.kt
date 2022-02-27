@@ -19,6 +19,5 @@ fun Project.implementAccompanist() {
 		implement(Accompanist.Lib.swiperefresh)
 		implement(Accompanist.Lib.insets)
 		implement(Accompanist.Lib.systemuicontroller)
-		implement(Accompanist.Lib.permissions)
 	}
 }

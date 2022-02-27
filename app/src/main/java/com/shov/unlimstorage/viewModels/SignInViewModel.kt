@@ -8,21 +8,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.shov.coremodels.models.StorageType
+import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
-import dagger.hilt.android.lifecycle.HiltViewModel
-import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.values.IS_AUTH
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
 	private val authorizerFactory: AuthorizerFactory,
-	preferences: PreferenceRepository
+	preferences: PreferencesDataSource
 ) : ViewModel() {
 	var serviceAccess by mutableStateOf(false)
 		private set
-	var isAuth by preferences.getPref(IS_AUTH, false)
-		private set
+	private var isAuth by preferences.getPref(IS_AUTH, false)
 
 	fun singIn(onSignIn: () -> Unit) {
 		if (serviceAccess) {

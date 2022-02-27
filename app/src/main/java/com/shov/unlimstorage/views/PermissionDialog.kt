@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
-import androidx.core.content.ContextCompat
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.CustomDialogContent
@@ -82,16 +81,10 @@ fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 fun PermissionSdkQ(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 	val context = LocalContext.current as Activity
 
-	if (
-		(ContextCompat.checkSelfPermission(
-			context,
-			READ_EXTERNAL_STORAGE
-		) == PackageManager.PERMISSION_GRANTED)
+	if ((context.checkSelfPermission(READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
 			.and(
-				ContextCompat.checkSelfPermission(
-					context,
-					WRITE_EXTERNAL_STORAGE
-				) == PackageManager.PERMISSION_GRANTED
+				context.checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager
+					.PERMISSION_GRANTED
 			)
 	) {
 		onHasAccess.invoke()

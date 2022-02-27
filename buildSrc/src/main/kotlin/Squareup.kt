@@ -38,8 +38,6 @@ object Squareup {
 
 fun Project.implementSquareup() {
 	dependencies {
-		implement(Squareup.Okhttp.Lib.loggingInterceptor)
-		implement(Squareup.Okhttp.Lib.okhttp)
 		implement(Squareup.Retrofit.Lib.retrofit)
 		implement(Squareup.Retrofit.Lib.converterGson)
 	}

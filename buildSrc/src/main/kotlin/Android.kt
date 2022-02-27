@@ -10,16 +10,19 @@ object Application {
 	const val versionName = "0.2.7.1"
 }
 
-object Storage {
-	const val namespace = "com.shov.storage"
+object BoxStorage {
+	const val namespace = "com.shov.boxstorage"
 }
 
 object GoogleStorage {
 	const val namespace = "com.shov.googlestorage"
 }
 
-object BoxStorage {
-	const val namespace = "com.shov.boxstorage"
+object Preferences {
+	const val namespace = "com.shov.preferences"
+}
+object Storage {
+	const val namespace = "com.shov.storage"
 }
 
 object CoreModels {

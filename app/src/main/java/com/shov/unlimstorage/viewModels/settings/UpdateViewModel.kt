@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.models.repositories.GitHubRepository
-import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.values.IS_UPDATE_SHOW
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,13 +17,13 @@ import javax.inject.Inject
 @HiltViewModel
 class UpdateViewModel @Inject constructor(
 	private val gitHubRepository: GitHubRepository,
-	preference: PreferenceRepository
+	preferences: PreferencesDataSource
 ) : ViewModel() {
 	var lastRelease by mutableStateOf<LastReleaseItem?>(null)
 		private set
 	var isDialogShown by mutableStateOf(false)
 		private set
-	private var _isShowAgain by preference.getPref(IS_UPDATE_SHOW, true)
+	private var _isShowAgain by preferences.getPref(IS_UPDATE_SHOW, true)
 	var isShowAgain by mutableStateOf(_isShowAgain)
 		private set
 

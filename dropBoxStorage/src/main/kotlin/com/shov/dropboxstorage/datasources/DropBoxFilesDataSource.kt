@@ -6,7 +6,7 @@ import com.dropbox.core.v2.files.DbxUserFilesRequests
 import com.dropbox.core.v2.files.WriteMode
 import com.shov.coremodels.models.ItemType
 import com.shov.storage.FilesDataSource
-import com.shov.unlimstorage.models.repositories.PreferenceRepository
+import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.unlimstorage.utils.converters.StoreItemConverter
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.files.createDbxUserFilesRequests
@@ -18,7 +18,7 @@ import java.io.InputStream
 import javax.inject.Inject
 
 class DropBoxFiles @Inject constructor(
-	private val preference: PreferenceRepository,
+	private val preferences: PreferencesDataSource,
 	private val storeMetadataConverter: StoreMetadataConverter,
 	private val storeItemConverter: StoreItemConverter,
 ) : FilesDataSource {
@@ -78,7 +78,7 @@ class DropBoxFiles @Inject constructor(
 	}
 
 	private fun dbxUserFilesRequests(): DbxUserFilesRequests? {
-		val dropBoxCredential by preference.getPref(DROPBOX_CREDENTIAL, "")
+		val dropBoxCredential by preferences.getPref(DROPBOX_CREDENTIAL, "")
 
 		return createDbxUserFilesRequests(dropBoxCredential)
 	}

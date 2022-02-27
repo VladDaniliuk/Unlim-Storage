@@ -4,17 +4,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.values.PIN_CODE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ChangePasswordViewModel @Inject constructor(
-	preference: PreferenceRepository
+	preferences: PreferencesDataSource
 ) : ViewModel() {
-	private var pass by preference.getEncryptedPref(PIN_CODE, "")
+	private var pass by preferences.getEncryptedPref(PIN_CODE, "")
 	var isPassChecked by mutableStateOf(false)
 		private set
 	val titleId: Int
@@ -33,4 +33,3 @@ class ChangePasswordViewModel @Inject constructor(
 		}
 	}
 }
-

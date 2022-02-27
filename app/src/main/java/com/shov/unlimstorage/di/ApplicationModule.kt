@@ -5,6 +5,8 @@ import com.shov.boxstorage.BoxSignInDataSource
 import com.shov.coremodels.models.StorageType
 import com.shov.googlestorage.GoogleFilesDataSource
 import com.shov.googlestorage.GoogleSignInDataSource
+import com.shov.preferences.datasources.PreferencesDataSource
+import com.shov.preferences.datasources.PreferencesDataSourceImpl
 import com.shov.storage.FilesDataSource
 import com.shov.storage.SignInDataSource
 import com.shov.unlimstorage.models.repositories.*
@@ -73,6 +75,6 @@ abstract class ApplicationModule {
 			NewFileRepository
 
 	@Binds
-	abstract fun providePreference(preferenceRepositoryImpl: PreferenceRepositoryImpl):
-			PreferenceRepository
+	abstract fun providePreference(preferencesDataSourceImpl: PreferencesDataSourceImpl):
+			PreferencesDataSource
 }
