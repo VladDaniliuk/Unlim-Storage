@@ -3,8 +3,8 @@ package com.shov.storage
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StoreItem
 import com.shov.coremodels.models.StoreMetadataItem
-import java.io.InputStream
 import java.io.File
+import java.io.InputStream
 
 interface FilesDataSource {
 	fun createFolder(folderId: String?, folderName: String): Boolean
@@ -13,7 +13,9 @@ interface FilesDataSource {
 		name: String,
 		size: Long,
 		file: File,
-		setPercents: (Float, String) -> Unit
+		setPercents: (Float, String) -> Unit,
+		onStart: () -> Unit,
+		onError: () -> Unit
 	)
 
 	fun getFileMetadata(id: String, type: ItemType): StoreMetadataItem?

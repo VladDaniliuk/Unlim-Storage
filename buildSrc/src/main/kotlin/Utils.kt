@@ -22,7 +22,6 @@ fun Project.implementAll() {
 	implementActivity()
 	implementCompose()
 	implementHilt()
-	implementDropbox()
 	implementLocalDataBase()
 	implementCoil()
 	implementAccompanist()
@@ -47,6 +46,14 @@ fun Project.implementForBoxStorage() {
 fun Project.implementForStorage() {
 	implementActivity()
 	implementModulesForStorage()
+}
+
+fun Project.implementForDropBoxStorage() {
+	implementActivity()
+	implementHiltForModules()
+	implementLifecycle()
+	implementDropbox()
+	implementModulesForDropBoxStorage()
 }
 
 fun Project.implementForCoreModels() {

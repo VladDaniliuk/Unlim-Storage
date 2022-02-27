@@ -3,6 +3,8 @@ package com.shov.unlimstorage.di
 import com.shov.boxstorage.BoxFilesDataSource
 import com.shov.boxstorage.BoxSignInDataSource
 import com.shov.coremodels.models.StorageType
+import com.shov.dropboxstorage.datasources.DropBoxFilesDataSource
+import com.shov.dropboxstorage.datasources.DropBoxSignInDataSource
 import com.shov.googlestorage.GoogleFilesDataSource
 import com.shov.googlestorage.GoogleSignInDataSource
 import com.shov.preferences.datasources.PreferencesDataSource
@@ -15,8 +17,6 @@ import com.shov.unlimstorage.models.repositories.GitHubRepository
 import com.shov.unlimstorage.models.repositories.GitHubRepositoryImpl
 import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.models.repositories.files.FilesInfoRepositoryImpl
-import com.shov.unlimstorage.models.repositories.files.DropBoxFiles
-import com.shov.unlimstorage.models.repositories.signIn.DropBoxSignIn
 import com.shov.unlimstorage.models.repositories.files.NewFileRepository
 import com.shov.unlimstorage.models.repositories.files.NewFileRepositoryImpl
 import dagger.Binds
@@ -50,12 +50,14 @@ abstract class ApplicationModule {
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.DROPBOX)
-	abstract fun provideDropBoxFiles(dropBoxFiles: DropBoxFiles): FilesDataSource
+	abstract fun provideDropBoxFiles(dropBoxFilesDataSource: DropBoxFilesDataSource):
+			FilesDataSource
 
 	@Binds
 	@IntoMap
 	@MyKey(StorageType.DROPBOX)
-	abstract fun provideDropBoxSignIn(dropBoxSignInImpl: DropBoxSignIn): SignInDataSource
+	abstract fun provideDropBoxSignIn(dropBoxSignInDataSourceImpl: DropBoxSignInDataSource):
+			SignInDataSource
 
 	@Binds
 	@IntoMap

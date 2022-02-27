@@ -8,7 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.models.repositories.signIn.CheckDropboxCredential
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
@@ -43,6 +42,4 @@ fun SignInScreen(
 	LaunchedEffect(key1 = null) {
 		topAppBarViewModel.setTopBar(title = context.getString(R.string.app_name))
 	}
-
-	CheckDropboxCredential(onGetCredential = signInViewModel::onDropBoxSignIn)
 }

@@ -48,7 +48,11 @@ class FileInfoViewModel @Inject constructor(
 		}
 	}
 
-	fun downloadFile(setPercents: (Float, String) -> Unit) {
+	fun downloadFile(
+		setPercents: (Float, String) -> Unit,
+		onStart: () -> Unit,
+		onError: () -> Unit
+	) {
 		setShowDialog(false)
 
 		this.storeMetadata?.let { metadata ->
@@ -60,7 +64,9 @@ class FileInfoViewModel @Inject constructor(
 							id!!,
 							metadata.name,
 							size,
-							setPercents
+							setPercents,
+							onStart,
+							onError
 						)
 					}
 				} ?: setShowDialog(false)

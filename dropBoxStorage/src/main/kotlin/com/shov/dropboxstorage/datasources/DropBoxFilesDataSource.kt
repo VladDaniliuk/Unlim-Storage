@@ -1,31 +1,36 @@
-package com.shov.unlimstorage.models.repositories.files
+package com.shov.dropboxstorage.datasources
 
+import android.content.Context
 import com.dropbox.core.BadRequestException
+import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.RateLimitException
+import com.dropbox.core.oauth.DbxCredential
+import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.DbxUserFilesRequests
-import com.dropbox.core.v2.files.WriteMode
 import com.shov.coremodels.models.ItemType
-import com.shov.storage.FilesDataSource
+import com.shov.dropboxstorage.converters.toStoreItem
+import com.shov.dropboxstorage.converters.toStoreMetadataItem
+import com.shov.dropboxstorage.utils.uploadFile
+import com.shov.dropboxstorage.values.CLIENT_IDENTIFIER
+import com.shov.dropboxstorage.values.DROPBOX_CREDENTIAL
 import com.shov.preferences.datasources.PreferencesDataSource
-import com.shov.unlimstorage.utils.converters.StoreItemConverter
-import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
-import com.shov.unlimstorage.utils.files.createDbxUserFilesRequests
-import com.shov.unlimstorage.values.DROPBOX_CREDENTIAL
-import com.shov.unlimstorage.values.DROPBOX_ROOT_FOLDER
+import com.shov.storage.FilesDataSource
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import javax.inject.Inject
 
-class DropBoxFiles @Inject constructor(
+class DropBoxFilesDataSource @Inject constructor(
 	private val preferences: PreferencesDataSource,
-	private val storeMetadataConverter: StoreMetadataConverter,
-	private val storeItemConverter: StoreItemConverter,
+	@ApplicationContext val context: Context
 ) : FilesDataSource {
 	override fun getFiles(folderId: String?) = try {
-		dbxUserFilesRequests()?.listFolder(folderId ?: DROPBOX_ROOT_FOLDER)
+		dbxUserFilesRequests()?.listFolder(folderId ?: "")
 			?.entries
-			?.map { dropBoxItem -> storeItemConverter.run { dropBoxItem.toStoreItem(folderId) } }
+			?.map { dropBoxItem ->
+				dropBoxItem.toStoreItem(folderId) { context.getString(second, first) }
+			}
 			?.toList() ?: emptyList()
 	} catch (e: RateLimitException) {
 		emptyList()
@@ -34,15 +39,11 @@ class DropBoxFiles @Inject constructor(
 	}
 
 	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
-		dbxUserFilesRequests()?.uploadBuilder("${getPath(folderId)}/$name")
-			?.withMode(WriteMode.ADD)
-			?.uploadAndFinish(inputStream)
+		dbxUserFilesRequests()?.uploadFile(folderId, name, inputStream)
 	}
 
 	override fun getFileMetadata(id: String, type: ItemType) = try {
-		storeMetadataConverter.run {
-			dbxUserFilesRequests()?.getMetadata(id)?.toStoreMetadata()
-		}
+		dbxUserFilesRequests()?.getMetadata(id)?.toStoreMetadataItem()
 	} catch (e: RateLimitException) {
 		null
 	} catch (e: IllegalArgumentException) {
@@ -54,7 +55,9 @@ class DropBoxFiles @Inject constructor(
 		name: String,
 		size: Long,
 		file: File,
-		setPercents: (Float, String) -> Unit
+		setPercents: (Float, String) -> Unit,
+		onStart: () -> Unit,
+		onError: () -> Unit
 	) {
 		try {
 			dbxUserFilesRequests()?.let { dbxFile ->
@@ -62,11 +65,14 @@ class DropBoxFiles @Inject constructor(
 					.download(FileOutputStream(file)) {
 						setPercents(it.toFloat() / size.toFloat(), name)
 					}
-			}
-		} catch (e: RateLimitException) {
-		} catch (e: IllegalArgumentException) {
-		}
 
+				onStart()
+			} ?: onError()
+		} catch (e: RateLimitException) {
+			onError()
+		} catch (e: IllegalArgumentException) {
+			onError()
+		}
 	}
 
 	override fun createFolder(folderId: String?, folderName: String) = try {
@@ -80,10 +86,12 @@ class DropBoxFiles @Inject constructor(
 	private fun dbxUserFilesRequests(): DbxUserFilesRequests? {
 		val dropBoxCredential by preferences.getPref(DROPBOX_CREDENTIAL, "")
 
-		return createDbxUserFilesRequests(dropBoxCredential)
+		return if (dropBoxCredential.isNotEmpty()) DbxClientV2(
+			DbxRequestConfig(CLIENT_IDENTIFIER),
+			DbxCredential.Reader.readFully(dropBoxCredential)
+		).files() else null
 	}
 
 	private fun getPath(id: String?) =
-		if (id.isNullOrEmpty()) DROPBOX_ROOT_FOLDER
-		else dbxUserFilesRequests()?.getMetadata(id)?.pathLower
+		if (id.isNullOrEmpty()) "" else dbxUserFilesRequests()?.getMetadata(id)?.pathLower
 }

@@ -12,6 +12,7 @@
 	<string name="auto_check">Auto check for updates</string>
 	<string name="biometric">Biometric</string>
 	<string name="biometric_logging">Biometric logging</string>
+	<string name="cancel">Cancel</string>
 	<string name="change_pin_code">Change pin-code</string>
 	<string name="check_biometric_on_settings">Check biometric on phone settings</string>
 	<string name="check_connection">Check connection, please</string>
@@ -37,6 +38,8 @@
 	<string name="dont_show_again">Don\'t show me again</string>
 	<string name="dot">.</string>
 	<string name="download">Download</string>
+	<string name="download_error">Download finished because error</string>
+	<string name="download_started">Download started</string>
 	<string name="downloading">Downloading %1$s</string>
 	<string name="folder">Folder</string>
 	<string name="folder_name">folder name</string>
@@ -86,5 +89,4 @@
 	<string name="user_click_message">Long click to copy email</string>
 	<string name="user_long_click_message">Email is copied</string>
 	<string name="version_description">Version:</string>
-	<string name="cancel">Cancel</string>
 </resources>

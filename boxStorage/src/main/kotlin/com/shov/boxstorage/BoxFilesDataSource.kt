@@ -43,15 +43,18 @@ class BoxFilesDataSource @Inject constructor(
 		name: String,
 		size: Long,
 		file: File,
-		setPercents: (Float, String) -> Unit
+		setPercents: (Float, String) -> Unit,
+		onStart: () -> Unit,
+		onError: () -> Unit
 	) {
 		if (checkAuth) {
 			BoxApiFile(BoxSession(context))
 				.getDownloadRequest(FileOutputStream(file), id)
+				.setDownloadStartListener { onStart() }
 				.setProgressListener { numBytes, _ ->
 					setPercents((numBytes.toFloat() / size.toFloat()), name)
 				}.send()
-		}
+		} else onError()
 	}
 
 	override fun getFileMetadata(id: String, type: ItemType) = if (checkAuth) {

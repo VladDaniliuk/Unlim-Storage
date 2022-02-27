@@ -38,8 +38,12 @@ class GoogleFilesDataSource @Inject constructor(
 		name: String,
 		size: Long,
 		file: File,
-		setPercents: (Float, String) -> Unit
+		setPercents: (Float, String) -> Unit,
+		onStart: () -> Unit,
+		onError: () -> Unit
 	) {
+		onStart()
+
 		getGoogleFiles().get(id).executeMediaAndDownloadTo(FileOutputStream(file))
 	}
 

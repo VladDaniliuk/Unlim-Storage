@@ -24,7 +24,7 @@ jobs:
       - name: get Box keys
         run: echo -e '${{secrets.BOX_KEYS_KT}}' > ${{github.workspace}}/boxStorage/src/main/kotlin/com/shov/boxstorage/BoxKeys.kt
       - name: get DropBox keys
-        run: echo -e '${{secrets.DROPBOX_KEYS_KT}}' > ${{github.workspace}}/app/src/main/java/com/shov/unlimstorage/values/DropBoxKeys.kt
+        run: echo -e '${{secrets.DROPBOX_KEYS_KT}}' > ${{github.workspace}}/dropBoxStorage/src/main/kotlin/com/shov/dropboxstorage/values/DropBoxKeys.kt
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Build project

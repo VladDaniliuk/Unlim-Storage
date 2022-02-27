@@ -37,7 +37,16 @@ fun FileInfoScreen(
 	if (fileInfoViewModel.isDialogShown) {
 		Permission(
 			onDismissRequest = { fileInfoViewModel.setShowDialog(false) },
-			onHasAccess = { fileInfoViewModel.downloadFile(downloadViewModel::setProgress) }
+			onHasAccess = {
+				fileInfoViewModel.downloadFile(
+					setPercents = downloadViewModel::setProgress,
+					onStart = {
+						scaffoldViewModel.showSnackbar(context.getString(R.string.download_started))
+					}
+				) {
+					scaffoldViewModel.showSnackbar(context.getString(R.string.download_error))
+				}
+			}
 		)
 	}
 

@@ -17,17 +17,10 @@ object Google {
 		const val clientJetty = "$lib.oauth-client:google-oauth-client-jetty:$versionClient"
 		const val drive = "$lib.apis:google-api-services-drive:$versionDrive"
 		const val gson = "$lib.code.gson:gson:$versionGson"
+
+		//For resolving problem with duplicates
 		const val listenablefuture =
 			"com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
-	}
-}
-
-fun Project.implementGoogle() {
-	dependencies {
-		implement(Google.Lib.auth)
-		implement(Google.Lib.clientAndroid)
-		implement(Google.Lib.gson)
-		implement(Google.Lib.listenablefuture)//For resolving problem with duplicates
 	}
 }
 
