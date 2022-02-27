@@ -16,7 +16,7 @@ import com.shov.unlimstorage.models.repositories.GitHubRepositoryImpl
 import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.models.repositories.files.FilesInfoRepositoryImpl
 import com.shov.unlimstorage.models.repositories.files.DropBoxFiles
-import com.shov.unlimstorage.models.repositories.files.DropBoxSignIn
+import com.shov.unlimstorage.models.repositories.signIn.DropBoxSignIn
 import com.shov.unlimstorage.models.repositories.files.NewFileRepository
 import com.shov.unlimstorage.models.repositories.files.NewFileRepositoryImpl
 import dagger.Binds
