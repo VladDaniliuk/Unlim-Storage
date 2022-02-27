@@ -9,7 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.dropbox.core.android.Auth
-import com.shov.unlimstorage.models.preferences.Preference
+import com.shov.preferences.models.Preference
 import com.shov.unlimstorage.values.DROPBOX_CREDENTIAL
 import com.shov.unlimstorage.values.NEVER_ACCESSED
 
