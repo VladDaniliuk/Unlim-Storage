@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-	namespace = GoogleStorage.namespace
+	namespace = Modules.GoogleStorage.nameSpace
 	compileSdk = AndroidVersion.compileSdkVersion
 
 	defaultConfig {

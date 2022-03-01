@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-	namespace = Preferences.namespace
+	namespace = Modules.Preferences.nameSpace
 	compileSdk = AndroidVersion.compileSdkVersion
 
 	defaultConfig {

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-	namespace = Storage.namespace
+	namespace = Modules.Storage.nameSpace
 	compileSdk = AndroidVersion.compileSdkVersion
 
 	defaultConfig {

@@ -33,7 +33,7 @@ fun ScriptHandlerScope.hiltClasspath() {
 }
 
 fun Project.implementHiltForModules() {
-	dependencies{
+	dependencies {
 		implement(Hilt.Lib.hilt)
 	}
 }
