@@ -66,3 +66,8 @@ fun Project.implementForPreferences() {
 	implementHiltForModules()
 	implementSecurity()
 }
+
+fun Project.implementForRoom() {
+	implementLocalDataBase()
+	implementModulesForRoom()
+}

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.db
+package com.room.shov
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -8,7 +8,7 @@ import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
 
 @Dao
-interface StoreItemDao {
+interface StoreItemDataSource {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	fun setAll(storeItems: List<StoreItem>)
 

@@ -32,6 +32,11 @@ object Modules {
 		const val name = ":storage"
 		const val nameSpace = "com.shov.storage"
 	}
+
+	object Room {
+		const val name = ":room"
+		const val nameSpace = "com.shov.room"
+	}
 }
 
 fun Project.implementModules() {
@@ -42,6 +47,7 @@ fun Project.implementModules() {
 		implement(project(Modules.GoogleStorage.name))
 		implement(project(Modules.Preferences.name))
 		implement(project(Modules.Storage.name))
+		implement(project(Modules.Room.name))
 	}
 }
 
@@ -63,5 +69,11 @@ fun Project.implementModulesForDropBoxStorage() {
 		implement(project(Modules.CoreModels.name))
 		implement(project(Modules.Preferences.name))
 		implement(project(Modules.Storage.name))
+	}
+}
+
+fun Project.implementModulesForRoom() {
+	dependencies {
+		implement(project(Modules.CoreModels.name))
 	}
 }

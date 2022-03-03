@@ -2,7 +2,7 @@ package com.shov.unlimstorage.di
 
 import android.content.Context
 import androidx.room.Room
-import com.shov.unlimstorage.db.StoreItemDao
+import com.room.shov.StoreItemDataSource
 import com.shov.unlimstorage.values.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -22,7 +22,7 @@ class RoomModule {
 
 	@Provides
 	@Singleton
-	fun provideStoreItemDao(appDatabase: AppDatabase): StoreItemDao {
+	fun provideStoreItemDao(appDatabase: AppDatabase): StoreItemDataSource {
 		return appDatabase.storeItemDao()
 	}
 }

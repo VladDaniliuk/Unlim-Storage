@@ -37,3 +37,11 @@ fun Project.implementHiltForModules() {
 		implement(Hilt.Lib.hilt)
 	}
 }
+
+fun Project.implementHiltForStorageRepositories() {
+	dependencies {
+		implement(Hilt.Lib.hilt)
+		kapt(Hilt.Lib.compiler)
+	}
+}
+
