@@ -1,10 +1,10 @@
 package com.shov.unlimstorage.models.repositories.files
 
+import com.room.shov.StoreItemDataSource
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
 import com.shov.coremodels.models.StoreMetadataItem
-import com.shov.unlimstorage.db.StoreItemDao
 import com.shov.unlimstorage.utils.files.createFile
 import com.shov.unlimstorage.utils.reduce
 import java.io.File
@@ -32,7 +32,7 @@ interface FilesInfoRepository {
 
 class FilesInfoRepositoryImpl @Inject constructor(
 	private val filesFactory: FilesFactory,
-	private val storeItemDao: StoreItemDao
+	private val storeItemDataSource: StoreItemDataSource
 ) : FilesInfoRepository {
 	override fun checkLocal(parentFolder: String?, disk: StorageType?): List<StoreItem> {
 		var storeItemList = getFromLocal(parentFolder)
@@ -49,8 +49,8 @@ class FilesInfoRepositoryImpl @Inject constructor(
 		val storeItemList = getFromRemote(parentFolder, disk)
 
 		disk?.let {
-			storeItemDao.deleteFiles(parentFolder, disk)
-		} ?: storeItemDao.deleteFiles(parentFolder)
+			storeItemDataSource.deleteFiles(parentFolder, disk)
+		} ?: storeItemDataSource.deleteFiles(parentFolder)
 
 		setToLocal(storeItemList)
 		return storeItemList
@@ -75,7 +75,7 @@ class FilesInfoRepositoryImpl @Inject constructor(
 	}
 
 	override fun getFromLocal(parentFolder: String?): List<StoreItem> {
-		return storeItemDao.getFiles(parentFolder)
+		return storeItemDataSource.getFiles(parentFolder)
 			.sortedBy { storeItem ->
 				storeItem.name.uppercase()
 			}
@@ -93,12 +93,12 @@ class FilesInfoRepositoryImpl @Inject constructor(
 		}
 	}
 
-	override fun getLocalItem(id: String) = storeItemDao.getFile(id)
+	override fun getLocalItem(id: String) = storeItemDataSource.getFile(id)
 
 	override fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType) =
 		filesFactory.create(disk).getFileMetadata(id, type)
 
 	override fun setToLocal(storeItemList: List<StoreItem>) {
-		storeItemDao.setAll(storeItemList)
+		storeItemDataSource.setAll(storeItemList)
 	}
 }
