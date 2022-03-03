@@ -75,7 +75,9 @@ class FileInfoViewModel @Inject constructor(
 	}
 
 	fun getStoreItem() {
-		this.storeItem = filesInfoRepository.getLocalItem(id!!)
+		viewModelScope.launch {
+			storeItem = filesInfoRepository.getLocalItem(id!!)
+		}
 	}
 
 	init {

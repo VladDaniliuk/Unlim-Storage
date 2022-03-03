@@ -11,8 +11,8 @@ import java.io.File
 import javax.inject.Inject
 
 interface FilesInfoRepository {
-	fun checkLocal(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
-	fun checkRemote(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
+	suspend fun checkLocal(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
+	suspend fun checkRemote(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
 	fun downloadFile(
 		disk: StorageType,
 		id: String,
@@ -23,18 +23,18 @@ interface FilesInfoRepository {
 		onError: () -> Unit
 	)
 
-	fun getFromLocal(parentFolder: String? = null): List<StoreItem>
+	suspend fun getFromLocal(parentFolder: String? = null): List<StoreItem>
 	fun getFromRemote(parentFolder: String? = null, disk: StorageType? = null): List<StoreItem>
-	fun getLocalItem(id: String): StoreItem
+	suspend fun getLocalItem(id: String): StoreItem
 	fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem?
-	fun setToLocal(storeItemList: List<StoreItem>)
+	suspend fun setToLocal(storeItemList: List<StoreItem>)
 }
 
 class FilesInfoRepositoryImpl @Inject constructor(
 	private val filesFactory: FilesFactory,
 	private val storeItemDataSource: StoreItemDataSource
 ) : FilesInfoRepository {
-	override fun checkLocal(parentFolder: String?, disk: StorageType?): List<StoreItem> {
+	override suspend fun checkLocal(parentFolder: String?, disk: StorageType?): List<StoreItem> {
 		var storeItemList = getFromLocal(parentFolder)
 
 		if (storeItemList.isEmpty()) {
@@ -45,7 +45,7 @@ class FilesInfoRepositoryImpl @Inject constructor(
 		return storeItemList
 	}
 
-	override fun checkRemote(parentFolder: String?, disk: StorageType?): List<StoreItem> {
+	override suspend fun checkRemote(parentFolder: String?, disk: StorageType?): List<StoreItem> {
 		val storeItemList = getFromRemote(parentFolder, disk)
 
 		disk?.let {
@@ -74,7 +74,7 @@ class FilesInfoRepositoryImpl @Inject constructor(
 		)//TODO GOOGLE PERCENTS
 	}
 
-	override fun getFromLocal(parentFolder: String?): List<StoreItem> {
+	override suspend fun getFromLocal(parentFolder: String?): List<StoreItem> {
 		return storeItemDataSource.getFiles(parentFolder)
 			.sortedBy { storeItem ->
 				storeItem.name.uppercase()
@@ -93,12 +93,12 @@ class FilesInfoRepositoryImpl @Inject constructor(
 		}
 	}
 
-	override fun getLocalItem(id: String) = storeItemDataSource.getFile(id)
+	override suspend fun getLocalItem(id: String) = storeItemDataSource.getFile(id)
 
 	override fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType) =
 		filesFactory.create(disk).getFileMetadata(id, type)
 
-	override fun setToLocal(storeItemList: List<StoreItem>) {
+	override suspend fun setToLocal(storeItemList: List<StoreItem>) {
 		storeItemDataSource.setAll(storeItemList)
 	}
 }

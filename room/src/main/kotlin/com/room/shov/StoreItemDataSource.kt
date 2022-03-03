@@ -10,18 +10,17 @@ import com.shov.coremodels.models.StoreItem
 @Dao
 interface StoreItemDataSource {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	fun setAll(storeItems: List<StoreItem>)
+	suspend fun setAll(storeItems: List<StoreItem>)
 
 	@Query("SELECT * FROM StoreItem WHERE parentFolder is :parentFolder")
-	fun getFiles(parentFolder: String? = null): List<StoreItem>
+	suspend fun getFiles(parentFolder: String? = null): List<StoreItem>
 
 	@Query("SELECT * FROM StoreItem WHERE id is :id")
-	fun getFile(id: String): StoreItem
+	suspend fun getFile(id: String): StoreItem
 
 	@Query("DELETE FROM StoreItem WHERE parentFolder is :parentFolder and disk is :disk")
-	fun deleteFiles(parentFolder: String? = null, disk: StorageType)
-
+	suspend fun deleteFiles(parentFolder: String? = null, disk: StorageType)
 
 	@Query("DELETE FROM StoreItem WHERE parentFolder is :parentFolder")
-	fun deleteFiles(parentFolder: String? = null)
+	suspend fun deleteFiles(parentFolder: String? = null)
 }
