@@ -1,10 +1,11 @@
 plugins {
 	id(Plugin.library)
 	id(Plugin.kotlinAndroid)
+	id(Plugin.kotlinKapt)
 }
 
 android {
-	namespace = Preferences.namespace
+	namespace = LocalStorage.namespace
 	compileSdk = AndroidVersion.compileSdkVersion
 
 	defaultConfig {
@@ -18,7 +19,6 @@ android {
 		release {
 			isMinifyEnabled = true
 		}
-
 		debug {
 			isMinifyEnabled = true
 		}
@@ -33,5 +33,5 @@ android {
 		jvmTarget = KotlinOptions.jvmTarget
 	}
 
-	implementForPreferences()
+	implementForLocalStorage()
 }

@@ -66,3 +66,9 @@ fun Project.implementForPreferences() {
 	implementHiltForModules()
 	implementSecurity()
 }
+
+fun Project.implementForLocalStorage() {
+	implementLocalDataBase()
+	implementModulesForLocalStorage()
+	implementHiltForLocalStorage()
+}

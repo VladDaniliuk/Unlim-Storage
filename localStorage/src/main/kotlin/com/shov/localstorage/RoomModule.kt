@@ -1,9 +1,7 @@
-package com.shov.unlimstorage.di
+package com.shov.localstorage
 
 import android.content.Context
 import androidx.room.Room
-import com.shov.unlimstorage.db.StoreItemDao
-import com.shov.unlimstorage.values.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +15,7 @@ class RoomModule {
 	@Provides
 	@Singleton
 	fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-		return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
+		return Room.databaseBuilder(context, AppDatabase::class.java, "store_item_database").build()
 	}
 
 	@Provides

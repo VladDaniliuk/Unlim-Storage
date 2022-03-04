@@ -14,6 +14,10 @@ object BoxStorage {
 	const val namespace = "com.shov.boxstorage"
 }
 
+object CoreModels {
+	const val namespace = "com.shov.coremodels"
+}
+
 object DropBoxStorage {
 	const val namespace = "com.shov.dropboxstorage"
 }
@@ -22,16 +26,16 @@ object GoogleStorage {
 	const val namespace = "com.shov.googlestorage"
 }
 
+object LocalStorage {
+	const val namespace = "com.shov.localstorage"
+}
+
 object Preferences {
 	const val namespace = "com.shov.preferences"
 }
 
 object Storage {
 	const val namespace = "com.shov.storage"
-}
-
-object CoreModels {
-	const val namespace = "com.shov.coremodels"
 }
 
 object Config {

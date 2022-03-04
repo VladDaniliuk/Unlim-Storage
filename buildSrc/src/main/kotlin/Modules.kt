@@ -9,6 +9,7 @@ object Modules {
 	const val googleStorage = ":googleStorage"
 	const val preferences = ":preferences"
 	const val storage = ":storage"
+	const val localStorage = ":localStorage"
 }
 
 fun Project.implementModules() {
@@ -17,6 +18,7 @@ fun Project.implementModules() {
 		implement(project(Modules.coreModels))
 		implement(project(Modules.dropBoxStorage))
 		implement(project(Modules.googleStorage))
+		implement(project(Modules.localStorage))
 		implement(project(Modules.preferences))
 		implement(project(Modules.storage))
 	}
@@ -40,5 +42,11 @@ fun Project.implementModulesForDropBoxStorage() {
 		implement(project(Modules.coreModels))
 		implement(project(Modules.preferences))
 		implement(project(Modules.storage))
+	}
+}
+
+fun Project.implementModulesForLocalStorage() {
+	dependencies {
+		implement(project(Modules.coreModels))
 	}
 }

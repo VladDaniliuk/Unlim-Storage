@@ -4,7 +4,7 @@ import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
 import com.shov.coremodels.models.StoreMetadataItem
-import com.shov.unlimstorage.db.StoreItemDao
+import com.shov.localstorage.StoreItemDao
 import com.shov.unlimstorage.utils.files.createFile
 import com.shov.unlimstorage.utils.reduce
 import java.io.File

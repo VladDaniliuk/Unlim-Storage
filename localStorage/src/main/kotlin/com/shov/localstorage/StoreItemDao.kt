@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.db
+package com.shov.localstorage
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -20,7 +20,6 @@ interface StoreItemDao {
 
 	@Query("DELETE FROM StoreItem WHERE parentFolder is :parentFolder and disk is :disk")
 	fun deleteFiles(parentFolder: String? = null, disk: StorageType)
-
 
 	@Query("DELETE FROM StoreItem WHERE parentFolder is :parentFolder")
 	fun deleteFiles(parentFolder: String? = null)
