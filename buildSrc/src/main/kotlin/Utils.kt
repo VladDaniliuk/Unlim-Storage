@@ -22,7 +22,6 @@ fun Project.implementAll() {
 	implementActivity()
 	implementCompose()
 	implementHilt()
-	implementLocalDataBase()
 	implementCoil()
 	implementAccompanist()
 	implementBiometric()
