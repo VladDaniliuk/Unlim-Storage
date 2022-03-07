@@ -38,6 +38,10 @@ object Storage {
 	const val namespace = "com.shov.storage"
 }
 
+object StorageRepositories {
+	const val namespace = "com.shov.storagerepositories"
+}
+
 object Config {
 	const val applicationId = "com.shov.unlimstorage"
 	const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

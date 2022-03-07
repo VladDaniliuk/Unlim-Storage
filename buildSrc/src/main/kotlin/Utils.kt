@@ -28,13 +28,6 @@ fun Project.implementAll() {
 	implementModules()
 }
 
-fun Project.implementForGoogleStorage() {
-	implementActivity()
-	implementHiltForModules()
-	implementGoogleForGoogleStorage()
-	implementModulesForChildStorage()
-}
-
 fun Project.implementForBoxStorage() {
 	implementActivity()
 	implementHiltForModules()
@@ -42,9 +35,10 @@ fun Project.implementForBoxStorage() {
 	implementModulesForChildStorage()
 }
 
-fun Project.implementForStorage() {
+fun Project.implementForCoreModels() {
 	implementActivity()
-	implementModulesForStorage()
+	implementIcons()
+	implementRoomKtx()
 }
 
 fun Project.implementForDropBoxStorage() {
@@ -55,10 +49,17 @@ fun Project.implementForDropBoxStorage() {
 	implementModulesForDropBoxStorage()
 }
 
-fun Project.implementForCoreModels() {
+fun Project.implementForGoogleStorage() {
 	implementActivity()
-	implementIcons()
-	implementRoomKtx()
+	implementHiltForModules()
+	implementGoogleForGoogleStorage()
+	implementModulesForChildStorage()
+}
+
+fun Project.implementForLocalStorage() {
+	implementLocalDataBase()
+	implementModulesForLocalStorage()
+	implementHiltForHiltModules()
 }
 
 fun Project.implementForPreferences() {
@@ -66,8 +67,13 @@ fun Project.implementForPreferences() {
 	implementSecurity()
 }
 
-fun Project.implementForLocalStorage() {
-	implementLocalDataBase()
-	implementModulesForLocalStorage()
-	implementHiltForLocalStorage()
+fun Project.implementForStorage() {
+	implementActivity()
+	implementModulesForStorage()
+}
+
+fun Project.implementForStorageRepositories() {
+	implementHiltForHiltModules()
+	implementModulesForStorageRepositories()
+	implementKotlinx()
 }

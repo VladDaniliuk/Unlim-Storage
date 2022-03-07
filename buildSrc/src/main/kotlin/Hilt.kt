@@ -38,7 +38,7 @@ fun Project.implementHiltForModules() {
 	}
 }
 
-fun Project.implementHiltForLocalStorage() {
+fun Project.implementHiltForHiltModules() {
 	dependencies {
 		implement(Hilt.Lib.hilt)
 		kapt(Hilt.Lib.compiler)
