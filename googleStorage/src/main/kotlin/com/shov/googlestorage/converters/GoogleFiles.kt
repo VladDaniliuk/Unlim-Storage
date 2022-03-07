@@ -41,7 +41,7 @@ fun File.toStoreItem(folderId: String?, toSize: Pair<String, Int>.() -> String):
 			true -> null
 			false -> getSize().toBytes().toSize()
 		},
-		parentFolder = folderId ?: parents[0],
+		parentFolder = folderId,// Need only folderId for working with room
 		disk = StorageType.GOOGLE
 	)
 

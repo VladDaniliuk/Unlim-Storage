@@ -61,7 +61,7 @@ inline fun BoxItem.toStoreItem(folderId: String?, toSize: Pair<String, Int>.() -
 		size = if (ItemType.valueOf(type.uppercase()) == ItemType.FILE)
 			size.toBytes().toSize()
 		else null,
-		parentFolder = folderId ?: parent.id,
+		parentFolder = folderId,//Need only folderId for working with room
 		disk = StorageType.BOX
 	)
 
