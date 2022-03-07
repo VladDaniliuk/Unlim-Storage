@@ -41,7 +41,7 @@ fun FilesScreen(
 
 	FilesView(
 		swipeRefreshState = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
-		storeItems = filesViewModel.storeItemList,
+		storeItems = filesViewModel.storeItems,
 		onTextNavigationClick = filesScreenState.navHostController::navigateTo,
 		onFabClick = {
 			bottomSheetViewModel.setContent {
@@ -90,7 +90,7 @@ fun FilesScreen(
 		}
 	}
 
-	LaunchedEffect(key1 = isConnected) { filesViewModel.onConnectionChange(isConnected) }
+	LaunchedEffect(key1 = isConnected) { filesViewModel.onRefresh(isConnected) {} }
 
 	LaunchedEffect(key1 = null) {
 		topAppBarViewModel.setTopBar(

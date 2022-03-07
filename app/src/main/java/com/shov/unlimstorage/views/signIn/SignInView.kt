@@ -1,7 +1,6 @@
 package com.shov.unlimstorage.views.signIn
 
 import android.content.Intent
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,7 +21,7 @@ import com.shov.unlimstorage.ui.buttons.CustomIconButton
 @Composable
 fun SignInView(
 	onActivityResult: (result: ActivityResult, storageType: StorageType) -> Unit,
-	onClick: (ManagedActivityResultLauncher<Intent, ActivityResult>, StorageType) -> Unit,
+	onClick: (StorageType) -> Intent?,
 ) {
 	Column {
 		Spacer(modifier = Modifier.weight(1f))
@@ -45,7 +44,7 @@ fun SignInView(
 					painter = painterResource(storageType.imageId),
 					text = stringResource(storageType.nameId),
 					onClick = {
-						onClick(launcher, storageType)
+						onClick(storageType)?.let(launcher::launch)
 					}
 				)
 			}
@@ -58,6 +57,6 @@ fun SignInView(
 fun SignInScreenPreview() {
 	SignInView(
 		onActivityResult = { _, _ -> },
-		onClick = { _, _ -> },
+		onClick = { null },
 	)
 }

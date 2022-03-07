@@ -15,11 +15,7 @@ object Modules {
 
 fun Project.implementModules() {
 	dependencies {
-		implement(project(Modules.boxStorage))
 		implement(project(Modules.coreModels))
-		implement(project(Modules.dropBoxStorage))
-		implement(project(Modules.googleStorage))
-		implement(project(Modules.localStorage))
 		implement(project(Modules.preferences))
 		implement(project(Modules.storage))
 		implement(project(Modules.storageRepositories))

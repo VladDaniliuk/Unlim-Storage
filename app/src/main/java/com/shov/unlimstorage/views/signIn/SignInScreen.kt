@@ -26,11 +26,13 @@ fun SignInScreen(
 
 	SignInView(
 		onActivityResult = signInViewModel::checkAccessWithResult,
-		onClick = { launcher, storageType ->
+		onClick = { storageType ->
 			if (hasConnection) {
-				signInViewModel.getAccess(launcher, storageType)
+				return@SignInView signInViewModel.getAccess(storageType)
 			} else {
 				scaffoldViewModel.showSnackbar(context.getString(R.string.connection_failed))
+
+				return@SignInView null
 			}
 		},
 	)

@@ -3,7 +3,6 @@ package com.shov.dropboxstorage.datasources
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.android.AuthActivity
@@ -21,9 +20,7 @@ class DropBoxSignInDataSource @Inject constructor(
 	@ApplicationContext val context: Context,
 	private val preferences: PreferencesDataSource
 ) : SignInDataSource {
-	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
-		dataForSignIn.launch(Intent(context, DropBoxAuthActivity::class.java))
-	}
+	override fun signIn(): Intent = Intent(context, DropBoxAuthActivity::class.java)
 
 	override fun isSuccess(result: ActivityResult): Boolean = if (result.resultCode == RESULT_OK) {
 		var credentialPref by preferences.getPref(DROPBOX_CREDENTIAL, "")

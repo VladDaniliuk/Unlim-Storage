@@ -7,7 +7,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.unlimstorage.models.repositories.files.NewFileRepository
+import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.values.argFolderId
 import com.shov.unlimstorage.values.argStorageType
@@ -19,14 +19,13 @@ import javax.inject.Inject
 @HiltViewModel
 class NewFolderViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val newFileRepository: NewFileRepository
+	private val fileActionsRepository: FileActionsRepository
 ) : ViewModel() {
 	var text by mutableStateOf("")
 		private set
 	var type by mutableStateOf<StorageType?>(null)
 	var textError by mutableStateOf("")
-	var folderId by mutableStateOf<String?>(null)
-		private set
+	private var folderId by mutableStateOf<String?>(null)
 	val focusRequester = FocusRequester()
 
 	fun onTextChange(text: String = "") {
@@ -41,7 +40,7 @@ class NewFolderViewModel @Inject constructor(
 	) {
 		viewModelScope.launch(Dispatchers.IO) {
 			type?.let { type ->
-				if (newFileRepository.createFolder(folderId, text, type)) onCompletion() else {
+				if (fileActionsRepository.createFolder(folderId, text, type)) onCompletion() else {
 					this@NewFolderViewModel.textError = textError
 					onError()
 				}

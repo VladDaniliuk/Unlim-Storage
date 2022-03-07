@@ -20,7 +20,6 @@ class RoomModule {
 
 	@Provides
 	@Singleton
-	fun provideStoreItemDao(appDatabase: AppDatabase): StoreItemDao {
-		return appDatabase.storeItemDao()
-	}
+	fun provideStoreItemDao(appDatabase: AppDatabase): StoreItemDataSource =
+		appDatabase.storeItemDataSource()
 }

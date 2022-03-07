@@ -7,10 +7,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.coremodels.models.StoreItem
-import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
+import com.shov.storagerepositories.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.values.argStoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,12 +31,6 @@ class FileDescriptionViewModel @Inject constructor(
 		description = newDescription
 	}
 
-	fun getStoreItem() {
-		viewModelScope.launch(Dispatchers.IO) {
-			storeItem = filesInfoRepository.getLocalItem(id!!)
-		}
-	}
-
 	fun getDescription() {
 		storeItem?.let { storeItem ->
 			viewModelScope.launch(Dispatchers.IO) {
@@ -52,5 +47,11 @@ class FileDescriptionViewModel @Inject constructor(
 		savedStateHandle.get<String>(argStoreId)?.let { id ->
 			this.id = id
 		} ?: throw NullPointerException()
+
+		viewModelScope.launch {
+			filesInfoRepository.getLocalItemAsync(id!!).collectLatest { storeItem ->
+				this@FileDescriptionViewModel.storeItem = storeItem
+			}
+		}
 	}
 }

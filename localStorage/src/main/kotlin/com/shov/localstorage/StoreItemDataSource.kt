@@ -6,21 +6,22 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
+import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface StoreItemDao {
+interface StoreItemDataSource {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	fun setAll(storeItems: List<StoreItem>)
+	suspend fun setAll(storeItems: List<StoreItem>)
 
 	@Query("SELECT * FROM StoreItem WHERE parentFolder is :parentFolder")
-	fun getFiles(parentFolder: String? = null): List<StoreItem>
+	fun getFilesAsync(parentFolder: String? = null): Flow<List<StoreItem>>
 
 	@Query("SELECT * FROM StoreItem WHERE id is :id")
-	fun getFile(id: String): StoreItem
+	fun getFileAsync(id: String): Flow<StoreItem>
 
-	@Query("DELETE FROM StoreItem WHERE parentFolder is :parentFolder and disk is :disk")
-	fun deleteFiles(parentFolder: String? = null, disk: StorageType)
+	@Query("DELETE FROM StoreItem WHERE parentFolder is :folderId and disk is :disk")
+	suspend fun deleteFiles(folderId: String? = null, disk: StorageType)
 
 	@Query("DELETE FROM StoreItem WHERE parentFolder is :parentFolder")
-	fun deleteFiles(parentFolder: String? = null)
+	suspend fun deleteFiles(parentFolder: String? = null)
 }

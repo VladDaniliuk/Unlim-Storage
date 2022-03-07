@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.unlimstorage.models.repositories.files.NewFileRepository
+import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.values.argFileName
 import com.shov.unlimstorage.values.argFolderId
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadFileViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val newFileRepository: NewFileRepository,
+	private val fileActionsRepository: FileActionsRepository,
 ) : ViewModel() {
 	private var fileName by mutableStateOf<String?>(null)
 	private var folderId by mutableStateOf<String?>(null)
@@ -29,7 +29,7 @@ class UploadFileViewModel @Inject constructor(
 	fun uploadFile(file: InputStream?, onFinished: () -> Unit) {
 		if ((fileName != null).or(file != null).or(type != null)) {
 			viewModelScope.launch(Dispatchers.IO) {
-				newFileRepository.uploadFile(file!!, fileName!!, type!!, folderId)
+				fileActionsRepository.uploadFile(file!!, fileName!!, type!!, folderId)
 			}.invokeOnCompletion { onFinished() }
 		} else throw NullPointerException()
 	}

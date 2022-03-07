@@ -6,5 +6,5 @@ import com.shov.coremodels.models.StoreItem
 
 @Database(entities = [StoreItem::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-	abstract fun storeItemDao(): StoreItemDao
+	abstract fun storeItemDataSource(): StoreItemDataSource
 }

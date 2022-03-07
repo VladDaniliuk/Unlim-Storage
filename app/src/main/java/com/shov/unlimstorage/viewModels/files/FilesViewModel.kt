@@ -6,17 +6,18 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.unlimstorage.models.items.BackStack
 import com.shov.coremodels.models.ItemType
-import com.shov.coremodels.models.StoreItem
-import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
 import com.shov.coremodels.models.StorageType
+import com.shov.coremodels.models.StoreItem
+import com.shov.storagerepositories.repositories.files.FilesInfoRepository
+import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.values.argFolderId
 import com.shov.unlimstorage.values.argStorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,8 +30,9 @@ class FilesViewModel @Inject constructor(
 		private set
 	var storageType by mutableStateOf<StorageType?>(null)
 		private set
-	var storeItemList by mutableStateOf(emptyList<StoreItem>())
-		private set
+	private val storeItemsAsync = MutableStateFlow<List<StoreItem>>(emptyList())
+	val storeItems: List<StoreItem>
+		get() = storeItemsAsync.value
 	var isRefreshing by mutableStateOf(false)
 		private set
 	var isClickable by mutableStateOf(true)
@@ -55,30 +57,15 @@ class FilesViewModel @Inject constructor(
 
 	fun onRefresh(isConnected: Boolean, onConnectionFailed: () -> Unit) {
 		if (isConnected) {
-			launch {
-				storeItemList = filesInfoRepository.checkRemote(folderId, storageType)
+			isRefreshing = true
+
+			viewModelScope.launch(Dispatchers.IO) {
+				filesInfoRepository.getFromRemote(storageType, folderId)
+			}.invokeOnCompletion {
+				isRefreshing = false
 			}
 		} else {
-			onConnectionFailed() } }
-
-	fun onConnectionChange(isConnected: Boolean) {
-		launch {
-			storeItemList = if (isConnected) {
-				filesInfoRepository.checkLocal(folderId, storageType)
-			} else {
-				filesInfoRepository.getFromLocal(folderId)
-			}
-		}
-	}
-
-	private fun launch(block: suspend CoroutineScope.() -> Unit) {
-		isRefreshing = true
-
-		viewModelScope.launch(
-			context = Dispatchers.IO,
-			block = block
-		).invokeOnCompletion {
-			isRefreshing = false
+			onConnectionFailed()
 		}
 	}
 
@@ -88,6 +75,12 @@ class FilesViewModel @Inject constructor(
 		}
 		savedStateHandle.get<String?>(argStorageType)?.let { storageType ->
 			this.storageType = StorageType.valueOf(storageType)
+		}
+
+		viewModelScope.launch {
+			filesInfoRepository.getFromLocalAsync(folderId).collectLatest {
+				storeItemsAsync.emit(it)
+			}
 		}
 	}
 }

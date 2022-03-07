@@ -33,7 +33,7 @@ fun AddAccountDialog(
 					imageId = storageType.imageId,
 					titleId = R.string.add_account
 				) {
-					signInViewModel.getAccess(startForResult, storageType)
+					startForResult.launch(signInViewModel.getAccess(storageType))
 				}
 			}
 		}
