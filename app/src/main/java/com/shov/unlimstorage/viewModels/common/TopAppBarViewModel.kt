@@ -14,10 +14,8 @@ class TopAppBarViewModel @Inject constructor() : ViewModel() {
 	var topAppBar by mutableStateOf(TopAppBar())
 		private set
 
-	var prevRouteOld by mutableStateOf<ImageVector?>(null)
-		private set
-	var nextRouteOld by mutableStateOf<ImageVector?>(null)
-		private set
+	private var prevRouteOld by mutableStateOf<ImageVector?>(null)
+	private var nextRouteOld by mutableStateOf<ImageVector?>(null)
 
 	fun onPrevRouteChange() {
 		if (topAppBar.prevRoute != null) prevRouteOld = topAppBar.prevRoute?.first

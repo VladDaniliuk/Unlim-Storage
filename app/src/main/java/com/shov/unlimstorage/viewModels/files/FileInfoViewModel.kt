@@ -12,16 +12,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.coremodels.models.StoreItem
 import com.shov.coremodels.models.StoreMetadataItem
-import com.shov.unlimstorage.models.repositories.files.FilesInfoRepository
+import com.shov.storagerepositories.repositories.files.FileActionsRepository
+import com.shov.storagerepositories.repositories.files.FilesInfoRepository
 import com.shov.unlimstorage.values.argStoreId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FileInfoViewModel @Inject constructor(
 	private val filesInfoRepository: FilesInfoRepository,
+	private val fileActionsRepository: FileActionsRepository,
 	savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 	var id by mutableStateOf<String?>(null)
@@ -59,7 +62,7 @@ class FileInfoViewModel @Inject constructor(
 			this.storeItem?.let { item ->
 				metadata.size?.let { size ->
 					viewModelScope.launch(Dispatchers.IO) {
-						filesInfoRepository.downloadFile(
+						fileActionsRepository.downloadFile(
 							item.disk,
 							id!!,
 							metadata.name,
@@ -74,15 +77,15 @@ class FileInfoViewModel @Inject constructor(
 		} ?: setShowDialog(false)
 	}
 
-	fun getStoreItem() {
-		viewModelScope.launch {
-			storeItem = filesInfoRepository.getLocalItem(id!!)
-		}
-	}
-
 	init {
 		savedStateHandle.get<String>(argStoreId)?.let { id ->
 			this.id = id
 		} ?: throw NullPointerException()
+
+		viewModelScope.launch {
+			filesInfoRepository.getLocalItemAsync(id!!).collectLatest { storeItem ->
+				this@FileInfoViewModel.storeItem = storeItem
+			}
+		}
 	}
 }

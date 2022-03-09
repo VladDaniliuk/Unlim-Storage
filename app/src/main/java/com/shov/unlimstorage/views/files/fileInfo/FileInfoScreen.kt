@@ -19,8 +19,6 @@ import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.views.Permission
 import com.shov.unlimstorage.views.files.fileInfo.fileInfoViews.FileInfoView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @Composable
 fun FileInfoScreen(
@@ -72,12 +70,8 @@ fun FileInfoScreen(
 	)
 
 	LaunchedEffect(key1 = null) {
-		launch(Dispatchers.IO) {
-			fileInfoViewModel.getStoreItem()
-		}.invokeOnCompletion {
-			if (isConnected) {
-				fileInfoViewModel.getFileMetadata()
-			}
+		if (isConnected) {
+			fileInfoViewModel.getFileMetadata()
 		}
 	}
 

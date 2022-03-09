@@ -1,8 +1,8 @@
-package com.shov.unlimstorage.utils.files
+package com.shov.storagerepositories.utils
 
 import java.io.File
 
-fun File.createFile(
+internal fun File.createFile(
 	name: String,
 	onExist: File.() -> Unit = {},
 	onCreate: File.() -> Unit = {},

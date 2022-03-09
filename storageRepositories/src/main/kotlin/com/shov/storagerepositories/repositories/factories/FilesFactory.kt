@@ -1,14 +1,12 @@
-package com.shov.unlimstorage.models.repositories.files
+package com.shov.storagerepositories.repositories.factories
 
 import com.shov.coremodels.models.StorageType
 import com.shov.storage.FilesDataSource
-import com.shov.unlimstorage.values.ARGUMENT_FILES
-import com.shov.unlimstorage.values.UnknownClassInheritance
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
 
-interface Factory {
+internal interface FilesFactoryInterface {
 	fun create(type: StorageType): FilesDataSource
 }
 
@@ -16,10 +14,10 @@ interface Factory {
 class FilesFactory @Inject constructor(
 	private val storageTypeMap: Map<StorageType,
 			@JvmSuppressWildcards Provider<FilesDataSource>>
-) : Factory {
+) : FilesFactoryInterface {
 	override fun create(type: StorageType): FilesDataSource {
 		val filesProvider = storageTypeMap[type]
-			?: throw UnknownClassInheritance(ARGUMENT_FILES, type.name)
+			?: throw Exception("Unknown FilesDataSource class $type")
 		return filesProvider.get()
 	}
 }

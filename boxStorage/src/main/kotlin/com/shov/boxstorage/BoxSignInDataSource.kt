@@ -2,7 +2,6 @@ package com.shov.boxstorage
 
 import android.content.Context
 import android.content.Intent
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import com.box.androidsdk.content.BoxConfig
 import com.box.androidsdk.content.auth.BoxAuthentication
@@ -16,18 +15,16 @@ import javax.inject.Inject
 class BoxSignInDataSource @Inject constructor(
 	@ApplicationContext val context: Context
 ) : SignInDataSource {
-	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
+	override fun signIn(): Intent {
 		BoxConfig.CLIENT_ID = BOX_CLIENT_ID
 		BoxConfig.CLIENT_SECRET = BOX_CLIENT_SECRET
 
-		val intent = OAuthActivity.createOAuthActivityIntent(
+		return OAuthActivity.createOAuthActivityIntent(
 			context,
 			BoxSession(context),
 			BoxAuthentication.isBoxAuthAppAvailable(context)
 				.and(BoxSession(context).isEnabledBoxAppAuthentication)
 		)
-
-		dataForSignIn.launch(intent)
 	}
 
 	override fun isSuccess(result: ActivityResult): Boolean =

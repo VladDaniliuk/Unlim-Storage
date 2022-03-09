@@ -10,6 +10,38 @@ object Application {
 	const val versionName = "0.2.7.1"
 }
 
+object BoxStorage {
+	const val namespace = "com.shov.boxstorage"
+}
+
+object CoreModels {
+	const val namespace = "com.shov.coremodels"
+}
+
+object DropBoxStorage {
+	const val namespace = "com.shov.dropboxstorage"
+}
+
+object GoogleStorage {
+	const val namespace = "com.shov.googlestorage"
+}
+
+object LocalStorage {
+	const val namespace = "com.shov.localstorage"
+}
+
+object Preferences {
+	const val namespace = "com.shov.preferences"
+}
+
+object Storage {
+	const val namespace = "com.shov.storage"
+}
+
+object StorageRepositories {
+	const val namespace = "com.shov.storagerepositories"
+}
+
 object Config {
 	const val applicationId = "com.shov.unlimstorage"
 	const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -52,10 +52,6 @@ fun FileDescriptionScreen(
 		)
 	)
 
-	LaunchedEffect(key1 = null) {
-		fileDescriptionViewModel.getStoreItem()
-	}
-
 	LaunchedEffect(key1 = isConnected) {
 		if (isConnected.and(fileDescriptionViewModel.description.isNullOrEmpty())) {
 			fileDescriptionViewModel.getDescription()
