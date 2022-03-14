@@ -24,7 +24,6 @@ import com.shov.coreui.ui.texts.CustomText
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.CustomDialogContent
 import com.shov.unlimstorage.ui.customHeaderText
-import com.shov.unlimstorage.ui.texts.CustomText
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.viewModels.DownloadViewModel
