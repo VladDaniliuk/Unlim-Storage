@@ -8,11 +8,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
-import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.SignInViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.coreui.viewModels.singletonViewModel
+import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 
 @Composable
 fun SignInScreen(
