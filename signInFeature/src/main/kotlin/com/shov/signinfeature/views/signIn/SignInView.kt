@@ -13,10 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.buttons.CustomIconButton
+import com.shov.coreui.ui.buttons.CustomIconButton
 
 @Composable
 fun SignInView(
@@ -34,11 +33,13 @@ fun SignInView(
 			textAlign = TextAlign.Center
 		)
 
-		Row(modifier = Modifier.navigationBarsPadding()) {
-			StorageType.values().forEach { storageType ->
+		Row(Modifier.navigationBarsPadding()) {
+			StorageType.values().forEach { storageType: StorageType ->
 				val launcher = rememberLauncherForActivityResult(
 					ActivityResultContracts.StartActivityForResult()
-				) { result: ActivityResult -> onActivityResult(result, storageType) }
+				) { result: ActivityResult ->
+					onActivityResult(result, storageType)
+				}
 
 				CustomIconButton(
 					painter = painterResource(storageType.imageId),
@@ -54,9 +55,6 @@ fun SignInView(
 
 @Preview
 @Composable
-fun SignInScreenPreview() {
-	SignInView(
-		onActivityResult = { _, _ -> },
-		onClick = { null },
-	)
+fun SignInPreview() {
+	SignInView(onActivityResult = { _, _ -> }) { null }
 }

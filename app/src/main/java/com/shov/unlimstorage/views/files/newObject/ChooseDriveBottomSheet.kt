@@ -13,19 +13,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.StorageType
+import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.buttons.CustomIconButton
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
+import com.shov.unlimstorage.viewModels.files.ChooseDriveViewModel
 
 @Composable
 fun ChooseDriveBottomSheet(
-	accountsViewModel: AccountsViewModel = singletonViewModel(),
+	chooseDriveViewModel: ChooseDriveViewModel = hiltViewModel(),
 	onClick: (StorageType) -> Unit
 ) {
 	ChooseDriveBottomSheet(
-		storageList = accountsViewModel.checkAllAccess(),
+		storageList = chooseDriveViewModel.checkAccess(),
 		onClick = onClick
 	)
 }

@@ -18,7 +18,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.buttons.CustomIconButton
+import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.ui.buttons.MaxWidthButton
 import com.shov.coreui.ui.texts.CustomText
 
