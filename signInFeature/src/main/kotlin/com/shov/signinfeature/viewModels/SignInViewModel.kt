@@ -22,7 +22,7 @@ class SignInViewModel @Inject constructor(
 		private set
 	private var isAuth by preferences.getPref(IS_AUTH, false)
 
-	fun singIn(onSignIn: () -> Unit) {
+	fun signIn(onSignIn: () -> Unit) {
 		if (serviceAccess) {
 			isAuth = true
 			onSignIn()
