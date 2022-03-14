@@ -3,8 +3,8 @@ package com.shov.unlimstorage.views.common
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.shov.coreui.ui.CustomTopAppBar
+import com.shov.coreui.viewModels.singletonViewModel
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable
 fun MainTopBar(topAppBarViewModel: TopAppBarViewModel = singletonViewModel()) {

@@ -18,11 +18,11 @@ import com.shov.unlimstorage.ui.texts.animation.AnimatedText
 fun CustomTopAppBar(
 	prevRouteImageVector: ImageVector?,
 	onPrevRouteClick: () -> Unit,
-	prevRouteVisible: Boolean,
+	prevRouteEnabled: Boolean,
 	title: String?,
 	nextRouteImageVector: ImageVector?,
 	onNextRouteClick: () -> Unit,
-	nextRouteVisible: Boolean,
+	nextRouteEnabled: Boolean,
 ) {
 	TopAppBar(
 		backgroundColor = MaterialTheme.colors.primary,
@@ -37,7 +37,7 @@ fun CustomTopAppBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterStart),
 				imageVector = prevRouteImageVector,
-				enabled = prevRouteVisible,
+				enabled = prevRouteEnabled,
 				onClick = onPrevRouteClick
 			)
 
@@ -52,7 +52,7 @@ fun CustomTopAppBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterEnd),
 				imageVector = nextRouteImageVector,
-				enabled = nextRouteVisible,
+				enabled = nextRouteEnabled,
 				onClick = onNextRouteClick
 			)
 		}
@@ -65,10 +65,10 @@ fun CustomTopAppBarPreview() {
 	CustomTopAppBar(
 		prevRouteImageVector = Icons.Rounded.ArrowBack,
 		onPrevRouteClick = {},
-		prevRouteVisible = true,
+		prevRouteEnabled = true,
 		title = "Title",
 		nextRouteImageVector = Icons.Rounded.ArrowBack,
 		onNextRouteClick = {},
-		nextRouteVisible = true
+		nextRouteEnabled = true
 	)
 }
