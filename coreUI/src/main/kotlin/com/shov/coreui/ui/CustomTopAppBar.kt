@@ -1,9 +1,6 @@
 package com.shov.unlimstorage.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -15,9 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
-import com.shov.unlimstorage.ui.buttons.animation.AnimatedIconButton
+import com.shov.coreui.ui.buttons.AnimatedIconButton
 import com.shov.unlimstorage.ui.texts.animation.AnimatedText
 
 @Composable
@@ -33,10 +28,7 @@ fun CustomTopAppBar(
 	TopAppBar(
 		backgroundColor = MaterialTheme.colors.primary,
 		contentColor = MaterialTheme.colors.onPrimary,
-		contentPadding = rememberInsetsPaddingValues(
-			applyBottom = false,
-			insets = LocalWindowInsets.current.statusBars
-		),
+		contentPadding = WindowInsets.statusBars.asPaddingValues()
 	) {
 		Box(
 			modifier = Modifier
