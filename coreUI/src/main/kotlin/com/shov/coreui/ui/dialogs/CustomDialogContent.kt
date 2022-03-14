@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Sailing
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -115,7 +115,7 @@ fun CustomDialogTextPreview() {
 fun CustomDialogIconPreview() {
 	CustomDialogContent(
 		content = { Text("Text") },
-		header = { CustomHeaderIcon(Icons.Default.Sailing) },
+		header = { CustomHeaderIcon(Icons.Default.DateRange) },
 		onCancelText = "Text",
 		onCompleteText = "Text",
 		onCancelRequest = {},
