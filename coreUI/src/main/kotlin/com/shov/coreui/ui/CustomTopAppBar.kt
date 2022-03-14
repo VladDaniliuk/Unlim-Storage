@@ -1,11 +1,10 @@
-package com.shov.unlimstorage.ui
+package com.shov.coreui.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.BackHand
-import androidx.compose.material.icons.rounded.NextPlan
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +37,7 @@ fun CustomTopAppBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterStart),
 				imageVector = prevRouteImageVector,
-				visible = prevRouteVisible,
+				enabled = prevRouteVisible,
 				onClick = onPrevRouteClick
 			)
 
@@ -53,7 +52,7 @@ fun CustomTopAppBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterEnd),
 				imageVector = nextRouteImageVector,
-				visible = nextRouteVisible,
+				enabled = nextRouteVisible,
 				onClick = onNextRouteClick
 			)
 		}
@@ -62,13 +61,13 @@ fun CustomTopAppBar(
 
 @Preview
 @Composable
-fun MainTopBarPreview() {
+fun CustomTopAppBarPreview() {
 	CustomTopAppBar(
-		prevRouteImageVector = Icons.Rounded.BackHand,
+		prevRouteImageVector = Icons.Rounded.ArrowBack,
 		onPrevRouteClick = {},
 		prevRouteVisible = true,
 		title = "Title",
-		nextRouteImageVector = Icons.Rounded.NextPlan,
+		nextRouteImageVector = Icons.Rounded.ArrowBack,
 		onNextRouteClick = {},
 		nextRouteVisible = true
 	)
