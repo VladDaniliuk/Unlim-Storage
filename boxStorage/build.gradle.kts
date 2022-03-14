@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-	namespace = Modules.BoxStorage.nameSpace
+	namespace = BoxStorage.namespace
 	compileSdk = AndroidVersion.compileSdkVersion
 
 	defaultConfig {

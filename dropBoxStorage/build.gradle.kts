@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-	namespace = Modules.DropBoxStorage.nameSpace
+	namespace = DropBoxStorage.namespace
 	compileSdk = AndroidVersion.compileSdkVersion
 
 	buildFeatures {
