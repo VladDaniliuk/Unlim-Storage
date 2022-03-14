@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.texts
+package com.shov.coreui.ui.texts
 
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Text

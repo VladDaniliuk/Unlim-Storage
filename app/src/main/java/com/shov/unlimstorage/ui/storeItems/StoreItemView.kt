@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
-import com.shov.unlimstorage.ui.texts.CustomText
+import com.shov.coreui.ui.texts.CustomText
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

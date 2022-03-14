@@ -14,7 +14,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.ui.texts.CustomText
+import com.shov.coreui.ui.texts.CustomText
 
 @Composable
 fun RowScope.KeyboardButton(

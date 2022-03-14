@@ -21,7 +21,7 @@ import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.CustomDialogContent
 import com.shov.unlimstorage.ui.CustomHeaderIcon
-import com.shov.unlimstorage.ui.texts.CustomText
+import com.shov.coreui.ui.texts.CustomText
 
 @Composable
 fun Permission(

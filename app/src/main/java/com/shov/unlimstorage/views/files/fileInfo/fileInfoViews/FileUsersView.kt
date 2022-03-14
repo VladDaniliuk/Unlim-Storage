@@ -18,9 +18,9 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coremodels.models.UserItem
+import com.shov.coreui.ui.texts.CustomText
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.UserInfo
-import com.shov.unlimstorage.ui.texts.CustomText
 
 @Composable
 fun FileUsersView(sharingUsers: List<UserItem>?, onShowSnackbar: (String) -> Unit) {

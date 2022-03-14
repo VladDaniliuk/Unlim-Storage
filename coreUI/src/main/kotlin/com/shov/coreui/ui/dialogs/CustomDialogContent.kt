@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.ui.texts.CustomText
+import com.shov.coreui.ui.texts.CustomText
 
 @Composable
 fun CustomDialogContent(
@@ -35,7 +35,7 @@ fun CustomDialogContent(
 				bottom = 8.dp
 			)
 	) {
-		header.invoke(this)
+		this.header()
 
 		Column(
 			modifier = Modifier
