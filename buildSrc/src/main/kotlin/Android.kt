@@ -18,6 +18,10 @@ object CoreModels {
 	const val namespace = "com.shov.coremodels"
 }
 
+object CoreUI {
+	const val namespace = "com.shov.coreui"
+}
+
 object DropBoxStorage {
 	const val namespace = "com.shov.dropboxstorage"
 }

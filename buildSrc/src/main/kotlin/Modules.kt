@@ -5,11 +5,12 @@ import org.gradle.kotlin.dsl.project
 object Modules {
 	const val boxStorage = ":boxStorage"
 	const val coreModels = ":coreModels"
+	const val coreUI = ":coreUI"
 	const val dropBoxStorage = ":dropBoxStorage"
 	const val googleStorage = ":googleStorage"
+	const val localStorage = ":localStorage"
 	const val preferences = ":preferences"
 	const val storage = ":storage"
-	const val localStorage = ":localStorage"
 	const val storageRepositories = ":storageRepositories"
 }
 
@@ -19,6 +20,7 @@ fun Project.implementModules() {
 		implement(project(Modules.preferences))
 		implement(project(Modules.storage))
 		implement(project(Modules.storageRepositories))
+		implement(project(Modules.coreUI))
 	}
 }
 

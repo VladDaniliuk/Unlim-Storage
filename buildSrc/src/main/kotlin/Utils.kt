@@ -41,6 +41,13 @@ fun Project.implementForCoreModels() {
 	implementRoomKtx()
 }
 
+fun Project.implementForCoreUi() {
+	implementKotlinx()
+	implementLifecycle()
+	implementHiltForViewModels()
+	implementComposeForModules()
+}
+
 fun Project.implementForDropBoxStorage() {
 	implementActivity()
 	implementHiltForModules()

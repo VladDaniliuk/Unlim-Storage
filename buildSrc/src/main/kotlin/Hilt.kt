@@ -38,6 +38,13 @@ fun Project.implementHiltForModules() {
 	}
 }
 
+fun Project.implementHiltForViewModels() {
+	dependencies {
+		implement(Hilt.Lib.hilt)
+		implement(Hilt.Lib.navigationCompose)
+	}
+}
+
 fun Project.implementHiltForHiltModules() {
 	dependencies {
 		implement(Hilt.Lib.hilt)

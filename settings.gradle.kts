@@ -9,6 +9,7 @@ rootProject.name = "Unlim Storage"
 include(":app")
 include(":boxStorage")
 include(":coreModels")
+include(":coreUI")
 include(":dropBoxStorage")
 include(":googleStorage")
 include(":localStorage")
