@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.ui.icons.IconButton
-import com.shov.unlimstorage.ui.texts.TextButton
+import com.shov.coreui.ui.buttons.TextButton
 import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -68,7 +68,7 @@ fun NavigationChain(
 
 @Preview
 @Composable
-fun NavigationChainPreview() {
+private fun NavigationChainPreview() {
 	CustomTheme {
 		NavigationChain(
 			iconEnabled = true,
@@ -80,7 +80,7 @@ fun NavigationChainPreview() {
 
 @Preview
 @Composable
-fun NavigationChainDarkPreview() {
+private fun NavigationChainDarkPreview() {
 	CustomTheme(darkTheme = true) {
 		NavigationChain(
 			iconEnabled = true,

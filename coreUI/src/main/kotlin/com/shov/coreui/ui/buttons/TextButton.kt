@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.texts
+package com.shov.coreui.ui.buttons
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -62,6 +62,6 @@ fun TextButton(
 
 @Preview
 @Composable
-fun TextButtonPreview() {
+private fun TextButtonPreview() {
 	TextButton(text = "Preview", indicationPadding = 8.dp) {}
 }

@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.buttons.AnimatedIconButton
-import com.shov.unlimstorage.ui.texts.animation.AnimatedText
+import com.shov.coreui.ui.texts.AnimatedText
 
 @Composable
 fun CustomTopAppBar(
@@ -61,7 +61,7 @@ fun CustomTopAppBar(
 
 @Preview
 @Composable
-fun CustomTopAppBarPreview() {
+private fun CustomTopAppBarPreview() {
 	CustomTopAppBar(
 		prevRouteImageVector = Icons.Rounded.ArrowBack,
 		onPrevRouteClick = {},

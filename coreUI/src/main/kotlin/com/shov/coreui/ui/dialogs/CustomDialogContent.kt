@@ -2,13 +2,15 @@ package com.shov.coreui.ui.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.texts.CustomText
@@ -53,8 +55,7 @@ fun CustomDialogContent(
 				TextButton(onClick = onCancelRequest) {
 					CustomText(
 						text = onCancelText,
-						textStyle = Typography().button,
-						color = MaterialTheme.colors.primary
+						textStyle = Typography().button
 					)
 				}
 			}
@@ -66,8 +67,7 @@ fun CustomDialogContent(
 				) {
 					CustomText(
 						text = onCompleteText,
-						textStyle = Typography().button,
-						color = MaterialTheme.colors.primary
+						textStyle = Typography().button
 					)
 				}
 
@@ -76,48 +76,24 @@ fun CustomDialogContent(
 	}
 }
 
-@Composable
-fun ColumnScope.CustomHeaderIcon(icon: ImageVector) = Icon(
-	contentDescription = icon.name,
-	imageVector = icon,
-	modifier = Modifier
-		.align(Alignment.CenterHorizontally)
-		.padding(top = 12.dp)
-		.size(48.dp),
-	tint = MaterialTheme.colors.onSurface
-)
-
-@Composable
-fun customHeaderText(text: String?) = text?.let {
-	CustomText(
-		modifier = Modifier
-			.paddingFromBaseline(top = 40.dp)
-			.padding(end = 16.dp),
-		text = text,
-		textStyle = Typography().h6
-	)
-}
-
 @Preview
 @Composable
-fun CustomDialogTextPreview() {
+private fun CustomDialogTextPreview() {
 	CustomDialogContent(
 		content = { Text("Text") },
-		header = { customHeaderText("Text") },
+		header = { CustomHeaderText("Text") },
 		onCancelText = "Text",
 		onCompleteText = "Text",
-		onCancelRequest = {},
 	)
 }
 
 @Preview
 @Composable
-fun CustomDialogIconPreview() {
+private fun CustomDialogIconPreview() {
 	CustomDialogContent(
 		content = { Text("Text") },
 		header = { CustomHeaderIcon(Icons.Default.DateRange) },
 		onCancelText = "Text",
 		onCompleteText = "Text",
-		onCancelRequest = {},
 	)
 }

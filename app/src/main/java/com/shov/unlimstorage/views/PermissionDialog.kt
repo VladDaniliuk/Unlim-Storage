@@ -20,7 +20,7 @@ import androidx.compose.ui.window.Dialog
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.R
 import com.shov.coreui.ui.dialogs.CustomDialogContent
-import com.shov.coreui.ui.dialogs.customHeaderIcon
+import com.shov.coreui.ui.dialogs.CustomHeaderIcon
 import com.shov.coreui.ui.texts.CustomText
 
 @Composable
@@ -43,7 +43,7 @@ fun Permission(
 
 @RequiresApi(Build.VERSION_CODES.R)
 @Composable
-fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
+private fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 	val context = LocalContext.current as Activity
 
 	if (Environment.isExternalStorageManager()) {
@@ -78,7 +78,7 @@ fun PermissionSdkR(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 }
 
 @Composable
-fun PermissionSdkQ(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
+private fun PermissionSdkQ(onDismissRequest: () -> Unit, onHasAccess: () -> Unit) {
 	val context = LocalContext.current as Activity
 
 	if ((context.checkSelfPermission(READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
