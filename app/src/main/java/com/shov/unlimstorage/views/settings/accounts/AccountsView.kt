@@ -5,13 +5,14 @@ import androidx.compose.material.Divider
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.AccountMenuLink
 
 @Composable
 internal fun AccountsView(
@@ -22,11 +23,15 @@ internal fun AccountsView(
 ) {
 	Column {
 		storageTypes.forEach { storageType: StorageType ->
-			AccountMenuLink(
-				accountId = storageType.nameId,
-				imageId = storageType.imageId,
-				subtitleId = R.string.click_to_delete,
-				titleId = R.string.account
+			MenuLink(
+				icon = {
+					CustomIcon(
+						painter = painterResource(storageType.imageId),
+						tint = Color.Unspecified
+					)
+				},
+				title = stringResource(R.string.account, stringResource(storageType.nameId)),
+				subtitle = stringResource(R.string.click_to_delete)
 			) {
 				onShowRevokeDialogClick(storageType)
 			}
