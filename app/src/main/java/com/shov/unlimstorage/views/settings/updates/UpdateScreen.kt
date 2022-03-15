@@ -2,9 +2,7 @@ package com.shov.unlimstorage.views.settings.updates
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Icon
 import androidx.compose.material.Switch
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Autorenew
@@ -15,7 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.alorma.compose.settings.ui.SettingsMenuLink
+import androidx.compose.ui.tooling.preview.Preview
+import com.shov.coreui.ui.icons.CustomIcon
+import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
@@ -33,39 +33,17 @@ fun UpdateScreen(
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 
-	Column {
-		SettingsMenuLink(
-			icon = {
-				Icon(
-					imageVector = Icons.Rounded.Update,
-					contentDescription = Icons.Rounded.Update.name
-				)
-			},
-			title = { Text(text = stringResource(R.string.check_for_updates)) },
-		) {
+	UpdateView(
+		onCheckForUpdateClick = {
 			if (isConnected) {
 				updateViewModel.checkAppVersion()
 			} else {
 				scaffoldViewModel.showSnackbar(context.getString(R.string.connection_failed))
 			}
-		}
-
-		SettingsMenuLink(
-			icon = {
-				Icon(
-					imageVector = Icons.Rounded.Autorenew,
-					contentDescription = Icons.Rounded.Autorenew.name
-				)
-			},
-			title = { Text(text = stringResource(R.string.auto_check)) },
-			action = {
-				Switch(
-					checked = updateViewModel.isShowAgain,
-					onCheckedChange = { updateViewModel.setShowDialogAgain() }
-				)
-			}
-		) {}
-	}
+		},
+		isShowAgain = updateViewModel.isShowAgain,
+		onAutoCheckClick = updateViewModel::setShowDialogAgain
+	)
 
 	LaunchedEffect(key1 = null) {
 		topAppBarViewModel.setTopBar(
@@ -73,4 +51,44 @@ fun UpdateScreen(
 			title = context.getString(R.string.updates)
 		)
 	}
+}
+
+@Composable
+internal fun UpdateView(
+	onCheckForUpdateClick: () -> Unit,
+	isShowAgain: Boolean,
+	onAutoCheckClick: () -> Unit
+) {
+	Column {
+		MenuLink(
+			icon = {
+				CustomIcon(imageVector = Icons.Rounded.Update)
+			},
+			title = stringResource(R.string.check_for_updates),
+			onClick = onCheckForUpdateClick
+		)
+
+		MenuLink(
+			icon = {
+				CustomIcon(imageVector = Icons.Rounded.Autorenew)
+			},
+			title = stringResource(R.string.auto_check),
+			action = {
+				Switch(
+					checked = isShowAgain,
+					onCheckedChange = { onAutoCheckClick() }
+				)
+			},
+			onClick = onAutoCheckClick
+		)
+	}
+}
+
+@Preview
+@Composable
+private fun UpdatePreview() {
+	UpdateView(
+		onCheckForUpdateClick = {},
+		isShowAgain = true
+	) {}
 }

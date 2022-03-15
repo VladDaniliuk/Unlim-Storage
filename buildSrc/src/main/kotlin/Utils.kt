@@ -13,7 +13,6 @@ fun DependencyHandlerScope.testImplement(lib: String) = add("testImplementation"
 fun Project.implementAll() {
 	implementKotlinx()
 	implementCore()
-	implementGithub()
 	implementSquareup()
 	implementTest()
 	implementLifecycle()
