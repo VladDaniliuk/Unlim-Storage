@@ -8,9 +8,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.singletonViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.files.UploadFileViewModel
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.InputStream
