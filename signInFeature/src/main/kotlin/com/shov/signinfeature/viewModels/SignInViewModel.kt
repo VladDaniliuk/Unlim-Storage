@@ -8,8 +8,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.shov.coremodels.models.StorageType
 import com.shov.preferences.datasources.PreferencesDataSource
+import com.shov.preferences.values.IS_AUTH
 import com.shov.storagerepositories.repositories.signIn.SignInRepository
-import com.shov.unlimstorage.values.IS_AUTH
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
