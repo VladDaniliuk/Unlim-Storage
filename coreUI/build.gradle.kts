@@ -41,5 +41,9 @@ android {
 		jvmTarget = KotlinOptions.jvmTarget
 	}
 
+	tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+		kotlinOptions.freeCompilerArgs += BuildType.requiresOptIn
+	}
+
 	implementForCoreUi()
 }

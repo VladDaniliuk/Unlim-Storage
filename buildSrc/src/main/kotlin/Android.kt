@@ -59,7 +59,7 @@ object BuildType {
 	const val proguardFile = "proguard-android-optimize.txt"
 	const val proguardRules = "proguard-rules.pro"
 	const val release = "release"
-	const val requiresOptIn = "-Xopt-in=kotlin.RequiresOptIn"
+	const val requiresOptIn = "-opt-in=kotlin.RequiresOptIn"
 	const val xjvmDefault = "-Xjvm-default=compatibility"
 	const val metaInfDependencies = "META-INF/DEPENDENCIES"
 }
