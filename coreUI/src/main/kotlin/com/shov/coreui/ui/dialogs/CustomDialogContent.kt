@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui
+package com.shov.coreui.ui.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

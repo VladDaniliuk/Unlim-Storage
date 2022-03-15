@@ -19,8 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.CustomDialogContent
-import com.shov.unlimstorage.ui.CustomHeaderIcon
+import com.shov.coreui.ui.dialogs.CustomDialogContent
+import com.shov.coreui.ui.dialogs.customHeaderIcon
 import com.shov.coreui.ui.texts.CustomText
 
 @Composable
