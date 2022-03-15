@@ -1,15 +1,14 @@
 package com.shov.unlimstorage.ui
 
 import androidx.annotation.StringRes
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.shov.coremodels.models.StorageType
+import com.shov.coreui.ui.icons.CustomIcon
+import com.shov.coreui.ui.menuLinks.MenuLink
 
 @Composable
 fun AccountMenuLink(
@@ -19,29 +18,16 @@ fun AccountMenuLink(
 	@StringRes titleId: Int,
 	onClick: () -> Unit
 ) {
-	SettingsMenuLink(
+	MenuLink(
 		icon = {
-			Icon(
-				painter = painterResource(id = imageId),
-				contentDescription = stringResource(
-					id = titleId,
-					stringResource(id = accountId)
-				),
+			CustomIcon(
+				painter = painterResource(imageId),
 				tint = Color.Unspecified
 			)
 		},
-		title = {
-			Text(
-				text = stringResource(
-					id = titleId,
-					stringResource(id = accountId)
-				)
-			)
-		},
-		subtitle = {
-			subtitleId?.let { id ->
-				Text(text = stringResource(id = id))
-			}
+		title = stringResource(titleId, stringResource(accountId)),
+		subtitle = subtitleId?.let { id: Int ->
+			stringResource(id)
 		},
 		onClick = onClick
 	)
@@ -49,7 +35,7 @@ fun AccountMenuLink(
 
 @Preview
 @Composable
-fun AccountMenuLinkPreview() {
+private fun AccountMenuLinkPreview() {
 	AccountMenuLink(
 		accountId = 0,
 		imageId = StorageType.GOOGLE.imageId,
