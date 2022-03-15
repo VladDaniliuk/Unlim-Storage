@@ -10,12 +10,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
-import com.shov.coremodels.models.ItemType
 import com.shov.unlimstorage.ui.FABScaffold
-import com.shov.unlimstorage.ui.StoreItemView
 import com.shov.unlimstorage.ui.spacers.FabSpacer
+import com.shov.unlimstorage.ui.storeItems.StoreItemView
 import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
 import com.shov.unlimstorage.values.Screen
 
