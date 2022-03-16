@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels.common
+package com.shov.coreui.viewModels
 
 import androidx.compose.material.DrawerState
 import androidx.compose.material.DrawerValue
@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.unlimstorage.models.items.TopAppBar
+import com.shov.coreui.models.TopAppBar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

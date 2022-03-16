@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.security.password.RemovePasswordViewModel
 

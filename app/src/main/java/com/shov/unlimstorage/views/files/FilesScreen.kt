@@ -17,7 +17,7 @@ import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.utils.navigateTo
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
-import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewStates.FilesScreenState

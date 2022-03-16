@@ -18,7 +18,7 @@ import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
-import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 

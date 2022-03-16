@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.items
+package com.shov.coreui.models
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

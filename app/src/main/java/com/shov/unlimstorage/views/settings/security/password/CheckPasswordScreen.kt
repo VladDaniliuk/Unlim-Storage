@@ -20,7 +20,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.checkForAuthenticate
 import com.shov.unlimstorage.utils.showBiometricAuthentication
-import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.security.password.CheckPasswordViewModel
 

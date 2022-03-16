@@ -20,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
-import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
