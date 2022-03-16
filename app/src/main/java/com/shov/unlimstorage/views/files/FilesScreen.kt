@@ -18,7 +18,6 @@ import com.shov.unlimstorage.utils.navigateTo
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewStates.FilesScreenState
@@ -29,19 +28,19 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FilesScreen(
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
-	filesViewModel: FilesViewModel = hiltViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	filesScreenState: FilesScreenState,
+	filesViewModel: FilesViewModel = hiltViewModel(),
 	onBackPress: () -> Unit,
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 	onFolderOpen: (BackStack) -> Unit
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
+	val storeItems by filesViewModel.storeItems.collectAsState()
 
 	FilesView(
 		swipeRefreshState = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
-		storeItems = filesViewModel.storeItems,
+		storeItems = storeItems,
 		onTextNavigationClick = filesScreenState.navHostController::navigateTo,
 		onFabClick = {
 			bottomSheetViewModel.setContent {
@@ -84,16 +83,14 @@ fun FilesScreen(
 		}
 	) {
 		filesViewModel.onRefresh(isConnected) {
-			scaffoldViewModel.showSnackbar(
-				filesScreenState.context.getString(R.string.connection_failed)
-			)
+			scaffold.showSnackbar(filesScreenState.context.getString(R.string.connection_failed))
 		}
 	}
 
 	LaunchedEffect(key1 = isConnected) { filesViewModel.onRefresh(isConnected) {} }
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			filesViewModel.folderId?.let { Icons.Rounded.ArrowBack to onBackPress },
 			filesScreenState.context.getString(R.string.app_name),
 			Icons.Rounded.AccountCircle to {

@@ -17,6 +17,7 @@ import com.shov.unlimstorage.values.argStorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,8 +32,8 @@ class FilesViewModel @Inject constructor(
 	var storageType by mutableStateOf<StorageType?>(null)
 		private set
 	private val storeItemsAsync = MutableStateFlow<List<StoreItem>>(emptyList())
-	val storeItems: List<StoreItem>
-		get() = storeItemsAsync.value
+	val storeItems: StateFlow<List<StoreItem>>
+		get() = storeItemsAsync
 	var isRefreshing by mutableStateOf(false)
 		private set
 	var isClickable by mutableStateOf(true)
