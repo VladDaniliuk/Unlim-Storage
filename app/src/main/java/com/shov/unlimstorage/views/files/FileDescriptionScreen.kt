@@ -21,7 +21,6 @@ import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
@@ -30,8 +29,7 @@ fun FileDescriptionScreen(
 	context: Context = LocalContext.current,
 	fileDescriptionViewModel: FileDescriptionViewModel = hiltViewModel(),
 	onCloseClick: () -> Unit,
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
+	scaffold: ScaffoldViewModel = singletonViewModel()
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
@@ -59,11 +57,11 @@ fun FileDescriptionScreen(
 	}
 
 	LaunchedEffect(key1 = fileDescriptionViewModel.storeItem?.name) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			Icons.Rounded.Close to onCloseClick,
 			fileDescriptionViewModel.storeItem?.name,
 			Icons.Rounded.Done to {
-				scaffoldViewModel.showSnackbar(context.getString(R.string.doesnt_work_now))
+				scaffold.showSnackbar(context.getString(R.string.doesnt_work_now))
 			}
 		)
 	}

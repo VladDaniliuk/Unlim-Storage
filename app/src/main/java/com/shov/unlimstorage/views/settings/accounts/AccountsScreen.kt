@@ -8,7 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
 
@@ -17,7 +17,7 @@ fun AccountsScreen(
 	accountsViewModel: AccountsViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
 	onBackClick: () -> Unit,
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 ) {
 	accountsViewModel.showRevokeDialog?.let { storageType ->
 		RevokeAccountDialog(
@@ -40,7 +40,7 @@ fun AccountsScreen(
 	)
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			Icons.Rounded.ArrowBack to onBackClick,
 			context.getString(R.string.accounts)
 		)

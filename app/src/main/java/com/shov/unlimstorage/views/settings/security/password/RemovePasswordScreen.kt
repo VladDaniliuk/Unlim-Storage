@@ -11,7 +11,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.security.password.RemovePasswordViewModel
 
@@ -20,8 +19,7 @@ fun RemovePasswordScreen(
 	context: Context = LocalContext.current,
 	popBackStack: () -> Unit,
 	removePasswordViewModel: RemovePasswordViewModel = hiltViewModel(),
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel()
 ) {
 	PasswordScreen(
 		modifier = Modifier.navigationBarsPadding(
@@ -29,25 +27,25 @@ fun RemovePasswordScreen(
 			end = false
 		),
 		onError = {
-			scaffoldViewModel.showSnackbar(context.getString(R.string.password_length_error))
+			scaffold.showSnackbar(context.getString(R.string.password_length_error))
 		},
 		onRightClick = { pinCode ->
 			removePasswordViewModel.checkPass(
 				pass = pinCode,
 				onAccess = {
 					removePasswordViewModel.removePass()
-					scaffoldViewModel.showSnackbar(context.getString(R.string.password_removed))
+					scaffold.showSnackbar(context.getString(R.string.password_removed))
 					popBackStack()
 				},
 				onError = {
-					scaffoldViewModel.showSnackbar(context.getString(R.string.passwords_dont_equal))
+					scaffold.showSnackbar(context.getString(R.string.passwords_dont_equal))
 				}
 			)
 		}
 	)
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
 			title = context.getString(R.string.check_password_for_remove)
 		)

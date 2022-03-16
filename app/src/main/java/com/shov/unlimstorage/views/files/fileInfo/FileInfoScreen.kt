@@ -14,7 +14,6 @@ import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.utils.context.share
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.views.Permission
@@ -27,8 +26,7 @@ fun FileInfoScreen(
 	fileInfoViewModel: FileInfoViewModel = hiltViewModel(),
 	navigateTo: (String) -> Unit,
 	popBack: () -> Unit,
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
@@ -39,10 +37,10 @@ fun FileInfoScreen(
 				fileInfoViewModel.downloadFile(
 					setPercents = downloadViewModel::setProgress,
 					onStart = {
-						scaffoldViewModel.showSnackbar(context.getString(R.string.download_started))
+						scaffold.showSnackbar(context.getString(R.string.download_started))
 					}
 				) {
-					scaffoldViewModel.showSnackbar(context.getString(R.string.download_error))
+					scaffold.showSnackbar(context.getString(R.string.download_error))
 				}
 			}
 		)
@@ -66,7 +64,7 @@ fun FileInfoScreen(
 			}
 		},
 		onDownloadClick = fileInfoViewModel::setShowDialog,
-		onShowSnackbar = scaffoldViewModel::showSnackbar
+		onShowSnackbar = scaffold::showSnackbar
 	)
 
 	LaunchedEffect(key1 = null) {
@@ -82,11 +80,11 @@ fun FileInfoScreen(
 	}
 
 	LaunchedEffect(key1 = fileInfoViewModel.storeItem?.name) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			Icons.Rounded.ArrowBack to popBack,
 			fileInfoViewModel.storeItem?.name,
 			fileInfoViewModel.staredIcon to {
-				scaffoldViewModel.showSnackbar(context.getString(R.string.doesnt_work_now))
+				scaffold.showSnackbar(context.getString(R.string.doesnt_work_now))
 			}
 		)
 	}

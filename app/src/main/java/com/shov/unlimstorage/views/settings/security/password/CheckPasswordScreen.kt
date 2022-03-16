@@ -21,7 +21,6 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.checkForAuthenticate
 import com.shov.unlimstorage.utils.showBiometricAuthentication
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.security.password.CheckPasswordViewModel
 
@@ -29,8 +28,7 @@ import com.shov.unlimstorage.viewModels.settings.security.password.CheckPassword
 fun CheckPasswordScreen(
 	checkPasswordViewModel: CheckPasswordViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 	onAccess: () -> Unit
 ) {
 	Column(
@@ -42,17 +40,17 @@ fun CheckPasswordScreen(
 		PasswordScreen(
 			modifier = Modifier.weight(1f),
 			onError = {
-				scaffoldViewModel.showSnackbar(context.getString(R.string.password_length_error))
+				scaffold.showSnackbar(context.getString(R.string.password_length_error))
 			},
 			onRightClick = { pinCode ->
 				checkPasswordViewModel.checkPass(
 					pass = pinCode,
 					onAccess = {
-						scaffoldViewModel.showSnackbar(context.getString(R.string.passwords_equal))
+						scaffold.showSnackbar(context.getString(R.string.passwords_equal))
 						onAccess()
 					}
 				) {
-					scaffoldViewModel.showSnackbar(context.getString(R.string.passwords_dont_equal))
+					scaffold.showSnackbar(context.getString(R.string.passwords_dont_equal))
 				}
 			}
 		)
@@ -75,6 +73,6 @@ fun CheckPasswordScreen(
 	}
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(title = context.getString(R.string.check_password))
+		scaffold.setTopBar(title = context.getString(R.string.check_password))
 	}
 }

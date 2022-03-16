@@ -11,7 +11,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.security.password.ChangePasswordViewModel
 
@@ -19,8 +18,7 @@ import com.shov.unlimstorage.viewModels.settings.security.password.ChangePasswor
 fun ChangePasswordScreen(
 	context: Context = LocalContext.current,
 	changePasswordViewModel: ChangePasswordViewModel = hiltViewModel(),
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 	popBackStack: () -> Unit
 ) {
 	PasswordScreen(
@@ -29,16 +27,16 @@ fun ChangePasswordScreen(
 			end = false
 		),
 		onError = {
-			scaffoldViewModel.showSnackbar(context.getString(R.string.password_length_error))
+			scaffold.showSnackbar(context.getString(R.string.password_length_error))
 		}
 	) { pass ->
 		changePasswordViewModel.onRightClick(pass, popBackStack) {
-			scaffoldViewModel.showSnackbar(context.getString(R.string.passwords_dont_equal))
+			scaffold.showSnackbar(context.getString(R.string.passwords_dont_equal))
 		}
 	}
 
 	LaunchedEffect(key1 = changePasswordViewModel.isPassChecked) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
 			title = context.getString(changePasswordViewModel.titleId)
 		)

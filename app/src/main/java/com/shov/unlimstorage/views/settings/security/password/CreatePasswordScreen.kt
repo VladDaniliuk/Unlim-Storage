@@ -11,7 +11,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.security.password.CreatePasswordViewModel
 
@@ -20,8 +19,7 @@ fun CreatePasswordScreen(
 	context: Context = LocalContext.current,
 	createPasswordViewModel: CreatePasswordViewModel = hiltViewModel(),
 	popBackStack: () -> Unit,
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel()
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 ) {
 	PasswordScreen(
 		modifier = Modifier.navigationBarsPadding(
@@ -29,11 +27,11 @@ fun CreatePasswordScreen(
 			end = false
 		),
 		onError = {
-			scaffoldViewModel.showSnackbar(context.getString(R.string.password_length_error))
+			scaffold.showSnackbar(context.getString(R.string.password_length_error))
 		},
 		onRightClick = { pinCode ->
 			createPasswordViewModel.onCreatePass(pinCode)
-			scaffoldViewModel.showSnackbar(
+			scaffold.showSnackbar(
 				context.getString(R.string.new_, context.getString(R.string.password_is_enabled))
 			)
 			popBackStack()
@@ -41,7 +39,7 @@ fun CreatePasswordScreen(
 	)
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
 			title = context.getString(R.string.create_password)
 		)

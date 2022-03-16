@@ -16,7 +16,7 @@ import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.Screen
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
+import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable
@@ -24,12 +24,12 @@ fun SettingsScreen(
 	context: Context = LocalContext.current,
 	navigateTo: (String) -> Unit,
 	onBackClick: () -> Unit,
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 ) {
 	SettingsView(onNavigate = navigateTo)
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to onBackClick,
 			title = context.getString(R.string.settings)
 		)

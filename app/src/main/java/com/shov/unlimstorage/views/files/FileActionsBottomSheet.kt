@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.shov.unlimstorage.R
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
+import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
@@ -25,7 +25,7 @@ fun FileActionsBottomSheet(
 	disk: StorageType,
 	name: String,
 	onNavigate: () -> Unit,
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 	size: String?,
 	type: ItemType
 ) {
@@ -39,7 +39,7 @@ fun FileActionsBottomSheet(
 		disk = disk,
 		name = name,
 		onDoesntWork = {
-			scaffoldViewModel.showSnackbar(context.getString(R.string.doesnt_work_now))
+			scaffold.showSnackbar(context.getString(R.string.doesnt_work_now))
 		},
 		size = size,
 		type = type,

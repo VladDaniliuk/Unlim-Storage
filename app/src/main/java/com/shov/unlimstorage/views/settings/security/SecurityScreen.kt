@@ -14,7 +14,6 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.checkForAuthenticate
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.security.SecurityViewModel
 import com.shov.unlimstorage.views.settings.security.securityView.ChangePasswordMenuLink
@@ -27,9 +26,8 @@ fun SecurityScreen(
 	context: Context = LocalContext.current,
 	onNavigate: (String) -> Unit,
 	popBackStack: () -> Unit,
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel(),
-	securityViewModel: SecurityViewModel = hiltViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
+	scaffold: ScaffoldViewModel = singletonViewModel(),
+	securityViewModel: SecurityViewModel = hiltViewModel()
 ) {
 	SecurityView(
 		canAuthWithBiometric = BiometricManager.from(context).checkForAuthenticate(),
@@ -40,12 +38,12 @@ fun SecurityScreen(
 		onPasswordSetClick = { onNavigate(Screen.CreatePassword.route) },
 		onRemovePasswordClick = { onNavigate(Screen.RemovePassword.route) },
 		onCantAuthWithBiometric = {
-			scaffoldViewModel.showSnackbar(context.getString(R.string.check_biometric_on_settings))
+			scaffold.showSnackbar(context.getString(R.string.check_biometric_on_settings))
 		}
 	)
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
 			title = context.getString(R.string.security)
 		)

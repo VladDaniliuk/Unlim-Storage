@@ -19,7 +19,6 @@ import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 
@@ -27,9 +26,8 @@ import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 fun UpdateScreen(
 	context: Context = LocalContext.current,
 	onBackClick: () -> Unit,
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = singletonViewModel(),
-	scaffoldViewModel: ScaffoldViewModel = singletonViewModel()
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 
@@ -38,7 +36,7 @@ fun UpdateScreen(
 			if (isConnected) {
 				updateViewModel.checkAppVersion()
 			} else {
-				scaffoldViewModel.showSnackbar(context.getString(R.string.connection_failed))
+				scaffold.showSnackbar(context.getString(R.string.connection_failed))
 			}
 		},
 		isShowAgain = updateViewModel.isShowAgain,
@@ -46,7 +44,7 @@ fun UpdateScreen(
 	)
 
 	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
+		scaffold.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to onBackClick,
 			title = context.getString(R.string.updates)
 		)
