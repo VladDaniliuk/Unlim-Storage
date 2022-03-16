@@ -14,8 +14,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coremodels.models.StorageType
-import com.shov.unlimstorage.R
 import com.shov.coreui.ui.buttons.CustomIconButton
+import com.shov.unlimstorage.R
 
 @Composable
 fun SignInView(

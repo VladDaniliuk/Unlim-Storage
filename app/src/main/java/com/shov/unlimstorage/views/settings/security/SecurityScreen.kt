@@ -10,10 +10,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.checkForAuthenticate
 import com.shov.unlimstorage.values.Screen
-import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.security.SecurityViewModel
 import com.shov.unlimstorage.views.settings.security.securityView.ChangePasswordMenuLink
