@@ -14,7 +14,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.BackStack
-import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
+import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.utils.navigateTo
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel

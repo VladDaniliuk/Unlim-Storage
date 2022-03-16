@@ -6,7 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
+import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.files.NewFolderViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
