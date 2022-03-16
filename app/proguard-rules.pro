@@ -15,6 +15,17 @@
 -keep class com.google.api.** {*;}
 -keep class com.box.androidsdk.** {*;}
 
+-dontwarn javax.naming.*
+-dontwarn javax.naming.directory.*
+-dontwarn javax.naming.ldap.*
+-dontwarn org.bouncycastle.jsse.*
+-dontwarn org.bouncycastle.jsse.provider.*
+-dontwarn org.conscrypt.*
+-dontwarn org.ietf.jgss.*
+-dontwarn org.openjsse.javax.net.ssl.*
+-dontwarn org.openjsse.net.ssl.*
+
+
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
