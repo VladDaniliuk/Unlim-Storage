@@ -73,6 +73,14 @@ fun Project.implementForPreferences() {
 	implementSecurity()
 }
 
+fun Project.implementForSignInFeature() {
+	implementActivity()
+	implementModulesForSignInFeature()
+	implementComposeForModules()
+	implementLifecycle()
+	implementHiltForViewModels()
+}
+
 fun Project.implementForStorage() {
 	implementActivity()
 	implementModulesForStorage()

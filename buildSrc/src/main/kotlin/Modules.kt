@@ -10,6 +10,7 @@ object Modules {
 	const val googleStorage = ":googleStorage"
 	const val localStorage = ":localStorage"
 	const val preferences = ":preferences"
+	const val signInFeature = ":signInFeature"
 	const val storage = ":storage"
 	const val storageRepositories = ":storageRepositories"
 }
@@ -17,10 +18,11 @@ object Modules {
 fun Project.implementModules() {
 	dependencies {
 		implement(project(Modules.coreModels))
+		implement(project(Modules.coreUI))
 		implement(project(Modules.preferences))
+		implement(project(Modules.signInFeature))
 		implement(project(Modules.storage))
 		implement(project(Modules.storageRepositories))
-		implement(project(Modules.coreUI))
 	}
 }
 
@@ -42,6 +44,15 @@ fun Project.implementModulesForDropBoxStorage() {
 fun Project.implementModulesForLocalStorage() {
 	dependencies {
 		implement(project(Modules.coreModels))
+	}
+}
+
+fun Project.implementModulesForSignInFeature() {
+	dependencies {
+		implement(project(Modules.coreModels))
+		implement(project(Modules.coreUI))
+		implement(project(Modules.storageRepositories))
+		implement(project(Modules.preferences))
 	}
 }
 

@@ -38,6 +38,10 @@ object Preferences {
 	const val namespace = "com.shov.preferences"
 }
 
+object SignInFeature {
+	const val namespace = "com.shov.signinfeature"
+}
+
 object Storage {
 	const val namespace = "com.shov.storage"
 }
