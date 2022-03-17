@@ -78,7 +78,7 @@ fun Project.implementForSignInFeature() {
 	implementModulesForSignInFeature()
 	implementComposeForModules()
 	implementLifecycle()
-	implementHiltForHiltModules()
+	implementHiltForSignInFeature()
 }
 
 fun Project.implementForStorage() {
