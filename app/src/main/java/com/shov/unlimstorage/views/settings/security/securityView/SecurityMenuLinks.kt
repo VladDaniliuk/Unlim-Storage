@@ -1,6 +1,5 @@
 package com.shov.unlimstorage.views.settings.security.securityView
 
-import androidx.compose.material.Icon
 import androidx.compose.material.Switch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChangeCircle
@@ -65,10 +64,7 @@ fun RemovePasswordMenuLink(onRemovePasswordClick: () -> Unit) {
 fun SetPasswordMenuLink(onPasswordSetClick: () -> Unit) {
 	MenuLink(
 		icon = {
-			Icon(
-				imageVector = Icons.Rounded.Password,
-				contentDescription = Icons.Rounded.Password.name
-			)
+			CustomIcon(imageVector = Icons.Rounded.Password)
 		},
 		title = stringResource(R.string.set_pin_code),
 		subtitle = stringResource(R.string.use_for_secure),

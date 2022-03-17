@@ -10,8 +10,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.shov.coremodels.converters.toBytes
-import com.shov.unlimstorage.R
 import com.shov.coreui.utils.observeConnectivityAsFlow
+import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.provider.newVersionViewModel

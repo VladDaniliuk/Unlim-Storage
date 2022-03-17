@@ -16,10 +16,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
-import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.unlimstorage.R
 import com.shov.coreui.utils.observeConnectivityAsFlow
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.singletonViewModel
+import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 
 @Composable

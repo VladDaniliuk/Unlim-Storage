@@ -15,9 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.values.Screen
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 
 @Composable
 fun SettingsScreen(
@@ -43,8 +43,8 @@ internal fun SettingsView(onNavigate: (String) -> Unit) {
 			icon = {
 				CustomIcon(imageVector = Icons.Rounded.AccountCircle)
 			},
-			subtitle = stringResource(R.string.accounts_description),
-			title = stringResource(R.string.accounts)
+			title = stringResource(R.string.accounts),
+			subtitle = stringResource(R.string.accounts_description)
 		) {
 			onNavigate(Screen.Accounts.route)
 		}
@@ -53,8 +53,8 @@ internal fun SettingsView(onNavigate: (String) -> Unit) {
 			icon = {
 				CustomIcon(imageVector = Icons.Rounded.Security)
 			},
-			subtitle = stringResource(R.string.use_pin_code),
-			title = stringResource(R.string.security)
+			title = stringResource(R.string.security),
+			subtitle = stringResource(R.string.use_pin_code)
 		) {
 			onNavigate(Screen.Security.route)
 		}
@@ -63,8 +63,8 @@ internal fun SettingsView(onNavigate: (String) -> Unit) {
 			icon = {
 				CustomIcon(imageVector = Icons.Rounded.Update)
 			},
-			subtitle = stringResource(R.string.check_update_disable_auto),
-			title = stringResource(R.string.about_updates)
+			title = stringResource(R.string.about_updates),
+			subtitle = stringResource(R.string.check_update_disable_auto)
 		) {
 			onNavigate(Screen.Updates.route)
 		}

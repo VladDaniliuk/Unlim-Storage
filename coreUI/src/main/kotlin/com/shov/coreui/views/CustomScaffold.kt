@@ -1,16 +1,16 @@
 package com.shov.coreui.views
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarHost
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.ui.CustomTopAppBar
 import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.coreui.viewModels.singletonViewModel
 
 @Composable
 fun CustomScaffold(
@@ -22,10 +22,7 @@ fun CustomScaffold(
 		snackbarHost = { hostState ->
 			SnackbarHost(
 				hostState = hostState,
-				modifier = Modifier.navigationBarsPadding(
-					start = false,
-					end = false
-				)
+				modifier = Modifier.navigationBarsPadding()
 			) { snackBarData ->
 				Snackbar(snackbarData = snackBarData)
 			}

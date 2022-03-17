@@ -9,9 +9,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.R
-import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.utils.context.share
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
