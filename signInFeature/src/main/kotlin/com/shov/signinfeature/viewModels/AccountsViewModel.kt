@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels.settings
+package com.shov.signinfeature.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

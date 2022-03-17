@@ -17,8 +17,8 @@ import com.shov.coreui.ui.dialogs.CustomHeaderText
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.SignInViewModel
-import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
+import com.shov.signinfeature.viewModels.SignInViewModel
+import com.shov.signinfeature.viewModels.AccountsViewModel
 
 @Composable
 fun AddAccountDialog(

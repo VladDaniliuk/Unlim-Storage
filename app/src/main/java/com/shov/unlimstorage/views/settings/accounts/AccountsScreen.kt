@@ -10,7 +10,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.unlimstorage.R
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewModels.settings.AccountsViewModel
+import com.shov.signinfeature.viewModels.AccountsViewModel
 
 @Composable
 fun AccountsScreen(

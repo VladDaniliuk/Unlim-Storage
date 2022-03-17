@@ -11,7 +11,7 @@ import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreui.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.SignInViewModel
+import com.shov.signinfeature.viewModels.SignInViewModel
 
 @Composable
 fun SignInScreen(
