@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.accounts
+package com.shov.signinfeature.views
 
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
 import com.shov.coremodels.models.StorageType
-import com.shov.unlimstorage.R
+import com.shov.signinfeature.R
 
 @Composable
 fun RevokeAccountDialog(

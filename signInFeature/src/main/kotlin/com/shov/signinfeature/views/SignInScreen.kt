@@ -1,16 +1,16 @@
-package com.shov.unlimstorage.views.signIn
+package com.shov.signinfeature.views
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreui.viewModels.singletonViewModel
-import com.shov.unlimstorage.R
+import com.shov.signinfeature.R
 import com.shov.signinfeature.viewModels.SignInViewModel
 
 @Composable

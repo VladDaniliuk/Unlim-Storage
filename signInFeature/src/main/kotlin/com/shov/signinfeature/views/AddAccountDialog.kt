@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.accounts
+package com.shov.signinfeature.views
 
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -16,9 +16,9 @@ import com.shov.coreui.ui.dialogs.CustomDialogContent
 import com.shov.coreui.ui.dialogs.CustomHeaderText
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
-import com.shov.unlimstorage.R
-import com.shov.signinfeature.viewModels.SignInViewModel
+import com.shov.signinfeature.R
 import com.shov.signinfeature.viewModels.AccountsViewModel
+import com.shov.signinfeature.viewModels.SignInViewModel
 
 @Composable
 fun AddAccountDialog(

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.accounts
+package com.shov.signinfeature.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Divider
@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
-import com.shov.unlimstorage.R
+import com.shov.signinfeature.R
 
 @Composable
 internal fun AccountsView(

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.signIn
+package com.shov.signinfeature.views
 
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.buttons.CustomIconButton
-import com.shov.unlimstorage.R
+import com.shov.signinfeature.R
 
 @Composable
 fun SignInView(
