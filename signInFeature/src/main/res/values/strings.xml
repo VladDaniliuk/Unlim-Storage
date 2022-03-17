@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="account">%1$s account</string>
+	<string name="accounts">Accounts</string>
+	<string name="add_account">Add %1$s account</string>
+	<string name="add_other_account">Add other account</string>
+	<string name="choose_drive">Choose drive:</string>
+	<string name="click_to_delete">Click to delete</string>
+	<string name="connection_failed">Connection failed. Please, check internet.</string>
+	<string name="revoke">Revoke</string>
+	<string name="revoke_access">Revoke access</string>
+	<string name="revoke_access_to">Revoke access to %1$s?</string>
+	<string name="sign_in_with">Sign in with:</string>
+</resources>
