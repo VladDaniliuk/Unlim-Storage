@@ -5,6 +5,10 @@ plugins {
 }
 
 android {
+	buildFeatures {
+		compose = true
+	}
+
 	namespace = SignInFeature.namespace
 	compileSdk = AndroidVersion.compileSdkVersion
 
@@ -28,6 +32,10 @@ android {
 	compileOptions {
 		sourceCompatibility = JavaVersion.VERSION_11
 		targetCompatibility = JavaVersion.VERSION_11
+	}
+
+	composeOptions {
+		kotlinCompilerExtensionVersion = Compose.version
 	}
 
 	kotlinOptions {

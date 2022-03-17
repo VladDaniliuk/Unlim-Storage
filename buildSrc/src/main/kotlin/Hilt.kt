@@ -51,3 +51,11 @@ fun Project.implementHiltForHiltModules() {
 		kapt(Hilt.Lib.compiler)
 	}
 }
+
+fun Project.implementHiltForSignInFeature() {
+	dependencies {
+		implement(Hilt.Lib.hilt)
+		implement(Hilt.Lib.navigationCompose)
+		kapt(Hilt.Lib.compiler)
+	}
+}
