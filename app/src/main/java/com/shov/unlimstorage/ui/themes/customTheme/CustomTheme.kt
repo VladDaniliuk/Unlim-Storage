@@ -35,9 +35,14 @@ fun CustomTheme(
 	}
 
 	SideEffect {
-		systemUiController.setSystemBarsColor(
+		systemUiController.setStatusBarColor(
 			color = Color.Transparent,
 			darkIcons = darkTheme
+		)
+
+		systemUiController.setNavigationBarColor(
+			color = Color.Transparent,
+			darkIcons = darkTheme.not()
 		)
 	}
 }
