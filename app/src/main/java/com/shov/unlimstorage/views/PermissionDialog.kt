@@ -17,11 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
-import com.shov.unlimstorage.BuildConfig
-import com.shov.unlimstorage.R
 import com.shov.coreui.ui.dialogs.CustomDialogContent
 import com.shov.coreui.ui.dialogs.CustomHeaderIcon
 import com.shov.coreui.ui.texts.CustomText
+import com.shov.unlimstorage.BuildConfig
+import com.shov.unlimstorage.R
 
 @Composable
 fun Permission(
