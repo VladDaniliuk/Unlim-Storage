@@ -52,7 +52,7 @@ fun Project.implementHiltForHiltModules() {
 	}
 }
 
-fun Project.implementHiltForSignInFeature() {
+fun Project.implementHiltForFeatureModules() {
 	dependencies {
 		implement(Hilt.Lib.hilt)
 		implement(Hilt.Lib.navigationCompose)

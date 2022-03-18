@@ -74,11 +74,10 @@ fun Project.implementForPreferences() {
 }
 
 fun Project.implementForSignInFeature() {
-	implementActivity()
 	implementModulesForSignInFeature()
 	implementComposeForModules()
 	implementLifecycle()
-	implementHiltForSignInFeature()
+	implementHiltForFeatureModules()
 }
 
 fun Project.implementForStorage() {
