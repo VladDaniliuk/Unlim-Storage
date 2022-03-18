@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels.settings.security.password
+package com.shov.settingsfeature.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.shov.preferences.datasources.PreferencesDataSource
@@ -6,17 +6,14 @@ import com.shov.preferences.values.PIN_CODE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+
 @HiltViewModel
-class RemovePasswordViewModel @Inject constructor(
-	preferences: PreferencesDataSource
+class CreatePasswordViewModel @Inject constructor(
+	preferences: PreferencesDataSource,
 ) : ViewModel() {
 	private var pass by preferences.getEncryptedPref(PIN_CODE, "")
 
-	fun checkPass(pass: String, onAccess: () -> Unit, onError: () -> Unit) {
-		if (pass == this.pass) onAccess() else onError()
-	}
-
-	fun removePass() {
-		pass = ""
+	fun onCreatePass(pass: String) {
+		this.pass = pass
 	}
 }

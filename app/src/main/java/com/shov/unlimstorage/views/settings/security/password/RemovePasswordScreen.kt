@@ -12,7 +12,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewModels.settings.security.password.RemovePasswordViewModel
+import com.shov.settingsfeature.viewModels.RemovePasswordViewModel
 
 @Composable
 fun RemovePasswordScreen(

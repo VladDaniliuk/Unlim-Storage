@@ -22,7 +22,7 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.checkForAuthenticate
 import com.shov.unlimstorage.utils.showBiometricAuthentication
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewModels.settings.security.password.CheckPasswordViewModel
+import com.shov.settingsfeature.viewModels.CheckPasswordViewModel
 
 @Composable
 fun CheckPasswordScreen(

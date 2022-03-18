@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels.settings.security.password
+package com.shov.settingsfeature.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
