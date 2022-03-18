@@ -1,9 +1,5 @@
 plugins {
-	id(Plugin.application)
-	id(Plugin.hilt)
-	id(Plugin.kotlinAndroid)
-	id(Plugin.googleServices)
-	id(Plugin.kotlinKapt)
+	addAll()
 }
 
 android {
@@ -13,25 +9,25 @@ android {
 
 	buildToolsVersion = AndroidVersion.buildToolsVersion
 
-	buildTypes {
-		getByName(BuildType.release) {
-			signingConfig = signingConfigs.getByName(BuildType.debug)
-
-			isMinifyEnabled = true
-			isShrinkResources = true
-
-			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
-
-			applicationVariants.all {
-				outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
-					.forEach { output ->
-						output.outputFileName = BuildType.outputName
-					}
-			}
+	signingConfigs {
+		debug {
+			storeFile = file(BuildProperties.STORE_FILE)
+			keyAlias = BuildProperties.KEY_ALIAS
+			keyPassword = BuildProperties.STORE_PASSWORD
+			storePassword = BuildProperties.KEY_PASSWORD
 		}
 
-		getByName(BuildType.debug) {
-			signingConfig = signingConfigs.getByName(BuildType.debug)
+		release {
+			storeFile = file(BuildProperties.STORE_FILE)
+			keyAlias = BuildProperties.KEY_ALIAS
+			keyPassword = BuildProperties.STORE_PASSWORD
+			storePassword = BuildProperties.KEY_PASSWORD
+		}
+	}
+
+	buildTypes {
+		debug {
+			signingConfig = signingConfigs.debug
 			isDebuggable = true
 
 			isMinifyEnabled = true
@@ -46,14 +42,21 @@ android {
 					}
 			}
 		}
-	}
 
-	signingConfigs {
-		getByName(BuildType.debug) {
-			storeFile = file(BuildProperties.STORE_FILE)
-			keyAlias = BuildProperties.KEY_ALIAS
-			keyPassword = BuildProperties.STORE_PASSWORD
-			storePassword = BuildProperties.KEY_PASSWORD
+		release {
+			signingConfig = signingConfigs.release
+
+			isMinifyEnabled = true
+			isShrinkResources = true
+
+			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
+
+			applicationVariants.all {
+				outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+					.forEach { output ->
+						output.outputFileName = BuildType.outputName
+					}
+			}
 		}
 	}
 
