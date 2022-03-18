@@ -61,6 +61,7 @@ fun Project.implementModulesForSignInFeature() {
 fun Project.implementModulesForSettingsFeature() {
 	dependencies {
 		implement(project(Modules.coreUI))
+		implement(project(Modules.preferences))
 	}
 }
 

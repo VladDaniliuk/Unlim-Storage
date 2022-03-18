@@ -15,7 +15,7 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.checkForAuthenticate
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewModels.settings.security.SecurityViewModel
+import com.shov.settingsfeature.viewModels.SecurityViewModel
 import com.shov.unlimstorage.views.settings.security.securityView.ChangePasswordMenuLink
 import com.shov.unlimstorage.views.settings.security.securityView.EnableBiometricMenuLink
 import com.shov.unlimstorage.views.settings.security.securityView.RemovePasswordMenuLink

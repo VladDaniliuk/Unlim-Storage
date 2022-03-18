@@ -2,7 +2,7 @@ package com.shov.unlimstorage.viewModels.settings.security.password
 
 import androidx.lifecycle.ViewModel
 import com.shov.preferences.datasources.PreferencesDataSource
-import com.shov.unlimstorage.values.PIN_CODE
+import com.shov.preferences.values.PIN_CODE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

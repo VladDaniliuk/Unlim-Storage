@@ -3,7 +3,7 @@ package com.shov.unlimstorage.viewModels.navigations
 import androidx.lifecycle.ViewModel
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.preferences.values.IS_AUTH
-import com.shov.unlimstorage.values.PIN_CODE
+import com.shov.preferences.values.PIN_CODE
 import com.shov.unlimstorage.values.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

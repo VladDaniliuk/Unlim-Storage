@@ -1,12 +1,12 @@
-package com.shov.unlimstorage.viewModels.settings.security
+package com.shov.settingsfeature.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.shov.preferences.datasources.PreferencesDataSource
-import com.shov.unlimstorage.values.IS_BIOMETRIC_ENABLED
-import com.shov.unlimstorage.values.PIN_CODE
+import com.shov.preferences.values.IS_BIOMETRIC_ENABLED
+import com.shov.preferences.values.PIN_CODE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
