@@ -73,6 +73,14 @@ fun Project.implementForPreferences() {
 	implementSecurity()
 }
 
+fun Project.implementForSettingsFeature() {
+	implementComposeForModules()
+	implementLifecycle()
+	implementHiltForFeatureModules()
+	implementModulesForSettingsFeature()
+	implementIcons()
+}
+
 fun Project.implementForSignInFeature() {
 	implementModulesForSignInFeature()
 	implementComposeForModules()

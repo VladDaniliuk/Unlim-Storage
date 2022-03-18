@@ -10,6 +10,7 @@ object Modules {
 	const val googleStorage = ":googleStorage"
 	const val localStorage = ":localStorage"
 	const val preferences = ":preferences"
+	const val settingsFeature = ":settingsFeature"
 	const val signInFeature = ":signInFeature"
 	const val storage = ":storage"
 	const val storageRepositories = ":storageRepositories"
@@ -20,6 +21,7 @@ fun Project.implementModules() {
 		implement(project(Modules.coreModels))
 		implement(project(Modules.coreUI))
 		implement(project(Modules.preferences))
+		implement(project(Modules.settingsFeature))
 		implement(project(Modules.signInFeature))
 		implement(project(Modules.storage))
 		implement(project(Modules.storageRepositories))
@@ -53,6 +55,12 @@ fun Project.implementModulesForSignInFeature() {
 		implement(project(Modules.coreUI))
 		implement(project(Modules.storageRepositories))
 		implement(project(Modules.preferences))
+	}
+}
+
+fun Project.implementModulesForSettingsFeature() {
+	dependencies {
+		implement(project(Modules.coreUI))
 	}
 }
 
