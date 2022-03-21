@@ -7,10 +7,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import com.shov.coremodels.models.StorageType
-import com.shov.unlimstorage.values.argFolderId
-import com.shov.unlimstorage.values.argStorageType
+import com.shov.coreutils.values.argFolderId
+import com.shov.coreutils.values.argStorageType
+import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

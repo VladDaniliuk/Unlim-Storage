@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.shov.unlimstorage.values.Screen
+import com.shov.coreutils.values.Screen
 import com.shov.unlimstorage.viewStates.rememberFilesScreenState
 import com.shov.unlimstorage.views.files.FilesScreen
 

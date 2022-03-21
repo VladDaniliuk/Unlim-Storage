@@ -7,8 +7,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.shov.coreutils.values.BottomSheet
 import com.shov.unlimstorage.utils.getName
-import com.shov.unlimstorage.values.BottomSheet
 import com.shov.unlimstorage.viewStates.UploadNavigationState
 import com.shov.unlimstorage.views.files.newObject.NewObjectBottomSheet
 import com.shov.unlimstorage.views.files.newObject.UploadBottomSheet

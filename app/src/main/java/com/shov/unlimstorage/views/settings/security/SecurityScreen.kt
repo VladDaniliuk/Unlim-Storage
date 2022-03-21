@@ -11,11 +11,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.utils.checkForAuthenticate
-import com.shov.unlimstorage.values.Screen
+import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.viewModels.SecurityViewModel
+import com.shov.unlimstorage.R
+import com.shov.unlimstorage.utils.checkForAuthenticate
 import com.shov.unlimstorage.views.settings.security.securityView.ChangePasswordMenuLink
 import com.shov.unlimstorage.views.settings.security.securityView.EnableBiometricMenuLink
 import com.shov.unlimstorage.views.settings.security.securityView.RemovePasswordMenuLink

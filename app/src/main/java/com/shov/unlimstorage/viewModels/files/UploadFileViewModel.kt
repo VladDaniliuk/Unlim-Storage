@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import com.shov.coremodels.models.StorageType
-import com.shov.unlimstorage.values.argFileName
-import com.shov.unlimstorage.values.argFolderId
-import com.shov.unlimstorage.values.argStorageType
+import com.shov.coreutils.values.argFileName
+import com.shov.coreutils.values.argFolderId
+import com.shov.coreutils.values.argStorageType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

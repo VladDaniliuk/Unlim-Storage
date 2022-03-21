@@ -3,7 +3,7 @@ package com.shov.unlimstorage.views.navigations
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.shov.unlimstorage.values.Screen
+import com.shov.coreutils.values.Screen
 import com.shov.unlimstorage.views.settings.security.SecurityScreen
 import com.shov.unlimstorage.views.settings.security.password.ChangePasswordScreen
 import com.shov.unlimstorage.views.settings.security.password.CheckPasswordScreen

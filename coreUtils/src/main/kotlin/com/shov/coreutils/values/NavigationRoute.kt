@@ -1,6 +1,6 @@
-package com.shov.unlimstorage.values
+package com.shov.coreutils.values
 
-import com.shov.unlimstorage.models.items.BackStack
+import com.shov.coreutils.models.BackStack
 
 //Routes
 const val navFiles = "nav_files/?"

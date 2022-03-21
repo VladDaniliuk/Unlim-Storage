@@ -13,11 +13,11 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
+import com.shov.coreutils.values.Screen
 import com.shov.unlimstorage.ui.FABScaffold
 import com.shov.unlimstorage.ui.spacers.FabSpacer
 import com.shov.unlimstorage.ui.storeItems.StoreItemView
 import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
-import com.shov.unlimstorage.values.Screen
 
 @Composable
 fun FilesView(

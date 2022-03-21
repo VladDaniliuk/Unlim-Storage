@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
-import com.shov.unlimstorage.models.items.BackStack
+import com.shov.coreutils.models.BackStack
 import com.shov.unlimstorage.utils.getBackStack
 import com.shov.unlimstorage.utils.popBackStack
 import dagger.hilt.android.lifecycle.HiltViewModel

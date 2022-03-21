@@ -6,8 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.shov.coreutils.values.Screen
 import com.shov.signinfeature.views.SignInScreen
-import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
 
 @Composable
