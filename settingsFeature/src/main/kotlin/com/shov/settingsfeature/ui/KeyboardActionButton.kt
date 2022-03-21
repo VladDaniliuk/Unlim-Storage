@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.keyboard.buttons
+package com.shov.settingsfeature.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable

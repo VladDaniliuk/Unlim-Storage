@@ -12,6 +12,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.viewModels.ChangePasswordViewModel
+import com.shov.settingsfeature.views.PasswordScreen
 import com.shov.unlimstorage.R
 
 @Composable

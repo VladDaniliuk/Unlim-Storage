@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.texts
+package com.shov.settingsfeature.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
 import com.shov.coreui.ui.texts.CustomText
 
 @Composable
@@ -75,22 +74,18 @@ fun PasswordField(
 @Preview
 @Composable
 fun PasswordFieldVisiblePreview() {
-	CustomTheme {
-		PasswordField(
-			modifier = Modifier.fillMaxWidth(),
-			passIsVisible = true,
-			password = "1234"
-		) {}
-	}
+	PasswordField(
+		modifier = Modifier.fillMaxWidth(),
+		passIsVisible = true,
+		password = "1234"
+	) {}
 }
 
 @Preview
 @Composable
 fun PasswordFieldInvisiblePreview() {
-	CustomTheme {
-		PasswordField(
-			modifier = Modifier.fillMaxWidth(),
-			password = "1234"
-		) {}
-	}
+	PasswordField(
+		modifier = Modifier.fillMaxWidth(),
+		password = "1234"
+	) {}
 }

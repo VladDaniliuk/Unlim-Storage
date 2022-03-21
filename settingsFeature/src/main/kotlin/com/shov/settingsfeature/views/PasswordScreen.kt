@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.security.password
+package com.shov.settingsfeature.views
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
 import com.shov.settingsfeature.viewModels.PasswordViewModel
 
 @Composable
@@ -59,8 +58,8 @@ fun PasswordScreen(
 @Preview
 @Composable
 fun PasswordScreenPreview() {
-	CustomTheme {
-		PasswordScreen(onError = {}, passwordViewModel = hiltViewModel()) {}
-	}
+	PasswordScreen(
+		onError = {},
+		passwordViewModel = hiltViewModel()
+	) {}
 }
-

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.security.password
+package com.shov.settingsfeature.views
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
@@ -10,8 +10,8 @@ import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Backspace
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.shov.unlimstorage.ui.keyboard.Keyboard
-import com.shov.unlimstorage.ui.texts.PasswordField
+import com.shov.settingsfeature.ui.Keyboard
+import com.shov.settingsfeature.ui.PasswordField
 
 @Composable
 fun RowScope.PasswordView(

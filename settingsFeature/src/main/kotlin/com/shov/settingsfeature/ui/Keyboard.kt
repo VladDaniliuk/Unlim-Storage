@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.keyboard
+package com.shov.settingsfeature.ui
 
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -11,9 +11,6 @@ import androidx.compose.material.icons.rounded.Download
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.shov.unlimstorage.ui.keyboard.buttons.KeyboardActionButton
-import com.shov.unlimstorage.ui.keyboard.buttons.KeyboardButton
-import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
 
 @Composable
 fun Keyboard(
@@ -70,27 +67,23 @@ fun Keyboard(
 @Preview(widthDp = 540, heightDp = 960)
 @Composable
 fun KeyboardVerticalPreview() {
-	CustomTheme {
-		Keyboard(
-			onClick = {},
-			onRightClick = {},
-			onRightClickContent = {
-				Icon(imageVector = Icons.Rounded.Download, contentDescription = "")
-			}
-		)
-	}
+	Keyboard(
+		onClick = {},
+		onRightClick = {},
+		onRightClickContent = {
+			Icon(imageVector = Icons.Rounded.Download, contentDescription = "")
+		}
+	)
 }
 
 @Preview(heightDp = 540, widthDp = 960)
 @Composable
 fun KeyboardHorizontalPreview() {
-	CustomTheme {
-		Keyboard(
-			onClick = {},
-			onRightClick = {},
-			onRightClickContent = {
-				Icon(imageVector = Icons.Rounded.Download, contentDescription = "")
-			}
-		)
-	}
+	Keyboard(
+		onClick = {},
+		onRightClick = {},
+		onRightClickContent = {
+			Icon(imageVector = Icons.Rounded.Download, contentDescription = "")
+		}
+	)
 }

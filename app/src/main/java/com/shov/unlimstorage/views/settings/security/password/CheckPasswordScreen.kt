@@ -23,6 +23,7 @@ import com.shov.unlimstorage.R
 import com.shov.settingsfeature.utils.checkForAuthenticate
 import com.shov.unlimstorage.utils.showBiometricAuthentication
 import com.shov.settingsfeature.viewModels.CheckPasswordViewModel
+import com.shov.settingsfeature.views.PasswordScreen
 
 @Composable
 fun CheckPasswordScreen(
