@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.utils
+package com.shov.settingsfeature.utils
 
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.security.securityView
+package com.shov.settingsfeature.ui
 
 import androidx.compose.material.Switch
 import androidx.compose.material.icons.Icons
@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
-import com.shov.unlimstorage.R
+import com.shov.settingsfeature.R
 
 @Composable
 fun ChangePasswordMenuLink(onChangePasswordClick: () -> Unit) {

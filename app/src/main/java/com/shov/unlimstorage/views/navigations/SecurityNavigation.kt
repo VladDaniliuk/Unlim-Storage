@@ -4,7 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
-import com.shov.unlimstorage.views.settings.security.SecurityScreen
+import com.shov.settingsfeature.views.SecurityScreen
 import com.shov.unlimstorage.views.settings.security.password.ChangePasswordScreen
 import com.shov.unlimstorage.views.settings.security.password.CheckPasswordScreen
 import com.shov.unlimstorage.views.settings.security.password.CreatePasswordScreen
