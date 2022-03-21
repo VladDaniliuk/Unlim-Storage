@@ -6,6 +6,7 @@ object Modules {
 	const val boxStorage = ":boxStorage"
 	const val coreModels = ":coreModels"
 	const val coreUI = ":coreUI"
+	const val coreUtils = ":coreUtils"
 	const val dropBoxStorage = ":dropBoxStorage"
 	const val googleStorage = ":googleStorage"
 	const val localStorage = ":localStorage"

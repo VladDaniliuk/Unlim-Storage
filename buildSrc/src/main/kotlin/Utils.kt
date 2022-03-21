@@ -47,6 +47,12 @@ fun Project.implementForCoreUi() {
 	implementComposeForModules()
 }
 
+fun Project.implementForCoreUtils() {
+	implementKotlinx()
+	implementActivity()
+	implementHiltForViewModels()
+}
+
 fun Project.implementForDropBoxStorage() {
 	implementActivity()
 	implementHiltForModules()

@@ -22,6 +22,10 @@ object CoreUI {
 	const val namespace = "com.shov.coreui"
 }
 
+object CoreUtils {
+	const val namespace = "com.shov.coreutils"
+}
+
 object DropBoxStorage {
 	const val namespace = "com.shov.dropboxstorage"
 }
