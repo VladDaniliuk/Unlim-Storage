@@ -11,8 +11,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
+import com.shov.settingsfeature.viewModels.ChangePasswordViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.settings.security.password.ChangePasswordViewModel
 
 @Composable
 fun ChangePasswordScreen(
