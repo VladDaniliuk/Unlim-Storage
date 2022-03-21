@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings
+package com.shov.settingsfeature.views
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
@@ -16,8 +16,8 @@ import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.R
 import com.shov.coreutils.values.Screen
+import com.shov.settingsfeature.R
 
 @Composable
 fun SettingsScreen(

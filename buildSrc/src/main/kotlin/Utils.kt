@@ -81,11 +81,12 @@ fun Project.implementForPreferences() {
 }
 
 fun Project.implementForSettingsFeature() {
+	implementBiometric()
 	implementComposeForModules()
-	implementLifecycle()
 	implementHiltForFeatureModules()
-	implementModulesForSettingsFeature()
 	implementIcons()
+	implementLifecycle()
+	implementModulesForSettingsFeature()
 }
 
 fun Project.implementForSignInFeature() {

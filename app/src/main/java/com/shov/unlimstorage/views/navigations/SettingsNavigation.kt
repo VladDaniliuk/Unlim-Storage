@@ -4,7 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
-import com.shov.unlimstorage.views.settings.SettingsScreen
+import com.shov.settingsfeature.views.SettingsScreen
 import com.shov.signinfeature.views.AccountsScreen
 import com.shov.unlimstorage.views.settings.updates.UpdateScreen
 
