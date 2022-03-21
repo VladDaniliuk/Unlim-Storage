@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.buttons.CustomIconButton
-import com.shov.coreui.viewModels.singletonViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import kotlinx.coroutines.CoroutineScope

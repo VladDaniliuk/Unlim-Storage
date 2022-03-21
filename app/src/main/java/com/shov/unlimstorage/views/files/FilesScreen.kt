@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.coreui.viewModels.singletonViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.models.items.BackStack
 import com.shov.unlimstorage.utils.navigateTo

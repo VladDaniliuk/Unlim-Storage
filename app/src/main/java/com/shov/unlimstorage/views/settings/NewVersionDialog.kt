@@ -15,7 +15,7 @@ import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.provider.newVersionViewModel
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.NewVersionViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 import com.shov.unlimstorage.views.Permission

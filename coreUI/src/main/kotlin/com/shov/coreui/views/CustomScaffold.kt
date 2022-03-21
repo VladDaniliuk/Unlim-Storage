@@ -10,7 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.shov.coreui.ui.CustomTopAppBar
 import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.coreui.viewModels.singletonViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 
 @Composable
 fun CustomScaffold(

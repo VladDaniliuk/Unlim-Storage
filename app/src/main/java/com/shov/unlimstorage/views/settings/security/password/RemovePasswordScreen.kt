@@ -10,8 +10,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
 import com.shov.settingsfeature.viewModels.RemovePasswordViewModel
 
 @Composable

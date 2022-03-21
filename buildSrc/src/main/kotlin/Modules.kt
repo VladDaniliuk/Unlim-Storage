@@ -21,6 +21,7 @@ fun Project.implementModules() {
 	dependencies {
 		implement(project(Modules.coreModels))
 		implement(project(Modules.coreUI))
+		implement(project(Modules.coreUtils))
 		implement(project(Modules.preferences))
 		implement(project(Modules.settingsFeature))
 		implement(project(Modules.signInFeature))
@@ -44,6 +45,12 @@ fun Project.implementModulesForDropBoxStorage() {
 	}
 }
 
+fun Project.implementModulesForCoreUI() {
+	dependencies {
+		implement(project(Modules.coreUtils))
+	}
+}
+
 fun Project.implementModulesForLocalStorage() {
 	dependencies {
 		implement(project(Modules.coreModels))
@@ -54,6 +61,7 @@ fun Project.implementModulesForSignInFeature() {
 	dependencies {
 		implement(project(Modules.coreModels))
 		implement(project(Modules.coreUI))
+		implement(project(Modules.coreUtils))
 		implement(project(Modules.storageRepositories))
 		implement(project(Modules.preferences))
 	}

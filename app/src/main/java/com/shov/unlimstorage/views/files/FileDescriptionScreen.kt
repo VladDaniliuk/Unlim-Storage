@@ -22,7 +22,7 @@ import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.unlimstorage.R
 import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 
 @Composable
 fun FileDescriptionScreen(

@@ -45,6 +45,7 @@ fun Project.implementForCoreUi() {
 	implementLifecycle()
 	implementHiltForViewModels()
 	implementComposeForModules()
+	implementModulesForCoreUI()
 }
 
 fun Project.implementForCoreUtils() {

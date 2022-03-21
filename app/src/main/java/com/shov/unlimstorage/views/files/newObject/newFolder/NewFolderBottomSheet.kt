@@ -9,7 +9,7 @@ import com.shov.coreui.utils.observeConnectivityAsFlow
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.files.NewFolderViewModel
-import com.shov.unlimstorage.viewModels.provider.singletonViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.views.files.newObject.ChooseDriveBottomSheet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

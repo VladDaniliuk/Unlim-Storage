@@ -1,4 +1,4 @@
-package com.shov.coreui.viewModels
+package com.shov.coreutils.viewModels
 
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
