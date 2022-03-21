@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.security.password
+package com.shov.settingsfeature.views
 
 import android.content.Context
 import androidx.compose.material.icons.Icons
@@ -11,16 +11,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.R
-import com.shov.settingsfeature.viewModels.CreatePasswordViewModel
-import com.shov.settingsfeature.views.PasswordScreen
+import com.shov.settingsfeature.R
+import com.shov.settingsfeature.viewModels.ChangePasswordViewModel
 
 @Composable
-fun CreatePasswordScreen(
+fun ChangePasswordScreen(
 	context: Context = LocalContext.current,
-	createPasswordViewModel: CreatePasswordViewModel = hiltViewModel(),
-	popBackStack: () -> Unit,
+	changePasswordViewModel: ChangePasswordViewModel = hiltViewModel(),
 	scaffold: ScaffoldViewModel = singletonViewModel(),
+	popBackStack: () -> Unit
 ) {
 	PasswordScreen(
 		modifier = Modifier.navigationBarsPadding(
@@ -29,20 +28,17 @@ fun CreatePasswordScreen(
 		),
 		onError = {
 			scaffold.showSnackbar(context.getString(R.string.password_length_error))
-		},
-		onRightClick = { pinCode ->
-			createPasswordViewModel.onCreatePass(pinCode)
-			scaffold.showSnackbar(
-				context.getString(R.string.new_, context.getString(R.string.password_is_enabled))
-			)
-			popBackStack()
 		}
-	)
+	) { pass ->
+		changePasswordViewModel.onRightClick(pass, popBackStack) {
+			scaffold.showSnackbar(context.getString(R.string.passwords_dont_equal))
+		}
+	}
 
-	LaunchedEffect(key1 = null) {
+	LaunchedEffect(key1 = changePasswordViewModel.isPassChecked) {
 		scaffold.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
-			title = context.getString(R.string.create_password)
+			title = context.getString(changePasswordViewModel.titleId)
 		)
 	}
 }

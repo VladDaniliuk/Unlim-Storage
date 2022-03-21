@@ -1,9 +1,9 @@
-package com.shov.unlimstorage.utils
+package com.shov.settingsfeature.utils
 
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.fragment.app.FragmentActivity
-import com.shov.unlimstorage.R
+import com.shov.settingsfeature.R
 
 fun FragmentActivity.showBiometricAuthentication(onAuthenticationSucceeded: () -> Unit) {
 	val promptInfo = BiometricPrompt.PromptInfo.Builder()

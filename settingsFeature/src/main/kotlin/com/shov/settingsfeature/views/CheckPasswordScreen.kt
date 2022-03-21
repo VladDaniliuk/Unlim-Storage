@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.security.password
+package com.shov.settingsfeature.views
 
 import android.content.Context
 import androidx.biometric.BiometricManager
@@ -19,11 +19,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.R
+import com.shov.settingsfeature.R
 import com.shov.settingsfeature.utils.checkForAuthenticate
-import com.shov.unlimstorage.utils.showBiometricAuthentication
+import com.shov.settingsfeature.utils.showBiometricAuthentication
 import com.shov.settingsfeature.viewModels.CheckPasswordViewModel
-import com.shov.settingsfeature.views.PasswordScreen
 
 @Composable
 fun CheckPasswordScreen(

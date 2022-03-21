@@ -4,19 +4,15 @@
 	<string name="allow_access">Allow Unlim Storage to access files on your device?</string>
 	<string name="apk_name">app-%1$s.apk</string>
 	<string name="auto_check">Auto check for updates</string>
-	<string name="biometric_logging">Biometric logging</string>
-	<string name="cancel">Cancel</string>
 	<string name="check_connection">Check connection, please</string>
 	<string name="check_for_updates">Check for updates</string>
 	<string name="check_name">Check name, please</string>
 	<string name="check_password">Check password</string>
-	<string name="check_password_for_remove">Check password for remove</string>
 	<string name="connection_failed">Connection failed. Please, check internet.</string>
 	<string name="copy_link">Copy link</string>
 	<string name="create">Create</string>
 	<string name="create_link">Create link for share</string>
 	<string name="create_new_folder">Create new folder</string>
-	<string name="create_password">Create password</string>
 	<string name="created_time">Created time:</string>
 	<string name="deny">Deny</string>
 	<string name="description">Description:</string>
@@ -34,7 +30,6 @@
 	<string name="id_description">Id:</string>
 	<string name="link_copied">Link is copied</string>
 	<string name="link_description">Link:</string>
-	<string name="log_in_by_biometric">Log in by biometric credential</string>
 	<string name="modified_time">Modified time:</string>
 	<string name="modifier">Modifier</string>
 	<string name="new_">New %1$s</string>
@@ -42,11 +37,8 @@
 	<string name="object">object</string>
 	<string name="open_in_browser">Open in browser</string>
 	<string name="package_path">package:%1$s</string>
-	<string name="password_is_enabled">password is enabled</string>
 	<string name="password_length_error">Password must have at least 4 numbers</string>
-	<string name="password_removed">Password is removed</string>
 	<string name="passwords_dont_equal">Passwords don\'t equal</string>
-	<string name="passwords_equal">Passwords equal</string>
 	<string name="provider">.provider</string>
 	<string name="security">Security</string>
 	<string name="set_dropbox_refresh_token">Set Dropbox refresh token</string>
@@ -60,7 +52,6 @@
 	<string name="update_text">Update %1$s is available to download %2$s.\nRelease date: %3$s\nSize: %4$s\nRelease name: %5$s</string>
 	<string name="updates">Updates</string>
 	<string name="upload">Upload</string>
-	<string name="use_fingerprint">Use fingerprint</string>
 	<string name="user">User</string>
 	<string name="user_click_message">Long click to copy email</string>
 	<string name="user_long_click_message">Email is copied</string>

@@ -4,11 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
-import com.shov.settingsfeature.views.SecurityScreen
-import com.shov.unlimstorage.views.settings.security.password.ChangePasswordScreen
-import com.shov.unlimstorage.views.settings.security.password.CheckPasswordScreen
-import com.shov.unlimstorage.views.settings.security.password.CreatePasswordScreen
-import com.shov.unlimstorage.views.settings.security.password.RemovePasswordScreen
+import com.shov.settingsfeature.views.*
 
 fun NavGraphBuilder.securityComposable(securityNavHostController: NavHostController) {
 	composable(Screen.ChangePassword.route) {
