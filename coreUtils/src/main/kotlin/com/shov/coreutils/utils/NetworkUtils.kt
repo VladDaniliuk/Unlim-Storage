@@ -1,4 +1,4 @@
-package com.shov.coreui.utils
+package com.shov.coreutils.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
