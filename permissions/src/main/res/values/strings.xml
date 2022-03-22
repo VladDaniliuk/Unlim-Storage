@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="allow">Allow</string>
+	<string name="deny">Deny</string>
+	<string name="package_path">package:%1$s</string>
+</resources>
