@@ -11,14 +11,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.shov.coremodels.converters.toBytes
 import com.shov.coreutils.utils.observeConnectivityAsFlow
+import com.shov.coreutils.viewModels.singletonViewModel
+import com.shov.permissions.views.PermissionDialog
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.provider.newVersionViewModel
-import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.viewModels.settings.NewVersionViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
-import com.shov.unlimstorage.views.Permission
 import kotlinx.coroutines.flow.onEach
 
 @Composable
@@ -68,7 +68,7 @@ fun NewVersionDialog(
 	)
 
 	if (newVersionViewModel.isCheckPermissionShow) {
-		Permission(
+		PermissionDialog(
 			onDismissRequest = newVersionViewModel::showCheckPermission,
 			onHasAccess = {
 				val name = context.getString(

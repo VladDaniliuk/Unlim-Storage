@@ -12,11 +12,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
+import com.shov.permissions.views.PermissionDialog
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.context.share
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
-import com.shov.unlimstorage.views.Permission
 import com.shov.unlimstorage.views.files.fileInfo.fileInfoViews.FileInfoView
 
 @Composable
@@ -31,7 +31,7 @@ fun FileInfoScreen(
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
 	if (fileInfoViewModel.isDialogShown) {
-		Permission(
+		PermissionDialog(
 			onDismissRequest = { fileInfoViewModel.setShowDialog(false) },
 			onHasAccess = {
 				fileInfoViewModel.downloadFile(

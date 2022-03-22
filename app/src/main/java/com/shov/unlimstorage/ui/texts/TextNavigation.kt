@@ -58,9 +58,9 @@ fun TextNavigationPreview() {
 	TextNavigation(
 		stringIdArray = arrayOf(
 			R.string.set_dropbox_refresh_token,
-			R.string.deny,
+			R.string.passwords_dont_equal,
 			R.string.passwords_dont_equal
-		), taggedStringId = R.string.deny
+		), taggedStringId = R.string.passwords_dont_equal
 	) {}
 }
 

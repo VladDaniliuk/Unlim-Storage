@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="allow">Allow</string>
 	<string name="allow_access">Allow Unlim Storage to access files on your device?</string>
 	<string name="apk_name">app-%1$s.apk</string>
 	<string name="auto_check">Auto check for updates</string>
@@ -14,7 +13,6 @@
 	<string name="create_link">Create link for share</string>
 	<string name="create_new_folder">Create new folder</string>
 	<string name="created_time">Created time:</string>
-	<string name="deny">Deny</string>
 	<string name="description">Description:</string>
 	<string name="doesnt_work_now">Doesn\'t work now</string>
 	<string name="dont_ask_again">Don\'t ask me again</string>
@@ -36,7 +34,6 @@
 	<string name="nothing_to_show">It\'s nothing to show. Please, add account in\ </string>
 	<string name="object">object</string>
 	<string name="open_in_browser">Open in browser</string>
-	<string name="package_path">package:%1$s</string>
 	<string name="password_length_error">Password must have at least 4 numbers</string>
 	<string name="passwords_dont_equal">Passwords don\'t equal</string>
 	<string name="provider">.provider</string>
