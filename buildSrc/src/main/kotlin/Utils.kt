@@ -75,6 +75,12 @@ fun Project.implementForLocalStorage() {
 	implementHiltForHiltModules()
 }
 
+fun Project.implementForPermissions() {
+	implementComposeForModules()
+	implementModulesForPermissions()
+	implementIcons()
+}
+
 fun Project.implementForPreferences() {
 	implementHiltForModules()
 	implementSecurity()
