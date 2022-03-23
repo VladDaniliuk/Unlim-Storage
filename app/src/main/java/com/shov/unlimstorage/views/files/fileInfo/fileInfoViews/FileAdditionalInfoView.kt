@@ -3,7 +3,7 @@ package com.shov.unlimstorage.views.files.fileInfo.fileInfoViews
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Divider
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Face
+import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.ui.icons.ItemTypeIcon
 import com.shov.unlimstorage.ui.texts.TextInfo
+import com.shov.coremodels.R as coreModelsR
 
 @Composable
 fun FileAdditionalInfoView(
@@ -67,8 +68,8 @@ fun FileAdditionalInfoView(
 fun FileAdditionalInfoPreview() {
 	FileAdditionalInfoView(
 		id = "123456",
-		mainIcon = Icons.Rounded.Face,
-		secondaryIconId = R.drawable.ic_google_drive,
+		mainIcon = Icons.Rounded.Folder,
+		secondaryIconId = coreModelsR.drawable.ic_google_drive,
 		fileSize = "12 MB",
 		createdTime = "12:00:00 January 12, 2020",
 		modifiedTime = "12:00:00 January 12, 2020",

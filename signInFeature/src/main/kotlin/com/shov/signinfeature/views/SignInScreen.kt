@@ -2,16 +2,17 @@ package com.shov.signinfeature.views
 
 import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import com.shov.coreutils.utils.observeConnectivityAsFlow
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.signinfeature.R
 import com.shov.signinfeature.viewModels.SignInViewModel
+import com.shov.coremodels.R as coreModelsR
 
 @Composable
 fun SignInScreen(
@@ -40,6 +41,6 @@ fun SignInScreen(
 	}
 
 	LaunchedEffect(key1 = null) {
-		scaffold.setTopBar(title = context.getString(R.string.app_name))
+		scaffold.setTopBar(title = context.getString(coreModelsR.string.app_name))
 	}
 }

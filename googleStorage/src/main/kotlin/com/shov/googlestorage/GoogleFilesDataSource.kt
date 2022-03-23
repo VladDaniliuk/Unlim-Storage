@@ -9,11 +9,11 @@ import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
+import com.shov.coremodels.R
 import com.shov.coremodels.models.ItemType
 import com.shov.googlestorage.converters.toStoreItem
 import com.shov.googlestorage.converters.toStoreMetadataItem
 import com.shov.storage.FilesDataSource
-import com.shov.storage.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream

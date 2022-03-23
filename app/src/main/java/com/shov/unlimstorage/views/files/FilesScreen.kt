@@ -17,6 +17,7 @@ import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
+import com.shov.coremodels.R as coreModelsR
 import com.shov.unlimstorage.utils.navigateTo
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
@@ -92,7 +93,7 @@ fun FilesScreen(
 	LaunchedEffect(key1 = null) {
 		scaffold.setTopBar(
 			filesViewModel.folderId?.let { Icons.Rounded.ArrowBack to onBackPress },
-			filesScreenState.context.getString(R.string.app_name),
+			filesScreenState.context.getString(coreModelsR.string.app_name),
 			Icons.Rounded.AccountCircle to {
 				filesScreenState.navHostController.navigate(Screen.Settings.route)
 			}
