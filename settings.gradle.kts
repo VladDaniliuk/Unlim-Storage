@@ -7,6 +7,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Unlim Storage"
 include(":app")
+include(":autoUpdateFeature")
 include(":boxStorage")
 include(":coreModels")
 include(":coreUI")

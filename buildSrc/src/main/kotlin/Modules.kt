@@ -3,6 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 
 object Modules {
+	const val autoUpdateFeature = ":autoUpdateFeature"
 	const val boxStorage = ":boxStorage"
 	const val coreModels = ":coreModels"
 	const val coreUI = ":coreUI"
@@ -20,6 +21,7 @@ object Modules {
 
 fun Project.implementModules() {
 	dependencies {
+		implement(project(Modules.autoUpdateFeature))
 		implement(project(Modules.coreModels))
 		implement(project(Modules.coreUI))
 		implement(project(Modules.coreUtils))
@@ -97,5 +99,11 @@ fun Project.implementModulesForStorageRepositories() {
 		implement(project(Modules.googleStorage))
 		implement(project(Modules.localStorage))
 		implement(project(Modules.storage))
+	}
+}
+
+fun Project.implementModulesForAutoUpdateFeature() {
+	dependencies {
+		implement(project(Modules.coreUI))
 	}
 }

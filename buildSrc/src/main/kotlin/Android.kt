@@ -10,6 +10,10 @@ object Application {
 	const val versionName = "0.2.7.1"
 }
 
+object AutoUpdateFeature {
+	const val namespace = "com.shov.autoupdatefeature"
+}
+
 object BoxStorage {
 	const val namespace = "com.shov.boxstorage"
 }

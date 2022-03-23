@@ -27,6 +27,13 @@ fun Project.implementAll() {
 	implementModules()
 }
 
+fun Project.implementForAutoUpdateFeature() {
+	implementModulesForAutoUpdateFeature()
+	implementComposeForModules()
+	implementLifecycle()
+	implementHiltForFeatureModules()
+}
+
 fun Project.implementForBoxStorage() {
 	implementActivity()
 	implementHiltForModules()
