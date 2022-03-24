@@ -6,10 +6,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shov.preferences.datasources.PreferencesDataSource
+import com.shov.preferences.values.IS_UPDATE_SHOW
 import com.shov.unlimstorage.BuildConfig
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.models.repositories.GitHubRepository
-import com.shov.unlimstorage.values.IS_UPDATE_SHOW
+import com.shov.unlimstorage.utils.compareWithOld
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,6 +21,8 @@ class UpdateViewModel @Inject constructor(
 	preferences: PreferencesDataSource
 ) : ViewModel() {
 	var lastRelease by mutableStateOf<LastReleaseItem?>(null)
+		private set
+	var wasDialogShown by mutableStateOf(false)
 		private set
 	var isDialogShown by mutableStateOf(false)
 		private set
@@ -47,16 +50,13 @@ class UpdateViewModel @Inject constructor(
 	}
 
 	private fun checkNeedUpdate(lastReleaseVersion: String) {
-		val currentVersion = BuildConfig.VERSION_NAME.split(".")
-
-		lastReleaseVersion.split(".").forEachIndexed { i, element ->
-			if (element.toLong() > (currentVersion.getOrNull(i)?.toLong() ?: 0)) {
+		lastReleaseVersion.compareWithOld(
+			BuildConfig.VERSION_NAME,
+			onNewerAction = {
 				isDialogShown = true
-				return
-			} else if (element.toLong() < (currentVersion.getOrNull(i)?.toLong() ?: 0)) {
-				return
+				wasDialogShown = true
 			}
-		}
+		)
 	}
 
 	fun hideDialog() {
