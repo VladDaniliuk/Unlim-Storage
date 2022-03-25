@@ -21,12 +21,8 @@ class DownloadViewModel @Inject constructor(
 	var percents by mutableStateOf(0f)
 		private set
 
-	fun downloadNewVersion(name: String, url: String): Long? {
-		return downloadRepository.downloadFile(Uri.parse(url), name)
-	}
-
-	fun subscribeToDownload(id: Long?, name: String) {
-		id?.let {
+	fun subscribeToDownload(url: String, name: String, version: String) {
+		downloadRepository.downloadFile(Uri.parse(url), name, version)?.let { id ->
 			_downloadId = id
 
 			viewModelScope.launch {

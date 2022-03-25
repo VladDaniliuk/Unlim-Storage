@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="update_text">Update %1$s is available to download %2$s.\nRelease date: %3$s\nSize: %4$s\nRelease name: %5$s</string>
-	<string name="dont_show_again">Don\'t show me again</string>
-	<string name="update_available">update available</string>
-	<string name="new_">New %1$s</string>
 	<string name="cancel">Cancel</string>
+	<string name="dont_show_again">Don\'t show me again</string>
 	<string name="download">Download</string>
+	<string name="new_update_available">New update available</string>
+	<string name="update_text">Update %1$s is available to download %2$s.\nRelease date: %3$s\nSize: %4$s\nRelease name: %5$s</string>
 </resources>

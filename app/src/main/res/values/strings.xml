@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="allow_access">Allow Unlim Storage to access files on your device?</string>
-	<string name="apk_name">app-%1$s.apk</string>
 	<string name="auto_check">Auto check for updates</string>
 	<string name="check_connection">Check connection, please</string>
 	<string name="check_for_updates">Check for updates</string>
@@ -17,7 +16,6 @@
 	<string name="doesnt_work_now">Doesn\'t work now</string>
 	<string name="dont_ask_again">Don\'t ask me again</string>
 	<string name="dont_have_email">User doesn\'t have email</string>
-	<string name="dont_show_again">Don\'t show me again</string>
 	<string name="dot">.</string>
 	<string name="download">Download</string>
 	<string name="download_error">Download finished because error</string>
@@ -45,8 +43,6 @@
 	<string name="show_info">Show info</string>
 	<string name="size">%1$s %2$s</string>
 	<string name="size_description">Size:</string>
-	<string name="update_available">update available</string>
-	<string name="update_text">Update %1$s is available to download %2$s.\nRelease date: %3$s\nSize: %4$s\nRelease name: %5$s</string>
 	<string name="updates">Updates</string>
 	<string name="upload">Upload</string>
 	<string name="user">User</string>
