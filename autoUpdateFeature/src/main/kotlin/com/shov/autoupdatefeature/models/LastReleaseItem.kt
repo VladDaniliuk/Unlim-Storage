@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.api.models
+package com.shov.autoupdatefeature.models
 
 data class LastReleaseItem(
 	val version: String,

@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.preferences.values.IS_UPDATE_SHOW
 import com.shov.unlimstorage.BuildConfig
-import com.shov.unlimstorage.api.models.LastReleaseItem
+import com.shov.autoupdatefeature.models.LastReleaseItem
 import com.shov.unlimstorage.models.repositories.GitHubRepository
 import com.shov.unlimstorage.utils.compareWithOld
 import dagger.hilt.android.lifecycle.HiltViewModel

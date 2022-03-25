@@ -3,7 +3,7 @@ package com.shov.unlimstorage.utils.converters
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
-import com.shov.unlimstorage.api.models.LastReleaseItem
+import com.shov.autoupdatefeature.models.LastReleaseItem
 import com.shov.unlimstorage.values.LastRelease
 import java.lang.reflect.Type
 import javax.inject.Inject

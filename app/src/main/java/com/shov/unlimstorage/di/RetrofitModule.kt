@@ -1,7 +1,7 @@
 package com.shov.unlimstorage.di
 
 import com.google.gson.GsonBuilder
-import com.shov.unlimstorage.api.models.LastReleaseItem
+import com.shov.autoupdatefeature.models.LastReleaseItem
 import com.shov.unlimstorage.api.services.GitHubApi
 import com.shov.unlimstorage.utils.converters.LastReleaseDeserializer
 import com.shov.unlimstorage.values.GitHub

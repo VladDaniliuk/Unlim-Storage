@@ -1,6 +1,6 @@
 package com.shov.unlimstorage.models.repositories
 
-import com.shov.unlimstorage.api.models.LastReleaseItem
+import com.shov.autoupdatefeature.models.LastReleaseItem
 import com.shov.unlimstorage.api.services.GitHubApi
 import retrofit2.Response
 import javax.inject.Inject
