@@ -29,5 +29,5 @@ data class Asset(
 	@SerializedName("download_count") val downloadCount: Long,//counts of downloads
 	@SerializedName("created_at") val createdAt: String,
 	@SerializedName("updated_at") val updatedAt: String,
-	@SerializedName("browser_downloaded_url") val browserDownloadedUrl: String// link for downloading file
+	@SerializedName("browser_download_url") val browserDownloadUrl: String// link for downloading file
 )

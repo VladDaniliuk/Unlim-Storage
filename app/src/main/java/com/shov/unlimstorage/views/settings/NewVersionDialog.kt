@@ -40,7 +40,7 @@ fun NewVersionDialog(
 				onCheckBoxCheckedChange = updateViewModel::setShowDialogAgain,
 				onConfirmButtonClick = {
 					downloadViewModel.subscribeToDownload(
-						lastRelease.assets[0].browserDownloadedUrl,
+						lastRelease.assets[0].browserDownloadUrl,
 						lastRelease.assets[0].name,
 						lastRelease.tagName
 					)

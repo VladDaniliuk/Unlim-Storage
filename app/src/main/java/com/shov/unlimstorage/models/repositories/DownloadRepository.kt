@@ -4,8 +4,8 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import androidx.core.database.getIntOrNull
+import com.shov.autoupdatefeature.utils.installFile
 import com.shov.unlimstorage.utils.*
-import com.shov.unlimstorage.utils.context.installFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import java.io.File

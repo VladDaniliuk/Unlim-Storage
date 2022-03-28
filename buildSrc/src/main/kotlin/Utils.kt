@@ -28,6 +28,7 @@ fun Project.implementAll() {
 }
 
 fun Project.implementForAutoUpdateFeature() {
+	implementActivity()
 	implementComposeForModules()
 	implementHiltForFeatureModules()
 	implementLifecycle()
