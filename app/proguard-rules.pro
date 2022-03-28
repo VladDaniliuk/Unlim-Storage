@@ -15,6 +15,10 @@
 -keep class com.google.api.** {*;}
 -keep class com.box.androidsdk.** {*;}
 
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
+
 -dontwarn javax.naming.*
 -dontwarn javax.naming.directory.*
 -dontwarn javax.naming.ldap.*

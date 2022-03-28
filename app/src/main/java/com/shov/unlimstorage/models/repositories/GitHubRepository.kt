@@ -1,7 +1,7 @@
 package com.shov.unlimstorage.models.repositories
 
+import com.shov.autoupdatefeature.models.GitHubDataSource
 import com.shov.autoupdatefeature.models.LastReleaseItem
-import com.shov.unlimstorage.api.services.GitHubApi
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,9 +12,8 @@ interface GitHubRepository {
 
 @Singleton
 class GitHubRepositoryImpl @Inject constructor(
-	private val gitHubApi: GitHubApi
+	private val gitHubDataSource: GitHubDataSource
 ) : GitHubRepository {
-	override suspend fun getLastRelease(): Response<LastReleaseItem> {
-		return gitHubApi.getLastRelease()
-	}
+	override suspend fun getLastRelease(): Response<LastReleaseItem> =
+		gitHubDataSource.getLastRelease()
 }

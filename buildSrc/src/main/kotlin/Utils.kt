@@ -28,10 +28,11 @@ fun Project.implementAll() {
 }
 
 fun Project.implementForAutoUpdateFeature() {
-	implementModulesForAutoUpdateFeature()
 	implementComposeForModules()
-	implementLifecycle()
 	implementHiltForFeatureModules()
+	implementLifecycle()
+	implementModulesForAutoUpdateFeature()
+	implementSquareup()
 }
 
 fun Project.implementForBoxStorage() {

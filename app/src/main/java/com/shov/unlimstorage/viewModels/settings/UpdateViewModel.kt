@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shov.autoupdatefeature.models.LastReleaseItem
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.preferences.values.IS_UPDATE_SHOW
 import com.shov.unlimstorage.BuildConfig
-import com.shov.autoupdatefeature.models.LastReleaseItem
 import com.shov.unlimstorage.models.repositories.GitHubRepository
 import com.shov.unlimstorage.utils.compareWithOld
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,26 +37,16 @@ class UpdateViewModel @Inject constructor(
 
 	fun checkAppVersion() {
 		viewModelScope.launch {
-			gitHubRepository.getLastRelease().apply {
-				if (this.isSuccessful) {
-					lastRelease = this.body()
+			lastRelease = gitHubRepository.getLastRelease().body()
 
-					this.body()?.let { lastReleaseItem ->
-						checkNeedUpdate(lastReleaseItem.version)
-					}
+			lastRelease?.tagName?.compareWithOld(
+				BuildConfig.VERSION_NAME,
+				onNewerAction = {
+					isDialogShown = true
+					wasDialogShown = true
 				}
-			}
+			)
 		}
-	}
-
-	private fun checkNeedUpdate(lastReleaseVersion: String) {
-		lastReleaseVersion.compareWithOld(
-			BuildConfig.VERSION_NAME,
-			onNewerAction = {
-				isDialogShown = true
-				wasDialogShown = true
-			}
-		)
 	}
 
 	fun hideDialog() {

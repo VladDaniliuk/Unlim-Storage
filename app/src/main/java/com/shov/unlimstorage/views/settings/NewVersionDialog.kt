@@ -11,6 +11,7 @@ import com.shov.autoupdatefeature.views.NewVersionView
 import com.shov.coremodels.converters.toBytes
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
+import com.shov.unlimstorage.utils.converters.toPrettyTime
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
@@ -28,20 +29,20 @@ fun NewVersionDialog(
 			NewVersionView(
 				checkBoxChecked = updateViewModel.isShowAgain.not(),
 				lastReleaseFormatArgs = arrayOf(
-					lastRelease.version,
-					lastRelease.applicationName,
-					lastRelease.releaseDate,
-					lastRelease.applicationSize.toBytes().let { size ->
+					lastRelease.tagName,
+					lastRelease.assets[0].name,
+					lastRelease.publishedAd.toPrettyTime(),
+					lastRelease.assets[0].size.toBytes().let { size ->
 						context.getString(size.second, size.first)
 					},
-					lastRelease.releaseName
+					lastRelease.name
 				),
 				onCheckBoxCheckedChange = updateViewModel::setShowDialogAgain,
 				onConfirmButtonClick = {
 					downloadViewModel.subscribeToDownload(
-						lastRelease.downloadUrl,
-						lastRelease.applicationName,
-						lastRelease.version
+						lastRelease.assets[0].browserDownloadedUrl,
+						lastRelease.assets[0].name,
+						lastRelease.tagName
 					)
 
 					updateViewModel.hideDialog()
