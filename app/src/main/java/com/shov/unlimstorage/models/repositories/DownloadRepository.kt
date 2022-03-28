@@ -4,6 +4,9 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import androidx.core.database.getIntOrNull
+import com.shov.autoupdatefeature.utils.getApkVersionName
+import com.shov.autoupdatefeature.utils.getDownloadsDirectory
+import com.shov.autoupdatefeature.utils.getFile
 import com.shov.autoupdatefeature.utils.installFile
 import com.shov.unlimstorage.utils.*
 import dagger.hilt.android.qualifiers.ApplicationContext
