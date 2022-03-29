@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.models.repositories
+package com.shov.autoupdatefeature.data.repositories
 
 import android.app.DownloadManager
 import android.content.Context
@@ -9,8 +9,8 @@ import com.shov.autoupdatefeature.utils.getDownloadsDirectory
 import com.shov.autoupdatefeature.utils.getFile
 import com.shov.autoupdatefeature.utils.installFile
 import com.shov.autoupdatefeature.utils.compareWithOld
-import com.shov.unlimstorage.utils.getPercent
-import com.shov.unlimstorage.utils.setDownloadsDirectory
+import com.shov.autoupdatefeature.utils.getPercent
+import com.shov.autoupdatefeature.utils.setDownloadsDirectory
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import java.io.File

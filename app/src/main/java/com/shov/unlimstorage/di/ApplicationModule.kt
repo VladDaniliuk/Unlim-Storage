@@ -2,8 +2,8 @@ package com.shov.unlimstorage.di
 
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.preferences.datasources.PreferencesDataSourceImpl
-import com.shov.unlimstorage.models.repositories.DownloadRepository
-import com.shov.unlimstorage.models.repositories.DownloadRepositoryImpl
+import com.shov.autoupdatefeature.data.repositories.DownloadRepository
+import com.shov.autoupdatefeature.data.repositories.DownloadRepositoryImpl
 import com.shov.autoupdatefeature.data.repositories.GitHubRepository
 import com.shov.autoupdatefeature.data.repositories.GitHubRepositoryImpl
 import dagger.Binds
