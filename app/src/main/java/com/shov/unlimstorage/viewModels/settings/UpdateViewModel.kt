@@ -9,8 +9,8 @@ import com.shov.autoupdatefeature.models.LastReleaseItem
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.preferences.values.IS_UPDATE_SHOW
 import com.shov.unlimstorage.BuildConfig
-import com.shov.unlimstorage.models.repositories.GitHubRepository
-import com.shov.unlimstorage.utils.compareWithOld
+import com.shov.autoupdatefeature.data.repositories.GitHubRepository
+import com.shov.autoupdatefeature.utils.compareWithOld
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

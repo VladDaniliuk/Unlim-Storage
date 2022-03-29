@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.utils
+package com.shov.autoupdatefeature.utils
 
 fun String.compareWithOld(
 	oldVersion: String?,

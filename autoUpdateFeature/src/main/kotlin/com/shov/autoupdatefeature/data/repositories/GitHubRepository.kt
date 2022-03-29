@@ -1,6 +1,6 @@
-package com.shov.unlimstorage.models.repositories
+package com.shov.autoupdatefeature.data.repositories
 
-import com.shov.autoupdatefeature.models.GitHubDataSource
+import com.shov.autoupdatefeature.data.dataSources.GitHubDataSource
 import com.shov.autoupdatefeature.models.LastReleaseItem
 import retrofit2.Response
 import javax.inject.Inject

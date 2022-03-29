@@ -8,7 +8,9 @@ import com.shov.autoupdatefeature.utils.getApkVersionName
 import com.shov.autoupdatefeature.utils.getDownloadsDirectory
 import com.shov.autoupdatefeature.utils.getFile
 import com.shov.autoupdatefeature.utils.installFile
-import com.shov.unlimstorage.utils.*
+import com.shov.autoupdatefeature.utils.compareWithOld
+import com.shov.unlimstorage.utils.getPercent
+import com.shov.unlimstorage.utils.setDownloadsDirectory
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import java.io.File
