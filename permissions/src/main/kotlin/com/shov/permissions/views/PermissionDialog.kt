@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import androidx.annotation.RequiresApi
+import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import com.shov.coreui.ui.dialogs.CustomDialogContent
 import com.shov.coreui.ui.dialogs.CustomHeaderIcon
+import com.shov.coreui.ui.texts.CustomText
 import com.shov.permissions.R
 
 @Composable
@@ -54,7 +56,12 @@ private fun PermissionDialogR(onDismissRequest: () -> Unit, onHasAccess: () -> U
 					onDismissRequest()
 				},
 				onCompleteText = stringResource(R.string.allow)
-			)
+			) {
+				CustomText(
+					text = stringResource(id = R.string.allow_access),
+					textStyle = Typography().h6
+				)
+			}
 		}
 	}
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="allow_access">Allow Unlim Storage to access files on your device?</string>
 	<string name="auto_check">Auto check for updates</string>
 	<string name="check_connection">Check connection, please</string>
 	<string name="check_for_updates">Check for updates</string>
