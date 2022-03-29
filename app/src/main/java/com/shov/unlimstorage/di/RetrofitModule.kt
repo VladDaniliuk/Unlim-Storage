@@ -1,6 +1,6 @@
 package com.shov.unlimstorage.di
 
-import com.shov.autoupdatefeature.models.GitHubDataSource
+import com.shov.autoupdatefeature.data.dataSources.GitHubDataSource
 import com.shov.autoupdatefeature.values.GitHub
 import dagger.Module
 import dagger.Provides
