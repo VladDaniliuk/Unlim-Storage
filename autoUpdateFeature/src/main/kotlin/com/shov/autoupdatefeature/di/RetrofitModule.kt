@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.di
+package com.shov.autoupdatefeature.di
 
 import com.shov.autoupdatefeature.data.dataSources.GitHubDataSource
 import com.shov.autoupdatefeature.values.GitHub

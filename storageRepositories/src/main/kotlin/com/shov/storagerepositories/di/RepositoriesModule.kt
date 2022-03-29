@@ -19,7 +19,7 @@ interface RepositoriesModule {
 			FilesInfoRepository
 
 	@Binds
-	fun bindsNewFileRepository(newFileRepositoryImpl: FileActionsRepositoryImpl):
+	fun bindsFileActionsRepository(fileActionsRepositoryImpl: FileActionsRepositoryImpl):
 			FileActionsRepository
 
 	@Binds

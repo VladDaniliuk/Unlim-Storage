@@ -30,7 +30,7 @@ fun Project.implementAll() {
 fun Project.implementForAutoUpdateFeature() {
 	implementActivity()
 	implementComposeForModules()
-	implementHiltForFeatureModules()
+	implementHiltForHiltModules()
 	implementLifecycle()
 	implementModulesForAutoUpdateFeature()
 	implementSquareup()
@@ -91,7 +91,7 @@ fun Project.implementForPermissions() {
 }
 
 fun Project.implementForPreferences() {
-	implementHiltForModules()
+	implementHiltForHiltModules()
 	implementSecurity()
 }
 
