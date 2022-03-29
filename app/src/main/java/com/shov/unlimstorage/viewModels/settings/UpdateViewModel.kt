@@ -5,12 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shov.autoupdatefeature.data.repositories.GitHubRepository
 import com.shov.autoupdatefeature.models.LastReleaseItem
+import com.shov.autoupdatefeature.utils.compareWithOld
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.preferences.values.IS_UPDATE_SHOW
-import com.shov.unlimstorage.BuildConfig
-import com.shov.autoupdatefeature.data.repositories.GitHubRepository
-import com.shov.autoupdatefeature.utils.compareWithOld
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,12 +34,12 @@ class UpdateViewModel @Inject constructor(
 		isShowAgain = _isShowAgain
 	}
 
-	fun checkAppVersion() {
+	fun checkAppVersion(currentVersion: String) {
 		viewModelScope.launch {
 			lastRelease = gitHubRepository.getLastRelease().body()
 
 			lastRelease?.tagName?.compareWithOld(
-				BuildConfig.VERSION_NAME,
+				currentVersion,
 				onNewerAction = {
 					isDialogShown = true
 					wasDialogShown = true

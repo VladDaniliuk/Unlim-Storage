@@ -7,11 +7,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.shov.autoupdatefeature.utils.toPrettyTime
 import com.shov.autoupdatefeature.views.NewVersionView
 import com.shov.coremodels.converters.toBytes
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.utils.converters.toPrettyTime
 import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
@@ -60,7 +60,9 @@ fun NewVersionDialog(
 					.and(isConnected)
 					.and(updateViewModel.wasDialogShown.not())
 			) {
-				updateViewModel.checkAppVersion()
+				updateViewModel.checkAppVersion(
+					context.packageManager.getPackageInfo(context.packageName, 0).versionName
+				)
 			}
 		}.launchWhenStarted(lifecycleOwner.lifecycleScope)
 	}

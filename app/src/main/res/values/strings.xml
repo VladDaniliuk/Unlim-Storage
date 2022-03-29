@@ -34,7 +34,6 @@
 	<string name="open_in_browser">Open in browser</string>
 	<string name="password_length_error">Password must have at least 4 numbers</string>
 	<string name="passwords_dont_equal">Passwords don\'t equal</string>
-	<string name="provider">.provider</string>
 	<string name="security">Security</string>
 	<string name="set_dropbox_refresh_token">Set Dropbox refresh token</string>
 	<string name="settings">Settings</string>

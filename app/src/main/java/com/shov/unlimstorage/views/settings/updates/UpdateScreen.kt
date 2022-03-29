@@ -16,8 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
-import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
@@ -34,7 +34,9 @@ fun UpdateScreen(
 	UpdateView(
 		onCheckForUpdateClick = {
 			if (isConnected) {
-				updateViewModel.checkAppVersion()
+				updateViewModel.checkAppVersion(
+					context.packageManager.getPackageInfo(context.packageName, 0).versionName
+				)
 			} else {
 				scaffold.showSnackbar(context.getString(R.string.connection_failed))
 			}
