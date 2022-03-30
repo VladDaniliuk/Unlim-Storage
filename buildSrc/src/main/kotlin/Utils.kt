@@ -34,6 +34,7 @@ fun Project.implementForAutoUpdateFeature() {
 	implementLifecycle()
 	implementModulesForAutoUpdateFeature()
 	implementSquareup()
+	implementIcons()
 }
 
 fun Project.implementForBoxStorage() {

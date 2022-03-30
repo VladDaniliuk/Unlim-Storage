@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
 import com.shov.settingsfeature.views.SettingsScreen
 import com.shov.signinfeature.views.AccountsScreen
-import com.shov.unlimstorage.views.settings.updates.UpdateScreen
+import com.shov.autoupdatefeature.views.UpdateScreen
 
 fun NavGraphBuilder.settingsComposable(settingsNavController: NavHostController) {
 	composable(Screen.Accounts.route) {

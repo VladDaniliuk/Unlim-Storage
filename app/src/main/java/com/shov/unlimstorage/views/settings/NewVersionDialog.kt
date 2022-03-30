@@ -3,27 +3,24 @@ package com.shov.unlimstorage.views.settings
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.shov.autoupdatefeature.utils.toPrettyTime
+import com.shov.autoupdatefeature.viewModels.UpdateViewModel
 import com.shov.autoupdatefeature.views.NewVersionView
 import com.shov.coremodels.converters.toBytes
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.utils.launchWhenStarted
-import com.shov.unlimstorage.viewModels.DownloadViewModel
-import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
-import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun NewVersionDialog(
 	context: Context = LocalContext.current,
-	lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-	downloadViewModel: DownloadViewModel = singletonViewModel(),
-	updateViewModel: UpdateViewModel = singletonViewModel()
+	updateViewModel: UpdateViewModel = singletonViewModel(),
+	setProgress: (percents: Float, title: String) -> Unit = { _, _ -> },
 ) {
+	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
+
 	if (updateViewModel.isDialogShown) {
 		updateViewModel.lastRelease?.let { lastRelease ->
 			NewVersionView(
@@ -39,10 +36,11 @@ fun NewVersionDialog(
 				),
 				onCheckBoxCheckedChange = updateViewModel::setShowDialogAgain,
 				onConfirmButtonClick = {
-					downloadViewModel.subscribeToDownload(
+					updateViewModel.subscribeToDownload(
 						lastRelease.assets[0].browserDownloadUrl,
 						lastRelease.assets[0].name,
-						lastRelease.tagName
+						lastRelease.tagName,
+						setProgress
 					)
 
 					updateViewModel.hideDialog()
@@ -53,17 +51,15 @@ fun NewVersionDialog(
 		}
 	}
 
-	LaunchedEffect(key1 = null) {
-		context.observeConnectivityAsFlow().onEach { isConnected ->
-			if (
-				updateViewModel.isShowAgain
-					.and(isConnected)
-					.and(updateViewModel.wasDialogShown.not())
-			) {
-				updateViewModel.checkAppVersion(
-					context.packageManager.getPackageInfo(context.packageName, 0).versionName
-				)
-			}
-		}.launchWhenStarted(lifecycleOwner.lifecycleScope)
+	LaunchedEffect(key1 = isConnected) {
+		if (
+			updateViewModel.isShowAgain
+				.and(isConnected)
+				.and(updateViewModel.wasDialogShown.not())
+		) {
+			updateViewModel.checkAppVersion(
+				context.packageManager.getPackageInfo(context.packageName, 0).versionName
+			)
+		}
 	}
 }

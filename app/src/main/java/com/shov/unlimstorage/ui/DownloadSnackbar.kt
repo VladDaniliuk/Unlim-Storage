@@ -16,16 +16,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
+import com.shov.autoupdatefeature.viewModels.UpdateViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 
 @Composable
-fun DownloadSnackbar(downloadViewModel: DownloadViewModel = singletonViewModel()) {
+fun DownloadSnackbar(
+	downloadViewModel: DownloadViewModel = singletonViewModel(),
+	updateViewModel: UpdateViewModel = singletonViewModel()
+) {
 	if (downloadViewModel.percents in 0.01f..0.99f) {
 		DownloadSnackbar(
 			percents = downloadViewModel.percents,
-			onDismissRequest = downloadViewModel::dismissDownloading,
+			onDismissRequest = {
+				updateViewModel.dismissDownloading()
+				downloadViewModel.setProgress(0f, "")
+			},
 			title = downloadViewModel.title
 		)
 	}

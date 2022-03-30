@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="auto_check">Auto check for updates</string>
 	<string name="cancel">Cancel</string>
+	<string name="check_for_updates">Check for updates</string>
+	<string name="connection_failed">Connection failed. Please, check internet.</string>
 	<string name="dont_show_again">Don\'t show me again</string>
 	<string name="download">Download</string>
 	<string name="new_update_available">New update available</string>
 	<string name="update_text">Update %1$s is available to download %2$s.\nRelease date: %3$s\nSize: %4$s\nRelease name: %5$s</string>
+	<string name="updates">Updates</string>
 </resources>

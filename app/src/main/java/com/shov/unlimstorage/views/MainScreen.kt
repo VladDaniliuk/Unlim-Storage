@@ -13,14 +13,18 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.views.CustomScaffold
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.ui.DownloadSnackbar
+import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.views.navigations.MainNavigation
 import com.shov.unlimstorage.views.settings.NewVersionDialog
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScreen(bottomSheetViewModel: BottomSheetViewModel = singletonViewModel()) {
-	NewVersionDialog()
+fun MainScreen(
+	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
+	downloadViewModel: DownloadViewModel = singletonViewModel()
+) {
+	NewVersionDialog(setProgress = downloadViewModel::setProgress)
 
 	Column(
 		modifier = Modifier

@@ -4,13 +4,7 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import androidx.core.database.getIntOrNull
-import com.shov.autoupdatefeature.utils.getApkVersionName
-import com.shov.autoupdatefeature.utils.getDownloadsDirectory
-import com.shov.autoupdatefeature.utils.getFile
-import com.shov.autoupdatefeature.utils.installFile
-import com.shov.autoupdatefeature.utils.compareWithOld
-import com.shov.autoupdatefeature.utils.getPercent
-import com.shov.autoupdatefeature.utils.setDownloadsDirectory
+import com.shov.autoupdatefeature.utils.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import java.io.File
@@ -20,7 +14,7 @@ import javax.inject.Singleton
 interface DownloadRepository {
 	fun downloadFile(link: Uri, name: String, newVersion: String): Long?
 	suspend fun checkDownload(id: Long, name: String, onCheck: (Float, String) -> Unit)
-	fun dismissDownloading(id: Long, onCheck: (Float) -> Unit)
+	fun dismissDownloading(id: Long)
 }
 
 @Singleton
@@ -82,9 +76,8 @@ class DownloadRepositoryImpl @Inject constructor(
 		}
 	}
 
-	override fun dismissDownloading(id: Long, onCheck: (Float) -> Unit) {
+	override fun dismissDownloading(id: Long) {
 		getDownloadManagerService()?.remove(id)
-		onCheck(0f)
 	}
 
 	private fun getDownloadManagerService() = context.getSystemService(DownloadManager::class.java)

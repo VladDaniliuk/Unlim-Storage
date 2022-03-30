@@ -1,10 +1,12 @@
-package com.shov.unlimstorage.viewModels.settings
+package com.shov.autoupdatefeature.viewModels
 
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shov.autoupdatefeature.data.repositories.DownloadRepository
 import com.shov.autoupdatefeature.data.repositories.GitHubRepository
 import com.shov.autoupdatefeature.models.LastReleaseItem
 import com.shov.autoupdatefeature.utils.compareWithOld
@@ -16,6 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UpdateViewModel @Inject constructor(
+	private val downloadRepository: DownloadRepository,
 	private val gitHubRepository: GitHubRepository,
 	preferences: PreferencesDataSource
 ) : ViewModel() {
@@ -28,6 +31,7 @@ class UpdateViewModel @Inject constructor(
 	private var _isShowAgain by preferences.getPref(IS_UPDATE_SHOW, true)
 	var isShowAgain by mutableStateOf(_isShowAgain)
 		private set
+	private var _downloadId by mutableStateOf<Long?>(null)
 
 	fun setShowDialogAgain() {
 		_isShowAgain = _isShowAgain.not()
@@ -45,6 +49,27 @@ class UpdateViewModel @Inject constructor(
 					wasDialogShown = true
 				}
 			)
+		}
+	}
+
+	fun subscribeToDownload(
+		url: String,
+		name: String,
+		version: String,
+		setProgress: (Float, String) -> Unit
+	) {
+		downloadRepository.downloadFile(Uri.parse(url), name, version)?.let { id ->
+			_downloadId = id
+
+			viewModelScope.launch {
+				downloadRepository.checkDownload(id, name, setProgress)
+			}
+		}
+	}
+
+	fun dismissDownloading() {
+		_downloadId?.let { id ->
+			downloadRepository.dismissDownloading(id)
 		}
 	}
 

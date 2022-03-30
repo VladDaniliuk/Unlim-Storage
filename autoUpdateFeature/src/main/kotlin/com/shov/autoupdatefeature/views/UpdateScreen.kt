@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings.updates
+package com.shov.autoupdatefeature.views
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
@@ -14,13 +14,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.shov.autoupdatefeature.R
+import com.shov.autoupdatefeature.viewModels.UpdateViewModel
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 
 @Composable
 fun UpdateScreen(
