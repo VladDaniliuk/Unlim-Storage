@@ -2,9 +2,7 @@ package com.shov.settingsfeature.views
 
 import android.content.Context
 import androidx.biometric.BiometricManager
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -16,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -32,10 +29,9 @@ fun CheckPasswordScreen(
 	onAccess: () -> Unit
 ) {
 	Column(
-		modifier = Modifier.navigationBarsPadding(
-			start = false,
-			end = false
-		)
+		modifier = Modifier.windowInsetsPadding(
+			WindowInsets.navigationBars.only(WindowInsetsSides.Bottom + WindowInsetsSides.Top)
+		),
 	) {
 		PasswordScreen(
 			modifier = Modifier.weight(1f),

@@ -21,9 +21,3 @@ fun Project.implementAccompanist() {
 		implement(Accompanist.Lib.systemuicontroller)
 	}
 }
-
-fun Project.implementInsets() {
-	dependencies {
-		implement(Accompanist.Lib.insets)
-	}
-}

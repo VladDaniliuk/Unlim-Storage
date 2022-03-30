@@ -101,7 +101,6 @@ fun Project.implementForSettingsFeature() {
 	implementComposeForModules()
 	implementHiltForFeatureModules()
 	implementIcons()
-	implementInsets()
 	implementLifecycle()
 	implementModulesForSettingsFeature()
 }

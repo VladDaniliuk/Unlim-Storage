@@ -67,7 +67,7 @@ fun SecurityView(
 		RemovePasswordMenuLink(onRemovePasswordClick = onRemovePasswordClick)
 
 		EnableBiometricMenuLink(
-			isBiometricChecked = isBiometricCheckedState,
+			isBiometricChecked = isBiometricCheckedState.and(canAuthWithBiometric),
 			enabled = canAuthWithBiometric,
 			onCheckBoxChange = onCheckBoxChange,
 			onClick = {

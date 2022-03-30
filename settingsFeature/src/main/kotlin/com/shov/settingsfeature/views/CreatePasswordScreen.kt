@@ -1,6 +1,7 @@
 package com.shov.settingsfeature.views
 
 import android.content.Context
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
@@ -8,7 +9,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -22,9 +22,8 @@ fun CreatePasswordScreen(
 	scaffold: ScaffoldViewModel = singletonViewModel(),
 ) {
 	PasswordScreen(
-		modifier = Modifier.navigationBarsPadding(
-			start = false,
-			end = false
+		modifier = Modifier.windowInsetsPadding(
+			WindowInsets.navigationBars.only(WindowInsetsSides.Bottom + WindowInsetsSides.Top)
 		),
 		onError = {
 			scaffold.showSnackbar(context.getString(R.string.password_length_error))
