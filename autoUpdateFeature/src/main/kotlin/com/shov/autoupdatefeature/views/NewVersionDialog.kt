@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.settings
+package com.shov.autoupdatefeature.views
 
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -8,7 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import com.shov.autoupdatefeature.utils.toPrettyTime
 import com.shov.autoupdatefeature.viewModels.UpdateViewModel
-import com.shov.autoupdatefeature.views.NewVersionView
 import com.shov.coremodels.converters.toBytes
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel

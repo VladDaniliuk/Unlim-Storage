@@ -104,6 +104,7 @@ fun Project.implementModulesForStorageRepositories() {
 
 fun Project.implementModulesForAutoUpdateFeature() {
 	dependencies {
+		implement(project(Modules.coreModels))
 		implement(project(Modules.coreUI))
 		implement(project(Modules.coreUtils))
 		implement(project(Modules.preferences))

@@ -16,7 +16,7 @@ import com.shov.unlimstorage.ui.DownloadSnackbar
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.views.navigations.MainNavigation
-import com.shov.unlimstorage.views.settings.NewVersionDialog
+import com.shov.autoupdatefeature.views.NewVersionDialog
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
