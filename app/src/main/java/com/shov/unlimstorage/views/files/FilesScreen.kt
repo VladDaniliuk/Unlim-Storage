@@ -1,5 +1,6 @@
 package com.shov.unlimstorage.views.files
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
@@ -17,14 +18,12 @@ import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
-import com.shov.coremodels.R as coreModelsR
 import com.shov.unlimstorage.utils.navigateTo
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.viewModels.files.FilesViewModel
 import com.shov.unlimstorage.viewStates.FilesScreenState
-import com.shov.unlimstorage.viewStates.rememberUploadNavigationState
-import com.shov.unlimstorage.views.navigations.UploadNavigation
 import kotlinx.coroutines.launch
+import com.shov.coremodels.R as coreModelsR
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -36,6 +35,10 @@ fun FilesScreen(
 	scaffold: ScaffoldViewModel = singletonViewModel(),
 	onFolderOpen: (BackStack) -> Unit
 ) {
+	if (filesViewModel.folderId != null) {
+		BackHandler(onBack = onBackPress)
+	}
+
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 	val storeItems by filesViewModel.storeItems.collectAsState()
 
@@ -43,20 +46,6 @@ fun FilesScreen(
 		swipeRefreshState = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
 		storeItems = storeItems,
 		onTextNavigationClick = filesScreenState.navHostController::navigateTo,
-		onFabClick = {
-			bottomSheetViewModel.setContent {
-				UploadNavigation(
-					uploadNavigationState = rememberUploadNavigationState(
-						folderId = filesViewModel.folderId,
-						storageType = filesViewModel.storageType
-					)
-				)
-			}
-
-			filesScreenState.coroutineScope.launch {
-				bottomSheetViewModel.sheetState.show()
-			}
-		},
 		isEnabled = filesViewModel.isClickable,
 		onStoreItemClick = { storeItem ->
 			filesViewModel.onStoreItemClick(

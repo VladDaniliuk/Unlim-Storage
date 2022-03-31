@@ -1,7 +1,6 @@
 package com.shov.unlimstorage.views
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -9,14 +8,12 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import com.google.accompanist.insets.navigationBarsPadding
+import com.shov.autoupdatefeature.views.NewVersionDialog
 import com.shov.coreui.views.CustomScaffold
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.ui.DownloadSnackbar
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.views.navigations.MainNavigation
-import com.shov.autoupdatefeature.views.NewVersionDialog
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -29,7 +26,9 @@ fun MainScreen(
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
-			.navigationBarsPadding(bottom = false)
+			.windowInsetsPadding(
+				WindowInsets.navigationBars.only(WindowInsetsSides.Start + WindowInsetsSides.End)
+			)
 	) {
 		ModalBottomSheetLayout(
 			modifier = Modifier.weight(1f),
@@ -45,8 +44,6 @@ fun MainScreen(
 				}
 			}
 		)
-
-		DownloadSnackbar()
 	}
 
 	LaunchedEffect(key1 = bottomSheetViewModel.sheetState.isVisible) {

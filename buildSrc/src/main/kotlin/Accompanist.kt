@@ -17,7 +17,6 @@ object Accompanist {
 fun Project.implementAccompanist() {
 	dependencies {
 		implement(Accompanist.Lib.swiperefresh)
-		implement(Accompanist.Lib.insets)
 		implement(Accompanist.Lib.systemuicontroller)
 	}
 }

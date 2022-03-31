@@ -5,7 +5,6 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
 import com.shov.unlimstorage.views.MainScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,9 +20,7 @@ class MainActivity : AppCompatActivity() {
 
 		setContent {
 			CustomTheme {
-				ProvideWindowInsets {
-					MainScreen()
-				}
+				MainScreen()
 			}
 		}
 	}

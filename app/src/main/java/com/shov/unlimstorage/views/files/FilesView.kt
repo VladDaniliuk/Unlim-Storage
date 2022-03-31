@@ -1,7 +1,9 @@
 package com.shov.unlimstorage.views.files
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -14,51 +16,45 @@ import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
 import com.shov.coreutils.values.Screen
-import com.shov.unlimstorage.ui.FABScaffold
-import com.shov.unlimstorage.ui.spacers.FabSpacer
 import com.shov.unlimstorage.ui.storeItems.StoreItemView
 import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
+import com.shov.unlimstorage.values.PADDING_FAB
+import com.shov.unlimstorage.values.SIZE_FAB
 
 @Composable
 fun FilesView(
 	swipeRefreshState: SwipeRefreshState,
 	storeItems: List<StoreItem>,
 	onTextNavigationClick: (String) -> Unit,
-	onFabClick: () -> Unit,
 	isEnabled: Boolean,
 	onStoreItemClick: (StoreItem) -> Unit,
 	onOptionStoreItemClick: (StoreItem) -> Unit,
 	onRefresh: () -> Unit
 ) {
-	FABScaffold(onClick = onFabClick) {
-		SwipeRefresh(
-			state = swipeRefreshState,
-			onRefresh = onRefresh
-		) {//TODO Do progress with linear progress
-			if (storeItems.isEmpty()) {
-				FilesEmptyView {
-					onTextNavigationClick(Screen.Accounts.route)
+	SwipeRefresh(
+		modifier = Modifier.navigationBarsPadding(),
+		state = swipeRefreshState,
+		onRefresh = onRefresh
+	) {//TODO Do progress with linear progress
+		if (storeItems.isEmpty()) {
+			FilesEmptyView {
+				onTextNavigationClick(Screen.Accounts.route)
+			}
+		} else {
+			Column(modifier = Modifier.verticalScroll(state = rememberScrollState())) {
+				storeItems.forEach { storeItem ->
+					StoreItemView(
+						name = storeItem.name,
+						type = storeItem.type,
+						size = storeItem.size,
+						disk = storeItem.disk,
+						enabled = isEnabled,
+						onClick = { onStoreItemClick(storeItem) },
+						onOptionClick = { onOptionStoreItemClick(storeItem) }
+					)
 				}
-			} else {
-				Column(
-					modifier = Modifier
-						.fillMaxSize()
-						.verticalScroll(state = rememberScrollState())
-				) {
-					storeItems.forEach { storeItem ->
-						StoreItemView(
-							name = storeItem.name,
-							type = storeItem.type,
-							size = storeItem.size,
-							disk = storeItem.disk,
-							enabled = isEnabled,
-							onClick = { onStoreItemClick(storeItem) },
-							onOptionClick = { onOptionStoreItemClick(storeItem) }
-						)
-					}
 
-					FabSpacer()
-				}
+				Spacer(modifier = Modifier.height(SIZE_FAB + PADDING_FAB))
 			}
 		}
 	}
@@ -74,7 +70,6 @@ fun FilesPreview() {
 				StoreItem("", ItemType.FILE, "Name", StorageType.GOOGLE, "1 Mb")
 			},
 			onTextNavigationClick = {},
-			onFabClick = {},
 			isEnabled = true,
 			onStoreItemClick = {},
 			onOptionStoreItemClick = {},
