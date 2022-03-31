@@ -9,7 +9,7 @@ internal fun DbxUserFilesRequests.uploadFile(
 	fileName: String,
 	inputStream: InputStream
 ) {
-	uploadBuilder("${getMetadata(folderId).pathLower}/$fileName")
+	uploadBuilder("${folderId?.let(::getMetadata)?.pathLower ?: ""}/$fileName")
 		.withMode(WriteMode.ADD)
 		.uploadAndFinish(inputStream)
 }
