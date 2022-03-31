@@ -43,7 +43,7 @@ fun NavigationChain(
 				.padding(start = 4.dp),
 			enabled = iconEnabled,
 			imageVector = Icons.Rounded.Home,
-			ripplePadding = 6.dp,
+			ripplePadding = 7.dp,
 			onClick = iconOnClick
 		)
 

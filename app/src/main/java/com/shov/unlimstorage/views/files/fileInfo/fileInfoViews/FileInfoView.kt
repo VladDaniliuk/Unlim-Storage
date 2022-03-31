@@ -1,13 +1,13 @@
 package com.shov.unlimstorage.views.files.fileInfo.fileInfoViews
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.insets.navigationBarsPadding
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.UserItem

@@ -2,6 +2,8 @@ package com.shov.unlimstorage.views.files
 
 import android.content.Context
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -17,12 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.unlimstorage.R
 import com.shov.coreutils.utils.observeConnectivityAsFlow
-import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
+import com.shov.unlimstorage.R
+import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
 
 @Composable
 fun FileDescriptionScreen(
@@ -42,7 +43,8 @@ fun FileDescriptionScreen(
 		placeholder = { Text(text = stringResource(id = R.string.description)) },
 		modifier = Modifier
 			.fillMaxSize()
-			.navigationBarsWithImePadding(),
+			.navigationBarsPadding()
+			.imePadding(),
 		colors = TextFieldDefaults.textFieldColors(
 			backgroundColor = MaterialTheme.colors.background,
 			focusedIndicatorColor = MaterialTheme.colors.background,
