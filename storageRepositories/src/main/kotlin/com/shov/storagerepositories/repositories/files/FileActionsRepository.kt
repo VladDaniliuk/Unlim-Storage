@@ -1,5 +1,6 @@
 package com.shov.storagerepositories.repositories.files
 
+import android.os.Environment
 import com.shov.coremodels.models.StorageType
 import com.shov.storagerepositories.repositories.factories.FilesFactory
 import com.shov.storagerepositories.utils.createFile
@@ -50,14 +51,14 @@ class FileActionsRepositoryImpl @Inject constructor(
 		onStart: () -> Unit,
 		onError: () -> Unit
 	) {
-		File("/storage/emulated/0/Download").createFile(
-			name = name,
-			onCreate = {
-				filesFactory.create(disk)
-					.downloadFile(id, name, size, this, setPercents, onStart, onError)
-			}//TODO onExist onError
-		)//TODO GOOGLE PERCENTS
-	}
+		File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), name)
+			.createFile(
+				onCreate = {
+					filesFactory.create(disk)
+						.downloadFile(id, name, size, this, setPercents, onStart, onError)
+				}
+			)//TODO GOOGLE PERCENTS
+	}// TODO onExist onError
 
 	override fun uploadFile(
 		inputStream: InputStream,
