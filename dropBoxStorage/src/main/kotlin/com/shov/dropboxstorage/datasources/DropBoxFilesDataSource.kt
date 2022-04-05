@@ -75,13 +75,15 @@ class DropBoxFilesDataSource @Inject constructor(
 		}
 	}
 
-	override fun createFolder(folderId: String?, folderName: String) = try {
-		dbxUserFilesRequests()?.createFolderV2("${getPath(folderId)}/$folderName", true)
+	override fun createFolder(folderId: String?, folderName: String) = if (folderName.isNotEmpty()) {
+		try {
+			dbxUserFilesRequests()?.createFolderV2("${getPath(folderId)}/$folderName", true)
 
-		true
-	} catch (e: BadRequestException) {
-		false
-	}
+			true
+		} catch (e: BadRequestException) {
+			false
+		}
+	} else false
 
 	private fun dbxUserFilesRequests(): DbxUserFilesRequests? {
 		val dropBoxCredential by preferences.getPref(DROPBOX_CREDENTIAL, "")

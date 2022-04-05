@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.support.delegates.DependencyHandlerDelegate
 fun DependencyHandler.implement(lib: String) = add("implementation", lib)
 fun DependencyHandler.implement(project: ProjectDependency) = add("implementation", project)
 fun DependencyHandlerDelegate.kapt(lib: String) = add("kapt", lib)
+fun DependencyHandlerDelegate.ksp(lib: String) = add("ksp", lib)
 fun DependencyHandlerScope.androidTestImplement(lib: String) = add("androidTestImplementation", lib)
 fun DependencyHandlerScope.testImplement(lib: String) = add("testImplementation", lib)
 
@@ -28,6 +29,7 @@ fun Project.implementAll() {
 }
 
 fun Project.implementForAutoUpdateFeature() {
+	implementKotlin()
 	implementActivity()
 	implementComposeForModules()
 	implementHiltForHiltModules()
@@ -38,6 +40,7 @@ fun Project.implementForAutoUpdateFeature() {
 }
 
 fun Project.implementForBoxStorage() {
+	implementKotlin()
 	implementActivity()
 	implementHiltForModules()
 	implementBoxApi()
@@ -45,12 +48,14 @@ fun Project.implementForBoxStorage() {
 }
 
 fun Project.implementForCoreModels() {
+	implementKotlin()
 	implementActivity()
 	implementIcons()
 	implementRoomKtx()
 }
 
 fun Project.implementForCoreUi() {
+	implementKotlin()
 	implementKotlinx()
 	implementLifecycle()
 	implementHiltForViewModels()
@@ -59,12 +64,14 @@ fun Project.implementForCoreUi() {
 }
 
 fun Project.implementForCoreUtils() {
+	implementKotlin()
 	implementKotlinx()
 	implementActivity()
 	implementHiltForViewModels()
 }
 
 fun Project.implementForDropBoxStorage() {
+	implementKotlin()
 	implementActivity()
 	implementHiltForModules()
 	implementLifecycle()
@@ -73,6 +80,7 @@ fun Project.implementForDropBoxStorage() {
 }
 
 fun Project.implementForGoogleStorage() {
+	implementKotlin()
 	implementActivity()
 	implementHiltForModules()
 	implementGoogleForGoogleStorage()
@@ -80,23 +88,27 @@ fun Project.implementForGoogleStorage() {
 }
 
 fun Project.implementForLocalStorage() {
+	implementKotlin()
 	implementLocalDataBase()
 	implementModulesForLocalStorage()
 	implementHiltForHiltModules()
 }
 
 fun Project.implementForPermissions() {
+	implementKotlin()
 	implementComposeForModules()
 	implementModulesForPermissions()
 	implementIcons()
 }
 
 fun Project.implementForPreferences() {
+	implementKotlin()
 	implementHiltForHiltModules()
 	implementSecurity()
 }
 
 fun Project.implementForSettingsFeature() {
+	implementKotlin()
 	implementBiometric()
 	implementComposeForModules()
 	implementHiltForFeatureModules()
@@ -106,6 +118,7 @@ fun Project.implementForSettingsFeature() {
 }
 
 fun Project.implementForSignInFeature() {
+	implementKotlin()
 	implementModulesForSignInFeature()
 	implementComposeForModules()
 	implementLifecycle()
@@ -113,11 +126,13 @@ fun Project.implementForSignInFeature() {
 }
 
 fun Project.implementForStorage() {
+	implementKotlin()
 	implementActivity()
 	implementModulesForStorage()
 }
 
 fun Project.implementForStorageRepositories() {
+	implementKotlin()
 	implementHiltForHiltModules()
 	implementModulesForStorageRepositories()
 	implementKotlinx()
