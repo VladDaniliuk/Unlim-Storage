@@ -5,8 +5,8 @@ import org.gradle.kotlin.dsl.dependencies
 object Google {
 	private const val lib = "com.google"
 	private const val versionServices = "4.3.10"
-	private const val versionAuth = "19.2.0"
-	private const val versionClient = "1.33.2"
+	private const val versionAuth = "20.1.0"
+	private const val versionClient = "1.33.4"
 	private const val versionDrive = "v3-rev197-1.25.0"
 	private const val versionGson = "2.8.9"
 

@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Room {
 	private const val lib = "androidx.room:room"
-	private const val roomVersion = "2.4.1"
+	private const val roomVersion = "2.5.0-alpha01"
 
 	object Lib {
 		const val runtime = "$lib-runtime:$roomVersion"
@@ -15,7 +15,7 @@ object Room {
 fun Project.implementLocalDataBase() {
 	dependencies {
 		implement(Room.Lib.runtime)
-		kapt(Room.Lib.compiler)
+		ksp(Room.Lib.compiler)
 		implement(Room.Lib.ktx)
 	}
 }

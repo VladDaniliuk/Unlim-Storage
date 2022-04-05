@@ -2,7 +2,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 object Dropbox {
-	const val version = "5.1.1"
+	const val version = "5.2.0"
 	const val lib = "com.dropbox.core:dropbox-core-sdk:"
 
 	object Lib {
