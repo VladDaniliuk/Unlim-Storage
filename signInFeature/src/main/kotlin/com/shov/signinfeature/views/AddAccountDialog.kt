@@ -59,7 +59,7 @@ internal fun AddAccountView(
 					)
 				},
 				title = stringResource(R.string.account, stringResource(storageType.nameId)),
-				subtitle = stringResource(R.string.click_to_delete)
+				subtitle = stringResource(R.string.click_to_add),
 			) {
 				startForResult.launch(intent(storageType))
 			}
