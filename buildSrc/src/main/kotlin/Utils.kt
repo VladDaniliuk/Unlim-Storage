@@ -94,13 +94,6 @@ fun Project.implementForLocalStorage() {
 	implementHiltForHiltModules()
 }
 
-fun Project.implementForPermissions() {
-	implementKotlin()
-	implementComposeForModules()
-	implementModulesForPermissions()
-	implementIcons()
-}
-
 fun Project.implementForPreferences() {
 	implementKotlin()
 	implementHiltForHiltModules()

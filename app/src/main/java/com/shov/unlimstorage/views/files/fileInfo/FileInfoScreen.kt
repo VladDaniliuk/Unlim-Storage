@@ -1,6 +1,8 @@
 package com.shov.unlimstorage.views.files.fileInfo
 
+import android.Manifest
 import android.content.Context
+import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
@@ -9,12 +11,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.permissions.views.PermissionDialog
 import com.shov.unlimstorage.R
+import com.shov.unlimstorage.utils.checkMultiplePermissions
 import com.shov.unlimstorage.utils.context.share
+import com.shov.unlimstorage.utils.rememberRequestMultiplePermissionsResult
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
 import com.shov.unlimstorage.views.files.fileInfo.fileInfoViews.FileInfoView
@@ -30,21 +33,18 @@ fun FileInfoScreen(
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
-	if (fileInfoViewModel.isDialogShown) {
-		PermissionDialog(
-			onDismissRequest = { fileInfoViewModel.setShowDialog(false) },
-			onHasAccess = {
-				fileInfoViewModel.downloadFile(
-					setPercents = downloadViewModel::setProgress,
-					onStart = {
-						scaffold.showSnackbar(context.getString(R.string.download_started))
-					}
-				) {
-					scaffold.showSnackbar(context.getString(R.string.download_error))
-				}
+	val launcher = rememberRequestMultiplePermissionsResult(
+		Manifest.permission.READ_EXTERNAL_STORAGE,
+		Manifest.permission.WRITE_EXTERNAL_STORAGE,
+		onAllowed = {
+			fileInfoViewModel.downloadFile(downloadViewModel::setProgress) { id ->
+				scaffold.showSnackbar(context.getString(id))
 			}
-		)
-	}
+		},
+		onDenied = {
+			scaffold.showSnackbar(context.getString(R.string.permissions_denied))
+		}
+	)
 
 	FileInfoView(
 		id = fileInfoViewModel.id,
@@ -63,15 +63,32 @@ fun FileInfoScreen(
 				context.share(link)
 			}
 		},
-		onDownloadClick = fileInfoViewModel::setShowDialog,
+		onDownloadClick = {
+			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+				if (context.checkMultiplePermissions(
+						Manifest.permission.READ_EXTERNAL_STORAGE,
+						Manifest.permission.WRITE_EXTERNAL_STORAGE
+					)
+				) {
+					fileInfoViewModel.downloadFile(downloadViewModel::setProgress) { id ->
+						scaffold.showSnackbar(context.getString(id))
+					}
+				} else {
+					launcher.launch(
+						arrayOf(
+							Manifest.permission.WRITE_EXTERNAL_STORAGE,
+							Manifest.permission.READ_EXTERNAL_STORAGE
+						)
+					)
+				}
+			} else {
+				fileInfoViewModel.downloadFile(downloadViewModel::setProgress) { id ->
+					scaffold.showSnackbar(context.getString(id))
+				}
+			}
+		},
 		onShowSnackbar = scaffold::showSnackbar
 	)
-
-	LaunchedEffect(key1 = null) {
-		if (isConnected) {
-			fileInfoViewModel.getFileMetadata()
-		}
-	}
 
 	LaunchedEffect(key1 = isConnected) {
 		if (isConnected.and(fileInfoViewModel.storeMetadata == null)) {

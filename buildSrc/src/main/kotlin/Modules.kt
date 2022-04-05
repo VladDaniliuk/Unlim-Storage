@@ -11,7 +11,6 @@ object Modules {
 	const val dropBoxStorage = ":dropBoxStorage"
 	const val googleStorage = ":googleStorage"
 	const val localStorage = ":localStorage"
-	const val permissions = ":permissions"
 	const val preferences = ":preferences"
 	const val settingsFeature = ":settingsFeature"
 	const val signInFeature = ":signInFeature"
@@ -25,7 +24,6 @@ fun Project.implementModules() {
 		implement(project(Modules.coreModels))
 		implement(project(Modules.coreUI))
 		implement(project(Modules.coreUtils))
-		implement(project(Modules.permissions))
 		implement(project(Modules.preferences))
 		implement(project(Modules.settingsFeature))
 		implement(project(Modules.signInFeature))
@@ -58,12 +56,6 @@ fun Project.implementModulesForCoreUI() {
 fun Project.implementModulesForLocalStorage() {
 	dependencies {
 		implement(project(Modules.coreModels))
-	}
-}
-
-fun Project.implementModulesForPermissions() {
-	dependencies {
-		implement(project(Modules.coreUI))
 	}
 }
 

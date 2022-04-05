@@ -42,10 +42,6 @@ object LocalStorage {
 	const val namespace = "com.shov.localstorage"
 }
 
-object Permissions {
-	const val namespace = "com.shov.permissions"
-}
-
 object Preferences {
 	const val namespace = "com.shov.preferences"
 }
