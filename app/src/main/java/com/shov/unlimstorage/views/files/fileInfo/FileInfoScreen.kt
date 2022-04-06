@@ -19,7 +19,7 @@ import com.shov.unlimstorage.utils.checkMultiplePermissions
 import com.shov.unlimstorage.utils.context.share
 import com.shov.unlimstorage.utils.rememberRequestMultiplePermissionsResult
 import com.shov.unlimstorage.viewModels.DownloadViewModel
-import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
+import com.shov.filesfeature.viewModels.FileInfoViewModel
 import com.shov.filesfeature.views.fileInfo.FileInfoView
 
 @Composable

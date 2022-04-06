@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels.files
+package com.shov.filesfeature.viewModels
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
@@ -13,9 +13,9 @@ import androidx.lifecycle.viewModelScope
 import com.shov.coremodels.models.StoreItem
 import com.shov.coremodels.models.StoreMetadataItem
 import com.shov.coreutils.values.argStoreId
+import com.shov.filesfeature.R
 import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import com.shov.storagerepositories.repositories.files.FilesInfoRepository
-import com.shov.unlimstorage.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

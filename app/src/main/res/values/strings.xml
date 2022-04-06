@@ -11,8 +11,6 @@
 	<string name="doesnt_work_now">Doesn\'t work now</string>
 	<string name="dont_ask_again">Don\'t ask me again</string>
 	<string name="dot">.</string>
-	<string name="download_error">Download finished because of error</string>
-	<string name="download_started">Download started</string>
 	<string name="downloading">Downloading %1$s</string>
 	<string name="folder">Folder</string>
 	<string name="modifier">Modifier</string>

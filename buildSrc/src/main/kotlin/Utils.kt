@@ -81,12 +81,14 @@ fun Project.implementForDropBoxStorage() {
 }
 
 fun Project.implementForFilesFeature() {
-	implementKotlin()
+	implementCoil()
 	implementComposeForModules()
+	implementHiltForFeatureModules()
+	implementIcons()
+	implementKotlin()
+	implementLifecycle()
 	implementModulesForFilesFeature()
 	implementSwipeRefresh()
-	implementIcons()
-	implementCoil()
 }
 
 fun Project.implementForGoogleStorage() {

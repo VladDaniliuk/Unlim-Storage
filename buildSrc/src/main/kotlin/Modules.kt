@@ -60,6 +60,7 @@ fun Project.implementModulesForFilesFeature() {
 		implement(project(Modules.coreModels))
 		implement(project(Modules.coreUI))
 		implement(project(Modules.coreUtils))
+		implement(project(Modules.storageRepositories))
 	}
 }
 
