@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="nothing_to_show">It\'s nothing to show. Please, add account in\ </string>
+	<string name="settings">Settings</string>
+	<string name="dot">.</string>
+</resources>

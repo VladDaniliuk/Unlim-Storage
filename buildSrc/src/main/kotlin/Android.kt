@@ -34,6 +34,10 @@ object DropBoxStorage {
 	const val namespace = "com.shov.dropboxstorage"
 }
 
+object FilesFeature {
+	const val namespace = "com.shov.filesfeature"
+}
+
 object GoogleStorage {
 	const val namespace = "com.shov.googlestorage"
 }
