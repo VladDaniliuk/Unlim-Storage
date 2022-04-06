@@ -17,7 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.files.ChooseDriveViewModel
+import com.shov.filesfeature.viewModels.newObject.ChooseDriveViewModel
 
 @Composable
 fun ChooseDriveBottomSheet(

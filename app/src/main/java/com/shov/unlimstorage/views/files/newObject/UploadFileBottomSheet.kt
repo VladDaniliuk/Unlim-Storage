@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
-import com.shov.unlimstorage.viewModels.files.UploadFileViewModel
+import com.shov.filesfeature.viewModels.newObject.UploadFileViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.InputStream

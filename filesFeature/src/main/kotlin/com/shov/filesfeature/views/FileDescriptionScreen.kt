@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files
+package com.shov.filesfeature.views
 
 import android.content.Context
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,8 +22,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.files.FileDescriptionViewModel
+import com.shov.filesfeature.R
+import com.shov.filesfeature.viewModels.FileDescriptionViewModel
 
 @Composable
 fun FileDescriptionScreen(

@@ -4,7 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
-import com.shov.unlimstorage.views.files.FileDescriptionScreen
+import com.shov.filesfeature.views.FileDescriptionScreen
 import com.shov.unlimstorage.views.files.FileListScreen
 import com.shov.unlimstorage.views.files.fileInfo.FileInfoScreen
 

@@ -1,53 +1,38 @@
-package com.shov.unlimstorage.viewModels.files
+package com.shov.filesfeature.viewModels.newObject
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import com.shov.coremodels.models.StorageType
+import com.shov.coreutils.values.argFileName
 import com.shov.coreutils.values.argFolderId
 import com.shov.coreutils.values.argStorageType
-import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import javax.inject.Inject
 
 @HiltViewModel
-class NewFolderViewModel @Inject constructor(
+class UploadFileViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val fileActionsRepository: FileActionsRepository
+	private val fileActionsRepository: FileActionsRepository,
 ) : ViewModel() {
-	var text by mutableStateOf("")
-		private set
-	var type by mutableStateOf<StorageType?>(null)
-	var textError by mutableStateOf("")
+	private var fileName by mutableStateOf<String?>(null)
 	private var folderId by mutableStateOf<String?>(null)
-	val focusRequester = FocusRequester()
+	var type by mutableStateOf<StorageType?>(null)
 
-	fun onTextChange(text: String = "") {
-		this.text = text
-		textError = ""
+	fun uploadFile(file: InputStream?, onFinished: () -> Unit) {
+		if ((fileName != null).or(file != null).or(type != null)) {
+			viewModelScope.launch(Dispatchers.IO) {
+				fileActionsRepository.uploadFile(file!!, fileName!!, type!!, folderId)
+			}.invokeOnCompletion { onFinished() }
+		} else throw NullPointerException()
 	}
-
-	fun createFolder(
-		onCompletion: () -> Unit,
-		textError: String,
-		onError: () -> Unit
-	) {
-		viewModelScope.launch(Dispatchers.IO) {
-			type?.let { type ->
-				if (fileActionsRepository.createFolder(folderId, text, type)) onCompletion() else {
-					this@NewFolderViewModel.textError = textError
-					onError()
-				}
-			}
-		}
-	}
-
 
 	init {
 		savedStateHandle.get<String?>(argStorageType)?.let { type ->
@@ -55,6 +40,9 @@ class NewFolderViewModel @Inject constructor(
 		}
 		savedStateHandle.get<String?>(argFolderId)?.let { folderId ->
 			this.folderId = folderId
+		}
+		savedStateHandle.get<String?>(argFileName)?.let { fileName ->
+			this.fileName = fileName
 		}
 	}
 }
