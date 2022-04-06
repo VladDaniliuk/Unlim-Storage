@@ -10,7 +10,6 @@
 	<string name="create">Create</string>
 	<string name="create_link">Create link for share</string>
 	<string name="create_new_folder">Create new folder</string>
-	<string name="created_time">Created time:</string>
 	<string name="description">Description:</string>
 	<string name="doesnt_work_now">Doesn\'t work now</string>
 	<string name="dont_ask_again">Don\'t ask me again</string>
@@ -22,10 +21,8 @@
 	<string name="downloading">Downloading %1$s</string>
 	<string name="folder">Folder</string>
 	<string name="folder_name">folder name</string>
-	<string name="id_description">Id:</string>
 	<string name="link_copied">Link is copied</string>
 	<string name="link_description">Link:</string>
-	<string name="modified_time">Modified time:</string>
 	<string name="modifier">Modifier</string>
 	<string name="new_">New %1$s</string>
 	<string name="nothing_to_show">It\'s nothing to show. Please, add account in\ </string>
@@ -41,11 +38,9 @@
 	<string name="sharing_access">Sharing access:</string>
 	<string name="show_info">Show info</string>
 	<string name="size">%1$s %2$s</string>
-	<string name="size_description">Size:</string>
 	<string name="updates">Updates</string>
 	<string name="upload">Upload</string>
 	<string name="user">User</string>
 	<string name="user_click_message">Long click to copy email</string>
 	<string name="user_long_click_message">Email is copied</string>
-	<string name="version_description">Version:</string>
 </resources>

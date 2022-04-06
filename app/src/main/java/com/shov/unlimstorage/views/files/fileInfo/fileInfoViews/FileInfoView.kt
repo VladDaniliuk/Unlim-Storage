@@ -11,8 +11,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.UserItem
+import com.shov.filesfeature.views.FileAdditionalInfoView
+import com.shov.filesfeature.views.FileDescriptionView
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.buttons.MaxWidthButton
+import com.shov.filesfeature.ui.MaxWidthButton
 
 @Composable
 fun FileInfoView(

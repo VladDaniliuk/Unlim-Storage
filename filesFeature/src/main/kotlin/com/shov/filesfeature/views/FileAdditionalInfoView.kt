@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files.fileInfo.fileInfoViews
+package com.shov.filesfeature.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Divider
@@ -11,9 +11,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.shov.unlimstorage.R
+import com.shov.filesfeature.R
 import com.shov.filesfeature.ui.ItemTypeIcon
-import com.shov.unlimstorage.ui.texts.TextInfo
+import com.shov.filesfeature.ui.TextInfo
 import com.shov.coremodels.R as coreModelsR
 
 @Composable

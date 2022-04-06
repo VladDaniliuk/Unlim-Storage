@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.texts
+package com.shov.filesfeature.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -30,6 +30,6 @@ fun TextInfo(name: String, value: String?) {
 
 @Preview
 @Composable
-fun TextInfoPreview() {
+private fun TextInfoPreview() {
 	TextInfo(name = "name", value = "value")
 }
