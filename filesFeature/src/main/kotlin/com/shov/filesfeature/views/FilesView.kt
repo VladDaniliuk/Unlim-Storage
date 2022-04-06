@@ -19,8 +19,8 @@ import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
 import com.shov.coreui.ui.LinearPullRefreshIndicator
 import com.shov.coreutils.values.Screen
-import com.shov.filesfeature.PADDING_FAB
-import com.shov.filesfeature.SIZE_FAB
+import com.shov.filesfeature.values.PADDING_FAB
+import com.shov.filesfeature.values.SIZE_FAB
 import com.shov.filesfeature.ui.StoreItemView
 
 @OptIn(ExperimentalFoundationApi::class)
