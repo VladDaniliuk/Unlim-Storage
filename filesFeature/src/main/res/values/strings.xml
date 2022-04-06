@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="copy_link">Copy link</string>
+	<string name="create">Create</string>
 	<string name="create_link">Create link for share</string>
 	<string name="created_time">Created time:</string>
 	<string name="description">Description:</string>
 	<string name="doesnt_work_now">Doesn\'t work now</string>
 	<string name="dont_have_email">User doesn\'t have email</string>
 	<string name="dot">.</string>
+	<string name="download">Download</string>
 	<string name="id_description">Id:</string>
 	<string name="link_copied">Link is copied</string>
 	<string name="link_description">Link:</string>
@@ -16,10 +18,10 @@
 	<string name="settings">Settings</string>
 	<string name="share_link">Share link</string>
 	<string name="sharing_access">Sharing access:</string>
+	<string name="show_info">Show info</string>
 	<string name="size_description">Size:</string>
 	<string name="user">User</string>
 	<string name="user_click_message">Long click to copy email</string>
 	<string name="user_long_click_message">Email is copied</string>
 	<string name="version_description">Version:</string>
-	<string name="download">Download</string>
 </resources>

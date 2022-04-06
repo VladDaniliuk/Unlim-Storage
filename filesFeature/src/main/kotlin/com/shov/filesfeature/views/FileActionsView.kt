@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files
+package com.shov.filesfeature.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.buttons.CustomIconButton
+import com.shov.filesfeature.R
 import com.shov.filesfeature.ui.StoreItemView
-import com.shov.unlimstorage.R
 
 @Composable
 fun FileActionsView(
