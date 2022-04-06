@@ -1,4 +1,4 @@
-package com.shov.filesfeature.views
+package com.shov.filesfeature.views.fileInfo
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.navigationBarsPadding
