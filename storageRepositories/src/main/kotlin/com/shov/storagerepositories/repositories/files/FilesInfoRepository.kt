@@ -34,8 +34,6 @@ class FilesInfoRepositoryImpl @Inject constructor(
 					}
 				)
 			}
-
-			storeItemDao.deleteFiles(folderId, storageType)
 		} ?: run {
 			coroutineScope {
 				StorageType.values().forEach { storageType ->
@@ -46,11 +44,17 @@ class FilesInfoRepositoryImpl @Inject constructor(
 					)
 				}
 			}
-
-			storeItemDao.deleteFiles(folderId)
 		}
 
-		storeItemDao.setAll(storeItems.awaitAll().flatten())
+		val storeItemList = storeItems.awaitAll().flatten()
+
+		storeItemDao.getFiles(folderId).filterNot(storeItemList::contains)
+			.map(StoreItem::id)
+			.let { id ->
+				storeItemDao.deleteFiles(id)
+			}
+
+		storeItemDao.setAll(storeItemList)
 	}
 
 	override fun getFromLocalAsync(folderId: String?): Flow<List<StoreItem>> =

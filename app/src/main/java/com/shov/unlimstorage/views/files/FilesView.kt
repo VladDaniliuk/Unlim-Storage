@@ -1,11 +1,12 @@
 package com.shov.unlimstorage.views.files
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +22,7 @@ import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
 import com.shov.unlimstorage.values.PADDING_FAB
 import com.shov.unlimstorage.values.SIZE_FAB
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FilesView(
 	swipeRefreshState: SwipeRefreshState,
@@ -41,20 +43,27 @@ fun FilesView(
 				onTextNavigationClick(Screen.Accounts.route)
 			}
 		} else {
-			Column(modifier = Modifier.verticalScroll(state = rememberScrollState())) {
-				storeItems.forEach { storeItem ->
+			LazyColumn(modifier = Modifier.fillMaxSize()) {
+				items(
+					items = storeItems,
+					key = StoreItem::id
+				) { storeItem ->
 					StoreItemView(
+						modifier = Modifier.animateItemPlacement(),
 						name = storeItem.name,
 						type = storeItem.type,
 						size = storeItem.size,
 						disk = storeItem.disk,
 						enabled = isEnabled,
 						onClick = { onStoreItemClick(storeItem) },
-						onOptionClick = { onOptionStoreItemClick(storeItem) }
+						onOptionClick = { onOptionStoreItemClick(storeItem) },
+						onLongClick = { onOptionStoreItemClick(storeItem) }
 					)
 				}
 
-				Spacer(modifier = Modifier.height(SIZE_FAB + PADDING_FAB))
+				item {
+					Spacer(modifier = Modifier.height(SIZE_FAB + PADDING_FAB))
+				}
 			}
 		}
 	}
