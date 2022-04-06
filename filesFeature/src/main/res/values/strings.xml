@@ -3,12 +3,14 @@
 	<string name="copy_link">Copy link</string>
 	<string name="create">Create</string>
 	<string name="create_link">Create link for share</string>
+	<string name="create_new_folder">Create new folder</string>
 	<string name="created_time">Created time:</string>
 	<string name="description">Description:</string>
 	<string name="doesnt_work_now">Doesn\'t work now</string>
 	<string name="dont_have_email">User doesn\'t have email</string>
 	<string name="dot">.</string>
 	<string name="download">Download</string>
+	<string name="folder_name">folder name</string>
 	<string name="id_description">Id:</string>
 	<string name="link_copied">Link is copied</string>
 	<string name="link_description">Link:</string>

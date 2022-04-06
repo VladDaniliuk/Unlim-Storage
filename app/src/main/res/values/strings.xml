@@ -7,7 +7,6 @@
 	<string name="check_password">Check password</string>
 	<string name="connection_failed">Connection failed. Please, check internet.</string>
 	<string name="create">Create</string>
-	<string name="create_new_folder">Create new folder</string>
 	<string name="description">Description:</string>
 	<string name="doesnt_work_now">Doesn\'t work now</string>
 	<string name="dont_ask_again">Don\'t ask me again</string>
@@ -16,7 +15,6 @@
 	<string name="download_started">Download started</string>
 	<string name="downloading">Downloading %1$s</string>
 	<string name="folder">Folder</string>
-	<string name="folder_name">folder name</string>
 	<string name="modifier">Modifier</string>
 	<string name="new_">New %1$s</string>
 	<string name="nothing_to_show">It\'s nothing to show. Please, add account in\ </string>
