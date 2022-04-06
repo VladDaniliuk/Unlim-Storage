@@ -1,4 +1,4 @@
-package com.shov.filesfeature
+package com.shov.filesfeature.ui
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.LocalContentColor
@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
+import com.shov.filesfeature.R
 
 @Composable
 fun TextNavigation(
@@ -53,7 +54,7 @@ fun TextNavigation(
 
 @Preview
 @Composable
-fun TextNavigationPreview() {
+private fun TextNavigationPreview() {
 	TextNavigation(
 		stringIdArray = arrayOf(
 			R.string.nothing_to_show,

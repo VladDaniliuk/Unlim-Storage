@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.buttons.CustomIconButton
-import com.shov.filesfeature.StoreItemView
+import com.shov.filesfeature.ui.StoreItemView
 import com.shov.unlimstorage.R
 
 @Composable

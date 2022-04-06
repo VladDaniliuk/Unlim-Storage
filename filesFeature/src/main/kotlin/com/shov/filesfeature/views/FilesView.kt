@@ -1,4 +1,4 @@
-package com.shov.filesfeature
+package com.shov.filesfeature.views
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +19,9 @@ import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
 import com.shov.coreui.ui.LinearPullRefreshIndicator
 import com.shov.coreutils.values.Screen
+import com.shov.filesfeature.PADDING_FAB
+import com.shov.filesfeature.SIZE_FAB
+import com.shov.filesfeature.ui.StoreItemView
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -72,7 +75,7 @@ fun FilesView(
 
 @Preview
 @Composable
-fun FilesPreview() {
+private fun FilesPreview() {
 	FilesView(
 		swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false),
 		storeItems = List(10) {

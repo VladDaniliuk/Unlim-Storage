@@ -17,7 +17,7 @@ import com.shov.coreutils.models.BackStack
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.filesfeature.FilesView
+import com.shov.filesfeature.views.FilesView
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.utils.navigateTo
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel

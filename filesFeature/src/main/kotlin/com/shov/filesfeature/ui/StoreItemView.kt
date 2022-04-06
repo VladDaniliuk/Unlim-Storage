@@ -1,4 +1,4 @@
-package com.shov.filesfeature
+package com.shov.filesfeature.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -101,7 +101,7 @@ fun StoreItemView(
 @ExperimentalFoundationApi
 @Preview(name = "File with long name")
 @Composable
-fun FilePreview() {
+private fun FilePreview() {
 	StoreItemView(
 		disk = StorageType.GOOGLE,
 		name = "Test test test test test test test test test",
@@ -113,7 +113,7 @@ fun FilePreview() {
 @ExperimentalFoundationApi
 @Preview
 @Composable
-fun FolderPreview() {
+private fun FolderPreview() {
 	StoreItemView(
 		disk = StorageType.BOX,
 		name = "Folder preview",

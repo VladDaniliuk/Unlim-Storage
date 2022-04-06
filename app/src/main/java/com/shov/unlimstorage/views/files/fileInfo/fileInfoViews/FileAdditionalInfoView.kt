@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.icons.ItemTypeIcon
+import com.shov.filesfeature.ui.ItemTypeIcon
 import com.shov.unlimstorage.ui.texts.TextInfo
 import com.shov.coremodels.R as coreModelsR
 
@@ -65,7 +65,7 @@ fun FileAdditionalInfoView(
 
 @Preview
 @Composable
-fun FileAdditionalInfoPreview() {
+private fun FileAdditionalInfoPreview() {
 	FileAdditionalInfoView(
 		id = "123456",
 		mainIcon = Icons.Rounded.Folder,

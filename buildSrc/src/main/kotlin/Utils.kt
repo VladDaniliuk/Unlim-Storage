@@ -85,6 +85,7 @@ fun Project.implementForFilesFeature() {
 	implementComposeForModules()
 	implementModulesForFilesFeature()
 	implementSwipeRefresh()
+	implementIcons()
 }
 
 fun Project.implementForGoogleStorage() {
