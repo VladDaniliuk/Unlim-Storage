@@ -10,12 +10,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
+import com.shov.coreui.ui.LinearPullRefreshIndicator
 import com.shov.coreutils.values.Screen
 import com.shov.unlimstorage.ui.storeItems.StoreItemView
 import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
@@ -36,8 +38,11 @@ fun FilesView(
 	SwipeRefresh(
 		modifier = Modifier.navigationBarsPadding(),
 		state = swipeRefreshState,
-		onRefresh = onRefresh
-	) {//TODO Do progress with linear progress
+		onRefresh = onRefresh,
+		indicator = { state: SwipeRefreshState, refreshTrigger: Dp ->
+			LinearPullRefreshIndicator(state, refreshTrigger)
+		}
+	) {
 		if (storeItems.isEmpty()) {
 			FilesEmptyView {
 				onTextNavigationClick(Screen.Accounts.route)

@@ -61,6 +61,7 @@ fun Project.implementForCoreUi() {
 	implementHiltForViewModels()
 	implementComposeForModules()
 	implementModulesForCoreUI()
+	implementSwipeRefresh()
 }
 
 fun Project.implementForCoreUtils() {

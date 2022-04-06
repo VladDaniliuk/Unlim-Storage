@@ -1,23 +1,15 @@
 package com.shov.autoupdatefeature.views
 
 import android.content.Context
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Switch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Autorenew
-import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.shov.autoupdatefeature.R
 import com.shov.autoupdatefeature.viewModels.UpdateViewModel
-import com.shov.coreui.ui.icons.CustomIcon
-import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
@@ -36,12 +28,15 @@ fun UpdateScreen(
 			if (isConnected) {
 				updateViewModel.checkAppVersion(
 					context.packageManager.getPackageInfo(context.packageName, 0).versionName
-				)
+				) {
+					scaffold.showSnackbar(context.getString(R.string.have_latest_version))
+				}
 			} else {
 				scaffold.showSnackbar(context.getString(R.string.connection_failed))
 			}
 		},
 		isShowAgain = updateViewModel.isShowAgain,
+		isShowProgress = updateViewModel.isShowProgress,
 		onAutoCheckClick = updateViewModel::setShowDialogAgain
 	)
 
@@ -51,44 +46,4 @@ fun UpdateScreen(
 			title = context.getString(R.string.updates)
 		)
 	}
-}
-
-@Composable
-internal fun UpdateView(
-	onCheckForUpdateClick: () -> Unit,
-	isShowAgain: Boolean,
-	onAutoCheckClick: () -> Unit
-) {
-	Column {
-		MenuLink(
-			icon = {
-				CustomIcon(imageVector = Icons.Rounded.Update)
-			},
-			title = stringResource(R.string.check_for_updates),
-			onClick = onCheckForUpdateClick
-		)
-
-		MenuLink(
-			icon = {
-				CustomIcon(imageVector = Icons.Rounded.Autorenew)
-			},
-			title = stringResource(R.string.auto_check),
-			action = {
-				Switch(
-					checked = isShowAgain,
-					onCheckedChange = { onAutoCheckClick() }
-				)
-			},
-			onClick = onAutoCheckClick
-		)
-	}
-}
-
-@Preview
-@Composable
-private fun UpdatePreview() {
-	UpdateView(
-		onCheckForUpdateClick = {},
-		isShowAgain = true
-	) {}
 }
