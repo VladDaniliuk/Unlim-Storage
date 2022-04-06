@@ -7,6 +7,8 @@ android {
 		compose = true
 	}
 
+	namespace = Config.applicationId
+
 	buildToolsVersion = AndroidVersion.buildToolsVersion
 
 	signingConfigs {
