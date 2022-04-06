@@ -1,4 +1,4 @@
-package com.shov.filesfeature.ui
+package com.shov.filesfeature.ui.button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

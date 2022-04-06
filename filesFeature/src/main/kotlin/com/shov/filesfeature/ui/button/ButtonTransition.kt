@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.buttons.animation
+package com.shov.filesfeature.ui.button
 
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateDp

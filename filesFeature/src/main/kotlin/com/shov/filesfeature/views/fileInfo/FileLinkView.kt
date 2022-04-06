@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.texts.CustomText
 import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.filesfeature.R
-import com.shov.filesfeature.ui.MaxWidthButton
+import com.shov.filesfeature.ui.button.MaxWidthButton
 
 @Composable
 fun FileLinkView(

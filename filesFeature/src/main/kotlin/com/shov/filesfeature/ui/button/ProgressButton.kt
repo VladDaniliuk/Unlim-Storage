@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.buttons
+package com.shov.filesfeature.ui.button
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -17,12 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.buttons.animation.ButtonState
-import com.shov.unlimstorage.ui.buttons.animation.animateButtonHorizontalPadding
-import com.shov.unlimstorage.ui.buttons.animation.updateButtonTransition
-import com.shov.unlimstorage.ui.utils.animateComposeShapes
-import com.shov.unlimstorage.ui.utils.animateComposeSize
+import com.shov.filesfeature.R
 
 @Composable
 fun ProgressButton(

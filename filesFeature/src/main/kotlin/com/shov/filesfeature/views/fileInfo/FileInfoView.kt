@@ -12,7 +12,7 @@ import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.UserItem
 import com.shov.filesfeature.R
-import com.shov.filesfeature.ui.MaxWidthButton
+import com.shov.filesfeature.ui.button.MaxWidthButton
 
 @Composable
 fun FileInfoView(

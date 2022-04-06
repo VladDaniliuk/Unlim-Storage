@@ -1,11 +1,10 @@
-package com.shov.unlimstorage.ui.utils
+package com.shov.filesfeature.ui.button
 
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateDp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.shov.unlimstorage.ui.buttons.animation.ButtonState
 
 @Composable
 fun Transition<ButtonState>.animateComposeSize(idle: Dp = 0.dp, pressed: Dp = 0.dp) =
