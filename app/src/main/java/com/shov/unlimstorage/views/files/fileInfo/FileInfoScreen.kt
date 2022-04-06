@@ -20,7 +20,7 @@ import com.shov.unlimstorage.utils.context.share
 import com.shov.unlimstorage.utils.rememberRequestMultiplePermissionsResult
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.files.FileInfoViewModel
-import com.shov.unlimstorage.views.files.fileInfo.fileInfoViews.FileInfoView
+import com.shov.filesfeature.views.FileInfoView
 
 @Composable
 fun FileInfoScreen(

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files.fileInfo.fileInfoViews
+package com.shov.filesfeature.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -11,9 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.UserItem
-import com.shov.filesfeature.views.FileAdditionalInfoView
-import com.shov.filesfeature.views.FileDescriptionView
-import com.shov.unlimstorage.R
+import com.shov.filesfeature.R
 import com.shov.filesfeature.ui.MaxWidthButton
 
 @Composable

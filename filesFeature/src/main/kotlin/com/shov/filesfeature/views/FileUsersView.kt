@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files.fileInfo.fileInfoViews
+package com.shov.filesfeature.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coremodels.models.UserItem
 import com.shov.coreui.ui.texts.CustomText
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.UserInfo
+import com.shov.filesfeature.R
+import com.shov.filesfeature.ui.UserInfo
 
 @Composable
 fun FileUsersView(sharingUsers: List<UserItem>?, onShowSnackbar: (String) -> Unit) {

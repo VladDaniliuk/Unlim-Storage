@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files.fileInfo.fileInfoViews
+package com.shov.filesfeature.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,8 +18,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.texts.CustomText
-import com.shov.unlimstorage.R
 import com.shov.coreui.ui.buttons.CustomIconButton
+import com.shov.filesfeature.R
 import com.shov.filesfeature.ui.MaxWidthButton
 
 @Composable

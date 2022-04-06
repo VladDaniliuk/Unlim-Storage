@@ -1,4 +1,4 @@
-package com.shov.filesfeature.views
+package com.shov.filesfeature.views.files
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
