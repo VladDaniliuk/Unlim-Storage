@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files
+package com.shov.filesfeature
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Spacer
@@ -19,10 +19,6 @@ import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
 import com.shov.coreui.ui.LinearPullRefreshIndicator
 import com.shov.coreutils.values.Screen
-import com.shov.unlimstorage.ui.storeItems.StoreItemView
-import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
-import com.shov.unlimstorage.values.PADDING_FAB
-import com.shov.unlimstorage.values.SIZE_FAB
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -77,17 +73,15 @@ fun FilesView(
 @Preview
 @Composable
 fun FilesPreview() {
-	CustomTheme {
-		FilesView(
-			swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false),
-			storeItems = List(10) {
-				StoreItem("", ItemType.FILE, "Name", StorageType.GOOGLE, "1 Mb")
-			},
-			onTextNavigationClick = {},
-			isEnabled = true,
-			onStoreItemClick = {},
-			onOptionStoreItemClick = {},
-			onRefresh = {}
-		)
-	}
+	FilesView(
+		swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false),
+		storeItems = List(10) {
+			StoreItem("", ItemType.FILE, "Name", StorageType.GOOGLE, "1 Mb")
+		},
+		onTextNavigationClick = {},
+		isEnabled = true,
+		onStoreItemClick = {},
+		onOptionStoreItemClick = {},
+		onRefresh = {}
+	)
 }

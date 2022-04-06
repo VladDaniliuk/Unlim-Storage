@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.texts
+package com.shov.filesfeature
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.LocalContentColor
@@ -10,7 +10,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
-import com.shov.unlimstorage.R
 
 @Composable
 fun TextNavigation(
@@ -57,10 +56,10 @@ fun TextNavigation(
 fun TextNavigationPreview() {
 	TextNavigation(
 		stringIdArray = arrayOf(
-			R.string.set_dropbox_refresh_token,
-			R.string.passwords_dont_equal,
-			R.string.passwords_dont_equal
-		), taggedStringId = R.string.passwords_dont_equal
+			R.string.nothing_to_show,
+			R.string.settings,
+			R.string.dot
+		), taggedStringId = R.string.dot
 	) {}
 }
 

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.storeItems
+package com.shov.filesfeature
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable

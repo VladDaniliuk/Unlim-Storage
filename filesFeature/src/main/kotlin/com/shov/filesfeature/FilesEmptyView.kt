@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files
+package com.shov.filesfeature
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,8 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.ui.texts.TextNavigation
 
 @Composable
 fun FilesEmptyView(onSettingsClick: () -> Unit) {
