@@ -8,6 +8,7 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.shov.autoupdatefeature.views.NewVersionDialog
 import com.shov.coreui.views.CustomScaffold
 import com.shov.coreutils.viewModels.singletonViewModel
@@ -33,7 +34,16 @@ fun MainScreen(
 		ModalBottomSheetLayout(
 			modifier = Modifier.weight(1f),
 			sheetState = bottomSheetViewModel.sheetState,
-			sheetContent = bottomSheetViewModel.sheetContent,
+			sheetContent = {
+				bottomSheetViewModel.sheetContent(this)
+
+				Spacer(
+					modifier = Modifier
+						.padding(bottom = 4.dp)
+						.navigationBarsPadding()
+						.imePadding()
+				)
+			},
 			sheetShape = MaterialTheme.shapes.large.copy(
 				bottomEnd = CornerSize(0),
 				bottomStart = CornerSize(0)
