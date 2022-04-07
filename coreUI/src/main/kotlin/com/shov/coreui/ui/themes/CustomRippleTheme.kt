@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.themes
+package com.shov.coreui.ui.themes
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.LocalContentColor

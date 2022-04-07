@@ -1,7 +1,7 @@
-package com.shov.unlimstorage.ui.themes.customTheme
+package com.shov.coreui.ui.themes.customTheme
 
 import androidx.compose.material.Colors
-import com.shov.unlimstorage.ui.themes.*
+import com.shov.coreui.ui.themes.*
 
 val LightTheme = Colors(
 	primary = md_theme_light_primary,

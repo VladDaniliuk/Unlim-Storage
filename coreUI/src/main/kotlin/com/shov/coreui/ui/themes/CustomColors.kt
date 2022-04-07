@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.themes
+package com.shov.coreui.ui.themes
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui.themes.customTheme
+package com.shov.coreui.ui.themes.customTheme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.shov.unlimstorage.ui.themes.CustomRippleTheme
+import com.shov.coreui.ui.themes.CustomRippleTheme
 
 @Composable
 fun CustomTheme(

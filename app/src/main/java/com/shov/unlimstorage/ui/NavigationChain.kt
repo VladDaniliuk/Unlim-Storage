@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.buttons.TextButton
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreutils.models.BackStack
-import com.shov.unlimstorage.ui.themes.customTheme.CustomTheme
+import com.shov.coreui.ui.themes.customTheme.CustomTheme
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
