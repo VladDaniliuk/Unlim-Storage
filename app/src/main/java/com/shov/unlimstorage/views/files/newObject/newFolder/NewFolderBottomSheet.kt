@@ -11,7 +11,7 @@ import com.shov.filesfeature.views.NewFolderView
 import com.shov.unlimstorage.R
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.filesfeature.viewModels.newObject.NewFolderViewModel
-import com.shov.unlimstorage.views.files.newObject.ChooseDriveBottomSheet
+import com.shov.filesfeature.views.ChooseDriveBottomSheet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
