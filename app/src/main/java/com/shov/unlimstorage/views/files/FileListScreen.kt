@@ -9,7 +9,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.shov.coremodels.models.StorageType
 import com.shov.unlimstorage.ui.FABScaffold
-import com.shov.unlimstorage.ui.NavigationChain
+import com.shov.filesfeature.ui.NavigationChain
 import com.shov.unlimstorage.viewModels.navigations.FileListViewModel
 import com.shov.unlimstorage.viewStates.rememberUploadNavigationState
 import com.shov.unlimstorage.views.navigations.FileListNavigation

@@ -1,6 +1,5 @@
-package com.shov.unlimstorage.ui
+package com.shov.filesfeature.ui
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -23,9 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.buttons.TextButton
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreutils.models.BackStack
-import com.shov.coreui.ui.themes.customTheme.CustomTheme
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavigationChain(
 	iconEnabled: Boolean,
@@ -77,23 +74,9 @@ fun NavigationChain(
 @Preview
 @Composable
 private fun NavigationChainPreview() {
-	CustomTheme {
-		NavigationChain(
-			iconEnabled = true,
-			iconOnClick = {},
-			backStacks = listOf(BackStack("1", "1", "1"), BackStack("1", "1", "1"))
-		) {}
-	}
-}
-
-@Preview
-@Composable
-private fun NavigationChainDarkPreview() {
-	CustomTheme(darkTheme = true) {
-		NavigationChain(
-			iconEnabled = true,
-			iconOnClick = {},
-			backStacks = listOf(BackStack("1", "1", "1"), BackStack("1", "1", "1"))
-		) {}
-	}
+	NavigationChain(
+		iconEnabled = true,
+		iconOnClick = {},
+		backStacks = listOf(BackStack("1", "1", "1"), BackStack("1", "1", "1"))
+	) {}
 }

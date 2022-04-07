@@ -14,10 +14,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
+import com.shov.filesfeature.utils.checkMultiplePermissions
+import com.shov.filesfeature.utils.rememberRequestMultiplePermissionsResult
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.utils.checkMultiplePermissions
-import com.shov.unlimstorage.utils.context.share
-import com.shov.unlimstorage.utils.rememberRequestMultiplePermissionsResult
+import com.shov.filesfeature.utils.share
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.filesfeature.viewModels.FileInfoViewModel
 import com.shov.filesfeature.views.fileInfo.FileInfoView
