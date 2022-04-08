@@ -20,7 +20,7 @@ import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.views.files.FilesView
 import com.shov.unlimstorage.R
 import com.shov.filesfeature.utils.navigateTo
-import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
+import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.filesfeature.viewModels.FilesViewModel
 import com.shov.unlimstorage.viewStates.FilesScreenState
 import kotlinx.coroutines.launch

@@ -12,7 +12,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.ui.CustomBottomAppBar
-import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
+import com.shov.coreui.viewModels.BottomSheetViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

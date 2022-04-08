@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
+import com.shov.coreui.viewModels.BottomSheetViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

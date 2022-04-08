@@ -9,7 +9,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
+import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.filesfeature.viewModels.newObject.UploadFileViewModel
 import com.shov.filesfeature.views.ChooseDriveBottomSheet
 import kotlinx.coroutines.CoroutineScope
