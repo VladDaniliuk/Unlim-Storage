@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.utils
+package com.shov.filesfeature.utils
 
 import android.content.ContentResolver
 import android.net.Uri

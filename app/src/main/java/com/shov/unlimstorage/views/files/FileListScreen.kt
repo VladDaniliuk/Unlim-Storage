@@ -7,13 +7,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.shov.coremodels.models.StorageType
-import com.shov.filesfeature.ui.scaffold.FABScaffold
 import com.shov.filesfeature.ui.NavigationChain
+import com.shov.filesfeature.ui.scaffold.FABScaffold
 import com.shov.filesfeature.viewModels.FileListViewModel
-import com.shov.unlimstorage.viewStates.rememberUploadNavigationState
-import com.shov.unlimstorage.views.navigations.FileListNavigation
-import com.shov.unlimstorage.views.navigations.UploadNavigation
+import com.shov.filesfeature.views.FileListNavigation
+import com.shov.filesfeature.views.newObject.NewObjectBottomSheetNavigation
 
 @Composable
 fun FileListScreen(
@@ -34,12 +32,9 @@ fun FileListScreen(
 
 		FABScaffold(
 			bottomSheetContent = {
-				UploadNavigation(
-					uploadNavigationState = rememberUploadNavigationState(
-						folderId = fileListViewModel.backStacks.lastOrNull()?.folderId,
-						storageType = fileListViewModel.backStacks
-							.lastOrNull()?.storageType?.let(StorageType::valueOf)
-					)
+				NewObjectBottomSheetNavigation(
+					folderId = fileListViewModel.backStacks.lastOrNull()?.folderId,
+					storageType = fileListViewModel.backStacks.lastOrNull()?.storageType
 				)
 			}
 		) {

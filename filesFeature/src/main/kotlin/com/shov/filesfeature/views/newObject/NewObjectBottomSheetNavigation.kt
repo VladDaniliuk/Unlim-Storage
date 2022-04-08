@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.navigations
+package com.shov.filesfeature.views.newObject
 
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -10,18 +10,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.shov.coreutils.values.BottomSheet
-import com.shov.filesfeature.views.newObject.NewFolderBottomSheet
-import com.shov.filesfeature.views.newObject.NewObjectBottomSheet
-import com.shov.filesfeature.views.newObject.UploadBottomSheet
-import com.shov.unlimstorage.utils.getName
-import com.shov.unlimstorage.viewModels.navigations.UploadNavigationViewModel
-import com.shov.unlimstorage.viewStates.UploadNavigationState
+import com.shov.filesfeature.utils.getName
+import com.shov.filesfeature.viewModels.newObject.UploadNavigationViewModel
+import com.shov.filesfeature.views.newObject.newFile.UploadBottomSheet
+import com.shov.filesfeature.views.newObject.newFolder.NewFolderBottomSheet
 
 @Composable
-fun UploadNavigation(
+fun NewObjectBottomSheetNavigation(
 	context: Context = LocalContext.current,
+	folderId: String?,
 	navController: NavHostController = rememberNavController(),
-	uploadNavigationState: UploadNavigationState,
+	storageType: String?,
 	uploadNavigationViewModel: UploadNavigationViewModel = hiltViewModel(),
 ) {
 	NavHost(
@@ -31,12 +30,7 @@ fun UploadNavigation(
 		composable(BottomSheet.Main.route) {
 			NewObjectBottomSheet(
 				onFolderCreateClick = {
-					navController.navigate(
-						BottomSheet.NewFolder.setParent(
-							uploadNavigationState.storageType?.name,
-							uploadNavigationState.folderId
-						)
-					)
+					navController.navigate(BottomSheet.NewFolder.setParent(storageType, folderId))
 				}
 			) { fileUri ->
 				fileUri?.let { uri ->
@@ -46,8 +40,8 @@ fun UploadNavigation(
 
 					navController.navigate(
 						BottomSheet.ChooseFile.setParent(
-							uploadNavigationState.storageType?.name,
-							uploadNavigationState.folderId,
+							storageType,
+							folderId,
 							context.contentResolver.getName(uri)
 						)
 					)

@@ -1,4 +1,4 @@
-package com.shov.filesfeature.views.newObject
+package com.shov.filesfeature.views.newObject.newFile
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.ExperimentalMaterialApi
@@ -11,6 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.filesfeature.viewModels.newObject.UploadFileViewModel
+import com.shov.filesfeature.views.newObject.ChooseDriveBottomSheet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.InputStream

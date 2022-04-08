@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.navigations
+package com.shov.filesfeature.views
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

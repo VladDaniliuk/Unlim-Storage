@@ -1,4 +1,4 @@
-package com.shov.filesfeature.views.newObject
+package com.shov.filesfeature.views.newObject.newFolder
 
 import android.content.Context
 import androidx.compose.material.ExperimentalMaterialApi
@@ -10,6 +10,7 @@ import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import com.shov.filesfeature.viewModels.newObject.NewFolderViewModel
+import com.shov.filesfeature.views.newObject.ChooseDriveBottomSheet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
