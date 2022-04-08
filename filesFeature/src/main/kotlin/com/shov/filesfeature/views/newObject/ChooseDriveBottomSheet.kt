@@ -1,4 +1,4 @@
-package com.shov.filesfeature.views
+package com.shov.filesfeature.views.newObject
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +37,7 @@ fun ChooseDriveBottomSheet(storageList: List<StorageType>, onClick: (StorageType
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(vertical = 8.dp),
-			text = stringResource(R.string.new_, stringResource(id = R.string.folder)),
+			text = stringResource(R.string.choose_drive),
 			textAlign = TextAlign.Center,
 			fontSize = Typography().h6.fontSize
 		)

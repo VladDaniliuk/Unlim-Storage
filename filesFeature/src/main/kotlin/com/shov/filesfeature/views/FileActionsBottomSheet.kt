@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files
+package com.shov.filesfeature.views
 
 import android.content.Context
 import androidx.activity.compose.BackHandler
@@ -9,11 +9,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
+import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.filesfeature.views.FileActionsView
-import com.shov.unlimstorage.R
-import com.shov.coreui.viewModels.BottomSheetViewModel
+import com.shov.filesfeature.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

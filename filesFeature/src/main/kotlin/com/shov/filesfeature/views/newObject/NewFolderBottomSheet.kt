@@ -1,17 +1,15 @@
-package com.shov.unlimstorage.views.files.newObject.newFolder
+package com.shov.filesfeature.views.newObject
 
 import android.content.Context
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.filesfeature.views.NewFolderView
-import com.shov.unlimstorage.R
-import com.shov.coreui.viewModels.BottomSheetViewModel
+import com.shov.filesfeature.R
 import com.shov.filesfeature.viewModels.newObject.NewFolderViewModel
-import com.shov.filesfeature.views.ChooseDriveBottomSheet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

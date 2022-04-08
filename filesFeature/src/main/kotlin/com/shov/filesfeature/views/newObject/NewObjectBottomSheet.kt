@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files.newObject
+package com.shov.filesfeature.views.newObject
 
 import android.net.Uri
 import androidx.activity.compose.BackHandler
@@ -21,9 +21,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.buttons.CustomIconButton
-import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.R
 import com.shov.coreui.viewModels.BottomSheetViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
+import com.shov.filesfeature.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -41,7 +41,7 @@ fun NewObjectBottomSheet(
 		}
 	}
 
-	val pickPictureLauncher =
+	val pickFileLauncher =
 		rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument(), onUploadClick)
 
 	Column {
@@ -49,7 +49,7 @@ fun NewObjectBottomSheet(
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(vertical = 8.dp),
-			text = stringResource(R.string.new_, stringResource(R.string.`object`)),
+			text = stringResource(R.string.new_object),
 			textAlign = TextAlign.Center,
 			fontSize = Typography().h6.fontSize
 		)
@@ -65,7 +65,7 @@ fun NewObjectBottomSheet(
 				imageVector = Icons.Rounded.Upload,
 				text = stringResource(R.string.upload)
 			) {
-				pickPictureLauncher.launch(arrayOf("*/*"))
+				pickFileLauncher.launch(arrayOf("*/*"))
 			}
 		}
 	}

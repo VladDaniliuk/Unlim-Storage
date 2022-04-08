@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="auto_check">Auto check for updates</string>
-	<string name="check_connection">Check connection, please</string>
 	<string name="check_for_updates">Check for updates</string>
-	<string name="check_name">Check name, please</string>
 	<string name="check_password">Check password</string>
 	<string name="connection_failed">Connection failed. Please, check internet.</string>
 	<string name="create">Create</string>
@@ -11,11 +9,8 @@
 	<string name="doesnt_work_now">Doesn\'t work now</string>
 	<string name="dont_ask_again">Don\'t ask me again</string>
 	<string name="dot">.</string>
-	<string name="folder">Folder</string>
 	<string name="modifier">Modifier</string>
-	<string name="new_">New %1$s</string>
 	<string name="nothing_to_show">It\'s nothing to show. Please, add account in\ </string>
-	<string name="object">object</string>
 	<string name="open_in_browser">Open in browser</string>
 	<string name="password_length_error">Password must have at least 4 numbers</string>
 	<string name="passwords_dont_equal">Passwords don\'t equal</string>
@@ -25,5 +20,4 @@
 	<string name="share_link">Share link</string>
 	<string name="size">%1$s %2$s</string>
 	<string name="updates">Updates</string>
-	<string name="upload">Upload</string>
 </resources>

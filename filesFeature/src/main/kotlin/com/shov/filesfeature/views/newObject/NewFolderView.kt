@@ -1,4 +1,4 @@
-package com.shov.filesfeature.views
+package com.shov.filesfeature.views.newObject
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
