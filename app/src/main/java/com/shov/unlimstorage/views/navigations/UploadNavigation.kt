@@ -1,35 +1,37 @@
 package com.shov.unlimstorage.views.navigations
 
 import android.content.Context
-import android.os.ParcelFileDescriptor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.shov.coreutils.values.BottomSheet
-import com.shov.unlimstorage.utils.getName
-import com.shov.unlimstorage.viewStates.UploadNavigationState
+import com.shov.filesfeature.views.newObject.NewFolderBottomSheet
 import com.shov.filesfeature.views.newObject.NewObjectBottomSheet
 import com.shov.filesfeature.views.newObject.UploadBottomSheet
-import com.shov.filesfeature.views.newObject.NewFolderBottomSheet
-import java.io.FileInputStream
+import com.shov.unlimstorage.utils.getName
+import com.shov.unlimstorage.viewModels.navigations.UploadNavigationViewModel
+import com.shov.unlimstorage.viewStates.UploadNavigationState
 
 @Composable
 fun UploadNavigation(
+	context: Context = LocalContext.current,
+	navController: NavHostController = rememberNavController(),
 	uploadNavigationState: UploadNavigationState,
-	context: Context = LocalContext.current
+	uploadNavigationViewModel: UploadNavigationViewModel = hiltViewModel(),
 ) {
-	var fileDescriptor: ParcelFileDescriptor? = null
-
 	NavHost(
-		navController = uploadNavigationState.navController,
+		navController = navController,
 		startDestination = BottomSheet.Main.route
 	) {
 		composable(BottomSheet.Main.route) {
 			NewObjectBottomSheet(
 				onFolderCreateClick = {
-					uploadNavigationState.navController.navigate(
+					navController.navigate(
 						BottomSheet.NewFolder.setParent(
 							uploadNavigationState.storageType?.name,
 							uploadNavigationState.folderId
@@ -38,11 +40,11 @@ fun UploadNavigation(
 				}
 			) { fileUri ->
 				fileUri?.let { uri ->
-					fileDescriptor = context.contentResolver.openFileDescriptor(uri, "r", null)
+					uploadNavigationViewModel.setFileDescriptor(
+						context.contentResolver.openFileDescriptor(uri, "r", null)
+					)
 
-					uploadNavigationState.file = FileInputStream(fileDescriptor?.fileDescriptor)
-
-					uploadNavigationState.navController.navigate(
+					navController.navigate(
 						BottomSheet.ChooseFile.setParent(
 							uploadNavigationState.storageType?.name,
 							uploadNavigationState.folderId,
@@ -56,13 +58,11 @@ fun UploadNavigation(
 			NewFolderBottomSheet()
 		}
 		composable(BottomSheet.ChooseFile.route) {
-			UploadBottomSheet(uploadNavigationState.file)
+			UploadBottomSheet(uploadNavigationViewModel.inputStream)
 		}
 	}
 
 	DisposableEffect(key1 = null) {
-		onDispose {
-			fileDescriptor?.close()
-		}
+		onDispose(uploadNavigationViewModel::closeFileDescriptor)
 	}
 }
