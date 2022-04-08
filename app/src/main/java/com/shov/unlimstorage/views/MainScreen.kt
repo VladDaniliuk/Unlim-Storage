@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.shov.autoupdatefeature.views.NewVersionDialog
 import com.shov.coreui.views.CustomScaffold
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.viewModels.DownloadViewModel
+import com.shov.filesfeature.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.common.BottomSheetViewModel
 import com.shov.unlimstorage.views.navigations.MainNavigation
 

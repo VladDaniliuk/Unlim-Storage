@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui
+package com.shov.filesfeature.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -7,23 +7,23 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Download
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.shov.autoupdatefeature.viewModels.UpdateViewModel
 import com.shov.coreui.ui.buttons.AnimatedIconButton
 import com.shov.coreui.ui.texts.CustomText
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.unlimstorage.R
-import com.shov.unlimstorage.viewModels.DownloadViewModel
+import com.shov.filesfeature.R
+import com.shov.filesfeature.viewModels.DownloadViewModel
 
 @Composable
-fun CustomBottomAppBar(
+fun CustomBottomAppBar(//TODO Remove
 	downloadViewModel: DownloadViewModel = singletonViewModel(),
-	updateViewModel: UpdateViewModel = singletonViewModel()
+	scaffold: ScaffoldViewModel = singletonViewModel()
 ) {
 	BottomAppBar(
 		backgroundColor = MaterialTheme.colors.primary,
@@ -41,10 +41,9 @@ fun CustomBottomAppBar(
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterStart),
 				enabled = true,
-				imageVector = if (downloadViewModel.percents != 0f) Icons.Rounded.Close else null,
+				imageVector = Icons.Rounded.Download,
 				onClick = {
-					updateViewModel.dismissDownloading()
-					downloadViewModel.setProgress(0f, "")
+					scaffold.showSnackbar("List with downloads unavailable now")
 				}
 			)
 		}

@@ -51,9 +51,14 @@ class BoxFilesDataSource @Inject constructor(
 			BoxApiFile(BoxSession(context))
 				.getDownloadRequest(FileOutputStream(file), id)
 				.setDownloadStartListener { onStart() }
-				.setProgressListener { numBytes, _ ->
-					setPercents((numBytes.toFloat() / size.toFloat()), name)
-				}.send()
+				.setProgressListener { numBytes, totalBytes ->
+					if (numBytes == totalBytes) {
+						setPercents(0f, "")
+					} else {
+						setPercents((numBytes.toFloat() / totalBytes.toFloat()), name)
+					}
+				}
+				.send()
 		} else onError()
 	}
 

@@ -18,7 +18,7 @@ import com.shov.filesfeature.utils.checkMultiplePermissions
 import com.shov.filesfeature.utils.rememberRequestMultiplePermissionsResult
 import com.shov.unlimstorage.R
 import com.shov.filesfeature.utils.share
-import com.shov.unlimstorage.viewModels.DownloadViewModel
+import com.shov.filesfeature.viewModels.DownloadViewModel
 import com.shov.filesfeature.viewModels.FileInfoViewModel
 import com.shov.filesfeature.views.fileInfo.FileInfoView
 

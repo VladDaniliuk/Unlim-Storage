@@ -63,7 +63,10 @@ class DropBoxFilesDataSource @Inject constructor(
 			dbxUserFilesRequests()?.let { dbxFile ->
 				dbxFile.download(dbxFile.getMetadata(id).pathLower)
 					.download(FileOutputStream(file)) {
-						setPercents(it.toFloat() / size.toFloat(), name)
+						when (val percent = it.toFloat() / size.toFloat()) {
+							1f -> setPercents(0f, "")
+							else -> setPercents(percent, name)
+						}
 					}
 
 				onStart()
@@ -75,15 +78,16 @@ class DropBoxFilesDataSource @Inject constructor(
 		}
 	}
 
-	override fun createFolder(folderId: String?, folderName: String) = if (folderName.isNotEmpty()) {
-		try {
-			dbxUserFilesRequests()?.createFolderV2("${getPath(folderId)}/$folderName", true)
+	override fun createFolder(folderId: String?, folderName: String) =
+		if (folderName.isNotEmpty()) {
+			try {
+				dbxUserFilesRequests()?.createFolderV2("${getPath(folderId)}/$folderName", true)
 
-			true
-		} catch (e: BadRequestException) {
-			false
-		}
-	} else false
+				true
+			} catch (e: BadRequestException) {
+				false
+			}
+		} else false
 
 	private fun dbxUserFilesRequests(): DbxUserFilesRequests? {
 		val dropBoxCredential by preferences.getPref(DROPBOX_CREDENTIAL, "")

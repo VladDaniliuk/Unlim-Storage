@@ -10,6 +10,7 @@
 	<string name="dont_have_email">User doesn\'t have email</string>
 	<string name="dot">.</string>
 	<string name="download">Download</string>
+	<string name="downloading">Downloading %1$s</string>
 	<string name="download_error">Download finished because of error</string>
 	<string name="download_started">Download started</string>
 	<string name="folder">Folder</string>

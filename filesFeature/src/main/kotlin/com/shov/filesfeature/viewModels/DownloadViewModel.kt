@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels
+package com.shov.filesfeature.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DownloadViewModel @Inject constructor() : ViewModel() {
+class DownloadViewModel @Inject constructor() : ViewModel() {//TODO Rewrite and may be delete
 	var title by mutableStateOf("")
 		private set
 	var percents by mutableStateOf(0f)
