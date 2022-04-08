@@ -32,7 +32,7 @@ fun Project.implementForAutoUpdateFeature() {
 	implementKotlin()
 	implementActivity()
 	implementComposeForModules()
-	implementHiltForHiltModules()
+	implementHiltForFeatureModules()
 	implementLifecycle()
 	implementModulesForAutoUpdateFeature()
 	implementSquareup()

@@ -1,11 +1,11 @@
-package com.shov.unlimstorage.views.navigations
+package com.shov.filesfeature.views.navigations
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
 import com.shov.filesfeature.views.FileDescriptionScreen
-import com.shov.unlimstorage.views.files.FileListScreen
+import com.shov.filesfeature.views.files.FileListScreen
 import com.shov.filesfeature.views.fileInfo.FileInfoScreen
 
 fun NavGraphBuilder.filesComposable(filesNavController: NavHostController) {

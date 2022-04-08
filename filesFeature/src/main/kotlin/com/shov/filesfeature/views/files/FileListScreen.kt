@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files
+package com.shov.filesfeature.views.files
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable

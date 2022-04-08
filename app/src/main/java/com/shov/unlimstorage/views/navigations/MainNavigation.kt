@@ -4,10 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.shov.coreutils.values.Screen
-import com.shov.signinfeature.views.SignInScreen
+import com.shov.autoupdatefeature.views.autoUpdateComposable
+import com.shov.filesfeature.views.navigations.filesComposable
+import com.shov.settingsfeature.views.navigations.settingsComposable
+import com.shov.signinfeature.views.navigation.signInComposable
 import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
 
 @Composable
@@ -19,17 +20,9 @@ fun MainNavigation(
 		navController = navHostController,
 		startDestination = mainNavigationViewModel.startDestination
 	) {
-		composable(Screen.SignIn.route) {
-			SignInScreen {
-				navHostController.navigate(Screen.Files.route) {
-					popUpTo(Screen.SignIn.route) {
-						inclusive = true
-					}
-				}
-			}
-		}
+		autoUpdateComposable(settingsNavController = navHostController)
 		filesComposable(filesNavController = navHostController)
-		securityComposable(securityNavHostController = navHostController)
-		settingsComposable(settingsNavController = navHostController)
+		settingsComposable(navController = navHostController)
+		signInComposable(navController = navHostController)
 	}
 }
