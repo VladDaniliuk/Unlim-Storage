@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.ui
+package com.shov.filesfeature.ui.scaffold
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.ExperimentalMaterialApi
@@ -10,9 +10,8 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
-import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.filesfeature.ui.CustomBottomAppBar
 import com.shov.coreui.viewModels.BottomSheetViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

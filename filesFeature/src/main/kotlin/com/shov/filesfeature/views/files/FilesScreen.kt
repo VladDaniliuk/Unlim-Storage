@@ -1,29 +1,27 @@
-package com.shov.unlimstorage.views.files
+package com.shov.filesfeature.views.files
 
+import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.models.BackStack
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.filesfeature.views.files.FilesView
-import com.shov.unlimstorage.R
+import com.shov.filesfeature.R
 import com.shov.filesfeature.utils.navigateTo
-import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.filesfeature.viewModels.FilesViewModel
 import com.shov.filesfeature.views.FileActionsBottomSheet
-import com.shov.unlimstorage.viewStates.FilesScreenState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import com.shov.coremodels.R as coreModelsR
 
@@ -31,8 +29,10 @@ import com.shov.coremodels.R as coreModelsR
 @Composable
 fun FilesScreen(
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
-	filesScreenState: FilesScreenState,
+	context: Context = LocalContext.current,
+	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
+	navHostController: NavHostController,
 	onBackPress: () -> Unit,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
 	onFolderOpen: (BackStack) -> Unit
@@ -47,13 +47,13 @@ fun FilesScreen(
 	FilesView(
 		swipeRefreshState = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
 		storeItems = storeItems,
-		onTextNavigationClick = filesScreenState.navHostController::navigateTo,
+		onTextNavigationClick = navHostController::navigateTo,
 		isEnabled = filesViewModel.isClickable,
 		onStoreItemClick = { storeItem ->
 			filesViewModel.onStoreItemClick(
 				storeItem = storeItem,
 				onFolderOpen = onFolderOpen,
-				onFileInfoOpen = filesScreenState.navHostController::navigateTo
+				onFileInfoOpen = navHostController::navigateTo
 			)
 		},
 		onOptionStoreItemClick = { storeItem ->
@@ -62,20 +62,18 @@ fun FilesScreen(
 					disk = storeItem.disk,
 					name = storeItem.name,
 					onNavigate = {
-						filesScreenState.navHostController.navigate(
-							Screen.FileInfo.setStoreItem(storeItem.id)
-						)
+						navHostController.navigate(Screen.FileInfo.setStoreItem(storeItem.id))
 					},
 					size = storeItem.size,
 					type = storeItem.type
 				)
 			}
 
-			filesScreenState.coroutineScope.launch { bottomSheetViewModel.sheetState.show() }
+			coroutineScope.launch { bottomSheetViewModel.sheetState.show() }
 		}
 	) {
 		filesViewModel.onRefresh(isConnected) {
-			scaffold.showSnackbar(filesScreenState.context.getString(R.string.connection_failed))
+			scaffold.showSnackbar(context.getString(R.string.connection_failed))
 		}
 	}
 
@@ -84,10 +82,8 @@ fun FilesScreen(
 	LaunchedEffect(key1 = null) {
 		scaffold.setTopBar(
 			filesViewModel.folderId?.let { Icons.Rounded.ArrowBack to onBackPress },
-			filesScreenState.context.getString(coreModelsR.string.app_name),
-			Icons.Rounded.AccountCircle to {
-				filesScreenState.navHostController.navigate(Screen.Settings.route)
-			}
+			context.getString(coreModelsR.string.app_name),
+			Icons.Rounded.AccountCircle to { navHostController.navigate(Screen.Settings.route) }
 		)
 	}
 }

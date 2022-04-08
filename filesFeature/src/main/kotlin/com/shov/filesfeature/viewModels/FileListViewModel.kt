@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.viewModels.navigations
+package com.shov.filesfeature.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

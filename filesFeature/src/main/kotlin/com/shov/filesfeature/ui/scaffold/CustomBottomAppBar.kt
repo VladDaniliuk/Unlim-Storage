@@ -1,4 +1,4 @@
-package com.shov.filesfeature.ui
+package com.shov.filesfeature.ui.scaffold
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape

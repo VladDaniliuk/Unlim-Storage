@@ -3,6 +3,7 @@
 	<string name="check_connection">Check connection, please</string>
 	<string name="check_name">Check name, please</string>
 	<string name="choose_drive">Choose drive</string>
+	<string name="connection_failed">Connection failed. Please, check internet.</string>
 	<string name="copy_link">Copy link</string>
 	<string name="create">Create</string>
 	<string name="create_link">Create link for share</string>

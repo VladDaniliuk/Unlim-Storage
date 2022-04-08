@@ -3,7 +3,6 @@
 	<string name="auto_check">Auto check for updates</string>
 	<string name="check_for_updates">Check for updates</string>
 	<string name="check_password">Check password</string>
-	<string name="connection_failed">Connection failed. Please, check internet.</string>
 	<string name="create">Create</string>
 	<string name="description">Description:</string>
 	<string name="doesnt_work_now">Doesn\'t work now</string>
