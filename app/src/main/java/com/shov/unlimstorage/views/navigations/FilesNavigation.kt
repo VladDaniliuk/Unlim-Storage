@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
 import com.shov.filesfeature.views.FileDescriptionScreen
 import com.shov.unlimstorage.views.files.FileListScreen
-import com.shov.unlimstorage.views.files.fileInfo.FileInfoScreen
+import com.shov.filesfeature.views.fileInfo.FileInfoScreen
 
 fun NavGraphBuilder.filesComposable(filesNavController: NavHostController) {
 	composable(route = Screen.FileInfo.route) {

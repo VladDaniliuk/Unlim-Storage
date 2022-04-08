@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.views.files.fileInfo
+package com.shov.filesfeature.views.fileInfo
 
 import android.Manifest
 import android.content.Context
@@ -16,11 +16,11 @@ import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.utils.checkMultiplePermissions
 import com.shov.filesfeature.utils.rememberRequestMultiplePermissionsResult
-import com.shov.unlimstorage.R
+import com.shov.filesfeature.R
 import com.shov.filesfeature.utils.share
 import com.shov.filesfeature.viewModels.DownloadViewModel
 import com.shov.filesfeature.viewModels.FileInfoViewModel
-import com.shov.filesfeature.views.fileInfo.FileInfoView
+import com.shov.filesfeature.views.fileInfo.views.FileInfoView
 
 @Composable
 fun FileInfoScreen(
