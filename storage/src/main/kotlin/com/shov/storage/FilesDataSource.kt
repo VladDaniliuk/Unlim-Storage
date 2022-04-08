@@ -11,10 +11,8 @@ interface FilesDataSource {
 	fun downloadFile(
 		id: String,
 		name: String,
-		size: Long,
 		file: File,
-		setPercents: (Float, String) -> Unit,
-		onStart: () -> Unit,
+		onDownload: (String) -> Unit,
 		onError: () -> Unit
 	)
 

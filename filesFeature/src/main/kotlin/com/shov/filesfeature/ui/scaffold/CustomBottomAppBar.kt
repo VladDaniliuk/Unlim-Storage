@@ -32,11 +32,12 @@ fun CustomBottomAppBar(//TODO Remove
 		cutoutShape = CircleShape
 	) {
 		Box(modifier = Modifier.padding(4.dp)) {
-			CircularProgressIndicator(
-				color = LocalContentColor.current,
-				progress = downloadViewModel.percents,
-				modifier = Modifier.align(Alignment.Center)
-			)
+			if (downloadViewModel.title.isNotEmpty()) {
+				CircularProgressIndicator(
+					color = LocalContentColor.current,
+					modifier = Modifier.align(Alignment.Center)
+				)
+			}
 
 			AnimatedIconButton(
 				modifier = Modifier.align(Alignment.CenterStart),
@@ -48,7 +49,7 @@ fun CustomBottomAppBar(//TODO Remove
 			)
 		}
 
-		if (downloadViewModel.percents != 0f) {
+		if (downloadViewModel.title.isNotEmpty()) {
 			CustomText(
 				modifier = Modifier
 					.weight(1f)

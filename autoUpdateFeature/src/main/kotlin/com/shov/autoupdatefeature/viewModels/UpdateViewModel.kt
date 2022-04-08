@@ -62,7 +62,7 @@ class UpdateViewModel @Inject constructor(
 		url: String,
 		name: String,
 		version: String,
-		setProgress: (Float, String) -> Unit
+		setProgress: (String) -> Unit
 	) {
 		downloadRepository.downloadFile(Uri.parse(url), name, version)?.let { id ->
 			_downloadId = id
@@ -73,7 +73,7 @@ class UpdateViewModel @Inject constructor(
 		}
 	}
 
-	fun dismissDownloading() {
+	fun dismissDownloading() {//TODO need for future downloading via DownloadManager
 		_downloadId?.let { id ->
 			downloadRepository.dismissDownloading(id)
 		}

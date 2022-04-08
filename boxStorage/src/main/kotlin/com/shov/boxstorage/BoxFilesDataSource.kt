@@ -41,21 +41,18 @@ class BoxFilesDataSource @Inject constructor(
 	override fun downloadFile(
 		id: String,
 		name: String,
-		size: Long,
 		file: File,
-		setPercents: (Float, String) -> Unit,
-		onStart: () -> Unit,
+		onDownload: (String) -> Unit,
 		onError: () -> Unit
 	) {
 		if (checkAuth) {
 			BoxApiFile(BoxSession(context))
 				.getDownloadRequest(FileOutputStream(file), id)
-				.setDownloadStartListener { onStart() }
 				.setProgressListener { numBytes, totalBytes ->
 					if (numBytes == totalBytes) {
-						setPercents(0f, "")
+						onDownload("")
 					} else {
-						setPercents((numBytes.toFloat() / totalBytes.toFloat()), name)
+						onDownload(name)
 					}
 				}
 				.send()

@@ -36,14 +36,10 @@ class GoogleFilesDataSource @Inject constructor(
 	override fun downloadFile(
 		id: String,
 		name: String,
-		size: Long,
 		file: File,
-		setPercents: (Float, String) -> Unit,
-		onStart: () -> Unit,
+		onDownload: (String) -> Unit,
 		onError: () -> Unit
 	) {//TODO rewrite [link](https://shov-studio.jetbrains.space/p/unlim-storage/issues/18)
-		onStart()
-
 		getGoogleFiles().get(id).executeMediaAndDownloadTo(FileOutputStream(file))
 	}
 

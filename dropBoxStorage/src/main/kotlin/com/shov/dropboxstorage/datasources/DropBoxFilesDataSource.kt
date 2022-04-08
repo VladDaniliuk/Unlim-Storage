@@ -53,23 +53,14 @@ class DropBoxFilesDataSource @Inject constructor(
 	override fun downloadFile(
 		id: String,
 		name: String,
-		size: Long,
 		file: File,
-		setPercents: (Float, String) -> Unit,
-		onStart: () -> Unit,
+		onDownload: (String) -> Unit,
 		onError: () -> Unit
 	) {
 		try {
 			dbxUserFilesRequests()?.let { dbxFile ->
 				dbxFile.download(dbxFile.getMetadata(id).pathLower)
-					.download(FileOutputStream(file)) {
-						when (val percent = it.toFloat() / size.toFloat()) {
-							1f -> setPercents(0f, "")
-							else -> setPercents(percent, name)
-						}
-					}
-
-				onStart()
+					.download(FileOutputStream(file))//TODO: write another way to get progress
 			} ?: onError()
 		} catch (e: RateLimitException) {
 			onError()

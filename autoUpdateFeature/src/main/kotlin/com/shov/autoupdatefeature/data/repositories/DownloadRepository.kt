@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 interface DownloadRepository {
 	fun downloadFile(link: Uri, name: String, newVersion: String): Long?
-	suspend fun checkDownload(id: Long, name: String, onCheck: (Float, String) -> Unit)
+	suspend fun checkDownload(id: Long, name: String, onCheck: (String) -> Unit)
 	fun dismissDownloading(id: Long)
 }
 
@@ -43,7 +43,7 @@ class DownloadRepositoryImpl @Inject constructor(
 		}
 	}
 
-	override suspend fun checkDownload(id: Long, name: String, onCheck: (Float, String) -> Unit) {
+	override suspend fun checkDownload(id: Long, name: String, onCheck: (String) -> Unit) {
 		var finishDownload = false
 
 		while (!finishDownload) {
@@ -55,21 +55,21 @@ class DownloadRepositoryImpl @Inject constructor(
 						when (cursor.getIntOrNull(
 							cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
 						)) {
-							DownloadManager.STATUS_RUNNING -> onCheck(cursor.getPercent(), name)
+							DownloadManager.STATUS_RUNNING -> onCheck(name)
 							DownloadManager.STATUS_SUCCESSFUL -> {
-								onCheck(0f, name)
+								onCheck("")
 
 								context.installFile(cursor.getFile())
 
 								finishDownload = true
 							}
 							else -> {
-								onCheck(0f, name)
+								onCheck("")
 								finishDownload = true
 							}
 						}
 					} else {
-						onCheck(0f, name)
+						onCheck("")
 						finishDownload = true
 					}
 				}

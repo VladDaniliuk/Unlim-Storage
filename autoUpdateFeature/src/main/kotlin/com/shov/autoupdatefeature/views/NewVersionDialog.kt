@@ -16,7 +16,7 @@ import com.shov.coreutils.viewModels.singletonViewModel
 fun NewVersionDialog(
 	context: Context = LocalContext.current,
 	updateViewModel: UpdateViewModel = singletonViewModel(),
-	setProgress: (percents: Float, title: String) -> Unit = { _, _ -> },
+	setProgress: (title: String) -> Unit = { _ -> },
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 

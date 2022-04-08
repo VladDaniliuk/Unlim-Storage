@@ -8,14 +8,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DownloadViewModel @Inject constructor() : ViewModel() {//TODO Rewrite and may be delete
+class DownloadViewModel @Inject constructor() : ViewModel() {
+	//TODO Rewrite and may be delete
 	var title by mutableStateOf("")
 		private set
-	var percents by mutableStateOf(0f)
-		private set
 
-	fun setProgress(percents: Float, title: String) {
-		this.percents = percents
+	fun onDownload(title: String) {
 		this.title = title
 	}
 }

@@ -37,7 +37,7 @@ fun FileInfoScreen(
 		Manifest.permission.READ_EXTERNAL_STORAGE,
 		Manifest.permission.WRITE_EXTERNAL_STORAGE,
 		onAllowed = {
-			fileInfoViewModel.downloadFile(downloadViewModel::setProgress) { id ->
+			fileInfoViewModel.downloadFile(downloadViewModel::onDownload) { id ->
 				scaffold.showSnackbar(context.getString(id))
 			}
 		},
@@ -70,7 +70,7 @@ fun FileInfoScreen(
 						Manifest.permission.WRITE_EXTERNAL_STORAGE
 					)
 				) {
-					fileInfoViewModel.downloadFile(downloadViewModel::setProgress) { id ->
+					fileInfoViewModel.downloadFile(downloadViewModel::onDownload) { id ->
 						scaffold.showSnackbar(context.getString(id))
 					}
 				} else {
@@ -82,7 +82,7 @@ fun FileInfoScreen(
 					)
 				}
 			} else {
-				fileInfoViewModel.downloadFile(downloadViewModel::setProgress) { id ->
+				fileInfoViewModel.downloadFile(downloadViewModel::onDownload) { id ->
 					scaffold.showSnackbar(context.getString(id))
 				}
 			}

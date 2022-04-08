@@ -22,7 +22,7 @@ fun MainScreen(
 	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	downloadViewModel: DownloadViewModel = singletonViewModel()
 ) {
-	NewVersionDialog(setProgress = downloadViewModel::setProgress)
+	NewVersionDialog(setProgress = downloadViewModel::onDownload)
 
 	Column(
 		modifier = Modifier
