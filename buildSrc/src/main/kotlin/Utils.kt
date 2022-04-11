@@ -62,6 +62,7 @@ fun Project.implementForCoreUi() {
 	implementComposeForModules()
 	implementModulesForCoreUI()
 	implementAccompanist()
+	implementMaterial3()
 }
 
 fun Project.implementForCoreUtils() {
@@ -85,6 +86,7 @@ fun Project.implementForFilesFeature() {
 	implementComposeForModules()
 	implementHiltForFeatureModules()
 	implementIcons()
+	implementMaterial3()
 	implementKotlin()
 	implementLifecycle()
 	implementModulesForFilesFeature()
