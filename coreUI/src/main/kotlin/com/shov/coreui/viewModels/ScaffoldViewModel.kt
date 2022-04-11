@@ -1,6 +1,8 @@
 package com.shov.coreui.viewModels
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,6 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScaffoldViewModel @Inject constructor() : ViewModel() {
+	@OptIn(ExperimentalMaterial3Api::class)
+	val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 	val snackbarHostState = SnackbarHostState()
 
 	fun showSnackbar(message: String) {
