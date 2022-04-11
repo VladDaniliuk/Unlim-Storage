@@ -1,16 +1,19 @@
 package com.shov.coreui.ui
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.buttons.AnimatedIconButton
 import com.shov.coreui.ui.texts.AnimatedText
 
@@ -23,42 +26,42 @@ fun CustomTopAppBar(
 	nextRouteImageVector: ImageVector?,
 	onNextRouteClick: () -> Unit,
 	nextRouteEnabled: Boolean,
+	scrollBehavior: TopAppBarScrollBehavior,
 ) {
-	TopAppBar(
-		backgroundColor = MaterialTheme.colors.primary,
-		contentColor = MaterialTheme.colors.onPrimary,
-		contentPadding = WindowInsets.statusBars.asPaddingValues()
+	Box(
+		modifier = Modifier.background(
+			TopAppBarDefaults.centerAlignedTopAppBarColors()
+				.containerColor(scrollBehavior.scrollFraction).value
+		)
 	) {
-		Box(
-			modifier = Modifier
-				.fillMaxSize()
-				.padding(all = 4.dp)
-		) {
-			AnimatedIconButton(
-				modifier = Modifier.align(Alignment.CenterStart),
-				imageVector = prevRouteImageVector,
-				enabled = prevRouteEnabled,
-				onClick = onPrevRouteClick
-			)
-
-			AnimatedText(
-				modifier = Modifier
-					.fillMaxWidth()
-					.align(Alignment.Center)
-					.padding(horizontal = 48.dp),
-				text = title
-			)
-
-			AnimatedIconButton(
-				modifier = Modifier.align(Alignment.CenterEnd),
-				imageVector = nextRouteImageVector,
-				enabled = nextRouteEnabled,
-				onClick = onNextRouteClick
-			)
-		}
+		CenterAlignedTopAppBar(
+			modifier = Modifier.statusBarsPadding(),
+			title = {
+				AnimatedText(
+					modifier = Modifier.fillMaxWidth(),
+					text = title
+				)
+			},
+			navigationIcon = {
+				AnimatedIconButton(
+					imageVector = prevRouteImageVector,
+					onClick = onPrevRouteClick,
+					enabled = prevRouteEnabled,
+				)
+			},
+			actions = {
+				AnimatedIconButton(
+					imageVector = nextRouteImageVector,
+					onClick = onNextRouteClick,
+					enabled = nextRouteEnabled,
+				)
+			},
+			scrollBehavior = scrollBehavior
+		)
 	}
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun CustomTopAppBarPreview() {
@@ -69,6 +72,7 @@ private fun CustomTopAppBarPreview() {
 		title = "Title",
 		nextRouteImageVector = Icons.Rounded.ArrowBack,
 		onNextRouteClick = {},
-		nextRouteEnabled = true
+		nextRouteEnabled = true,
+		scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
 	)
 }
