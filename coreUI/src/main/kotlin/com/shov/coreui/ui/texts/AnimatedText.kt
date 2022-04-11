@@ -1,8 +1,8 @@
 package com.shov.coreui.ui.texts
 
 import androidx.compose.animation.*
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.Typography
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,13 +17,13 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedText(
-	modifier: Modifier,
+	modifier: Modifier = Modifier,
 	color: Color = LocalContentColor.current,
 	maxLines: Int = 1,
 	text: String?,
 	textAlign: TextAlign = TextAlign.Center,
 	textOverflow: TextOverflow = TextOverflow.Ellipsis,
-	textStyle: TextStyle = Typography().h6
+	textStyle: TextStyle = Typography().titleLarge
 ) {
 	AnimatedContent(
 		modifier = modifier,

@@ -1,9 +1,6 @@
 package com.shov.coreui.viewModels
 
-import androidx.compose.material.DrawerState
-import androidx.compose.material.DrawerValue
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -17,11 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScaffoldViewModel @Inject constructor() : ViewModel() {
-	val scaffoldState = ScaffoldState(DrawerState(DrawerValue.Closed), SnackbarHostState())
+	val snackbarHostState = SnackbarHostState()
 
 	fun showSnackbar(message: String) {
 		viewModelScope.launch {
-			scaffoldState.snackbarHostState.showSnackbar(message)
+			snackbarHostState.showSnackbar(message)
 		}
 	}
 

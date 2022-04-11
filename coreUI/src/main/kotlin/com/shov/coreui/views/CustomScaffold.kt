@@ -2,9 +2,9 @@ package com.shov.coreui.views
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -17,16 +17,8 @@ fun CustomScaffold(
 	scaffold: ScaffoldViewModel = singletonViewModel(),
 	content: @Composable (PaddingValues) -> Unit
 ) {
+	@OptIn(ExperimentalMaterial3Api::class)
 	Scaffold(
-		scaffoldState = scaffold.scaffoldState,
-		snackbarHost = { hostState ->
-			SnackbarHost(
-				hostState = hostState,
-				modifier = Modifier.navigationBarsPadding()
-			) { snackBarData ->
-				Snackbar(snackbarData = snackBarData)
-			}
-		},
 		topBar = {
 			CustomTopAppBar(
 				prevRouteImageVector = scaffold.topAppBar.prevRoute?.first,
@@ -35,7 +27,14 @@ fun CustomScaffold(
 				title = scaffold.topAppBar.title,
 				nextRouteImageVector = scaffold.topAppBar.nextRoute?.first,
 				onNextRouteClick = scaffold.topAppBar.nextRoute?.second ?: {},
-				nextRouteEnabled = scaffold.topAppBar.nextRoute != null
+				nextRouteEnabled = scaffold.topAppBar.nextRoute != null,
+				scrollBehavior = scaffold.scrollBehavior
+			)
+		},
+		snackbarHost = {
+			SnackbarHost(
+				modifier = Modifier.navigationBarsPadding(),
+				hostState = scaffold.snackbarHostState
 			)
 		},
 		content = content
