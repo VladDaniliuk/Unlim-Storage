@@ -1,6 +1,6 @@
 package com.shov.settingsfeature.ui
 
-import androidx.compose.material.Switch
+import androidx.compose.material3.Switch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChangeCircle
 import androidx.compose.material.icons.rounded.Delete

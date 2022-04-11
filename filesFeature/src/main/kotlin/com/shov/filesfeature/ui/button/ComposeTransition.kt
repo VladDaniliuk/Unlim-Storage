@@ -14,11 +14,3 @@ fun Transition<ButtonState>.animateComposeSize(idle: Dp = 0.dp, pressed: Dp = 0.
 			ButtonState.PRESSED -> pressed
 		}
 	}
-
-@Composable
-fun Transition<ButtonState>.animateComposeShapes() = animateDp(label = "Button shapes") { state ->
-	when (state) {
-		ButtonState.IDLE -> 4.dp
-		ButtonState.PRESSED -> 100.dp
-	}
-}

@@ -2,9 +2,8 @@ package com.shov.filesfeature.ui.button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.Typography
+import androidx.compose.material3.Button
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,12 +15,11 @@ fun MaxWidthButton(text: String, onClick: () -> Unit) = Button(
 	modifier = Modifier
 		.fillMaxWidth()
 		.padding(horizontal = 8.dp),
-	shape = CircleShape,
 	onClick = onClick
 ) {
 	CustomText(
 		text = text,
-		textStyle = Typography().button
+		textStyle = Typography().labelLarge
 	)
 }
 

@@ -1,14 +1,14 @@
 package com.shov.settingsfeature.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.FiberManualRecord
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material.icons.rounded.VisibilityOff
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,9 +33,9 @@ fun PasswordField(
 						modifier = Modifier
 							.align(Alignment.CenterVertically)
 							.padding(horizontal = 4.dp),
-						color = MaterialTheme.colors.primary,
+						color = MaterialTheme.colorScheme.primary,
 						text = symbol.toString(),
-						textStyle = Typography().h4,
+						textStyle = Typography().headlineLarge,
 						maxLines = 1
 					)
 				} else {
@@ -45,7 +45,7 @@ fun PasswordField(
 							.padding(horizontal = 4.dp),
 						imageVector = Icons.Rounded.FiberManualRecord,
 						contentDescription = Icons.Rounded.FiberManualRecord.name,
-						tint = MaterialTheme.colors.primary
+						tint = MaterialTheme.colorScheme.primary
 					)
 				}
 			}
