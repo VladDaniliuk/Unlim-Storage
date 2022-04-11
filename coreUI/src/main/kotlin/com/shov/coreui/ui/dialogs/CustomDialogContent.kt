@@ -2,8 +2,6 @@ package com.shov.coreui.ui.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -82,17 +80,6 @@ private fun CustomDialogTextPreview() {
 	CustomDialogContent(
 		content = { Text("Text") },
 		header = { CustomHeaderText("Text") },
-		onCancelText = "Text",
-		onCompleteText = "Text",
-	)
-}
-
-@Preview
-@Composable
-private fun CustomDialogIconPreview() {
-	CustomDialogContent(
-		content = { Text("Text") },
-		header = { CustomHeaderIcon(Icons.Default.DateRange) },
 		onCancelText = "Text",
 		onCompleteText = "Text",
 	)

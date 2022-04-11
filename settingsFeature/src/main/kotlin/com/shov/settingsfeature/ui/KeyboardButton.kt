@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.TextButton
-import androidx.compose.material.Typography
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,7 +34,7 @@ fun RowScope.KeyboardButton(
 	) {
 		CustomText(
 			text = int.toString(),
-			textStyle = Typography().h4
+			textStyle = Typography().headlineLarge
 		)
 	}
 }

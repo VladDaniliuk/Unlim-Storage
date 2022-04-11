@@ -118,6 +118,7 @@ fun Project.implementForSettingsFeature() {
 	implementKotlin()
 	implementBiometric()
 	implementComposeForModules()
+	implementMaterial3()
 	implementHiltForFeatureModules()
 	implementIcons()
 	implementLifecycle()

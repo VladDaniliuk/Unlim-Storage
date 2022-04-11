@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,7 +41,7 @@ fun Keyboard(
 		KeyboardActionButton(
 			modifier = modifier.fillMaxHeight(),
 			enabled = onLeftClickEnabled,
-			contentColor = MaterialTheme.colors.primary,
+			contentColor = MaterialTheme.colorScheme.primary,
 			onClick = onLeftClick,
 			onLongClick = onLeftLongClick,
 			content = onLeftClickContent
@@ -56,7 +56,7 @@ fun Keyboard(
 		KeyboardActionButton(
 			modifier = modifier.fillMaxHeight(),
 			enabled = onRightClickEnabled,
-			contentColor = MaterialTheme.colors.primary,
+			contentColor = MaterialTheme.colorScheme.primary,
 			onClick = onRightClick,
 			onLongClick = onRightLongClick,
 			content = onRightClickContent

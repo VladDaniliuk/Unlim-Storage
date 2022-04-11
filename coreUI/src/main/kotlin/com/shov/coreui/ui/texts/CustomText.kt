@@ -1,8 +1,8 @@
 package com.shov.coreui.ui.texts
 
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.Text
-import androidx.compose.material.Typography
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.Text
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,7 +20,7 @@ fun CustomText(
 	overflow: TextOverflow = TextOverflow.Clip,
 	text: String?,
 	textAlign: TextAlign? = null,
-	textStyle: TextStyle = Typography().subtitle1
+	textStyle: TextStyle = Typography().titleMedium
 ) {
 	Text(
 		modifier = modifier,

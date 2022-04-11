@@ -28,9 +28,9 @@ fun CustomTheme(
 	MaterialTheme(
 		colors = if (darkTheme) DarkTheme else LightTheme,
 		shapes = Shapes(
-			small = RoundedCornerShape(size = 4.dp),
-			medium = RoundedCornerShape(size = 8.dp),
-			large = RoundedCornerShape(size = 12.dp)
+			small = RoundedCornerShape(size = 8.dp),
+			medium = RoundedCornerShape(size = 12.dp),
+			large = RoundedCornerShape(size = 16.dp),
 		)
 	) {
 		MaterialTheme3(
