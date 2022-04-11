@@ -2,11 +2,12 @@ package com.shov.filesfeature.ui.scaffold
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
@@ -15,7 +16,7 @@ import com.shov.coreutils.viewModels.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FABScaffold(
 	bottomSheetContent: @Composable ColumnScope.() -> Unit,
@@ -25,16 +26,14 @@ fun FABScaffold(
 ) {
 	Scaffold(
 		bottomBar = { CustomBottomAppBar() },
-		isFloatingActionButtonDocked = true,
 		floatingActionButton = {
-			FloatingActionButton(
-				onClick = {
-					bottomSheetViewModel.setContent(bottomSheetContent)
+			SmallFloatingActionButton(onClick = {
+				bottomSheetViewModel.setContent(bottomSheetContent)
 
-					coroutine.launch {
-						bottomSheetViewModel.sheetState.show()
-					}
+				coroutine.launch {
+					bottomSheetViewModel.sheetState.show()
 				}
+			}
 			) {
 				Icon(
 					imageVector = Icons.Rounded.Add,

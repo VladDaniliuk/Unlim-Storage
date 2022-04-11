@@ -6,12 +6,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.NavigateNext
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -25,15 +25,16 @@ import com.shov.coreutils.models.BackStack
 
 @Composable
 fun NavigationChain(
+	backStacks: List<BackStack>,
 	iconEnabled: Boolean,
 	iconOnClick: () -> Unit,
-	backStacks: List<BackStack>,
+	scrollFraction: Float,
 	textOnClick: (index: Int) -> Unit
 ) = Surface(
 	modifier = Modifier
 		.fillMaxWidth()
 		.horizontalScroll(state = rememberScrollState()),
-	color = MaterialTheme.colors.primary
+	color = TopAppBarDefaults.centerAlignedTopAppBarColors().containerColor(scrollFraction).value
 ) {
 	Row(
 		modifier = Modifier.padding(vertical = 4.dp),
@@ -77,6 +78,7 @@ private fun NavigationChainPreview() {
 	NavigationChain(
 		iconEnabled = true,
 		iconOnClick = {},
-		backStacks = listOf(BackStack("1", "1", "1"), BackStack("1", "1", "1"))
+		backStacks = listOf(BackStack("1", "1", "1"), BackStack("1", "1", "1")),
+		scrollFraction = 0.5f,
 	) {}
 }

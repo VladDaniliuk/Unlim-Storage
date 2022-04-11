@@ -1,13 +1,15 @@
 package com.shov.filesfeature.ui.scaffold
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,37 +27,41 @@ fun CustomBottomAppBar(//TODO Remove
 	downloadViewModel: DownloadViewModel = singletonViewModel(),
 	scaffold: ScaffoldViewModel = singletonViewModel()
 ) {
-	BottomAppBar(
-		backgroundColor = MaterialTheme.colors.primary,
-		contentColor = MaterialTheme.colors.onPrimary,
-		contentPadding = WindowInsets.navigationBars.asPaddingValues(),
-		cutoutShape = CircleShape
+	Box(
+		modifier = Modifier
+			.background(color = MaterialTheme.colorScheme.primary)
+			.navigationBarsPadding()
 	) {
-		Box(modifier = Modifier.padding(4.dp)) {
-			if (downloadViewModel.title.isNotEmpty()) {
-				CircularProgressIndicator(
-					color = LocalContentColor.current,
-					modifier = Modifier.align(Alignment.Center)
+		BottomAppBar(
+			containerColor = MaterialTheme.colorScheme.primary,
+			contentColor = MaterialTheme.colorScheme.onPrimary,
+		) {
+			Box(modifier = Modifier.padding(4.dp)) {
+				if (downloadViewModel.title.isNotEmpty()) {
+					CircularProgressIndicator(
+						color = LocalContentColor.current,
+						modifier = Modifier.align(Alignment.Center)
+					)
+				}
+
+				AnimatedIconButton(
+					modifier = Modifier.align(Alignment.CenterStart),
+					enabled = true,
+					imageVector = Icons.Rounded.Download,
+					onClick = {
+						scaffold.showSnackbar("List with downloads unavailable now")
+					}
 				)
 			}
 
-			AnimatedIconButton(
-				modifier = Modifier.align(Alignment.CenterStart),
-				enabled = true,
-				imageVector = Icons.Rounded.Download,
-				onClick = {
-					scaffold.showSnackbar("List with downloads unavailable now")
-				}
-			)
-		}
-
-		if (downloadViewModel.title.isNotEmpty()) {
-			CustomText(
-				modifier = Modifier
-					.weight(1f)
-					.padding(start = 8.dp),
-				text = stringResource(id = R.string.downloading, downloadViewModel.title)
-			)
+			if (downloadViewModel.title.isNotEmpty()) {
+				CustomText(
+					modifier = Modifier
+						.weight(1f)
+						.padding(start = 8.dp),
+					text = stringResource(id = R.string.downloading, downloadViewModel.title)
+				)
+			}
 		}
 	}
 }
