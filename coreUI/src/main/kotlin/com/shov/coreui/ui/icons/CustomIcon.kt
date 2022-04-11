@@ -1,7 +1,7 @@
 package com.shov.coreui.ui.icons
 
-import androidx.compose.material.Icon
-import androidx.compose.material.LocalContentColor
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable

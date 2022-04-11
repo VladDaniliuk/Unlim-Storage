@@ -2,10 +2,10 @@ package com.shov.coreui.ui.buttons
 
 import androidx.compose.animation.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color

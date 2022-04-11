@@ -2,12 +2,12 @@ package com.shov.coreui.ui.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +27,7 @@ fun CustomDialogContent(
 	Column(
 		modifier = Modifier
 			.background(
-				color = MaterialTheme.colors.surface,
+				color = MaterialTheme.colorScheme.surface,
 				shape = MaterialTheme.shapes.medium
 			)
 			.fillMaxWidth()
@@ -55,7 +55,7 @@ fun CustomDialogContent(
 				TextButton(onClick = onCancelRequest) {
 					CustomText(
 						text = onCancelText,
-						textStyle = Typography().button
+						textStyle = Typography().labelLarge
 					)
 				}
 			}
@@ -67,7 +67,7 @@ fun CustomDialogContent(
 				) {
 					CustomText(
 						text = onCompleteText,
-						textStyle = Typography().button
+						textStyle = Typography().labelLarge
 					)
 				}
 

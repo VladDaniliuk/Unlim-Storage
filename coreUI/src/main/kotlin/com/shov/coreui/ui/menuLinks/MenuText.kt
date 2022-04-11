@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -24,7 +24,7 @@ internal fun RowScope.MenuText(
 	) {
 		CustomText(
 			text = title,
-			textStyle = MaterialTheme.typography.subtitle1
+			textStyle = MaterialTheme.typography.titleMedium
 		)
 
 		if (subtitle != null) {
@@ -32,7 +32,7 @@ internal fun RowScope.MenuText(
 				CustomText(
 					modifier = Modifier.padding(top = 2.dp),
 					text = subtitle,
-					textStyle = MaterialTheme.typography.caption
+					textStyle = MaterialTheme.typography.bodySmall
 				)
 			}
 		}
