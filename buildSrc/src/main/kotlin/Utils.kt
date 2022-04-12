@@ -35,6 +35,7 @@ fun Project.implementForAutoUpdateFeature() {
 	implementComposeForModules()
 	implementHiltForFeatureModules()
 	implementLifecycle()
+	implementMaterial3()
 	implementModulesForAutoUpdateFeature()
 	implementSquareup()
 	implementIcons()
@@ -131,6 +132,7 @@ fun Project.implementForSignInFeature() {
 	implementModulesForSignInFeature()
 	implementComposeForModules()
 	implementLifecycle()
+	implementMaterial3()
 	implementHiltForFeatureModules()
 }
 

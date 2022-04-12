@@ -3,8 +3,8 @@ package com.shov.autoupdatefeature.views
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.Switch
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Switch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Autorenew
 import androidx.compose.material.icons.rounded.Update
@@ -28,7 +28,7 @@ internal fun UpdateView(
 		if (isShowProgress) {
 			LinearProgressIndicator(
 				modifier = Modifier.fillMaxWidth(),
-				backgroundColor = Color.Transparent
+				trackColor = Color.Transparent
 			)
 		}
 

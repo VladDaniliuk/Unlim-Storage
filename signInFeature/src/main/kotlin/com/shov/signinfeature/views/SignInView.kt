@@ -5,7 +5,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,10 +26,10 @@ fun SignInView(
 		Spacer(modifier = Modifier.weight(1f))
 
 		Text(
-			text = stringResource(id = R.string.sign_in_with),
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(bottom = 32.dp),
+			text = stringResource(id = R.string.sign_in_with),
 			textAlign = TextAlign.Center
 		)
 

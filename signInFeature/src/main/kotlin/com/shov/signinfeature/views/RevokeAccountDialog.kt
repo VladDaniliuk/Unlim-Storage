@@ -1,8 +1,8 @@
 package com.shov.signinfeature.views
 
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,9 +23,7 @@ fun RevokeAccountDialog(
 			}
 		},
 		confirmButton = {
-			TextButton(onClick = {
-				onRevoke()
-			}) {
+			TextButton(onClick = onRevoke) {
 				Text(text = stringResource(id = R.string.revoke))
 			}
 		},
