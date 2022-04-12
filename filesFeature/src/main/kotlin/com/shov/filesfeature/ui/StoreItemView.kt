@@ -3,12 +3,12 @@ package com.shov.filesfeature.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,12 +60,12 @@ fun StoreItemView(
 						overflow = TextOverflow.Ellipsis,
 						maxLines = 1,
 						text = name,
-						textStyle = Typography().h5
+						textStyle = Typography().headlineSmall
 					)
 
 					CustomText(
 						text = size,
-						textStyle = Typography().body2
+						textStyle = Typography().bodyMedium
 					)
 
 					Icon(

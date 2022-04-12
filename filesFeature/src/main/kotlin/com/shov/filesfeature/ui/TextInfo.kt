@@ -2,7 +2,7 @@ package com.shov.filesfeature.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,13 +16,13 @@ fun TextInfo(name: String, value: String?) {
 			CustomText(
 				modifier = Modifier.padding(horizontal = 16.dp),
 				text = name,
-				textStyle = Typography().subtitle2
+				textStyle = Typography().titleSmall
 			)
 
 			CustomText(
 				modifier = Modifier.padding(horizontal = 16.dp),
 				text = value,
-				textStyle = Typography().subtitle1
+				textStyle = Typography().titleMedium
 			)
 		}
 	}

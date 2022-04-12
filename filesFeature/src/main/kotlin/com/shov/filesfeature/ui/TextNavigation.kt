@@ -1,8 +1,8 @@
 package com.shov.filesfeature.ui
 
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,7 +27,7 @@ fun TextNavigation(
 					tag = taggedStringId.toString(),
 					annotation = taggedStringId.toString()
 				)
-				pushStyle(style = SpanStyle(color = MaterialTheme.colors.error))
+				pushStyle(style = SpanStyle(color = MaterialTheme.colorScheme.error))
 			} else {
 				pushStyle(style = SpanStyle(color = textColor))
 			}

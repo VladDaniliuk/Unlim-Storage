@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Divider
-import androidx.compose.material.Typography
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -33,7 +33,7 @@ fun FileUsersView(sharingUsers: List<UserItem>?, onShowSnackbar: (String) -> Uni
 			CustomText(
 				modifier = Modifier.padding(horizontal = 16.dp),
 				text = stringResource(R.string.sharing_access),
-				textStyle = Typography().subtitle2
+				textStyle = Typography().titleSmall
 			)
 
 			LazyRow(

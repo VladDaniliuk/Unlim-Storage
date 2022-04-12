@@ -3,11 +3,11 @@ package com.shov.filesfeature.views.fileInfo.views
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CopyAll
 import androidx.compose.material.icons.rounded.OpenInBrowser
 import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -17,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.shov.coreui.ui.texts.CustomText
 import com.shov.coreui.ui.buttons.CustomIconButton
+import com.shov.coreui.ui.texts.CustomText
 import com.shov.filesfeature.R
 import com.shov.filesfeature.ui.button.MaxWidthButton
 
@@ -36,7 +36,7 @@ fun FileLinkView(
 		CustomText(
 			modifier = Modifier.padding(horizontal = 16.dp),
 			text = stringResource(R.string.link_description),
-			textStyle = Typography().subtitle2
+			textStyle = Typography().titleSmall
 		)
 
 		if (link != null) {

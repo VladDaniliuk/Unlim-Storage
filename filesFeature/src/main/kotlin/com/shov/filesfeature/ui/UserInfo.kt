@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Typography
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,20 +44,20 @@ fun UserInfo(
 				.size(iconSize)
 				.clip(CircleShape),
 			contentDescription = contentDescription,
-			defaultTint = MaterialTheme.colors.onBackground,
+			defaultTint = MaterialTheme.colorScheme.onBackground,
 			iconLink = iconLink
 		)
 
 		CustomText(
 			modifier = Modifier.align(Alignment.CenterHorizontally),
 			text = title,
-			textStyle = Typography().subtitle1
+			textStyle = Typography().titleMedium
 		)
 
 		CustomText(
 			modifier = Modifier.align(Alignment.CenterHorizontally),
 			text = subtitle,
-			textStyle = Typography().subtitle1
+			textStyle = Typography().titleMedium
 		)
 	}
 }
