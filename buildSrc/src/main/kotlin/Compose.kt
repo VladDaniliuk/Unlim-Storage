@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Compose {
 	private const val lib = "androidx.compose"
-	const val version = "1.2.0-alpha06"
+	const val version = "1.2.0-alpha07"
 	private const val versionMaterial3 = "1.0.0-alpha09"
 
 	object Lib {
@@ -15,8 +15,8 @@ object Compose {
 		const val runtimeLivedata = "$lib.runtime:runtime-livedata:$version"
 		const val ui = "$lib.ui:ui:$version"
 		const val uiTooling = "$lib.ui:ui-tooling:$version"
-	} //TODO migrate to material3
-}//TODO color scheme of material3
+	}
+}
 
 fun Project.implementCompose() {
 	dependencies {

@@ -128,12 +128,12 @@ fun Project.implementForSettingsFeature() {
 }
 
 fun Project.implementForSignInFeature() {
-	implementKotlin()
-	implementModulesForSignInFeature()
 	implementComposeForModules()
+	implementHiltForFeatureModules()
+	implementKotlin()
 	implementLifecycle()
 	implementMaterial3()
-	implementHiltForFeatureModules()
+	implementModulesForSignInFeature()
 }
 
 fun Project.implementForStorage() {
