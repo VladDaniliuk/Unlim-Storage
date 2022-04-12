@@ -21,6 +21,7 @@ fun Project.implementAll() {
 	implementNavigation()
 	implementActivity()
 	implementCompose()
+	implementMaterial3()
 	implementHilt()
 	implementCoil()
 	implementAccompanist()
