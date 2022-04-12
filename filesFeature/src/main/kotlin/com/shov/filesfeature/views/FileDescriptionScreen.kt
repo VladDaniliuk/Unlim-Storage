@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Done
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,20 +35,20 @@ fun FileDescriptionScreen(
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
 	TextField(
+		modifier = Modifier
+			.fillMaxSize()
+			.navigationBarsPadding()
+			.imePadding(),
 		enabled = isConnected,
 		value = fileDescriptionViewModel.description ?: "",
 		onValueChange = { newDescription ->
 			fileDescriptionViewModel.setNewDescription(newDescription)
 		},
 		placeholder = { Text(text = stringResource(id = R.string.description)) },
-		modifier = Modifier
-			.fillMaxSize()
-			.navigationBarsPadding()
-			.imePadding(),
 		colors = TextFieldDefaults.textFieldColors(
-			backgroundColor = MaterialTheme.colors.background,
-			focusedIndicatorColor = MaterialTheme.colors.background,
-			unfocusedIndicatorColor = MaterialTheme.colors.background
+			backgroundColor = MaterialTheme.colorScheme.background,
+			focusedIndicatorColor = MaterialTheme.colorScheme.background,
+			unfocusedIndicatorColor = MaterialTheme.colorScheme.background
 		)
 	)
 

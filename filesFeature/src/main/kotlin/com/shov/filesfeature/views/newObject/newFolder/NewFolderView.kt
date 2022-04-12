@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -37,7 +37,7 @@ fun NewFolderView(
 				.padding(bottom = 8.dp),
 			text = stringResource(R.string.create_new_folder),
 			textAlign = TextAlign.Center,
-			textStyle = Typography().h6
+			textStyle = Typography().titleLarge
 		)
 
 		Row {
@@ -72,8 +72,8 @@ fun NewFolderView(
 
 		if (textError.isNotEmpty()) Text(
 			text = textError,
-			color = MaterialTheme.colors.error,
-			style = MaterialTheme.typography.caption,
+			color = MaterialTheme.colorScheme.error,
+			style = Typography().bodySmall,
 		)
 	}
 

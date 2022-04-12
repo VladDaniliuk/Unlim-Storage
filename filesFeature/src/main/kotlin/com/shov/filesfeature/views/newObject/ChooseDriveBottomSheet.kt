@@ -4,8 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -16,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.buttons.CustomIconButton
+import com.shov.coreui.ui.texts.CustomText
 import com.shov.filesfeature.R
 import com.shov.filesfeature.viewModels.newObject.ChooseDriveViewModel
 
@@ -33,13 +33,13 @@ fun ChooseDriveBottomSheet(
 @Composable
 fun ChooseDriveBottomSheet(storageList: List<StorageType>, onClick: (StorageType) -> Unit) {
 	Column {
-		Text(
+		CustomText(
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(vertical = 8.dp),
 			text = stringResource(R.string.choose_drive),
 			textAlign = TextAlign.Center,
-			fontSize = Typography().h6.fontSize
+			textStyle = Typography().titleLarge
 		)
 
 		Row {
