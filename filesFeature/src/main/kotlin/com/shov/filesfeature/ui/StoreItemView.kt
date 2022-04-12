@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
+import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.texts.CustomText
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -44,13 +45,12 @@ fun StoreItemView(
 				enabled = enabled
 			)
 	) {
-		Icon(
+		CustomIcon(
 			modifier = Modifier
 				.padding(horizontal = 4.dp)
 				.align(Alignment.CenterVertically)
 				.size(48.dp),
 			imageVector = type.imageVector,
-			contentDescription = type.name
 		)
 
 		Column {

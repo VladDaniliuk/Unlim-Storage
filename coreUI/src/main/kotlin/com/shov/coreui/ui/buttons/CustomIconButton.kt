@@ -3,7 +3,6 @@ package com.shov.coreui.ui.buttons
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Icon
@@ -30,7 +29,7 @@ fun RowScope.CustomIconButton(
 	CustomIconButton(
 		painter = rememberVectorPainter(imageVector),
 		text = text,
-		tint = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
+		tint = LocalContentColor.current,
 		onClick = onClick
 	)
 }

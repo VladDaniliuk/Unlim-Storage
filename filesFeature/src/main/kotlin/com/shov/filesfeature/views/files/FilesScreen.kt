@@ -60,11 +60,10 @@ fun FilesScreen(
 		onOptionStoreItemClick = { storeItem ->
 			bottomSheetViewModel.setContent {
 				FileActionsBottomSheet(
+					id = storeItem.id,
 					disk = storeItem.disk,
 					name = storeItem.name,
-					onNavigate = {
-						navHostController.navigate(Screen.FileInfo.setStoreItem(storeItem.id))
-					},
+					onNavigate = navHostController::navigate,
 					size = storeItem.size,
 					type = storeItem.type
 				)
