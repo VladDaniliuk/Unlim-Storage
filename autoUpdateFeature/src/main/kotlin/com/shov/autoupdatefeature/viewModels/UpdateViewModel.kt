@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.shov.autoupdatefeature.data.repositories.DownloadRepository
 import com.shov.autoupdatefeature.data.repositories.GitHubRepository
 import com.shov.autoupdatefeature.models.LastReleaseItem
-import com.shov.autoupdatefeature.utils.compareWithOld
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.preferences.values.IS_UPDATE_SHOW
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,12 +41,12 @@ class UpdateViewModel @Inject constructor(
 
 	fun checkAppVersion(currentVersion: String, onVersionsEqual: () -> Unit = {}) {
 		isShowProgress = true
-		viewModelScope.launch {
-			lastRelease = gitHubRepository.getLastRelease().body()
 
-			lastRelease?.tagName?.compareWithOld(
-				currentVersion,
-				onNewerAction = {
+		viewModelScope.launch {
+			gitHubRepository.getLastRelease(
+				currentVersion = currentVersion,
+				onNewerAction = { lastRelease ->
+					this@UpdateViewModel.lastRelease = lastRelease
 					isDialogShown = true
 					wasDialogShown = true
 				},
