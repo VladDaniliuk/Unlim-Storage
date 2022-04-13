@@ -4,18 +4,25 @@ import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.StorageType
-import com.shov.coreui.ui.dialogs.CustomDialogContent
-import com.shov.coreui.ui.dialogs.CustomHeaderText
-import com.shov.coreui.ui.icons.CustomIcon
-import com.shov.coreui.ui.menuLinks.MenuLink
+import com.shov.coreui.ui.buttons.CustomIconButton
+import com.shov.coreui.ui.texts.CustomText
 import com.shov.signinfeature.R
 import com.shov.signinfeature.viewModels.AccountsViewModel
 import com.shov.signinfeature.viewModels.SignInViewModel
@@ -43,25 +50,32 @@ internal fun AddAccountView(
 	onResult: (result: ActivityResult, storageType: StorageType) -> Unit,
 	intent: (storageType: StorageType) -> Intent
 ) {
-	CustomDialogContent(header = { CustomHeaderText(stringResource(R.string.choose_drive)) }) {
-		storageTypes.forEach { storageType: StorageType ->
-			val startForResult = rememberLauncherForActivityResult(
-				ActivityResultContracts.StartActivityForResult()
-			) { result ->
-				onResult(result, storageType)
-			}
+	Surface(shape = MaterialTheme.shapes.medium) {
+		Column(modifier = Modifier.padding(all = 24.dp)) {
+			CustomText(
+				modifier = Modifier
+					.padding(bottom = 16.dp)
+					.fillMaxWidth(),
+				text = stringResource(R.string.choose_drive),
+				textAlign = TextAlign.Center,
+				textStyle = Typography().headlineSmall
+			)
 
-			MenuLink(
-				icon = {
-					CustomIcon(
+			Row {
+				storageTypes.forEach { storageType ->
+					val startForResult = rememberLauncherForActivityResult(
+						ActivityResultContracts.StartActivityForResult()
+					) { result ->
+						onResult(result, storageType)
+					}
+
+					CustomIconButton(
 						painter = painterResource(storageType.imageId),
-						tint = Color.Unspecified
-					)
-				},
-				title = stringResource(R.string.account, stringResource(storageType.nameId)),
-				subtitle = stringResource(R.string.click_to_add),
-			) {
-				startForResult.launch(intent(storageType))
+						text = stringResource(storageType.nameId)
+					) {
+						startForResult.launch(intent(storageType))
+					}
+				}
 			}
 		}
 	}
