@@ -14,6 +14,9 @@ import com.shov.dropboxstorage.values.DROPBOX_CREDENTIAL
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.storage.SignInDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DropBoxSignInDataSource @Inject constructor(
@@ -35,14 +38,18 @@ class DropBoxSignInDataSource @Inject constructor(
 
 	@Suppress("UNUSED_VALUE")
 	override suspend fun signOut() {
-		var credentialPref by preferences.getPref(DROPBOX_CREDENTIAL, "")
+		coroutineScope {
+			launch(Dispatchers.IO) {
+				var credentialPref by preferences.getPref(DROPBOX_CREDENTIAL, "")
 
-		DbxClientV2(
-			DbxRequestConfig(CLIENT_IDENTIFIER),
-			DbxCredential.Reader.readFully(credentialPref)
-		).auth().tokenRevoke()
+				DbxClientV2(
+					DbxRequestConfig(CLIENT_IDENTIFIER),
+					DbxCredential.Reader.readFully(credentialPref)
+				).auth().tokenRevoke()
 
-		credentialPref = ""
-		AuthActivity.result = null//to stop signIn in open dialog when revoke access
+				credentialPref = ""
+				AuthActivity.result = null//to stop signIn in open dialog when revoke access }
+			}
+		}
 	}
 }
