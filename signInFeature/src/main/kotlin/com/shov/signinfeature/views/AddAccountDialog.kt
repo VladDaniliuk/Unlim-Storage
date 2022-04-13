@@ -17,31 +17,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.coreui.ui.texts.CustomText
 import com.shov.signinfeature.R
-import com.shov.signinfeature.viewModels.AccountsViewModel
-import com.shov.signinfeature.viewModels.SignInViewModel
+import com.shov.signinfeature.viewModels.AddAccountViewModel
 
 @Composable
 fun AddAccountDialog(
-	accountsViewModel: AccountsViewModel = hiltViewModel(),
-	signInViewModel: SignInViewModel = hiltViewModel(),
+	addAccountViewModel: AddAccountViewModel = hiltViewModel(),
+	popBack: () -> Unit
 ) {
-	Dialog(onDismissRequest = { accountsViewModel.showAddAccountBottomSheet() }) {
-		AddAccountView(
-			storageTypes = accountsViewModel.checkAllAccess(false),
-			onResult = { result: ActivityResult, storageType: StorageType ->
-				signInViewModel.checkAccessWithResult(result, storageType)
-				accountsViewModel.showAddAccountBottomSheet()
-			},
-			intent = signInViewModel::getAccess
-		)
-	}
+	AddAccountView(
+		storageTypes = addAccountViewModel.storageTypes,
+		onResult = { result: ActivityResult, storageType: StorageType ->
+			addAccountViewModel.checkAccessWithResult(result, storageType)
+			popBack()
+		},
+		intent = addAccountViewModel::getAccess
+	)
 }
 
 @Composable
