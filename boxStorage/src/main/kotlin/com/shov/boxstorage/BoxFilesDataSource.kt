@@ -42,19 +42,12 @@ class BoxFilesDataSource @Inject constructor(
 		id: String,
 		name: String,
 		file: File,
-		onDownload: (String) -> Unit,
 		onError: () -> Unit
 	) {
 		if (checkAuth) {
 			BoxApiFile(BoxSession(context))
 				.getDownloadRequest(FileOutputStream(file), id)
-				.setProgressListener { numBytes, totalBytes ->
-					if (numBytes == totalBytes) {
-						onDownload("")
-					} else {
-						onDownload(name)
-					}
-				}
+				.setProgressListener { _, _ -> }
 				.send()
 		} else onError()
 	}
@@ -71,6 +64,7 @@ class BoxFilesDataSource @Inject constructor(
 			BoxApiFolder(BoxSession(context))
 				.getItemsRequest(folderId ?: BoxConstants.ROOT_FOLDER_ID)
 				.setFields("size", "name", "parent").send()
+				.filter { (it.type == "file") or (it.type == "folder") }
 				.map { boxItem ->
 					boxItem.toStoreItem(folderId) {
 						context.getString(second, first)

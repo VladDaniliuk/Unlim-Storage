@@ -14,17 +14,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
+import com.shov.filesfeature.R
 import com.shov.filesfeature.utils.checkMultiplePermissions
 import com.shov.filesfeature.utils.rememberRequestMultiplePermissionsResult
-import com.shov.filesfeature.R
 import com.shov.filesfeature.utils.share
-import com.shov.filesfeature.viewModels.DownloadViewModel
 import com.shov.filesfeature.viewModels.FileInfoViewModel
 import com.shov.filesfeature.views.fileInfo.views.FileInfoView
 
 @Composable
 fun FileInfoScreen(
-	downloadViewModel: DownloadViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	fileInfoViewModel: FileInfoViewModel = hiltViewModel(),
 	navigateTo: (String) -> Unit,
@@ -37,7 +35,7 @@ fun FileInfoScreen(
 		Manifest.permission.READ_EXTERNAL_STORAGE,
 		Manifest.permission.WRITE_EXTERNAL_STORAGE,
 		onAllowed = {
-			fileInfoViewModel.downloadFile(downloadViewModel::onDownload) { id ->
+			fileInfoViewModel.downloadFile { id ->
 				scaffold.showSnackbar(context.getString(id))
 			}
 		},
@@ -70,7 +68,7 @@ fun FileInfoScreen(
 						Manifest.permission.WRITE_EXTERNAL_STORAGE
 					)
 				) {
-					fileInfoViewModel.downloadFile(downloadViewModel::onDownload) { id ->
+					fileInfoViewModel.downloadFile { id ->
 						scaffold.showSnackbar(context.getString(id))
 					}
 				} else {
@@ -82,7 +80,7 @@ fun FileInfoScreen(
 					)
 				}
 			} else {
-				fileInfoViewModel.downloadFile(downloadViewModel::onDownload) { id ->
+				fileInfoViewModel.downloadFile { id ->
 					scaffold.showSnackbar(context.getString(id))
 				}
 			}

@@ -21,9 +21,10 @@ interface FileActionsRepository {
 		disk: StorageType,
 		id: String,
 		name: String,
-		onDownload: (String) -> Unit,
-		onStart: () -> Unit,
-		onError: () -> Unit
+		onError: () -> Unit,
+		parentFolder: File = Environment
+			.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+		type: ItemType,
 	)
 
 	fun uploadFile(
@@ -47,44 +48,34 @@ class FileActionsRepositoryImpl @Inject constructor(
 		disk: StorageType,
 		id: String,
 		name: String,
-		onDownload: (String) -> Unit,//TODO:Delete, now it's only for name
-		onStart: () -> Unit,
-		onError: () -> Unit
+		onError: () -> Unit,
+		parentFolder: File,
+		type: ItemType,
 	) {
-		onStart()
-		downloadElement(disk, name, id, ItemType.FOLDER, onDownload, onError)
+		if (type == ItemType.FOLDER) {
+			downloadFolder(id, name, disk, parentFolder).forEach { storeItem ->
+				download(
+					storeItem.disk,
+					storeItem.id,
+					storeItem.name,
+					onError,
+					File(parentFolder, name),
+					storeItem.type
+				)
+			}
+		} else {
+			downloadFile(disk, id, name, onError, parentFolder)
+		}
 		//TODO GOOGLE PERCENTS
 		// TODO onExist onError
 	}
 
-	private fun downloadElement(
-		disk: StorageType,
-		name: String,
+	private fun downloadFolder(
 		id: String,
-		itemType: ItemType,
-		onDownload: (String) -> Unit,
-		onError: () -> Unit,
-		parentFolder: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-	) {
-		if (itemType == ItemType.FOLDER) {
-			downloadFolder(id, name, disk, parentFolder).forEach {
-				downloadElement(
-					disk,
-					it.name,
-					it.id,
-					it.type,
-					onDownload,
-					onError,
-					File(parentFolder, name)
-				)
-			}
-		} else {
-			downloadFile(id, name, disk, parentFolder, onDownload, onError)
-		}
-	}
-
-	private fun downloadFolder(id: String, name: String, disk: StorageType, parentFolder: File)
-			: List<StoreItem> {
+		name: String,
+		disk: StorageType,
+		parentFolder: File
+	): List<StoreItem> {
 		return if (File(parentFolder, name).exists().not()) {
 			if (File(parentFolder, name).mkdirs()) {
 				filesFactory.create(disk).getFiles(id)
@@ -93,15 +84,14 @@ class FileActionsRepositoryImpl @Inject constructor(
 	}
 
 	private fun downloadFile(
+		disk: StorageType,
 		id: String,
 		name: String,
-		disk: StorageType,
+		onError: () -> Unit,
 		parentFolder: File,
-		onDownload: (String) -> Unit,
-		onError: () -> Unit
 	) {
 		File(parentFolder, name).createFile(onCreate = {
-			filesFactory.create(disk).downloadFile(id, name, this, onDownload, onError)
+			filesFactory.create(disk).downloadFile(id, name, this, onError)
 		})
 	}
 

@@ -12,7 +12,6 @@ interface FilesDataSource {
 		id: String,
 		name: String,
 		file: File,
-		onDownload: (String) -> Unit,
 		onError: () -> Unit
 	)
 

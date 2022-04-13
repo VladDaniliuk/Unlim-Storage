@@ -46,19 +46,18 @@ class FileInfoViewModel @Inject constructor(
 		}
 	}
 
-	fun downloadFile(onDownload: (String) -> Unit, onShowSnackbar: (message: Int) -> Unit) {
-		this.storeMetadata?.let { metadata ->
-			this.storeItem?.let { item ->
-				viewModelScope.launch(Dispatchers.IO) {
-					fileActionsRepository.download(
-						item.disk,
-						id!!,
-						metadata.name,
-						onDownload,
-						{ onShowSnackbar(R.string.download_started) },
-						{ onShowSnackbar(R.string.download_error) }
-					)
-				}
+	fun downloadFile(onShowSnackbar: (message: Int) -> Unit) {
+		this.storeItem?.let { item ->
+			viewModelScope.launch(Dispatchers.IO) {
+				onShowSnackbar(R.string.download_started)
+
+				fileActionsRepository.download(
+					disk = item.disk,
+					id = item.id,
+					name = item.name,
+					onError = { onShowSnackbar(R.string.download_error) },
+					type = item.type
+				)
 			}
 		}
 	}

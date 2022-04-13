@@ -37,7 +37,6 @@ class GoogleFilesDataSource @Inject constructor(
 		id: String,
 		name: String,
 		file: File,
-		onDownload: (String) -> Unit,
 		onError: () -> Unit
 	) {//TODO rewrite [link](https://shov-studio.jetbrains.space/p/unlim-storage/issues/18)
 		getGoogleFiles().get(id).executeMediaAndDownloadTo(FileOutputStream(file))

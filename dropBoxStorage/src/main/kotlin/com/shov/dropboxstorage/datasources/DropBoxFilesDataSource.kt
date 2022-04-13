@@ -54,13 +54,12 @@ class DropBoxFilesDataSource @Inject constructor(
 		id: String,
 		name: String,
 		file: File,
-		onDownload: (String) -> Unit,
 		onError: () -> Unit
 	) {
 		try {
 			dbxUserFilesRequests()?.let { dbxFile ->
 				dbxFile.download(dbxFile.getMetadata(id).pathLower)
-					.download(FileOutputStream(file))//TODO: write another way to get progress
+					.download(FileOutputStream(file))
 			} ?: onError()
 		} catch (e: RateLimitException) {
 			onError()
