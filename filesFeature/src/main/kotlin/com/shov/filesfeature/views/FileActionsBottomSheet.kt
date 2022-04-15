@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModel
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.viewModels.BottomSheetViewModel
@@ -15,10 +14,8 @@ import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -67,10 +64,4 @@ fun FileActionsPreview() {
 		size = "12 MB",
 		type = ItemType.FILE,
 	) {}
-}
-
-
-@HiltViewModel
-class FileActionsViewModel @Inject constructor() : ViewModel() {
-
 }
