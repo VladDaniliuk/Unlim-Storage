@@ -1,5 +1,6 @@
 package com.shov.coreui.ui.themes.customTheme
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +26,7 @@ fun CustomTheme(
 		colorScheme = if (
 			(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) and customThemeViewModel.isDynamicTheme
 		) {
+			@SuppressLint("NewApi")
 			if (darkTheme) {
 				dynamicDarkColorScheme(LocalContext.current)
 			} else {
