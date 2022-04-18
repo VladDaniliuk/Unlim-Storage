@@ -57,14 +57,14 @@ fun Project.implementForCoreModels() {
 }
 
 fun Project.implementForCoreUi() {
+	implementAccompanist()
+	implementComposeForModules()
+	implementHiltForFeatureModules()
 	implementKotlin()
 	implementKotlinx()
 	implementLifecycle()
-	implementHiltForViewModels()
-	implementComposeForModules()
-	implementModulesForCoreUI()
-	implementAccompanist()
 	implementMaterial3()
+	implementModulesForCoreUI()
 }
 
 fun Project.implementForCoreUtils() {

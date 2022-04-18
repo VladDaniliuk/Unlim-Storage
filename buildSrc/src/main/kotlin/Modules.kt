@@ -51,6 +51,7 @@ fun Project.implementModulesForDropBoxStorage() {
 
 fun Project.implementModulesForCoreUI() {
 	dependencies {
+		implement(project(Modules.preferences))
 		implement(project(Modules.coreUtils))
 	}
 }

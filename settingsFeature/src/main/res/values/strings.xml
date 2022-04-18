@@ -12,6 +12,8 @@
 	<string name="check_password_for_remove">Check password for remove</string>
 	<string name="check_update_disable_auto">check updates or disable auto update</string>
 	<string name="create_password">Create password</string>
+	<string name="dynamic_theme">Dynamic theme</string>
+	<string name="dynamic_theme_description">Enable/Disable dynamic theme</string>
 	<string name="log_in_by_biometric">Log in by biometric credential</string>
 	<string name="new_">New %1$s</string>
 	<string name="password_is_enabled">password is enabled</string>

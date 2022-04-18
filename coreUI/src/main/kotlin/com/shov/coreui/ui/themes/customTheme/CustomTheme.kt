@@ -11,15 +11,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.shov.coreui.viewModels.CustomThemeViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 
 @Composable
 fun CustomTheme(
+	customThemeViewModel: CustomThemeViewModel = singletonViewModel(),
 	darkTheme: Boolean = isSystemInDarkTheme(),
 	systemUiController: SystemUiController = rememberSystemUiController(),
 	content: @Composable () -> Unit
 ) {
 	MaterialTheme(
-		colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+		colorScheme = if (
+			(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) and customThemeViewModel.isDynamicTheme
+		) {
 			if (darkTheme) {
 				dynamicDarkColorScheme(LocalContext.current)
 			} else {
