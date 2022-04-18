@@ -1,8 +1,13 @@
 package com.shov.coreui.viewModels
 
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,6 +23,18 @@ import javax.inject.Inject
 class ScaffoldViewModel @Inject constructor() : ViewModel() {
 	@OptIn(ExperimentalMaterial3Api::class)
 	val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
+	//BottomSheet
+	@OptIn(ExperimentalMaterialApi::class)
+	val sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
+	var sheetContent by mutableStateOf<(@Composable ColumnScope.() -> Unit)>({})
+		private set
+
+	fun setContent(content: (@Composable ColumnScope.() -> Unit) = {}) {
+		sheetContent = content
+	}
+
+	//Snackbar
 	val snackbarHostState = SnackbarHostState()
 
 	fun showSnackbar(message: String) {
@@ -26,9 +43,9 @@ class ScaffoldViewModel @Inject constructor() : ViewModel() {
 		}
 	}
 
+	//TopAppBar
 	var topAppBar by mutableStateOf(TopAppBar())
 		private set
-
 	private var prevRouteOld by mutableStateOf<ImageVector?>(null)
 	private var nextRouteOld by mutableStateOf<ImageVector?>(null)
 

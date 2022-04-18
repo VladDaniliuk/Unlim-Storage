@@ -11,7 +11,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.models.BackStack
 import com.shov.coreutils.utils.observeConnectivityAsFlow
@@ -28,7 +27,6 @@ import com.shov.coremodels.R as coreModelsR
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FilesScreen(
-	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
@@ -58,7 +56,7 @@ fun FilesScreen(
 			)
 		},
 		onOptionStoreItemClick = { storeItem ->
-			bottomSheetViewModel.setContent {
+			scaffold.setContent {
 				FileActionsBottomSheet(
 					id = storeItem.id,
 					disk = storeItem.disk,
@@ -69,7 +67,7 @@ fun FilesScreen(
 				)
 			}
 
-			coroutineScope.launch { bottomSheetViewModel.sheetState.show() }
+			coroutineScope.launch { scaffold.sheetState.show() }
 		}
 	) {
 		filesViewModel.onRefresh(isConnected) {

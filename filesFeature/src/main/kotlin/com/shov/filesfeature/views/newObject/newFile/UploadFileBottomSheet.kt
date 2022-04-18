@@ -8,8 +8,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
-import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.filesfeature.viewModels.newObject.UploadFileViewModel
 import com.shov.filesfeature.views.newObject.ChooseDriveBottomSheet
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +21,7 @@ fun UploadBottomSheet(
 	file: InputStream?,
 	uploadFileViewModel: UploadFileViewModel = hiltViewModel(),
 	coroutineScope: CoroutineScope = rememberCoroutineScope(),
-	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel()
+	scaffold: ScaffoldViewModel = singletonViewModel()
 ) {
 	if (uploadFileViewModel.type == null) ChooseDriveBottomSheet { storageType ->
 		uploadFileViewModel.type = storageType
@@ -32,7 +32,7 @@ fun UploadBottomSheet(
 			uploadFileViewModel.uploadFile(file) {
 				coroutineScope.launch {
 					@OptIn(ExperimentalMaterialApi::class)
-					bottomSheetViewModel.sheetState.hide()
+					scaffold.sheetState.hide()
 				}
 			}
 	}

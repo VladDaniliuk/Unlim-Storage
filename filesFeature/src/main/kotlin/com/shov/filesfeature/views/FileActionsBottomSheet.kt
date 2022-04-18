@@ -9,7 +9,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
-import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
@@ -20,7 +19,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FileActionsBottomSheet(
-	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	disk: StorageType,
@@ -33,7 +31,7 @@ fun FileActionsBottomSheet(
 ) {
 	BackHandler {
 		coroutineScope.launch {
-			bottomSheetViewModel.sheetState.hide()
+			scaffold.sheetState.hide()
 		}
 	}
 
@@ -47,7 +45,7 @@ fun FileActionsBottomSheet(
 		type = type,
 	) {
 		coroutineScope.launch {
-			bottomSheetViewModel.sheetState.hide()
+			scaffold.sheetState.hide()
 		}.invokeOnCompletion {
 			onNavigate(Screen.FileInfo.setStoreItem(id))
 		}

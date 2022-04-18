@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.coreui.ui.texts.CustomText
-import com.shov.coreui.viewModels.BottomSheetViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NewObjectBottomSheet(
-	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	onFolderCreateClick: () -> Unit,
 	onUploadClick: (Uri?) -> Unit
@@ -37,7 +37,7 @@ fun NewObjectBottomSheet(
 	BackHandler {
 		coroutineScope.launch {
 			@OptIn(ExperimentalMaterialApi::class)
-			bottomSheetViewModel.sheetState.hide()
+			scaffold.sheetState.hide()
 		}
 	}
 

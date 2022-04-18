@@ -5,7 +5,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.shov.coreui.viewModels.BottomSheetViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NewFolderBottomSheet(
-	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	newFolderViewModel: NewFolderViewModel = hiltViewModel(),
@@ -35,7 +35,7 @@ fun NewFolderBottomSheet(
 						onCompletion = {
 							coroutineScope.launch {
 								@OptIn(ExperimentalMaterialApi::class)
-								bottomSheetViewModel.sheetState.hide()
+								scaffold.sheetState.hide()
 							}
 						},
 						textError = context.getString(R.string.check_name),

@@ -10,13 +10,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.shov.coreui.ui.CustomTopAppBar
-import com.shov.coreui.viewModels.BottomSheetViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 
 @Composable
 fun CustomScaffold(
-	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
 	scaffold: ScaffoldViewModel = singletonViewModel(),
 	content: @Composable (PaddingValues) -> Unit
 ) {
@@ -35,7 +33,7 @@ fun CustomScaffold(
 					.navigationBarsPadding()
 					.imePadding()
 			) {
-				bottomSheetViewModel.sheetContent(this)
+				scaffold.sheetContent(this)
 			}
 		},
 		sheetContentColor = MaterialTheme.colorScheme.onSurface,
@@ -43,7 +41,7 @@ fun CustomScaffold(
 			bottomEnd = CornerSize(0),
 			bottomStart = CornerSize(0)
 		),
-		sheetState = bottomSheetViewModel.sheetState,
+		sheetState = scaffold.sheetState,
 	) {
 		@OptIn(ExperimentalMaterial3Api::class)
 		Scaffold(

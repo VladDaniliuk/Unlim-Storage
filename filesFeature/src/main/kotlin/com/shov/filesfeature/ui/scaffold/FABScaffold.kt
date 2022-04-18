@@ -11,7 +11,7 @@ import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
-import com.shov.coreui.viewModels.BottomSheetViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FABScaffold(
 	bottomSheetContent: @Composable ColumnScope.() -> Unit,
-	bottomSheetViewModel: BottomSheetViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel(),
 	coroutine: CoroutineScope = rememberCoroutineScope(),
 	content: @Composable () -> Unit
 ) {
@@ -28,10 +28,10 @@ fun FABScaffold(
 		bottomBar = { CustomBottomAppBar() },
 		floatingActionButton = {
 			SmallFloatingActionButton(onClick = {
-				bottomSheetViewModel.setContent(bottomSheetContent)
+				scaffold.setContent(bottomSheetContent)
 
 				coroutine.launch {
-					bottomSheetViewModel.sheetState.show()
+					scaffold.sheetState.show()
 				}
 			}
 			) {
