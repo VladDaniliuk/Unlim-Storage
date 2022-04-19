@@ -2,13 +2,15 @@ package com.shov.filesfeature.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.OpenInBrowser
 import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,45 +30,51 @@ fun FileActionsView(
 	type: ItemType,
 	onShowInfo: () -> Unit
 ) {
-	Column {
-		StoreItemView(
-			disk = disk,
-			enabled = false,
-			isDividerVisible = false,
-			isOptionVisible = false,
-			name = name,
-			size = size,
-			type = type
-		)
-
-		Divider()
-
-		Row(modifier = Modifier.padding(vertical = 12.dp)) {
-			CustomIconButton(
-				imageVector = Icons.Rounded.Download,
-				text = stringResource(id = R.string.download),
-				onClick = onDoesntWork
+	Surface {
+		Column {
+			StoreItemView(
+				disk = disk,
+				enabled = false,
+				isDividerVisible = false,
+				isOptionVisible = false,
+				name = name,
+				size = size,
+				type = type
 			)
 
-			CustomIconButton(
-				imageVector = Icons.Rounded.OpenInBrowser,
-				text = stringResource(id = R.string.open_in_browser),
-				onClick = onDoesntWork
-			)
+			Divider()
 
-			CustomIconButton(
-				imageVector = Icons.Rounded.Share,
-				text = stringResource(id = R.string.share_link),
-				onClick = onDoesntWork
-			)
+			Row(modifier = Modifier.padding(vertical = 12.dp)) {
+				CustomIconButton(
+					imageVector = Icons.Rounded.Download,
+					text = stringResource(id = R.string.download),
+					onClick = onDoesntWork
+				)
 
-			CustomIconButton(
-				imageVector = Icons.Rounded.Info,
-				text = stringResource(id = R.string.show_info),
-				onClick = onShowInfo
+				CustomIconButton(
+					imageVector = Icons.Rounded.OpenInBrowser,
+					text = stringResource(id = R.string.open_in_browser),
+					onClick = onDoesntWork
+				)
+
+				CustomIconButton(
+					imageVector = Icons.Rounded.Share,
+					text = stringResource(id = R.string.share_link),
+					onClick = onDoesntWork
+				)
+
+				CustomIconButton(
+					imageVector = Icons.Rounded.Info,
+					text = stringResource(id = R.string.show_info),
+					onClick = onShowInfo
+				)
+			}
+
+			Divider(
+				modifier = Modifier
+					.padding(bottom = 4.dp)
+					.navigationBarsPadding()
 			)
 		}
-
-		Divider()
 	}
 }

@@ -67,6 +67,10 @@ sealed class BottomSheet(val route: String) {
 			"$navNewFolder$argStorageType=${type ?: "{$argStorageType}"}/?" +
 					"$argFolderId=${folderId ?: "{$argFolderId}"}"
 	}
+
+	object FileAction : BottomSheet("nav_fileAction/$argStoreId={$argStoreId}") {
+		fun setStoreItemId(storeId: String) = "nav_fileAction/$argStoreId=$storeId"
+	}
 }
 
 sealed class Dialog(val route: String) {

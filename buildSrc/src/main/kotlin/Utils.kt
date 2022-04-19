@@ -86,13 +86,14 @@ fun Project.implementForDropBoxStorage() {
 }
 
 fun Project.implementForFilesFeature() {
+	implementAccompanistNavigation()
 	implementCoil()
 	implementComposeForModules()
 	implementHiltForFeatureModules()
 	implementIcons()
-	implementMaterial3()
 	implementKotlin()
 	implementLifecycle()
+	implementMaterial3()
 	implementModulesForFilesFeature()
 	implementSwipeRefresh()
 }
