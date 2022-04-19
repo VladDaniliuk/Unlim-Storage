@@ -12,21 +12,22 @@ fun DependencyHandlerScope.androidTestImplement(lib: String) = add("androidTestI
 fun DependencyHandlerScope.testImplement(lib: String) = add("testImplementation", lib)
 
 fun Project.implementAll() {
-	implementKotlinx()
+	implementAccompanist()
+	implementAccompanistNavigation()
+	implementActivity()
+	implementBiometric()
+	implementCoil()
+	implementCompose()
 	implementCore()
+	implementHilt()
+	implementKotlin()
+	implementKotlinx()
+	implementLifecycle()
+	implementMaterial3()
+	implementModules()
+	implementNavigation()
 	implementSquareup()
 	implementTest()
-	implementLifecycle()
-	implementKotlin()
-	implementNavigation()
-	implementActivity()
-	implementCompose()
-	implementMaterial3()
-	implementHilt()
-	implementCoil()
-	implementAccompanist()
-	implementBiometric()
-	implementModules()
 }
 
 fun Project.implementForAutoUpdateFeature() {
@@ -58,6 +59,7 @@ fun Project.implementForCoreModels() {
 
 fun Project.implementForCoreUi() {
 	implementAccompanist()
+	implementAccompanistNavigation()
 	implementComposeForModules()
 	implementHiltForFeatureModules()
 	implementKotlin()

@@ -9,6 +9,7 @@ object Accompanist {
 		const val swiperefresh = "$lib-swiperefresh:$version"
 		const val systemuicontroller = "$lib-systemuicontroller:$version"
 		const val permissions = "$lib-permissions:$version"
+		const val navigationMaterial = "$lib-navigation-material:$version"
 		const val navigationAnimation = "$lib-navigation-animation:$version"
 	}
 }
@@ -17,6 +18,12 @@ fun Project.implementAccompanist() {
 	dependencies {
 		implement(Accompanist.Lib.swiperefresh)
 		implement(Accompanist.Lib.systemuicontroller)
+	}
+}
+
+fun Project.implementAccompanistNavigation() {
+	dependencies {
+		implement(Accompanist.Lib.navigationMaterial)
 	}
 }
 

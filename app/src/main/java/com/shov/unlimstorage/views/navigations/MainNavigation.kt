@@ -14,15 +14,15 @@ import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
 @Composable
 fun MainNavigation(
 	mainNavigationViewModel: MainNavigationViewModel = viewModel(),
-	navHostController: NavHostController = rememberNavController()
+	navController: NavHostController = rememberNavController()
 ) {
 	NavHost(
-		navController = navHostController,
+		navController = navController,
 		startDestination = mainNavigationViewModel.startDestination
 	) {
-		autoUpdateComposable(settingsNavController = navHostController)
-		filesComposable(filesNavController = navHostController)
-		settingsComposable(navController = navHostController)
-		signInComposable(navController = navHostController)
+		autoUpdateComposable(settingsNavController = navController)
+		filesComposable(filesNavController = navController)
+		settingsComposable(navController = navController)
+		signInComposable(navController = navController)
 	}
 }
