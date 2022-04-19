@@ -33,7 +33,7 @@ fun FilesView(
 	onTextNavigationClick: (String) -> Unit,
 	isEnabled: Boolean,
 	onStoreItemClick: (StoreItem) -> Unit,
-	onOptionStoreItemClick: (StoreItem) -> Unit,
+	onOptionStoreItemClick: (id: String) -> Unit,
 	onRefresh: () -> Unit
 ) {
 	SwipeRefresh(
@@ -63,8 +63,8 @@ fun FilesView(
 							disk = storeItem.disk,
 							enabled = isEnabled,
 							onClick = { onStoreItemClick(storeItem) },
-							onOptionClick = { onOptionStoreItemClick(storeItem) },
-							onLongClick = { onOptionStoreItemClick(storeItem) }
+							onOptionClick = { onOptionStoreItemClick(storeItem.id) },
+							onLongClick = { onOptionStoreItemClick(storeItem.id) }
 						)
 					}
 

@@ -2,46 +2,39 @@ package com.shov.coreui.views
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.navigation.material.BottomSheetNavigator
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.ModalBottomSheetLayout
+import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.shov.coreui.ui.CustomTopAppBar
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 
+@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 fun CustomScaffold(
+	bottomSheetNavigator: BottomSheetNavigator = rememberBottomSheetNavigator(),
 	scaffold: ScaffoldViewModel = singletonViewModel(),
-	content: @Composable (PaddingValues) -> Unit
+	content: @Composable (BottomSheetNavigator) -> Unit
 ) {
-	@OptIn(ExperimentalMaterialApi::class)
 	ModalBottomSheetLayout(
+		bottomSheetNavigator = bottomSheetNavigator,
 		modifier = Modifier
 			.fillMaxSize()
 			.windowInsetsPadding(
 				WindowInsets.navigationBars.only(WindowInsetsSides.Start + WindowInsetsSides.End)
 			),
-		sheetBackgroundColor = MaterialTheme.colorScheme.surface,
-		sheetContent = {
-			Surface(
-				modifier = Modifier
-					.padding(bottom = 4.dp)
-					.navigationBarsPadding()
-					.imePadding()
-			) {
-				scaffold.sheetContent(this)
-			}
-		},
-		sheetContentColor = MaterialTheme.colorScheme.onSurface,
 		sheetShape = MaterialTheme.shapes.medium.copy(
-			bottomEnd = CornerSize(0),
-			bottomStart = CornerSize(0)
+			bottomEnd = CornerSize(0.dp),
+			bottomStart = CornerSize(0.dp)
 		),
-		sheetState = scaffold.sheetState,
+		sheetBackgroundColor = MaterialTheme.colorScheme.surface,
+		sheetContentColor = contentColorFor(MaterialTheme.colorScheme.surface)
 	) {
 		@OptIn(ExperimentalMaterial3Api::class)
 		Scaffold(
@@ -62,9 +55,10 @@ fun CustomScaffold(
 					modifier = Modifier.navigationBarsPadding(),
 					hostState = scaffold.snackbarHostState
 				)
-			},
-			content = content
-		)
+			}
+		) {
+			content(bottomSheetNavigator)
+		}
 	}
 
 	LaunchedEffect(key1 = scaffold.topAppBar.prevRoute) {

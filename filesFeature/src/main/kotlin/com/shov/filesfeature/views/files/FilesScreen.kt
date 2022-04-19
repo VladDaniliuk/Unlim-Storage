@@ -2,11 +2,13 @@ package com.shov.filesfeature.views.files
 
 import android.content.Context
 import androidx.activity.compose.BackHandler
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -14,21 +16,17 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.models.BackStack
 import com.shov.coreutils.utils.observeConnectivityAsFlow
+import com.shov.coreutils.values.BottomSheet
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import com.shov.filesfeature.utils.navigateTo
 import com.shov.filesfeature.viewModels.FilesViewModel
-import com.shov.filesfeature.views.FileActionsBottomSheet
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import com.shov.coremodels.R as coreModelsR
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FilesScreen(
 	context: Context = LocalContext.current,
-	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	filesViewModel: FilesViewModel = hiltViewModel(),
 	navHostController: NavHostController,
 	onBackPress: () -> Unit,
@@ -55,19 +53,8 @@ fun FilesScreen(
 				onFileInfoOpen = navHostController::navigateTo
 			)
 		},
-		onOptionStoreItemClick = { storeItem ->
-			scaffold.setContent {
-				FileActionsBottomSheet(
-					id = storeItem.id,
-					disk = storeItem.disk,
-					name = storeItem.name,
-					onNavigate = navHostController::navigate,
-					size = storeItem.size,
-					type = storeItem.type
-				)
-			}
-
-			coroutineScope.launch { scaffold.sheetState.show() }
+		onOptionStoreItemClick = { id ->
+			navHostController.navigate(BottomSheet.FileAction.setStoreItemId(id))
 		}
 	) {
 		filesViewModel.onRefresh(isConnected) {

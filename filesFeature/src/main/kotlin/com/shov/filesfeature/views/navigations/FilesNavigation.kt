@@ -3,24 +3,32 @@ package com.shov.filesfeature.views.navigations
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.bottomSheet
+import com.shov.coreutils.values.BottomSheet
 import com.shov.coreutils.values.Screen
+import com.shov.filesfeature.views.FileActionsBottomSheet
 import com.shov.filesfeature.views.FileDescriptionScreen
-import com.shov.filesfeature.views.files.FileListScreen
 import com.shov.filesfeature.views.fileInfo.FileInfoScreen
+import com.shov.filesfeature.views.files.FileListScreen
 
-fun NavGraphBuilder.filesComposable(filesNavController: NavHostController) {
+fun NavGraphBuilder.filesComposable(navController: NavHostController) {
 	composable(route = Screen.FileInfo.route) {
 		FileInfoScreen(
 			navigateTo = { id ->
-				filesNavController.navigate(Screen.FileDescription.setStoreItemId(id))
+				navController.navigate(Screen.FileDescription.setStoreItemId(id))
 			},
-			popBack = filesNavController::popBackStack
+			popBack = navController::popBackStack
 		)
 	}
 	composable(route = Screen.FileDescription.route) {
-		FileDescriptionScreen(onCloseClick = filesNavController::popBackStack)
+		FileDescriptionScreen(onCloseClick = navController::popBackStack)
 	}
 	composable(route = Screen.Files.route) {
-		FileListScreen(navHostController = filesNavController)
+		FileListScreen(navHostController = navController)
+	}
+	@OptIn(ExperimentalMaterialNavigationApi::class)
+	bottomSheet(BottomSheet.FileAction.route) {
+		FileActionsBottomSheet(onNavigate = navController::navigate)
 	}
 }
