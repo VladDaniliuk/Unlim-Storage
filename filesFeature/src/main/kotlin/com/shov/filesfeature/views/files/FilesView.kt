@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,8 +21,6 @@ import com.shov.coremodels.models.StoreItem
 import com.shov.coreui.ui.LinearPullRefreshIndicator
 import com.shov.coreutils.values.Screen
 import com.shov.filesfeature.ui.StoreItemView
-import com.shov.filesfeature.values.PADDING_FAB
-import com.shov.filesfeature.values.SIZE_FAB
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -35,7 +34,6 @@ fun FilesView(
 	onRefresh: () -> Unit
 ) {
 	SwipeRefresh(
-		modifier = Modifier.navigationBarsPadding(),
 		state = swipeRefreshState,
 		onRefresh = onRefresh,
 		indicator = { state: SwipeRefreshState, refreshTrigger: Dp ->
@@ -66,7 +64,11 @@ fun FilesView(
 				}
 
 				item {
-					Spacer(modifier = Modifier.height(SIZE_FAB + PADDING_FAB))
+					Spacer(
+						modifier = Modifier
+							.navigationBarsPadding()
+							.height(FloatingActionButtonDefaults.LargeIconSize)
+					)
 				}
 			}
 		}
