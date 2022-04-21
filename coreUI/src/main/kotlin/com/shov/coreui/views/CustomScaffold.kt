@@ -47,7 +47,6 @@ fun CustomScaffold(
 					nextRouteImageVector = scaffold.topAppBar.nextRoute?.first,
 					onNextRouteClick = scaffold.topAppBar.nextRoute?.second ?: {},
 					nextRouteEnabled = scaffold.topAppBar.nextRoute != null,
-					scrollBehavior = scaffold.scrollBehavior
 				)
 			},
 			snackbarHost = {

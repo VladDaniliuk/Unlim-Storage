@@ -41,7 +41,6 @@ fun FilesScreen(
 	val storeItems by filesViewModel.storeItems.collectAsState()
 
 	FilesView(
-		nestedScrollConnection = scaffold.scrollBehavior.nestedScrollConnection,
 		swipeRefreshState = rememberSwipeRefreshState(isRefreshing = filesViewModel.isRefreshing),
 		storeItems = storeItems,
 		onTextNavigationClick = navHostController::navigateTo,

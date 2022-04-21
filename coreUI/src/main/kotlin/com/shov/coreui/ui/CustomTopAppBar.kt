@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -26,14 +24,13 @@ fun CustomTopAppBar(
 	nextRouteImageVector: ImageVector?,
 	onNextRouteClick: () -> Unit,
 	nextRouteEnabled: Boolean,
-	scrollBehavior: TopAppBarScrollBehavior,
 ) {
 	Box(
 		modifier = Modifier.background(
-			TopAppBarDefaults.centerAlignedTopAppBarColors()
-				.containerColor(scrollBehavior.scrollFraction).value
+			TopAppBarDefaults.centerAlignedTopAppBarColors().containerColor(1f).value
 		)
 	) {
+//TODO add color for top app bar
 		CenterAlignedTopAppBar(
 			modifier = Modifier.statusBarsPadding(),
 			title = {
@@ -55,13 +52,11 @@ fun CustomTopAppBar(
 					onClick = onNextRouteClick,
 					enabled = nextRouteEnabled,
 				)
-			},
-			scrollBehavior = scrollBehavior
+			}
 		)
 	}
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun CustomTopAppBarPreview() {
@@ -73,6 +68,5 @@ private fun CustomTopAppBarPreview() {
 		nextRouteImageVector = Icons.Rounded.ArrowBack,
 		onNextRouteClick = {},
 		nextRouteEnabled = true,
-		scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
 	)
 }

@@ -28,13 +28,12 @@ fun NavigationChain(
 	backStacks: List<BackStack>,
 	iconEnabled: Boolean,
 	iconOnClick: () -> Unit,
-	scrollFraction: Float,
 	textOnClick: (index: Int) -> Unit
 ) = Surface(
 	modifier = Modifier
 		.fillMaxWidth()
 		.horizontalScroll(state = rememberScrollState()),
-	color = TopAppBarDefaults.centerAlignedTopAppBarColors().containerColor(scrollFraction).value
+	color = TopAppBarDefaults.centerAlignedTopAppBarColors().containerColor(1f).value
 ) {
 	Row(
 		modifier = Modifier.padding(vertical = 4.dp),
@@ -79,6 +78,5 @@ private fun NavigationChainPreview() {
 		iconEnabled = true,
 		iconOnClick = {},
 		backStacks = listOf(BackStack("1", "1", "1"), BackStack("1", "1", "1")),
-		scrollFraction = 0.5f,
 	) {}
 }
