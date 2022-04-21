@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Lifecycle {
 	private const val lib = "androidx.lifecycle:lifecycle"
-	private const val version = "2.5.0-alpha05"
+	private const val version = "2.5.0-beta01"
 
 	object Lib {
 		const val viewmodelCompose = "$lib-viewmodel-compose:$version"

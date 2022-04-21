@@ -56,7 +56,9 @@ fun CustomScaffold(
 				)
 			}
 		) {
-			content(bottomSheetNavigator)
+			Box(modifier = Modifier.padding(paddingValues = it)) {
+				content(bottomSheetNavigator)
+			}
 		}
 	}
 

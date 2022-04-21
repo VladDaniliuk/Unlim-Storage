@@ -46,7 +46,7 @@ fun FileDescriptionScreen(
 		},
 		placeholder = { Text(text = stringResource(id = R.string.description)) },
 		colors = TextFieldDefaults.textFieldColors(
-			backgroundColor = MaterialTheme.colorScheme.background,
+			containerColor = MaterialTheme.colorScheme.background,
 			focusedIndicatorColor = MaterialTheme.colorScheme.background,
 			unfocusedIndicatorColor = MaterialTheme.colorScheme.background
 		)
