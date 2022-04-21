@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarDefaults.centerAlignedTopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -27,7 +27,7 @@ fun CustomTopAppBar(
 ) {
 	Box(
 		modifier = Modifier.background(
-			TopAppBarDefaults.centerAlignedTopAppBarColors().containerColor(1f).value
+			centerAlignedTopAppBarColors().containerColor(1f).value
 		)
 	) {
 //TODO add color for top app bar
@@ -52,7 +52,10 @@ fun CustomTopAppBar(
 					onClick = onNextRouteClick,
 					enabled = nextRouteEnabled,
 				)
-			}
+			},
+			colors = centerAlignedTopAppBarColors(
+				containerColor = centerAlignedTopAppBarColors().containerColor(1f).value
+			)
 		)
 	}
 }
