@@ -4,7 +4,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Kotlin {
 	private const val lib = "org.jetbrains.kotlin:kotlin"
-	private const val version = "1.6.10"//can't use 1.6.20 because of compose
+	private const val version = "1.6.20"
 
 	object Lib {
 		const val stdLib = "$lib-stdlib:$version"

@@ -8,6 +8,6 @@ object Plugin {
 
 	object KSP {
 		const val library = "com.google.devtools.ksp"
-		const val version = "1.6.10-1.0.4"
+		const val version = "1.6.20-1.0.5"
 	}
 }
