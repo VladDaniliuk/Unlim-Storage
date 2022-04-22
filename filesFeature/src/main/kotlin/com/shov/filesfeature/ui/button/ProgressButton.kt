@@ -54,6 +54,7 @@ fun ProgressButton(
 			visible = state == ButtonState.IDLE
 		) {
 			CustomText(
+				color = MaterialTheme.colorScheme.onPrimary,
 				text = stringResource(R.string.create),
 				textStyle = Typography().labelLarge
 			)
