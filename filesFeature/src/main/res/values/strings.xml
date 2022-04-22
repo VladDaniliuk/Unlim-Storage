@@ -32,9 +32,11 @@
 	<string name="sharing_access">Sharing access:</string>
 	<string name="show_info">Show info</string>
 	<string name="size_description">Size:</string>
-	<string name="upload">Upload</string>
+	<string name="upload_file">Upload file</string>
 	<string name="user">User</string>
 	<string name="user_click_message">Long click to copy email</string>
 	<string name="user_long_click_message">Email is copied</string>
 	<string name="version_description">Version:</string>
+	<string name="download_list">Download list</string>
+	<string name="list_unavailable">List with downloads unavailable now</string>
 </resources>
