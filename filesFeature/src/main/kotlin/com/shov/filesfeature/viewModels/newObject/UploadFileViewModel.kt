@@ -6,11 +6,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import com.shov.coremodels.models.StorageType
 import com.shov.coreutils.values.argFileName
 import com.shov.coreutils.values.argFolderId
 import com.shov.coreutils.values.argStorageType
+import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadFileViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val fileActionsRepository: FileActionsRepository,
+	private val fileActionsRepository: FileActionsRepository
 ) : ViewModel() {
 	private var fileName by mutableStateOf<String?>(null)
 	private var folderId by mutableStateOf<String?>(null)

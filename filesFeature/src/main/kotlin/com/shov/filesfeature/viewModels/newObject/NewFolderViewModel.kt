@@ -14,6 +14,7 @@ import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,23 +39,25 @@ class NewFolderViewModel @Inject constructor(
 		textError: String,
 		onError: () -> Unit
 	) {
-		viewModelScope.launch(Dispatchers.IO) {
-			type?.let { type ->
-				if (fileActionsRepository.createFolder(folderId, text, type)) onCompletion() else {
-					this@NewFolderViewModel.textError = textError
-					onError()
+		viewModelScope.launch {
+			if (withContext(Dispatchers.IO) {
+					fileActionsRepository.createFolder(folderId, text, type!!)
 				}
+			) {
+				onCompletion()
+			} else {
+				this@NewFolderViewModel.textError = textError
+				onError()
 			}
 		}
 	}
 
-
 	init {
 		savedStateHandle.get<String?>(argStorageType)?.let { type ->
-			this.type = StorageType.valueOf(type)
+			if (type.isNotEmpty()) this.type = StorageType.valueOf(type)
 		}
 		savedStateHandle.get<String?>(argFolderId)?.let { folderId ->
-			this.folderId = folderId
+			if (folderId.isNotEmpty()) this.folderId = folderId
 		}
 	}
 }
