@@ -3,7 +3,6 @@ package com.shov.coreutils.values
 import com.shov.coreutils.models.BackStack
 
 //Routes
-const val navChooseFile = "nav_choose_file/?"
 const val navFileDescription = "nav_file_description/"
 const val navFileInfo = "nav_file_info/"
 const val navFiles = "nav_files/?"
@@ -11,7 +10,6 @@ const val navNewFolder = "nav_new_folder/?"
 const val navUploadFile = "nav_uploadFile/?"
 
 //Arguments
-const val argFileName = "arg_fileName"
 const val argFolderId = "arg_folderId"
 const val argFolderName = "arg_folderName"
 const val argStorageType = "arg_storageType"
@@ -50,17 +48,6 @@ sealed class Screen(val route: String) {
 }
 
 sealed class BottomSheet(val route: String) {
-	object ChooseFile : BottomSheet(
-		"$navChooseFile$argStorageType={$argStorageType}/?$argFolderId={$argFolderId}/?" +
-				"$argFileName={$argFileName}"
-	) {
-		fun setParent(type: String?, folderId: String?, fileName: String) =
-			"$navChooseFile$argStorageType=${type ?: "{$argStorageType}"}/?" +
-					"$argFolderId=${folderId ?: "{$argFolderId}"}/?" +
-					"$argFileName=${fileName}"
-	}
-
-	object Main : BottomSheet("nav_main")
 	object NewFolder : BottomSheet(
 		"$navNewFolder$argStorageType={$argStorageType}/?$argFolderId={$argFolderId}"
 	) {

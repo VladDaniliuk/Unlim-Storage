@@ -1,26 +1,26 @@
 package com.shov.filesfeature.views.newObject.newFolder
 
 import android.content.Context
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.activity.compose.BackHandler
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
-import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import com.shov.filesfeature.viewModels.newObject.NewFolderViewModel
 import com.shov.filesfeature.views.newObject.ChooseDriveBottomSheet
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
 fun NewFolderBottomSheet(
-	scaffold: ScaffoldViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
-	coroutineScope: CoroutineScope = rememberCoroutineScope(),
 	newFolderViewModel: NewFolderViewModel = hiltViewModel(),
+	popBack: () -> Unit
 ) {
+	BackHandler(onBack = popBack)
+
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
 	if (newFolderViewModel.type != null) {
@@ -32,12 +32,7 @@ fun NewFolderBottomSheet(
 			onClick = { onError ->
 				if (isConnected) {
 					newFolderViewModel.createFolder(
-						onCompletion = {
-							coroutineScope.launch {
-								@OptIn(ExperimentalMaterialApi::class)
-								scaffold.sheetState.hide()
-							}
-						},
+						onCompletion = popBack,
 						textError = context.getString(R.string.check_name),
 						onError = onError
 					)

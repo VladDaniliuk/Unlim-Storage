@@ -1,47 +1,83 @@
 package com.shov.filesfeature.ui.scaffold
 
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.material.ExperimentalMaterialApi
+import android.content.Context
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material.icons.rounded.Folder
+import androidx.compose.material.icons.rounded.UploadFile
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.ui.buttons.CustomFloatingActionButton
+import com.shov.coreui.ui.buttons.CustomFloatingActionButtonState
+import com.shov.coreui.ui.buttons.FloatingActionButtonModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import com.shov.filesfeature.R
+import com.shov.filesfeature.viewModels.FABViewModel
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FABScaffold(
-	bottomSheetContent: @Composable ColumnScope.() -> Unit,
+	context: Context = LocalContext.current,
+	fabViewModel: FABViewModel = hiltViewModel(),
+	onCreateNewFolderClick: () -> Unit,
+	onUploadFile: () -> Unit,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
-	coroutine: CoroutineScope = rememberCoroutineScope(),
 	content: @Composable () -> Unit
 ) {
 	Scaffold(
 		floatingActionButton = {
-			SmallFloatingActionButton(onClick = {
-				scaffold.setContent(bottomSheetContent)
-
-				coroutine.launch {
-					scaffold.sheetState.show()
-				}
-			}
-			) {
-				Icon(
-					imageVector = Icons.Rounded.Add,
-					contentDescription = Icons.Rounded.Add.name,
-					tint = Color.White
-				)
-			}
+			CustomFloatingActionButton(
+				modifier = Modifier.padding(
+					bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+				),
+				state = fabViewModel.state,
+				floatingActionButtonModels = listOf(
+					FloatingActionButtonModel(
+						icon = Icons.Rounded.Folder,
+						text = stringResource(id = R.string.create_new_folder),
+					) {
+						fabViewModel.collapse()
+						onCreateNewFolderClick()
+					},
+					FloatingActionButtonModel(
+						icon = Icons.Rounded.UploadFile,
+						text = stringResource(id = R.string.upload_file),
+					) {
+						fabViewModel.collapse()
+						onUploadFile()
+					},
+					FloatingActionButtonModel(
+						icon = Icons.Rounded.Download,
+						text = stringResource(id = R.string.download_list),
+					) {
+						fabViewModel.collapse()
+						scaffold.showSnackbar(context.getString(R.string.list_unavailable))
+					}
+				),
+				onClick = fabViewModel::onClick
+			)
 		}
 	) {
-		content()
+		FABBackground(
+			visible = fabViewModel.state == CustomFloatingActionButtonState.Expanded,
+			onBackgroundClick = fabViewModel::collapse
+		) {
+			content()
+		}
+	}
+
+	DisposableEffect(key1 = null) {
+		onDispose(fabViewModel::collapse)
 	}
 }

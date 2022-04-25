@@ -11,6 +11,8 @@ import com.shov.filesfeature.views.FileActionsBottomSheet
 import com.shov.filesfeature.views.FileDescriptionScreen
 import com.shov.filesfeature.views.fileInfo.FileInfoScreen
 import com.shov.filesfeature.views.files.FileListScreen
+import com.shov.filesfeature.views.newObject.UploadFileBottomSheet
+import com.shov.filesfeature.views.newObject.newFolder.NewFolderBottomSheet
 
 fun NavGraphBuilder.filesComposable(navController: NavHostController) {
 	composable(route = Screen.FileInfo.route) {
@@ -30,5 +32,13 @@ fun NavGraphBuilder.filesComposable(navController: NavHostController) {
 	@OptIn(ExperimentalMaterialNavigationApi::class)
 	bottomSheet(BottomSheet.FileAction.route) {
 		FileActionsBottomSheet(onNavigate = navController::navigate)
+	}
+	@OptIn(ExperimentalMaterialNavigationApi::class)
+	bottomSheet(BottomSheet.NewFolder.route) {
+		NewFolderBottomSheet(popBack = navController::popBackStack)
+	}
+	@OptIn(ExperimentalMaterialNavigationApi::class)
+	bottomSheet(BottomSheet.UploadFile.route) {
+		UploadFileBottomSheet(popBack = navController::popBackStack)
 	}
 }

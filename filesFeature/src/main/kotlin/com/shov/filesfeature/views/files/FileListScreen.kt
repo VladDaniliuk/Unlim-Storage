@@ -7,11 +7,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.shov.coreutils.values.BottomSheet
 import com.shov.filesfeature.ui.NavigationChain
 import com.shov.filesfeature.ui.scaffold.FABScaffold
 import com.shov.filesfeature.viewModels.FileListViewModel
 import com.shov.filesfeature.views.FileListNavigation
-import com.shov.filesfeature.views.newObject.NewObjectBottomSheetNavigation
 
 @Composable
 fun FileListScreen(
@@ -20,10 +20,20 @@ fun FileListScreen(
 	filesNavHostController: NavHostController = rememberNavController()
 ) {
 	FABScaffold(
-		bottomSheetContent = {
-			NewObjectBottomSheetNavigation(
-				folderId = fileListViewModel.backStacks.lastOrNull()?.folderId,
-				storageType = fileListViewModel.backStacks.lastOrNull()?.storageType
+		onCreateNewFolderClick = {
+			navHostController.navigate(
+				BottomSheet.NewFolder.setParent(
+					fileListViewModel.backStacks.lastOrNull()?.storageType,
+					fileListViewModel.backStacks.lastOrNull()?.folderId
+				)
+			)
+		},
+		onUploadFile = {
+			navHostController.navigate(
+				BottomSheet.UploadFile.setParent(
+					fileListViewModel.backStacks.lastOrNull()?.storageType,
+					fileListViewModel.backStacks.lastOrNull()?.folderId
+				)
 			)
 		}
 	) {
