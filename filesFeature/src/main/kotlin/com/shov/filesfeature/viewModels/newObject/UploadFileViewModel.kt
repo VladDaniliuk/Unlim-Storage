@@ -36,7 +36,7 @@ class UploadFileViewModel @Inject constructor(
 
 	init {
 		savedStateHandle.get<String?>(argStorageType)?.let { type ->
-			this.type = StorageType.valueOf(type)
+			if (type.isNotEmpty()) this.type = StorageType.valueOf(type)
 		}
 		savedStateHandle.get<String?>(argFolderId)?.let { folderId ->
 			this.folderId = folderId
