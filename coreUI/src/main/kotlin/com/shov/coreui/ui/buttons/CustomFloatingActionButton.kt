@@ -19,6 +19,7 @@ import com.shov.coreui.ui.icons.CustomIcon
 
 @Composable
 fun CustomFloatingActionButton(
+	modifier: Modifier = Modifier,
 	state: CustomFloatingActionButtonState,
 	floatingActionButtonModels: List<FloatingActionButtonModel> = emptyList(),
 	onClick: () -> Unit
@@ -33,7 +34,7 @@ fun CustomFloatingActionButton(
 		}
 	}
 
-	Column {
+	Column(modifier = modifier) {
 		floatingActionButtonModels.forEach { floatingActionButtonModel ->
 			AnimatedFloatingActionButton(
 				state = state,
