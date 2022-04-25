@@ -75,7 +75,7 @@ class BoxFilesDataSource @Inject constructor(
 		}
 	} else emptyList()
 
-	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
+	override suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
 		BoxApiFile(BoxSession(context)).getUploadRequest(
 			inputStream,
 			name,

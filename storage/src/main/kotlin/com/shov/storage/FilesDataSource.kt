@@ -17,5 +17,5 @@ interface FilesDataSource {
 
 	fun getFileMetadata(id: String, type: ItemType): StoreMetadataItem?
 	fun getFiles(folderId: String? = null): List<StoreItem>
-	fun uploadFile(inputStream: InputStream, name: String, folderId: String?)
+	suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?)
 }

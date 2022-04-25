@@ -38,7 +38,7 @@ class DropBoxFilesDataSource @Inject constructor(
 		emptyList()
 	}
 
-	override fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
+	override suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
 		dbxUserFilesRequests()?.uploadFile(folderId, name, inputStream)
 	}
 

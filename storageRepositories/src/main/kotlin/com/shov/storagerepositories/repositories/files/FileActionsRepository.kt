@@ -27,7 +27,7 @@ interface FileActionsRepository {
 		type: ItemType,
 	)
 
-	fun uploadFile(
+	suspend fun uploadFile(
 		inputStream: InputStream,
 		name: String,
 		storageType: StorageType,
@@ -95,7 +95,7 @@ class FileActionsRepositoryImpl @Inject constructor(
 		})
 	}
 
-	override fun uploadFile(
+	override suspend fun uploadFile(
 		inputStream: InputStream,
 		name: String,
 		storageType: StorageType,
