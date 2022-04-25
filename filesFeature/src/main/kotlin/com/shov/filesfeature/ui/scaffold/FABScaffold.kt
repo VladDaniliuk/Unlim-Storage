@@ -25,7 +25,6 @@ fun FABScaffold(
 	content: @Composable () -> Unit
 ) {
 	Scaffold(
-		bottomBar = { CustomBottomAppBar() },
 		floatingActionButton = {
 			SmallFloatingActionButton(onClick = {
 				scaffold.setContent(bottomSheetContent)
