@@ -1,9 +1,7 @@
 package com.shov.filesfeature.views.newObject
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -32,23 +30,29 @@ fun ChooseDriveBottomSheet(
 
 @Composable
 fun ChooseDriveBottomSheet(storageList: List<StorageType>, onClick: (StorageType) -> Unit) {
-	Column {
-		CustomText(
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(vertical = 8.dp),
-			text = stringResource(R.string.choose_drive),
-			textAlign = TextAlign.Center,
-			textStyle = Typography().titleLarge
-		)
+	Surface(
+		modifier = Modifier
+			.navigationBarsPadding()
+			.padding(bottom = 4.dp)
+	) {
+		Column {
+			CustomText(
+				modifier = Modifier
+					.fillMaxWidth()
+					.padding(vertical = 8.dp),
+				text = stringResource(R.string.choose_drive),
+				textAlign = TextAlign.Center,
+				textStyle = Typography().titleLarge
+			)
 
-		Row {
-			storageList.forEach {
-				CustomIconButton(
-					painter = painterResource(id = it.imageId),
-					text = stringResource(id = it.nameId),
-					onClick = { onClick(it) }
-				)
+			Row {
+				storageList.forEach {
+					CustomIconButton(
+						painter = painterResource(id = it.imageId),
+						text = stringResource(id = it.nameId),
+						onClick = { onClick(it) }
+					)
+				}
 			}
 		}
 	}
