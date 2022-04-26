@@ -28,7 +28,7 @@ fun rememberRequestMultiplePermissionsResult(
 }
 /**
  * Returns true if the app has required permissions.
- * @sample com.shov.unlimstorage.views.files.fileInfo.FileInfoScreen
+ * @sample com.shov.filesfeature.views.fileInfo.FileInfoScreen
  */
 fun Context.checkMultiplePermissions(@Permission vararg permissionsId: String): Boolean =
 	permissionsId.map { permission ->
