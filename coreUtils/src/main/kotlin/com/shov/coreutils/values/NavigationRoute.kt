@@ -22,6 +22,7 @@ sealed class Screen(val route: String) {
 	object Updates : Screen("nav_updates")
 	object Accounts : Screen("nav_accounts")
 	object Security : Screen("nav_security")
+	object Theme : Screen("nav_theme")
 
 	//Password routes
 	object CreatePassword : Screen("nav_createPassword")

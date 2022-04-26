@@ -16,14 +16,11 @@
 	<string name="download">Download</string>
 	<string name="download_error">Download finished because of error</string>
 	<string name="download_started">Download started</string>
-	<string name="downloading">Downloading %1$s</string>
-	<string name="folder">Folder</string>
 	<string name="folder_name">folder name</string>
 	<string name="id_description">Id:</string>
 	<string name="link_copied">Link is copied</string>
 	<string name="link_description">Link:</string>
 	<string name="modified_time">Modified time:</string>
-	<string name="new_object">New object</string>
 	<string name="nothing_to_show">It\'s nothing to show. Please, add account in\ </string>
 	<string name="open_in_browser">Open in browser</string>
 	<string name="permissions_denied">Permissions denied</string>

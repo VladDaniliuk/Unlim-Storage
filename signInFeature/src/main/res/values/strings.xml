@@ -2,7 +2,6 @@
 <resources>
 	<string name="account">%1$s account</string>
 	<string name="accounts">Accounts</string>
-	<string name="click_to_add">Click to add</string>
 	<string name="add_other_account">Add other account</string>
 	<string name="choose_drive">Choose drive:</string>
 	<string name="click_to_delete">Click to delete</string>
