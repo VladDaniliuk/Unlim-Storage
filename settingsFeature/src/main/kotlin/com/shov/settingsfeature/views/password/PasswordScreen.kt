@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.shov.settingsfeature.viewModels.PasswordViewModel
+import com.shov.settingsfeature.viewModels.password.PasswordViewModel
 
 @Composable
 fun PasswordScreen(

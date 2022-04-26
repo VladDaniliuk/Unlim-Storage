@@ -1,4 +1,4 @@
-package com.shov.settingsfeature.viewModels
+package com.shov.settingsfeature.viewModels.password
 
 import androidx.lifecycle.ViewModel
 import com.shov.preferences.datasources.PreferencesDataSource

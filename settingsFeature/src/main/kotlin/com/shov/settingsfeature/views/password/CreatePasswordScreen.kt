@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
-import com.shov.settingsfeature.viewModels.CreatePasswordViewModel
+import com.shov.settingsfeature.viewModels.password.CreatePasswordViewModel
 
 @Composable
 fun CreatePasswordScreen(

@@ -1,4 +1,4 @@
-package com.shov.settingsfeature.viewModels
+package com.shov.settingsfeature.viewModels.password
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

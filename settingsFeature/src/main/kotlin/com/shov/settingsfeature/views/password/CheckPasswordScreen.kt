@@ -19,7 +19,7 @@ import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
 import com.shov.settingsfeature.utils.checkForAuthenticate
 import com.shov.settingsfeature.utils.showBiometricAuthentication
-import com.shov.settingsfeature.viewModels.CheckPasswordViewModel
+import com.shov.settingsfeature.viewModels.password.CheckPasswordViewModel
 import com.shov.settingsfeature.views.password.PasswordScreen
 
 @Composable
