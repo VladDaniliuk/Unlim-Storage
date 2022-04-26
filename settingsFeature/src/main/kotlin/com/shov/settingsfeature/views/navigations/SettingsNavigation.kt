@@ -4,7 +4,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
-import com.shov.settingsfeature.views.*
+import com.shov.settingsfeature.views.CheckPasswordScreen
+import com.shov.settingsfeature.views.SecurityScreen
+import com.shov.settingsfeature.views.SettingsScreen
+import com.shov.settingsfeature.views.theme.ThemeScreen
 import com.shov.settingsfeature.views.password.ChangePasswordScreen
 import com.shov.settingsfeature.views.password.CreatePasswordScreen
 import com.shov.settingsfeature.views.password.RemovePasswordScreen
@@ -39,5 +42,8 @@ fun NavGraphBuilder.settingsComposable(navController: NavHostController) {
 			navigateTo = navController::navigate,
 			onBackClick = navController::popBackStack
 		)
+	}
+	composable(Screen.Theme.route) {
+		ThemeScreen(onBackClick = navController::popBackStack)
 	}
 }

@@ -1,17 +1,17 @@
 package com.shov.coreui.ui.themes.customTheme
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.shov.coreui.models.Theme
 import com.shov.coreui.viewModels.CustomThemeViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 
@@ -23,30 +23,36 @@ fun CustomTheme(
 	content: @Composable () -> Unit
 ) {
 	MaterialTheme(
-		colorScheme = if (
-			(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) and customThemeViewModel.isDynamicTheme
-		) {
+		colorScheme = run {
 			@SuppressLint("NewApi")
-			if (darkTheme) {
-				dynamicDarkColorScheme(LocalContext.current)
-			} else {
-				dynamicLightColorScheme(LocalContext.current)
+			when (customThemeViewModel.theme) {
+				Theme.Dark -> if (customThemeViewModel.isDynamicTheme) {
+					dynamicDarkColorScheme(LocalContext.current)
+				} else DarkThemeColors
+				Theme.Light -> if (customThemeViewModel.isDynamicTheme) {
+					dynamicLightColorScheme(LocalContext.current)
+				} else LightThemeColors
+				Theme.System -> if (darkTheme) {
+					if (customThemeViewModel.isDynamicTheme) {
+						dynamicDarkColorScheme(LocalContext.current)
+					} else DarkThemeColors
+				} else {
+					if (customThemeViewModel.isDynamicTheme) {
+						dynamicLightColorScheme(LocalContext.current)
+					} else LightThemeColors
+				}
 			}
-		} else if (darkTheme) DarkThemeColors else LightThemeColors,
-		typography = CustomTypography
-	) {
-		content()
-	}
+		},
+		typography = CustomTypography,
+		content = content
+	)
 
-	SideEffect {
-		systemUiController.setStatusBarColor(
+	LaunchedEffect(key1 = customThemeViewModel.theme) {
+		systemUiController.setSystemBarsColor(
 			color = Color.Transparent,
-			darkIcons = darkTheme.not()
-		)
-
-		systemUiController.setNavigationBarColor(
-			color = Color.Transparent,
-			darkIcons = darkTheme.not()
+			darkIcons = if (customThemeViewModel.theme == Theme.System)
+				darkTheme.not()
+			else customThemeViewModel.theme != Theme.Dark
 		)
 	}
 }
