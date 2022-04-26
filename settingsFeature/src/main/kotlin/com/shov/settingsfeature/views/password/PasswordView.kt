@@ -1,4 +1,4 @@
-package com.shov.settingsfeature.views
+package com.shov.settingsfeature.views.password
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope

@@ -5,6 +5,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.shov.coreutils.values.Screen
 import com.shov.settingsfeature.views.*
+import com.shov.settingsfeature.views.password.ChangePasswordScreen
+import com.shov.settingsfeature.views.password.CreatePasswordScreen
+import com.shov.settingsfeature.views.password.RemovePasswordScreen
 
 fun NavGraphBuilder.settingsComposable(navController: NavHostController) {
 	composable(Screen.ChangePassword.route) {

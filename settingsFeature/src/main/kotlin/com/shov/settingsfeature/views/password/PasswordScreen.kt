@@ -1,4 +1,4 @@
-package com.shov.settingsfeature.views
+package com.shov.settingsfeature.views.password
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column

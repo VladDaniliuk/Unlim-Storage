@@ -20,6 +20,7 @@ import com.shov.settingsfeature.R
 import com.shov.settingsfeature.utils.checkForAuthenticate
 import com.shov.settingsfeature.utils.showBiometricAuthentication
 import com.shov.settingsfeature.viewModels.CheckPasswordViewModel
+import com.shov.settingsfeature.views.password.PasswordScreen
 
 @Composable
 fun CheckPasswordScreen(
