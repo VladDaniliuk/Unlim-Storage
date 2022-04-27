@@ -9,19 +9,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.StorageType
+import com.shov.coreui.viewModels.NavigationViewModel
+import com.shov.coreutils.values.Screen
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.signinfeature.R
 import com.shov.signinfeature.viewModels.RevokeAccountViewModel
 
 @Composable
 fun RevokeAccountDialog(
 	revokeAccountViewModel: RevokeAccountViewModel = hiltViewModel(),
-	onClose: () -> Unit,
+	navigationViewModel: NavigationViewModel = singletonViewModel(),
 ) {
 	RevokeAccountView(
 		nameId = revokeAccountViewModel.storageType.nameId,
-		onClose = onClose
+		onClose = {
+			navigationViewModel.navigateTo(
+				destination = Screen.Accounts.route,
+				popUp = Screen.Accounts.route,
+				inclusive = true
+			)
+		}
 	) {
-		revokeAccountViewModel.signOut(onClose)
+		revokeAccountViewModel.signOut {
+			navigationViewModel.navigateTo(
+				destination = Screen.Accounts.route,
+				popUp = Screen.Accounts.route,
+				inclusive = true
+			)
+		}
 	}
 }
 

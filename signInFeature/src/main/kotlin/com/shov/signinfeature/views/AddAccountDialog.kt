@@ -22,19 +22,27 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.coreui.ui.texts.CustomText
+import com.shov.coreui.viewModels.NavigationViewModel
+import com.shov.coreutils.values.Screen
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.signinfeature.R
 import com.shov.signinfeature.viewModels.AddAccountViewModel
 
 @Composable
 fun AddAccountDialog(
 	addAccountViewModel: AddAccountViewModel = hiltViewModel(),
-	popBack: () -> Unit
+	navigationViewModel: NavigationViewModel = singletonViewModel(),
 ) {
 	AddAccountView(
 		storageTypes = addAccountViewModel.storageTypes,
 		onResult = { result: ActivityResult, storageType: StorageType ->
 			addAccountViewModel.checkAccessWithResult(result, storageType)
-			popBack()
+
+			navigationViewModel.navigateTo(
+				destination = Screen.Accounts.route,
+				popUp = Screen.Accounts.route,
+				inclusive = true
+			)
 		},
 		intent = addAccountViewModel::getAccess
 	)

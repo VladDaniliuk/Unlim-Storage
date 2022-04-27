@@ -7,8 +7,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
+import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.signinfeature.R
 import com.shov.signinfeature.viewModels.SignInViewModel
@@ -19,7 +21,7 @@ fun SignInScreen(
 	context: Context = LocalContext.current,
 	signInViewModel: SignInViewModel = hiltViewModel(),
 	scaffold: ScaffoldViewModel = singletonViewModel(),
-	onSignIn: () -> Unit,
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	val hasConnection by context.observeConnectivityAsFlow().collectAsState(false)
 
@@ -37,7 +39,13 @@ fun SignInScreen(
 	)
 
 	LaunchedEffect(key1 = signInViewModel.serviceAccess) {
-		signInViewModel.signIn(onSignIn)
+		signInViewModel.signIn {
+			navigationViewModel.navigateTo(
+				destination = Screen.Files.route,
+				popUp = Screen.SignIn.route,
+				inclusive = true
+			)
+		}
 	}
 
 	LaunchedEffect(key1 = null) {

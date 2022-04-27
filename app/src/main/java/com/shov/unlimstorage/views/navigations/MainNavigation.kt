@@ -28,7 +28,7 @@ fun MainNavigation(
 		autoUpdateComposable()
 		filesComposable()
 		settingsComposable()
-		signInComposable(navController = navController)
+		signInComposable()
 	}
 
 	LaunchedEffect(key1 = null) {
