@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.StorageType
+import com.shov.coreui.viewModels.NavigationViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.utils.getName
 import com.shov.filesfeature.viewModels.newObject.UploadFileViewModel
 
@@ -20,7 +22,7 @@ import com.shov.filesfeature.viewModels.newObject.UploadFileViewModel
 fun UploadFileBottomSheet(
 	uploadFileViewModel: UploadFileViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
-	popBack: () -> Unit
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	val pickFileLauncher = rememberLauncherForActivityResult(
 		ActivityResultContracts.OpenDocument()
@@ -31,10 +33,10 @@ fun UploadFileBottomSheet(
 					uploadFileViewModel.uploadFile(
 						parcelFileDescriptor,
 						context.contentResolver.getName(uri),
-						popBack
+						navigationViewModel::popBack
 					)
-				} ?: popBack()
-		} ?: popBack()
+				} ?: navigationViewModel.popBack()
+		} ?: navigationViewModel.popBack()
 	}
 
 	if (uploadFileViewModel.type == null) {

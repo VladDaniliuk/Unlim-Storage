@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
@@ -27,9 +28,9 @@ import com.shov.filesfeature.viewModels.FileDescriptionViewModel
 
 @Composable
 fun FileDescriptionScreen(
+	navigationViewModel: NavigationViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	fileDescriptionViewModel: FileDescriptionViewModel = hiltViewModel(),
-	onCloseClick: () -> Unit,
 	scaffold: ScaffoldViewModel = singletonViewModel()
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
@@ -60,7 +61,7 @@ fun FileDescriptionScreen(
 
 	LaunchedEffect(key1 = fileDescriptionViewModel.storeItem?.name) {
 		scaffold.setTopBar(
-			Icons.Rounded.Close to onCloseClick,
+			Icons.Rounded.Close to navigationViewModel::popBack,
 			fileDescriptionViewModel.storeItem?.name,
 			Icons.Rounded.Done to {
 				scaffold.showSnackbar(context.getString(R.string.doesnt_work_now))

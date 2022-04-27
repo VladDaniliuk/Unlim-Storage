@@ -11,8 +11,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
+import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import com.shov.filesfeature.utils.checkMultiplePermissions
@@ -23,10 +25,9 @@ import com.shov.filesfeature.views.fileInfo.views.FileInfoView
 
 @Composable
 fun FileInfoScreen(
+	navigationViewModel: NavigationViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	fileInfoViewModel: FileInfoViewModel = hiltViewModel(),
-	navigateTo: (String) -> Unit,
-	popBack: () -> Unit,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
@@ -52,7 +53,11 @@ fun FileInfoScreen(
 		createdTime = fileInfoViewModel.storeMetadata?.createdTime,
 		modifiedTime = fileInfoViewModel.storeMetadata?.modifiedTime,
 		version = fileInfoViewModel.storeMetadata?.version,
-		onDescriptionClick = { fileInfoViewModel.storeMetadata?.id?.let(navigateTo) },
+		onDescriptionClick = {
+			fileInfoViewModel.storeMetadata?.id?.let { id ->
+				navigationViewModel.navigateTo(Screen.FileDescription.setStoreItemId(id))
+			}
+		},
 		description = fileInfoViewModel.storeMetadata?.description,
 		sharingUsers = fileInfoViewModel.storeMetadata?.sharingUsers,
 		link = fileInfoViewModel.storeMetadata?.link,
@@ -96,7 +101,7 @@ fun FileInfoScreen(
 
 	LaunchedEffect(key1 = fileInfoViewModel.storeItem?.name) {
 		scaffold.setTopBar(
-			Icons.Rounded.ArrowBack to popBack,
+			Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			fileInfoViewModel.storeItem?.name,
 			fileInfoViewModel.staredIcon to {
 				scaffold.showSnackbar(context.getString(R.string.doesnt_work_now))

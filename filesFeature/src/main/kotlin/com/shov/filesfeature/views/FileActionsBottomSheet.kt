@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
@@ -19,7 +20,7 @@ fun FileActionsBottomSheet(
 	fileActionsViewModel: FileActionsViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
-	onNavigate: (String) -> Unit
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	val storeItem by fileActionsViewModel.storeItem
 
@@ -32,7 +33,7 @@ fun FileActionsBottomSheet(
 		size = storeItem.size,
 		type = storeItem.type,
 	) {
-		onNavigate(Screen.FileInfo.setStoreItem(storeItem.id))
+		navigationViewModel.navigateTo(Screen.FileInfo.setStoreItem(storeItem.id))
 	}
 }
 

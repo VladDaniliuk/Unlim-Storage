@@ -1,7 +1,6 @@
 package com.shov.filesfeature.views.navigations
 
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
@@ -14,31 +13,26 @@ import com.shov.filesfeature.views.files.FileListScreen
 import com.shov.filesfeature.views.newObject.UploadFileBottomSheet
 import com.shov.filesfeature.views.newObject.newFolder.NewFolderBottomSheet
 
-fun NavGraphBuilder.filesComposable(navController: NavHostController) {
+fun NavGraphBuilder.filesComposable() {
 	composable(route = Screen.FileInfo.route) {
-		FileInfoScreen(
-			navigateTo = { id ->
-				navController.navigate(Screen.FileDescription.setStoreItemId(id))
-			},
-			popBack = navController::popBackStack
-		)
+		FileInfoScreen()
 	}
 	composable(route = Screen.FileDescription.route) {
-		FileDescriptionScreen(onCloseClick = navController::popBackStack)
+		FileDescriptionScreen()
 	}
 	composable(route = Screen.Files.route) {
-		FileListScreen(navHostController = navController)
+		FileListScreen()
 	}
 	@OptIn(ExperimentalMaterialNavigationApi::class)
 	bottomSheet(BottomSheet.FileAction.route) {
-		FileActionsBottomSheet(onNavigate = navController::navigate)
+		FileActionsBottomSheet()
 	}
 	@OptIn(ExperimentalMaterialNavigationApi::class)
 	bottomSheet(BottomSheet.NewFolder.route) {
-		NewFolderBottomSheet(popBack = navController::popBackStack)
+		NewFolderBottomSheet()
 	}
 	@OptIn(ExperimentalMaterialNavigationApi::class)
 	bottomSheet(BottomSheet.UploadFile.route) {
-		UploadFileBottomSheet(popBack = navController::popBackStack)
+		UploadFileBottomSheet()
 	}
 }

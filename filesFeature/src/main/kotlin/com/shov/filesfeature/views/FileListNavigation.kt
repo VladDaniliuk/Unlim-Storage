@@ -9,7 +9,6 @@ import com.shov.filesfeature.views.files.FilesScreen
 
 @Composable
 fun FileListNavigation(
-	navHostController: NavHostController,
 	filesNavHostController: NavHostController,
 	onBackPressed: () -> Unit
 ) {
@@ -18,10 +17,7 @@ fun FileListNavigation(
 		startDestination = Screen.Files.route
 	) {
 		composable(route = Screen.Files.route) {
-			FilesScreen(
-				navHostController = navHostController,
-				onBackPress = onBackPressed
-			) { backStack ->
+			FilesScreen(onBackPress = onBackPressed) { backStack ->
 				filesNavHostController.navigate(Screen.Files.openFolder(backStack))
 			}
 		}

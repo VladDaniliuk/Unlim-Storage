@@ -8,7 +8,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import com.shov.filesfeature.viewModels.newObject.NewFolderViewModel
 import com.shov.filesfeature.views.newObject.ChooseDriveBottomSheet
@@ -17,9 +19,9 @@ import com.shov.filesfeature.views.newObject.ChooseDriveBottomSheet
 fun NewFolderBottomSheet(
 	context: Context = LocalContext.current,
 	newFolderViewModel: NewFolderViewModel = hiltViewModel(),
-	popBack: () -> Unit
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
-	BackHandler(onBack = popBack)
+	BackHandler(onBack = navigationViewModel::popBack)
 
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
@@ -32,7 +34,7 @@ fun NewFolderBottomSheet(
 			onClick = { onError ->
 				if (isConnected) {
 					newFolderViewModel.createFolder(
-						onCompletion = popBack,
+						onCompletion = navigationViewModel::popBack,
 						textError = context.getString(R.string.check_name),
 						onError = onError
 					)
