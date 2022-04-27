@@ -6,8 +6,9 @@ import com.google.gson.JsonElement
 import com.shov.unlimstorage.api.models.LastReleaseItem
 import com.shov.unlimstorage.values.LastRelease
 import java.lang.reflect.Type
+import javax.inject.Inject
 
-class LastReleaseDeserializer : JsonDeserializer<LastReleaseItem> {
+class LastReleaseDeserializer @Inject constructor() : JsonDeserializer<LastReleaseItem> {
 	override fun deserialize(
 		json: JsonElement,
 		typeOfT: Type?,
@@ -18,7 +19,7 @@ class LastReleaseDeserializer : JsonDeserializer<LastReleaseItem> {
 			releaseName = json.getString(LastRelease.name),
 			applicationName = json.getArrayedObject(LastRelease.assets).getString(LastRelease.name),
 			applicationSize = json.getArrayedObject(LastRelease.assets).getLong(LastRelease.size),
-			releaseDate = json.getString(LastRelease.publishedAt),
+			releaseDate = json.getString(LastRelease.publishedAt).toPrettyTime(),
 			downloadUrl = json.getArrayedObject(LastRelease.assets)
 				.getString(LastRelease.browserDownloadUrl)
 		)

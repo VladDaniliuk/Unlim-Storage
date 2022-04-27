@@ -7,7 +7,7 @@ object AndroidVersion {
 object Application {
 	const val name = "Unlim Storage"
 	const val versionCode = 6
-	const val versionName = "0.2.7.1"
+	const val versionName = "0.2.7.2"
 }
 
 object Config {
@@ -16,14 +16,16 @@ object Config {
 }
 
 object BuildType {
-	const val release = "release"
+	const val buildDataProperties = "build-data.properties"
 	const val debug = "debug"
 	const val outputName = "Unlim Storage.apk"
 	const val outputNameDebug = "Unlim Storage-debug.apk"
 	const val proguardFile = "proguard-android-optimize.txt"
 	const val proguardRules = "proguard-rules.pro"
+	const val release = "release"
 	const val requiresOptIn = "-Xopt-in=kotlin.RequiresOptIn"
-	const val jvmDefaultCompatibility = "-Xjvm-default=compatibility"
+	const val xjvmDefault = "-Xjvm-default=compatibility"
+	const val metaInfDependencies = "META-INF/DEPENDENCIES"
 }
 
 object KotlinOptions {
