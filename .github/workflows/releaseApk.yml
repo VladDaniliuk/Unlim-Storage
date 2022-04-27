@@ -34,3 +34,4 @@ jobs:
         APP_FILE: ./buildSrc/src/main/kotlin/Android.kt
         APP_FOLDER: app
         RELEASE_TITLE: Unlim Storage
+        NAME_VARIABLE: Unlim_Storage.apk
