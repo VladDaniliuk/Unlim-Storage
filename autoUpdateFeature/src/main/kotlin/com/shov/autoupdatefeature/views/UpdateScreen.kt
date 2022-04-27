@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import com.shov.autoupdatefeature.R
 import com.shov.autoupdatefeature.viewModels.UpdateViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
@@ -17,9 +18,9 @@ import com.shov.coreutils.viewModels.singletonViewModel
 @Composable
 fun UpdateScreen(
 	context: Context = LocalContext.current,
-	onBackClick: () -> Unit,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = singletonViewModel(),
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)
 
@@ -42,7 +43,7 @@ fun UpdateScreen(
 
 	LaunchedEffect(key1 = null) {
 		scaffold.setTopBar(
-			prevRoute = Icons.Rounded.ArrowBack to onBackClick,
+			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(R.string.updates)
 		)
 	}

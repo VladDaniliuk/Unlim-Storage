@@ -25,7 +25,7 @@ fun MainNavigation(
 		navController = navController,
 		startDestination = mainNavigationViewModel.startDestination
 	) {
-		autoUpdateComposable(settingsNavController = navController)
+		autoUpdateComposable()
 		filesComposable()
 		settingsComposable()
 		signInComposable(navController = navController)
