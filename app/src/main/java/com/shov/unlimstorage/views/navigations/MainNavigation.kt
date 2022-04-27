@@ -27,13 +27,23 @@ fun MainNavigation(
 	) {
 		autoUpdateComposable(settingsNavController = navController)
 		filesComposable()
-		settingsComposable(navController = navController)
+		settingsComposable()
 		signInComposable(navController = navController)
 	}
 
 	LaunchedEffect(key1 = null) {
 		navigationViewModel.route.onEach { route ->
-			if (route.isEmpty()) navController.popBackStack() else navController.navigate(route)
+			if (route.isEmpty()) navController.popBackStack() else {
+				navController.navigate(route) {
+					navigationViewModel.popUpRoute.let { popUpRoute ->
+						if (popUpRoute.isNotEmpty()) {
+							popUpTo(popUpRoute) {
+								inclusive = navigationViewModel.inclusive
+							}
+						}
+					}
+				}
+			}
 		}.launchIn(this)
 	}
 }

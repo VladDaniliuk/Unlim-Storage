@@ -10,33 +10,33 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
-import com.shov.settingsfeature.viewModels.SecurityViewModel
-import com.shov.settingsfeature.utils.checkForAuthenticate
 import com.shov.settingsfeature.ui.ChangePasswordMenuLink
 import com.shov.settingsfeature.ui.EnableBiometricMenuLink
 import com.shov.settingsfeature.ui.RemovePasswordMenuLink
 import com.shov.settingsfeature.ui.SetPasswordMenuLink
+import com.shov.settingsfeature.utils.checkForAuthenticate
+import com.shov.settingsfeature.viewModels.SecurityViewModel
 
 @Composable
 fun SecurityScreen(
 	context: Context = LocalContext.current,
-	onNavigate: (String) -> Unit,
-	popBackStack: () -> Unit,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
-	securityViewModel: SecurityViewModel = hiltViewModel()
+	securityViewModel: SecurityViewModel = hiltViewModel(),
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	SecurityView(
 		canAuthWithBiometric = BiometricManager.from(context).checkForAuthenticate(),
 		isBiometricCheckedState = securityViewModel.isBiometricEnabled,
 		isPinCodeSetUp = securityViewModel.isPassSetUp,
-		onChangePasswordClick = { onNavigate(Screen.ChangePassword.route) },
+		onChangePasswordClick = { navigationViewModel.navigateTo(Screen.ChangePassword.route) },
 		onCheckBoxChange = securityViewModel::setBiometricEnable,
-		onPasswordSetClick = { onNavigate(Screen.CreatePassword.route) },
-		onRemovePasswordClick = { onNavigate(Screen.RemovePassword.route) },
+		onPasswordSetClick = { navigationViewModel.navigateTo(Screen.CreatePassword.route) },
+		onRemovePasswordClick = { navigationViewModel.navigateTo(Screen.RemovePassword.route) },
 		onCantAuthWithBiometric = {
 			scaffold.showSnackbar(context.getString(R.string.check_biometric_on_settings))
 		}
@@ -44,7 +44,7 @@ fun SecurityScreen(
 
 	LaunchedEffect(key1 = null) {
 		scaffold.setTopBar(
-			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
+			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(R.string.security)
 		)
 	}

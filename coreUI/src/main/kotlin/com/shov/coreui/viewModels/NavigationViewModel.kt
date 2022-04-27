@@ -8,8 +8,25 @@ import javax.inject.Inject
 @HiltViewModel
 class NavigationViewModel @Inject constructor() : ViewModel() {
 	val route = MutableSharedFlow<String>(extraBufferCapacity = 1)
+	var popUpRoute: String = ""
+		get() {
+			val result = field
+			field = ""
+			return result
+		}
+		private set
+	var inclusive: Boolean = false
+		get() {
+			val result = field
+			field = false
+			return result
+		}
+		private set
 
-	fun navigateTo(destination: String) {
+
+	fun navigateTo(destination: String, popUp: String = "", inclusive: Boolean = false) {
+		popUpRoute = popUp
+		this.inclusive = inclusive
 		route.tryEmit(destination)
 	}
 

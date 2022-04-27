@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -18,8 +19,8 @@ import com.shov.settingsfeature.viewModels.password.CreatePasswordViewModel
 fun CreatePasswordScreen(
 	context: Context = LocalContext.current,
 	createPasswordViewModel: CreatePasswordViewModel = hiltViewModel(),
-	popBackStack: () -> Unit,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	PasswordScreen(
 		modifier = Modifier.windowInsetsPadding(
@@ -33,13 +34,14 @@ fun CreatePasswordScreen(
 			scaffold.showSnackbar(
 				context.getString(R.string.new_, context.getString(R.string.password_is_enabled))
 			)
-			popBackStack()
+
+			navigationViewModel.popBack()
 		}
 	)
 
 	LaunchedEffect(key1 = null) {
 		scaffold.setTopBar(
-			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
+			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(R.string.create_password)
 		)
 	}

@@ -1,4 +1,4 @@
-package com.shov.settingsfeature.views
+package com.shov.settingsfeature.views.password
 
 import android.content.Context
 import androidx.biometric.BiometricManager
@@ -14,20 +14,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
 import com.shov.settingsfeature.utils.checkForAuthenticate
 import com.shov.settingsfeature.utils.showBiometricAuthentication
 import com.shov.settingsfeature.viewModels.password.CheckPasswordViewModel
-import com.shov.settingsfeature.views.password.PasswordScreen
 
 @Composable
 fun CheckPasswordScreen(
 	checkPasswordViewModel: CheckPasswordViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
-	onAccess: () -> Unit
+	navigationViewModel: NavigationViewModel = singletonViewModel(),
 ) {
 	Column(
 		modifier = Modifier.windowInsetsPadding(
@@ -44,7 +45,12 @@ fun CheckPasswordScreen(
 					pass = pinCode,
 					onAccess = {
 						scaffold.showSnackbar(context.getString(R.string.passwords_equal))
-						onAccess()
+
+						navigationViewModel.navigateTo(
+							destination = Screen.Files.route,
+							popUp = Screen.CheckPassword.route,
+							inclusive = true
+						)
 					}
 				) {
 					scaffold.showSnackbar(context.getString(R.string.passwords_dont_equal))
@@ -62,7 +68,15 @@ fun CheckPasswordScreen(
 					.fillMaxWidth()
 					.padding(4.dp),
 				shape = CircleShape,
-				onClick = { fragmentActivity.showBiometricAuthentication(onAccess) }
+				onClick = {
+					fragmentActivity.showBiometricAuthentication {
+						navigationViewModel.navigateTo(
+							destination = Screen.Files.route,
+							popUp = Screen.CheckPassword.route,
+							inclusive = true
+						)
+					}
+				}
 			) {
 				Text(text = stringResource(R.string.use_fingerprint))
 			}

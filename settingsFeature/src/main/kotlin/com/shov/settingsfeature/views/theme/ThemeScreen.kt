@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.CustomThemeViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -19,7 +20,7 @@ fun ThemeScreen(
 	scaffold: ScaffoldViewModel = singletonViewModel(),
 	themeViewModel: ThemeViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
-	onBackClick: () -> Unit
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	ThemeView(
 		theme = customThemeViewModel.theme,
@@ -32,7 +33,7 @@ fun ThemeScreen(
 
 	LaunchedEffect(key1 = null) {
 		scaffold.setTopBar(
-			prevRoute = Icons.Rounded.ArrowBack to onBackClick,
+			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(R.string.theme_settings)
 		)
 	}

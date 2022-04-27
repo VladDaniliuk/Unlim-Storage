@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -16,10 +17,10 @@ import com.shov.settingsfeature.viewModels.password.ChangePasswordViewModel
 
 @Composable
 fun ChangePasswordScreen(
-	context: Context = LocalContext.current,
 	changePasswordViewModel: ChangePasswordViewModel = hiltViewModel(),
-	scaffold: ScaffoldViewModel = singletonViewModel(),
-	popBackStack: () -> Unit
+	context: Context = LocalContext.current,
+	navigationViewModel: NavigationViewModel = singletonViewModel(),
+	scaffold: ScaffoldViewModel = singletonViewModel()
 ) {
 	PasswordScreen(
 		modifier = Modifier.windowInsetsPadding(
@@ -29,14 +30,14 @@ fun ChangePasswordScreen(
 			scaffold.showSnackbar(context.getString(R.string.password_length_error))
 		}
 	) { pass ->
-		changePasswordViewModel.onRightClick(pass, popBackStack) {
+		changePasswordViewModel.onRightClick(pass, navigationViewModel::popBack) {
 			scaffold.showSnackbar(context.getString(R.string.passwords_dont_equal))
 		}
 	}
 
 	LaunchedEffect(key1 = changePasswordViewModel.isPassChecked) {
 		scaffold.setTopBar(
-			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
+			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(changePasswordViewModel.titleId)
 		)
 	}

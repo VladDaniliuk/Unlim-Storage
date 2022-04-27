@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -17,9 +18,9 @@ import com.shov.settingsfeature.viewModels.password.RemovePasswordViewModel
 @Composable
 fun RemovePasswordScreen(
 	context: Context = LocalContext.current,
-	popBackStack: () -> Unit,
 	removePasswordViewModel: RemovePasswordViewModel = hiltViewModel(),
-	scaffold: ScaffoldViewModel = singletonViewModel()
+	scaffold: ScaffoldViewModel = singletonViewModel(),
+	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	PasswordScreen(
 		modifier = Modifier.windowInsetsPadding(
@@ -34,7 +35,8 @@ fun RemovePasswordScreen(
 				onAccess = {
 					removePasswordViewModel.removePass()
 					scaffold.showSnackbar(context.getString(R.string.password_removed))
-					popBackStack()
+
+					navigationViewModel.popBack()
 				},
 				onError = {
 					scaffold.showSnackbar(context.getString(R.string.passwords_dont_equal))
@@ -45,7 +47,7 @@ fun RemovePasswordScreen(
 
 	LaunchedEffect(key1 = null) {
 		scaffold.setTopBar(
-			prevRoute = Icons.Rounded.ArrowBack to popBackStack,
+			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(R.string.check_password_for_remove)
 		)
 	}
