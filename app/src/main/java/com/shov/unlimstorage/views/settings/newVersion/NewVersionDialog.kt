@@ -15,7 +15,6 @@ import com.shov.unlimstorage.utils.launchWhenStarted
 import com.shov.unlimstorage.viewModels.DownloadViewModel
 import com.shov.unlimstorage.viewModels.provider.newVersionViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewModels.provider.updateViewModel
 import com.shov.unlimstorage.viewModels.settings.NewVersionViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 import com.shov.unlimstorage.views.permissions.PermissionDialog
@@ -25,7 +24,7 @@ import kotlinx.coroutines.flow.onEach
 fun NewVersionObserver(
 	context: Context = LocalContext.current,
 	lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-	updateViewModel: UpdateViewModel = updateViewModel()
+	updateViewModel: UpdateViewModel = singletonViewModel()
 ) {
 	if (updateViewModel.isDialogShown) {
 		NewVersionDialog(
@@ -44,7 +43,7 @@ fun NewVersionObserver(
 
 @Composable
 fun NewVersionDialog(
-	updateViewModel: UpdateViewModel = updateViewModel(),
+	updateViewModel: UpdateViewModel = singletonViewModel(),
 	newVersionViewModel: NewVersionViewModel,
 	downloadViewModel: DownloadViewModel = singletonViewModel(),
 	context: Context = LocalContext.current

@@ -21,7 +21,6 @@ import com.shov.unlimstorage.utils.context.observeConnectivityAsFlow
 import com.shov.unlimstorage.viewModels.common.ScaffoldViewModel
 import com.shov.unlimstorage.viewModels.common.TopAppBarViewModel
 import com.shov.unlimstorage.viewModels.provider.singletonViewModel
-import com.shov.unlimstorage.viewModels.provider.updateViewModel
 import com.shov.unlimstorage.viewModels.settings.UpdateViewModel
 
 @Composable
@@ -29,7 +28,7 @@ fun UpdateScreen(
 	context: Context = LocalContext.current,
 	onBackClick: () -> Unit,
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
-	updateViewModel: UpdateViewModel = updateViewModel(),
+	updateViewModel: UpdateViewModel = singletonViewModel(),
 	scaffoldViewModel: ScaffoldViewModel = singletonViewModel()
 ) {
 	val isConnected by LocalContext.current.observeConnectivityAsFlow().collectAsState(false)

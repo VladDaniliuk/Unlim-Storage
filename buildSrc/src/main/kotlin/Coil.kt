@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Coil {
 	private const val lib = "io.coil-kt:coil-compose:"
-	private const val version = "2.0.0-alpha02"
+	private const val version = "2.0.0-alpha07"
 
 	object Lib {
 		const val compose = "$lib$version"
