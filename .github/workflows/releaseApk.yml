@@ -27,11 +27,11 @@ jobs:
     - name: Build Release APK
       run: ./gradlew assembleRelease
     - name: Releasing using Hub
-      uses: VladDaniliuk/action-release-releaseapk@1.3.4.unlim-storage
+      uses: VladDaniliuk/action-release-releaseapk@1.3.7.unlim-storage
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
+        NAME_VARIABLE: name
         VERSION_VARIABLE: versionName
         APP_FILE: ./buildSrc/src/main/kotlin/Android.kt
         APP_FOLDER: app
         RELEASE_TITLE: Unlim Storage
-        NAME_VARIABLE: Unlim_Storage.apk
