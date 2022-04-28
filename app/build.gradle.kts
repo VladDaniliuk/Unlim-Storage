@@ -21,7 +21,7 @@ android {
 
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 
-			versionNameSuffix = BuildType.release
+			versionNameSuffix = Application.releaseSuffix
 		}
 
 		getByName(BuildType.debug) {
@@ -33,7 +33,7 @@ android {
 
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 
-			versionNameSuffix = BuildType.debug
+			versionNameSuffix = Application.debugSuffix
 		}
 	}
 
