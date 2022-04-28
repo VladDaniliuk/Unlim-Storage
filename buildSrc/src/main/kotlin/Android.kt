@@ -17,12 +17,10 @@ object Config {
 
 object BuildType {
 	const val buildDataProperties = "build-data.properties"
-	const val debug = "debug"
-	const val outputName = "Unlim_Storage.apk"
-	const val outputNameDebug = "Unlim_Storage-debug.apk"
+	const val debug = "-debug"
 	const val proguardFile = "proguard-android-optimize.txt"
 	const val proguardRules = "proguard-rules.pro"
-	const val release = "release"
+	const val release = "-release"
 	const val requiresOptIn = "-Xopt-in=kotlin.RequiresOptIn"
 	const val xjvmDefault = "-Xjvm-default=compatibility"
 	const val metaInfDependencies = "META-INF/DEPENDENCIES"

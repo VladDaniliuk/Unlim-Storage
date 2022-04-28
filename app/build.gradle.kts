@@ -21,12 +21,7 @@ android {
 
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 
-			applicationVariants.all {
-				outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
-					.forEach { output ->
-						output.outputFileName = BuildType.outputName
-					}
-			}
+			versionNameSuffix = BuildType.release
 		}
 
 		getByName(BuildType.debug) {
@@ -38,12 +33,7 @@ android {
 
 			proguardFiles(getDefaultProguardFile(BuildType.proguardFile), BuildType.proguardRules)
 
-			applicationVariants.all {
-				outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
-					.forEach { output ->
-						output.outputFileName = BuildType.outputNameDebug
-					}
-			}
+			versionNameSuffix = BuildType.debug
 		}
 	}
 
@@ -67,6 +57,7 @@ android {
 		versionCode = Application.versionCode
 		versionName = Application.versionName
 		testInstrumentationRunner = Config.testInstrumentationRunner
+		base.archivesBaseName = Application.name
 	}
 
 	kotlinOptions {
