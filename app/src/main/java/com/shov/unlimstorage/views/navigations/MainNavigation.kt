@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.shov.unlimstorage.models.repositories.signIn.CheckDropboxCredential
 import com.shov.unlimstorage.values.Screen
 import com.shov.unlimstorage.viewModels.navigations.MainNavigationViewModel
-import com.shov.unlimstorage.views.SignInScreen
+import com.shov.unlimstorage.views.signIn.SignInScreen
 
 @Composable
 fun MainNavigation(

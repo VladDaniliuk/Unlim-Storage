@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.shov.unlimstorage.ui.CustomScaffold
 import com.shov.unlimstorage.ui.DownloadSnackbar
@@ -25,7 +26,11 @@ import com.shov.unlimstorage.views.settings.newVersion.NewVersionObserver
 fun MainScreen(bottomSheetViewModel: BottomSheetViewModel = singletonViewModel()) {
 	NewVersionObserver()
 
-	Column(modifier = Modifier.fillMaxSize()) {
+	Column(
+		modifier = Modifier
+			.fillMaxSize()
+			.navigationBarsPadding(bottom = false)
+	) {
 		ModalBottomSheetLayout(
 			modifier = Modifier.weight(1f),
 			sheetState = bottomSheetViewModel.sheetState,
