@@ -5,7 +5,6 @@ import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
 import com.shov.storagerepositories.repositories.factories.FilesFactory
-import com.shov.storagerepositories.utils.createFile
 import java.io.File
 import java.io.InputStream
 import javax.inject.Inject
@@ -18,10 +17,9 @@ interface FileActionsRepository {
 	): Boolean
 
 	fun download(
-		disk: StorageType,
+		storageType: StorageType,
 		id: String,
 		name: String,
-		onError: () -> Unit,
 		parentFolder: File = Environment
 			.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
 		type: ItemType,
@@ -45,26 +43,24 @@ class FileActionsRepositoryImpl @Inject constructor(
 	) = filesFactory.create(storageType).createFolder(folderId, folderName)
 
 	override fun download(
-		disk: StorageType,
+		storageType: StorageType,
 		id: String,
 		name: String,
-		onError: () -> Unit,
 		parentFolder: File,
 		type: ItemType,
 	) {
 		if (type == ItemType.FOLDER) {
-			downloadFolder(id, name, disk, parentFolder).forEach { storeItem ->
+			downloadFolder(id, name, storageType, parentFolder).forEach { storeItem ->
 				download(
 					storeItem.disk,
 					storeItem.id,
 					storeItem.name,
-					onError,
 					File(parentFolder, name),
 					storeItem.type
 				)
 			}
 		} else {
-			downloadFile(disk, id, name, onError, parentFolder)
+			downloadFile(storageType, id, name)
 		}
 		//TODO GOOGLE PERCENTS
 		// TODO onExist onError
@@ -73,12 +69,12 @@ class FileActionsRepositoryImpl @Inject constructor(
 	private fun downloadFolder(
 		id: String,
 		name: String,
-		disk: StorageType,
+		storageType: StorageType,
 		parentFolder: File
 	): List<StoreItem> {
 		return if (File(parentFolder, name).exists().not()) {
 			if (File(parentFolder, name).mkdirs()) {
-				filesFactory.create(disk).getFiles(id)
+				filesFactory.create(storageType).getFiles(id)
 			} else emptyList()
 		} else emptyList()
 	}
@@ -87,16 +83,8 @@ class FileActionsRepositoryImpl @Inject constructor(
 		disk: StorageType,
 		id: String,
 		name: String,
-		onError: () -> Unit,
-		parentFolder: File,
 	) {
-		if (disk in listOf(StorageType.GOOGLE, StorageType.BOX)) {
-			filesFactory.create(disk).downloadFile(id, name, File(""), onError)
-		} else {
-			File(parentFolder, name).createFile(onCreate = {
-				filesFactory.create(disk).downloadFile(id, name, this, onError)
-			})
-		}
+		filesFactory.create(disk).downloadFile(id, name)
 	}
 
 	override suspend fun uploadFile(

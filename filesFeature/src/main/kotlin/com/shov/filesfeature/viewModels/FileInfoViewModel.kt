@@ -52,10 +52,9 @@ class FileInfoViewModel @Inject constructor(
 				onShowSnackbar(R.string.download_started)
 
 				fileActionsRepository.download(
-					disk = item.disk,
+					storageType = item.disk,
 					id = item.id,
 					name = item.name,
-					onError = { onShowSnackbar(R.string.download_error) },
 					type = item.type
 				)
 			}

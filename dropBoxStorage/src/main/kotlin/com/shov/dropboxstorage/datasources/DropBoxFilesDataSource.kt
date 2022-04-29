@@ -1,9 +1,14 @@
 package com.shov.dropboxstorage.datasources
 
+import android.app.DownloadManager
 import android.content.Context
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
 import com.dropbox.core.BadRequestException
 import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.RateLimitException
+import com.dropbox.core.android.Auth
 import com.dropbox.core.oauth.DbxCredential
 import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.DbxUserFilesRequests
@@ -16,8 +21,6 @@ import com.shov.dropboxstorage.values.DROPBOX_CREDENTIAL
 import com.shov.preferences.datasources.PreferencesDataSource
 import com.shov.storage.FilesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -52,20 +55,25 @@ class DropBoxFilesDataSource @Inject constructor(
 
 	override fun downloadFile(
 		id: String,
-		name: String,
-		file: File,
-		onError: () -> Unit
+		name: String
 	) {
-		try {
-			dbxUserFilesRequests()?.let { dbxFile ->
-				dbxFile.download(dbxFile.getMetadata(id).pathLower)
-					.download(FileOutputStream(file))
-			} ?: onError()
-		} catch (e: RateLimitException) {
-			onError()
-		} catch (e: IllegalArgumentException) {
-			onError()
-		}
+		val downloadManager = context.getSystemService(DownloadManager::class.java)
+		val request = DownloadManager
+			.Request(Uri.parse("https://content.dropboxapi.com/2/files/download"))
+			.addRequestHeader("Authorization", "Bearer ${Auth.getOAuth2Token()}")
+			.addRequestHeader("Dropbox-API-Arg", "{\"path\":\"$id\"}")
+			.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+			.apply {
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+					setTitle(name)
+					setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, name)
+				} else {
+					setTitle("Downloading $name")//if using in android 9 and above below -> rename file
+					setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name)
+				}
+			}
+
+		downloadManager.enqueue(request)
 	}
 
 	override fun createFolder(folderId: String?, folderName: String) =

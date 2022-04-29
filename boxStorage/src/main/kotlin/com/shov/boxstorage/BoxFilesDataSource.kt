@@ -13,7 +13,6 @@ import com.shov.boxstorage.converters.toStoreItem
 import com.shov.coremodels.models.ItemType
 import com.shov.storage.FilesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.io.File
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -43,9 +42,7 @@ class BoxFilesDataSource @Inject constructor(
 
 	override fun downloadFile(
 		id: String,
-		name: String,
-		file: File,
-		onError: () -> Unit
+		name: String
 	) {
 		val downloadManager = context.getSystemService(DownloadManager::class.java)
 		val request = DownloadManager
@@ -54,11 +51,12 @@ class BoxFilesDataSource @Inject constructor(
 				"Authorization", "Bearer ${BoxSession(context).authInfo.accessToken()}"
 			)
 			.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-			.setTitle("Downloading $name")
 			.apply {
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+					setTitle(name)
 					setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, name)
 				} else {
+					setTitle("Downloading $name")//if using in android 9 and above below -> rename file
 					setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name)
 				}
 			}

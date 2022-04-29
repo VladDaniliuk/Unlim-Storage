@@ -19,7 +19,6 @@ import com.shov.googlestorage.converters.toStoreItem
 import com.shov.googlestorage.converters.toStoreMetadataItem
 import com.shov.storage.FilesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.io.File
 import java.io.InputStream
 import javax.inject.Inject
 import com.google.api.services.drive.model.File as GoogleFile
@@ -38,10 +37,8 @@ class GoogleFilesDataSource @Inject constructor(
 
 	override fun downloadFile(
 		id: String,
-		name: String,
-		file: File,
-		onError: () -> Unit
-	) {
+		name: String
+	) {//TODO transform google documents to normal format https://developers.google.com/drive/api/v3/reference/files/export?apix_params=%7B%22fileId%22%3A%221mQxntfrS5h2oTu2YO36Dyep7kY9qwtRCrU0gjmZL6n4%22%2C%22mimeType%22%3A%22application%2Fvnd.openxmlformats-officedocument.wordprocessingml.document%22%7D#try-it
 		val downloadManager = context.getSystemService(DownloadManager::class.java)
 		val request = DownloadManager
 			.Request(Uri.parse("https://www.googleapis.com/drive/v3/files/$id?alt=media"))
@@ -53,11 +50,12 @@ class GoogleFilesDataSource @Inject constructor(
 				}"
 			)
 			.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-			.setTitle("Downloading $name")
 			.apply {
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+					setTitle(name)
 					setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, name)
 				} else {
+					setTitle("Downloading $name")//if using in android 9 and above below -> rename file
 					setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name)
 				}
 			}
