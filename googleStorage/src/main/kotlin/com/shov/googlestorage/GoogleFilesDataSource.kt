@@ -1,6 +1,10 @@
 package com.shov.googlestorage
 
+import android.app.DownloadManager
 import android.content.Context
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
@@ -16,7 +20,6 @@ import com.shov.googlestorage.converters.toStoreMetadataItem
 import com.shov.storage.FilesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStream
 import javax.inject.Inject
 import com.google.api.services.drive.model.File as GoogleFile
@@ -38,8 +41,28 @@ class GoogleFilesDataSource @Inject constructor(
 		name: String,
 		file: File,
 		onError: () -> Unit
-	) {//TODO rewrite [link](https://shov-studio.jetbrains.space/p/unlim-storage/issues/18)
-		getGoogleFiles().get(id).executeMediaAndDownloadTo(FileOutputStream(file))
+	) {
+		val downloadManager = context.getSystemService(DownloadManager::class.java)
+		val request = DownloadManager
+			.Request(Uri.parse("https://www.googleapis.com/drive/v3/files/$id?alt=media"))
+			.addRequestHeader(
+				"Authorization", "Bearer ${
+					GoogleAccountCredential.usingOAuth2(context, listOf(DriveScopes.DRIVE))
+						.setSelectedAccount(GoogleSignIn.getLastSignedInAccount(context)?.account)
+						.token
+				}"
+			)
+			.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+			.setTitle("Downloading $name")
+			.apply {
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+					setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, name)
+				} else {
+					setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name)
+				}
+			}
+
+		downloadManager.enqueue(request)
 	}
 
 	override fun getFileMetadata(id: String, type: ItemType) = try {

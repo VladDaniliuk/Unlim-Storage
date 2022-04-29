@@ -90,9 +90,13 @@ class FileActionsRepositoryImpl @Inject constructor(
 		onError: () -> Unit,
 		parentFolder: File,
 	) {
-		File(parentFolder, name).createFile(onCreate = {
-			filesFactory.create(disk).downloadFile(id, name, this, onError)
-		})
+		if (disk == StorageType.GOOGLE) {
+			filesFactory.create(disk).downloadFile(id, name, File(""), onError)
+		} else {
+			File(parentFolder, name).createFile(onCreate = {
+				filesFactory.create(disk).downloadFile(id, name, this, onError)
+			})
+		}
 	}
 
 	override suspend fun uploadFile(
