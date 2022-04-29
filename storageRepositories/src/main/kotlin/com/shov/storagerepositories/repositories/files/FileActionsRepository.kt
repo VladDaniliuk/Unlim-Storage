@@ -90,7 +90,7 @@ class FileActionsRepositoryImpl @Inject constructor(
 		onError: () -> Unit,
 		parentFolder: File,
 	) {
-		if (disk == StorageType.GOOGLE) {
+		if (disk in listOf(StorageType.GOOGLE, StorageType.BOX)) {
 			filesFactory.create(disk).downloadFile(id, name, File(""), onError)
 		} else {
 			File(parentFolder, name).createFile(onCreate = {
