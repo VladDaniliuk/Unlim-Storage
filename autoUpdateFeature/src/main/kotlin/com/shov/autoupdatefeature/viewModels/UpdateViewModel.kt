@@ -60,21 +60,14 @@ class UpdateViewModel @Inject constructor(
 	fun subscribeToDownload(
 		url: String,
 		name: String,
-		version: String,
-		setProgress: (String) -> Unit
+		version: String
 	) {
 		downloadRepository.downloadFile(Uri.parse(url), name, version)?.let { id ->
 			_downloadId = id
 
 			viewModelScope.launch {
-				downloadRepository.checkDownload(id, name, setProgress)
+				downloadRepository.checkDownload(id, name)
 			}
-		}
-	}
-
-	fun dismissDownloading() {//TODO need for future downloading via DownloadManager
-		_downloadId?.let { id ->
-			downloadRepository.dismissDownloading(id)
 		}
 	}
 

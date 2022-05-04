@@ -16,7 +16,6 @@ import com.shov.coreutils.viewModels.singletonViewModel
 fun NewVersionDialog(
 	context: Context = LocalContext.current,
 	updateViewModel: UpdateViewModel = singletonViewModel(),
-	setProgress: (title: String) -> Unit = { _ -> },
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
@@ -38,8 +37,7 @@ fun NewVersionDialog(
 					updateViewModel.subscribeToDownload(
 						lastRelease.assets[0].browserDownloadUrl,
 						lastRelease.assets[0].name,
-						lastRelease.tagName,
-						setProgress
+						lastRelease.tagName
 					)
 
 					updateViewModel.hideDialog()
