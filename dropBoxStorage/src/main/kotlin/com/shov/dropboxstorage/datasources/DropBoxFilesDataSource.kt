@@ -1,10 +1,6 @@
 package com.shov.dropboxstorage.datasources
 
-import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
-import android.os.Build
-import android.os.Environment
 import com.dropbox.core.BadRequestException
 import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.RateLimitException
@@ -53,28 +49,13 @@ class DropBoxFilesDataSource @Inject constructor(
 		null
 	}
 
-	override fun downloadFile(
-		id: String,
-		name: String
-	) {
-		val downloadManager = context.getSystemService(DownloadManager::class.java)
-		val request = DownloadManager
-			.Request(Uri.parse("https://content.dropboxapi.com/2/files/download"))
-			.addRequestHeader("Authorization", "Bearer ${Auth.getOAuth2Token()}")
-			.addRequestHeader("Dropbox-API-Arg", "{\"path\":\"$id\"}")
-			.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-			.apply {
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-					setTitle(name)
-					setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, name)
-				} else {
-					setTitle("Downloading $name")//if using in android 9 and above below -> rename file
-					setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name)
-				}
-			}
+	override fun getDownloadLink(id: String): String =
+		"https://content.dropboxapi.com/2/files/download"
 
-		downloadManager.enqueue(request)
-	}
+	override fun getHeaders(id: String): List<Pair<String, String>> = listOf(
+		"Authorization" to "Bearer ${Auth.getOAuth2Token()}",
+		"Dropbox-API-Arg" to "{\"path\":\"$id\"}"
+	)
 
 	override fun createFolder(folderId: String?, folderName: String) =
 		if (folderName.isNotEmpty()) {

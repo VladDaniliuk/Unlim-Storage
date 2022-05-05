@@ -1,10 +1,6 @@
 package com.shov.boxstorage
 
-import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
-import android.os.Build
-import android.os.Environment
 import com.box.androidsdk.content.*
 import com.box.androidsdk.content.models.BoxSession
 import com.box.androidsdk.content.models.BoxUser
@@ -40,29 +36,10 @@ class BoxFilesDataSource @Inject constructor(
 		}
 	} else false
 
-	override fun downloadFile(
-		id: String,
-		name: String
-	) {
-		val downloadManager = context.getSystemService(DownloadManager::class.java)
-		val request = DownloadManager
-			.Request(Uri.parse("https://api.box.com/2.0/files/$id/content"))
-			.addRequestHeader(
-				"Authorization", "Bearer ${BoxSession(context).authInfo.accessToken()}"
-			)
-			.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-			.apply {
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-					setTitle(name)
-					setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, name)
-				} else {
-					setTitle("Downloading $name")//if using in android 9 and above below -> rename file
-					setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name)
-				}
-			}
+	override fun getDownloadLink(id: String): String = "https://api.box.com/2.0/files/$id/content"
 
-		downloadManager.enqueue(request)
-	}//TODO need mediaScanner
+	override fun getHeaders(id: String): List<Pair<String, String>> =
+		listOf("Authorization" to "Bearer ${BoxSession(context).authInfo.accessToken()}")
 
 	override fun getFileMetadata(id: String, type: ItemType) = if (checkAuth) {
 		when (type) {

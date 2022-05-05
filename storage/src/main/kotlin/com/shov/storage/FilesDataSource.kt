@@ -7,7 +7,8 @@ import java.io.InputStream
 
 interface FilesDataSource {
 	fun createFolder(folderId: String?, folderName: String): Boolean
-	fun downloadFile(id: String, name: String)
+	fun getDownloadLink(id: String): String
+	fun getHeaders(id: String): List<Pair<String, String>>
 	fun getFileMetadata(id: String, type: ItemType): StoreMetadataItem?
 	fun getFiles(folderId: String? = null): List<StoreItem>
 	suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?)

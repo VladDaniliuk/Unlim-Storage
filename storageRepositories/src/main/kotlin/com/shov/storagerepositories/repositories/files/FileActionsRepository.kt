@@ -1,10 +1,13 @@
 package com.shov.storagerepositories.repositories.files
 
+import android.content.Context
 import android.os.Environment
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
+import com.shov.coremodels.inheritances.DownloadManagerRequest
 import com.shov.storagerepositories.repositories.factories.FilesFactory
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.InputStream
 import javax.inject.Inject
@@ -34,7 +37,8 @@ interface FileActionsRepository {
 }
 
 class FileActionsRepositoryImpl @Inject constructor(
-	private val filesFactory: FilesFactory
+	private val filesFactory: FilesFactory,
+	@ApplicationContext val context: Context
 ) : FileActionsRepository {
 	override suspend fun createFolder(
 		folderId: String?,
@@ -61,9 +65,7 @@ class FileActionsRepositoryImpl @Inject constructor(
 			}
 		} else {
 			downloadFile(storageType, id, name)
-		}
-		//TODO GOOGLE PERCENTS
-		// TODO onExist onError
+		}// TODO onExist onError
 	}
 
 	private fun downloadFolder(
@@ -84,8 +86,10 @@ class FileActionsRepositoryImpl @Inject constructor(
 		id: String,
 		name: String,
 	) {
-		filesFactory.create(disk).downloadFile(id, name)
-	}
+		DownloadManagerRequest(context, filesFactory.create(disk).getDownloadLink(id), name)
+			.addRequestHeaders(filesFactory.create(disk).getHeaders(id))
+			.enqueue()
+	}//TODO need mediaScanner
 
 	override suspend fun uploadFile(
 		inputStream: InputStream,
