@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.TopAppBarViewModel
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -28,6 +29,7 @@ fun CheckPasswordScreen(
 	checkPasswordViewModel: CheckPasswordViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	navigationViewModel: NavigationViewModel = singletonViewModel(),
 ) {
 	Column(
@@ -84,6 +86,6 @@ fun CheckPasswordScreen(
 	}
 
 	LaunchedEffect(key1 = null) {
-		scaffold.setTopBar(title = context.getString(R.string.check_password))
+		topAppBarViewModel.setTopBar(title = context.getString(R.string.check_password))
 	}
 }

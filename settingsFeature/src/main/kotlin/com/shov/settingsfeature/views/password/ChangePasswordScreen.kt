@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.TopAppBarViewModel
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
 import com.shov.settingsfeature.viewModels.password.ChangePasswordViewModel
@@ -20,7 +21,8 @@ fun ChangePasswordScreen(
 	changePasswordViewModel: ChangePasswordViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
 	navigationViewModel: NavigationViewModel = singletonViewModel(),
-	scaffold: ScaffoldViewModel = singletonViewModel()
+	scaffold: ScaffoldViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
 ) {
 	PasswordScreen(
 		modifier = Modifier.windowInsetsPadding(
@@ -36,7 +38,7 @@ fun ChangePasswordScreen(
 	}
 
 	LaunchedEffect(key1 = changePasswordViewModel.isPassChecked) {
-		scaffold.setTopBar(
+		topAppBarViewModel.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(changePasswordViewModel.titleId)
 		)

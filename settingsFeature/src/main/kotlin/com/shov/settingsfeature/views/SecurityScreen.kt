@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.TopAppBarViewModel
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -26,6 +27,7 @@ import com.shov.settingsfeature.viewModels.SecurityViewModel
 fun SecurityScreen(
 	context: Context = LocalContext.current,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	securityViewModel: SecurityViewModel = hiltViewModel(),
 	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
@@ -43,7 +45,7 @@ fun SecurityScreen(
 	)
 
 	LaunchedEffect(key1 = null) {
-		scaffold.setTopBar(
+		topAppBarViewModel.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(R.string.security)
 		)

@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.TopAppBarViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
@@ -31,7 +32,8 @@ fun FileDescriptionScreen(
 	navigationViewModel: NavigationViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	fileDescriptionViewModel: FileDescriptionViewModel = hiltViewModel(),
-	scaffold: ScaffoldViewModel = singletonViewModel()
+	scaffold: ScaffoldViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
@@ -60,7 +62,7 @@ fun FileDescriptionScreen(
 	}
 
 	LaunchedEffect(key1 = fileDescriptionViewModel.storeItem?.name) {
-		scaffold.setTopBar(
+		topAppBarViewModel.setTopBar(
 			Icons.Rounded.Close to navigationViewModel::popBack,
 			fileDescriptionViewModel.storeItem?.name,
 			Icons.Rounded.Done to {

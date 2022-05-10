@@ -12,6 +12,7 @@ import com.shov.autoupdatefeature.R
 import com.shov.autoupdatefeature.viewModels.UpdateViewModel
 import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.TopAppBarViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.viewModels.singletonViewModel
 
@@ -19,6 +20,7 @@ import com.shov.coreutils.viewModels.singletonViewModel
 fun UpdateScreen(
 	context: Context = LocalContext.current,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	updateViewModel: UpdateViewModel = singletonViewModel(),
 	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
@@ -42,7 +44,7 @@ fun UpdateScreen(
 	)
 
 	LaunchedEffect(key1 = null) {
-		scaffold.setTopBar(
+		topAppBarViewModel.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(R.string.updates)
 		)

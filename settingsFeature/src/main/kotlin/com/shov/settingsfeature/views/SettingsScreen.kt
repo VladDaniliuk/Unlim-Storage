@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.coreui.viewModels.NavigationViewModel
-import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.TopAppBarViewModel
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -23,13 +23,13 @@ import com.shov.settingsfeature.R
 @Composable
 fun SettingsScreen(
 	context: Context = LocalContext.current,
-	scaffold: ScaffoldViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	SettingsView(onNavigate = navigationViewModel::navigateTo)
 
 	LaunchedEffect(key1 = null) {
-		scaffold.setTopBar(
+		topAppBarViewModel.setTopBar(
 			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			title = context.getString(R.string.settings)
 		)

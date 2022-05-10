@@ -18,7 +18,7 @@ import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.coreui.viewModels.NavigationViewModel
-import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreui.viewModels.TopAppBarViewModel
 import com.shov.coreutils.values.Dialog
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.signinfeature.R
@@ -28,7 +28,7 @@ import com.shov.signinfeature.viewModels.AccountsViewModel
 fun AccountsScreen(
 	accountsViewModel: AccountsViewModel = hiltViewModel(),
 	context: Context = LocalContext.current,
-	scaffold: ScaffoldViewModel = singletonViewModel(),
+	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
 	AccountsView(
@@ -38,7 +38,7 @@ fun AccountsScreen(
 	)
 
 	LaunchedEffect(key1 = null) {
-		scaffold.setTopBar(
+		topAppBarViewModel.setTopBar(
 			Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			context.getString(R.string.accounts)
 		)
