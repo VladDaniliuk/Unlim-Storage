@@ -9,6 +9,7 @@ import com.dropbox.core.oauth.DbxCredential
 import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.DbxUserFilesRequests
 import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StoreItem
 import com.shov.dropboxstorage.converters.toStoreItem
 import com.shov.dropboxstorage.converters.toStoreMetadataItem
 import com.shov.dropboxstorage.utils.uploadFile
@@ -35,6 +36,17 @@ class DropBoxFilesDataSource @Inject constructor(
 		emptyList()
 	} catch (e: IllegalArgumentException) {
 		emptyList()
+	}
+
+	override fun search(name: String): List<StoreItem> {
+		return dbxUserFilesRequests()?.searchV2(name)
+			?.matches?.map { searchMatch ->
+				searchMatch.metadata.metadataValue.let { metadata ->
+					metadata.toStoreItem(metadata.parentSharedFolderId) {
+						context.getString(second, first)
+					}
+				}
+			} ?: emptyList()
 	}
 
 	override suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {

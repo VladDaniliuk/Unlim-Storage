@@ -11,6 +11,7 @@ import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
 import com.shov.coremodels.R
 import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StoreItem
 import com.shov.googlestorage.converters.toStoreItem
 import com.shov.googlestorage.converters.toStoreMetadataItem
 import com.shov.storage.FilesDataSource
@@ -68,6 +69,18 @@ class GoogleFilesDataSource @Inject constructor(
 		emptyList()
 	} catch (e: IllegalArgumentException) {
 		emptyList()
+	}
+
+	override fun search(name: String): List<StoreItem> {
+		return getGoogleFiles().list()
+			.setFields("files(id,size,name,mimeType,parents)")
+			.setQ("name contains '$name' and trashed = false")
+			.execute()
+			.files.map { file ->
+				file.toStoreItem(null) {
+					context.getString(second, first)
+				}//TODO get folderId if need
+			}
 	}
 
 	override suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {

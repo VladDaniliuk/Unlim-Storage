@@ -7,6 +7,7 @@ import com.box.androidsdk.content.models.BoxUser
 import com.shov.boxstorage.converters.getFileMetadata
 import com.shov.boxstorage.converters.toStoreItem
 import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StoreItem
 import com.shov.storage.FilesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.InputStream
@@ -58,11 +59,19 @@ class BoxFilesDataSource @Inject constructor(
 					boxItem.toStoreItem(folderId) {
 						context.getString(second, first)
 					}
-				}.toList()
+				}
 		} catch (e: BoxException) {
 			emptyList()
 		}
 	} else emptyList()
+
+	override fun search(name: String): List<StoreItem> {
+		return BoxApiSearch(BoxSession(context)).getSearchRequest(name).send().map { boxItem ->
+			boxItem.toStoreItem(null) {
+				context.getString(second, first)
+			}
+		}
+	}
 
 	override suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?) {
 		BoxApiFile(BoxSession(context)).getUploadRequest(
