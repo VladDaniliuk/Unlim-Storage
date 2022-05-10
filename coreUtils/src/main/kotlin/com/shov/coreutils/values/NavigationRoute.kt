@@ -46,6 +46,8 @@ sealed class Screen(val route: String) {
 	object FileDescription : Screen("$navFileDescription{$argStoreId}") {
 		fun setStoreItemId(storeId: String) = "$navFileDescription$storeId"
 	}
+
+	object Search : Screen("nav_search")
 }
 
 sealed class BottomSheet(val route: String) {

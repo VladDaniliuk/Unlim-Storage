@@ -10,8 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.NavigateNext
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Surface
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,14 +28,12 @@ fun NavigationChain(
 	iconEnabled: Boolean,
 	iconOnClick: () -> Unit,
 	textOnClick: (index: Int) -> Unit
-) = Surface(
-	modifier = Modifier
-		.fillMaxWidth()
-		.horizontalScroll(state = rememberScrollState()),
-	color = TopAppBarDefaults.centerAlignedTopAppBarColors().containerColor(1f).value
-) {
+) = Column {
 	Row(
-		modifier = Modifier.padding(vertical = 4.dp),
+		modifier = Modifier
+			.fillMaxWidth()
+			.horizontalScroll(state = rememberScrollState())
+			.padding(vertical = 4.dp),
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		Box(
@@ -68,7 +65,7 @@ fun NavigationChain(
 		}
 	}
 
-	Spacer(modifier = Modifier.padding(end = 8.dp))
+	Divider()
 }
 
 @Preview
