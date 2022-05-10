@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.navigation.material.BottomSheetNavigator
@@ -38,17 +37,7 @@ fun CustomScaffold(
 	) {
 		@OptIn(ExperimentalMaterial3Api::class)
 		Scaffold(
-			topBar = {
-				CustomTopAppBar(
-					prevRouteImageVector = scaffold.topAppBar.prevRoute?.first,
-					onPrevRouteClick = scaffold.topAppBar.prevRoute?.second ?: {},
-					prevRouteEnabled = scaffold.topAppBar.prevRoute != null,
-					title = scaffold.topAppBar.title,
-					nextRouteImageVector = scaffold.topAppBar.nextRoute?.first,
-					onNextRouteClick = scaffold.topAppBar.nextRoute?.second ?: {},
-					nextRouteEnabled = scaffold.topAppBar.nextRoute != null,
-				)
-			},
+			topBar = { CustomTopAppBar() },
 			snackbarHost = {
 				SnackbarHost(
 					modifier = Modifier.navigationBarsPadding(),
@@ -60,12 +49,5 @@ fun CustomScaffold(
 				content(bottomSheetNavigator)
 			}
 		}
-	}
-
-	LaunchedEffect(key1 = scaffold.topAppBar.prevRoute) {
-		scaffold.onPrevRouteChange()
-	}
-	LaunchedEffect(key1 = scaffold.topAppBar.nextRoute) {
-		scaffold.onNextRouteChange()
 	}
 }

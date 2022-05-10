@@ -8,20 +8,24 @@ import com.shov.coreutils.values.BottomSheet
 import com.shov.coreutils.values.Screen
 import com.shov.filesfeature.views.FileActionsBottomSheet
 import com.shov.filesfeature.views.FileDescriptionScreen
+import com.shov.filesfeature.views.SearchScreen
 import com.shov.filesfeature.views.fileInfo.FileInfoScreen
 import com.shov.filesfeature.views.files.FileListScreen
 import com.shov.filesfeature.views.newObject.UploadFileBottomSheet
 import com.shov.filesfeature.views.newObject.newFolder.NewFolderBottomSheet
 
 fun NavGraphBuilder.filesComposable() {
-	composable(route = Screen.FileInfo.route) {
+	composable(Screen.FileInfo.route) {
 		FileInfoScreen()
 	}
-	composable(route = Screen.FileDescription.route) {
+	composable(Screen.FileDescription.route) {
 		FileDescriptionScreen()
 	}
-	composable(route = Screen.Files.route) {
+	composable(Screen.Files.route) {
 		FileListScreen()
+	}
+	composable(Screen.Search.route) {
+		SearchScreen()
 	}
 	@OptIn(ExperimentalMaterialNavigationApi::class)
 	bottomSheet(BottomSheet.FileAction.route) {
