@@ -1,4 +1,5 @@
 import org.gradle.api.Project
+import org.gradle.api.internal.artifacts.dependencies.DefaultDependencyConstraint.strictly
 import org.gradle.kotlin.dsl.dependencies
 
 object Compose {
@@ -24,14 +25,22 @@ fun Project.implementCompose() {
 		implement(Compose.Lib.materialIconsExtended)
 		implement(Compose.Lib.runtime)
 		implement(Compose.Lib.ui)
-		implement(Compose.Lib.uiTooling)
+		implementUITooling()
 	}
 }
 
 fun Project.implementComposeForModules() {
 	dependencies {
 		implement(Compose.Lib.material)
-		implement(Compose.Lib.uiTooling)
+		implementUITooling()
+	}
+}
+
+fun Project.implementUITooling() {
+	dependencies {
+		implement(Compose.Lib.uiTooling) {//TODO: remove when preview will working
+			strictly("androidx.compose.ui", "ui-tooling", "1.0.0-beta09")//Help only in app module
+		}
 	}
 }
 
