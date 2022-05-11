@@ -31,20 +31,22 @@ fun Project.implementAll() {
 	implementMaterial3()
 	implementModules()
 	implementNavigation()
+	implementNavigationAnimation()
 	implementSquareup()
 	implementTest()
 }
 
 fun Project.implementForAutoUpdateFeature() {
-	implementKotlin()
 	implementActivity()
 	implementComposeForModules()
 	implementHiltForFeatureModules()
+	implementIcons()
+	implementKotlin()
 	implementLifecycle()
 	implementMaterial3()
 	implementModulesForAutoUpdateFeature()
+	implementNavigationAnimation()
 	implementSquareup()
-	implementIcons()
 }
 
 fun Project.implementForBoxStorage() {
@@ -100,6 +102,7 @@ fun Project.implementForFilesFeature() {
 	implementLifecycle()
 	implementMaterial3()
 	implementModulesForFilesFeature()
+	implementNavigationAnimation()
 	implementSwipeRefresh()
 }
 
@@ -125,14 +128,15 @@ fun Project.implementForPreferences() {
 }
 
 fun Project.implementForSettingsFeature() {
-	implementKotlin()
 	implementBiometric()
 	implementComposeForModules()
-	implementMaterial3()
 	implementHiltForFeatureModules()
 	implementIcons()
+	implementKotlin()
 	implementLifecycle()
+	implementMaterial3()
 	implementModulesForSettingsFeature()
+	implementNavigationAnimation()
 }
 
 fun Project.implementForSignInFeature() {
@@ -142,6 +146,7 @@ fun Project.implementForSignInFeature() {
 	implementLifecycle()
 	implementMaterial3()
 	implementModulesForSignInFeature()
+	implementNavigationAnimation()
 }
 
 fun Project.implementForStorage() {

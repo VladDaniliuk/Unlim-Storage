@@ -32,3 +32,9 @@ fun Project.implementSwipeRefresh() {
 		implement(Accompanist.Lib.swiperefresh)
 	}
 }
+
+fun Project.implementNavigationAnimation() {
+	dependencies {
+		implement(Accompanist.Lib.navigationAnimation)
+	}
+}
