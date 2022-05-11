@@ -74,6 +74,7 @@ fun Project.implementForCoreUi() {
 	implementLifecycle()
 	implementMaterial3()
 	implementModulesForCoreUI()
+	implementNavigationAnimation()
 }
 
 fun Project.implementForCoreUtils() {
