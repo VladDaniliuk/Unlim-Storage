@@ -3,6 +3,7 @@ package com.shov.settingsfeature.views.theme
 import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -27,7 +28,11 @@ fun ThemeView(
 	isDynamicTheme: Boolean,
 	changeDynamicTheme: (Boolean) -> Unit
 ) {
-	Column(Modifier.verticalScroll(rememberScrollState())) {
+	Column(
+		modifier = Modifier
+			.fillMaxHeight()
+			.verticalScroll(rememberScrollState())
+	) {
 		Box {
 			MenuLink(
 				icon = {

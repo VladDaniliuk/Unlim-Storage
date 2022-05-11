@@ -22,7 +22,7 @@ fun SignInView(
 	onActivityResult: (result: ActivityResult, storageType: StorageType) -> Unit,
 	onClick: (StorageType) -> Intent?,
 ) {
-	Column {
+	Column(modifier = Modifier.fillMaxSize()) {
 		Spacer(modifier = Modifier.weight(1f))
 
 		Text(

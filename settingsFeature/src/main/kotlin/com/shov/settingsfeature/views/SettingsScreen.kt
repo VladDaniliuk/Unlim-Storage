@@ -2,6 +2,7 @@ package com.shov.settingsfeature.views
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -38,7 +39,11 @@ fun SettingsScreen(
 
 @Composable
 internal fun SettingsView(onNavigate: (String) -> Unit) {
-	Column(Modifier.verticalScroll(rememberScrollState())) {
+	Column(
+		modifier = Modifier
+			.fillMaxHeight()
+			.verticalScroll(rememberScrollState())
+	) {
 		MenuLink(
 			icon = {
 				CustomIcon(imageVector = Icons.Rounded.AccountCircle)

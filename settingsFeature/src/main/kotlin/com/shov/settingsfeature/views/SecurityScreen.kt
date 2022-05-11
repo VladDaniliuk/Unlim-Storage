@@ -3,10 +3,12 @@ package com.shov.settingsfeature.views
 import android.content.Context
 import androidx.biometric.BiometricManager
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -62,7 +64,7 @@ fun SecurityView(
 	onPasswordSetClick: () -> Unit = {},
 	onRemovePasswordClick: () -> Unit = {},
 	onCantAuthWithBiometric: () -> Unit = {}
-) = Column {
+) = Column(modifier = Modifier.fillMaxHeight()) {
 	if (isPinCodeSetUp) {
 		ChangePasswordMenuLink(onChangePasswordClick = onChangePasswordClick)
 
