@@ -28,6 +28,7 @@ import com.shov.filesfeature.viewModels.FABViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FABScaffold(
+	modifier: Modifier = Modifier,
 	context: Context = LocalContext.current,
 	fabViewModel: FABViewModel = hiltViewModel(),
 	onCreateNewFolderClick: () -> Unit,
@@ -36,6 +37,7 @@ fun FABScaffold(
 	content: @Composable () -> Unit
 ) {
 	Scaffold(
+		modifier = modifier,
 		floatingActionButton = {
 			CustomFloatingActionButton(
 				modifier = Modifier.padding(
