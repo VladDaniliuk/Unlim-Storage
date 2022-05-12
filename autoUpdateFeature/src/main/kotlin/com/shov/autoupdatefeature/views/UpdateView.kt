@@ -1,9 +1,10 @@
 package com.shov.autoupdatefeature.views
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Autorenew
 import androidx.compose.material.icons.rounded.Update
@@ -23,17 +24,23 @@ internal fun UpdateView(
 	onCheckForUpdateClick: () -> Unit,
 	isShowAgain: Boolean,
 	isShowProgress: Boolean,
-	onAutoCheckClick: () -> Unit
+	onAutoCheckClick: () -> Unit,
+	paddingValues: PaddingValues
 ) {
-	Box(modifier = Modifier.fillMaxSize()) {
-		if (isShowProgress) {
-			LinearProgressIndicator(
-				modifier = Modifier.fillMaxWidth(),
-				trackColor = Color.Transparent
-			)
-		}
+	if (isShowProgress) {
+		LinearProgressIndicator(
+			modifier = Modifier
+				.padding(paddingValues)
+				.fillMaxWidth(),
+			trackColor = Color.Transparent
+		)
+	}
 
-		Column {
+	LazyColumn(
+		modifier = Modifier.fillMaxHeight(),
+		contentPadding = paddingValues
+	) {
+		item {
 			MenuLink(
 				icon = {
 					CustomIcon(imageVector = Icons.Rounded.Update)
@@ -64,7 +71,9 @@ internal fun UpdateView(
 private fun UpdatePreview() {
 	UpdateView(
 		onCheckForUpdateClick = {},
-		isShowAgain = true,
-		isShowProgress = false
-	) {}
+		isShowAgain = false,
+		isShowProgress = false,
+		onAutoCheckClick = {},
+		paddingValues = PaddingValues()
+	)
 }

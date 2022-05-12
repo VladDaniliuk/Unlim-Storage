@@ -22,13 +22,7 @@ fun RevokeAccountDialog(
 ) {
 	RevokeAccountView(
 		nameId = revokeAccountViewModel.storageType.nameId,
-		onClose = {
-			navigationViewModel.navigateTo(
-				destination = Screen.Accounts.route,
-				popUp = Screen.Accounts.route,
-				inclusive = true
-			)
-		}
+		onClose = navigationViewModel::popBack
 	) {
 		revokeAccountViewModel.signOut {
 			navigationViewModel.navigateTo(

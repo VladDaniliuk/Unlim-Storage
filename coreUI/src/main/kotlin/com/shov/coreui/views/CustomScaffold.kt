@@ -1,53 +1,63 @@
 package com.shov.coreui.views
 
+import androidx.compose.animation.core.DecayAnimationSpec
+import androidx.compose.animation.rememberSplineBasedDecay
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.google.accompanist.navigation.material.BottomSheetNavigator
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.ModalBottomSheetLayout
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
-import com.shov.coreui.ui.CustomTopAppBar
-import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.coreutils.viewModels.singletonViewModel
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.shov.coreui.ui.LocalHostState
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomScaffold(
-	bottomSheetNavigator: BottomSheetNavigator = rememberBottomSheetNavigator(),
-	scaffold: ScaffoldViewModel = singletonViewModel(),
-	content: @Composable (BottomSheetNavigator) -> Unit
+	title: (@Composable () -> Unit)? = null,
+	navigationIcon: (@Composable () -> Unit)? = null,
+	actions: (@Composable RowScope.() -> Unit)? = null,
+	content: @Composable (PaddingValues) -> Unit
 ) {
-	ModalBottomSheetLayout(
-		bottomSheetNavigator = bottomSheetNavigator,
-		modifier = Modifier
-			.fillMaxSize()
-			.windowInsetsPadding(
-				WindowInsets.navigationBars.only(WindowInsetsSides.Start + WindowInsetsSides.End)
-			),
-		sheetShape = MaterialTheme.shapes.medium.copy(
-			bottomEnd = CornerSize(0.dp),
-			bottomStart = CornerSize(0.dp)
-		),
-		sheetBackgroundColor = MaterialTheme.colorScheme.surface,
-		sheetContentColor = contentColorFor(MaterialTheme.colorScheme.surface)
-	) {
-		@OptIn(ExperimentalMaterial3Api::class)
-		Scaffold(
-			topBar = { CustomTopAppBar() },
-			snackbarHost = {
-				SnackbarHost(
-					modifier = Modifier.navigationBarsPadding(),
-					hostState = scaffold.snackbarHostState
-				)
+	val decayAnimationSpec: DecayAnimationSpec<Float> = rememberSplineBasedDecay()
+	val scrollBehavior: TopAppBarScrollBehavior = remember(decayAnimationSpec) {
+		TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
+	}
+	val hostState: SnackbarHostState = remember { SnackbarHostState() }
+
+	Scaffold(
+		modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+		topBar = {
+			if ((title != null) or (actions != null) or (navigationIcon != null)) {
+				Box(
+					Modifier.background(
+						TopAppBarDefaults.largeTopAppBarColors()
+							.containerColor(scrollBehavior.scrollFraction).value
+					)
+				) {
+					LargeTopAppBar(
+						title = title ?: {},
+						navigationIcon = navigationIcon ?: {},
+						actions = actions ?: {},
+						scrollBehavior = scrollBehavior,
+						modifier = Modifier.padding(WindowInsets.statusBars.asPaddingValues())
+					)
+				}
 			}
-		) {
-			Box(modifier = Modifier.padding(paddingValues = it)) {
-				content(bottomSheetNavigator)
+		},
+		snackbarHost = {
+			SnackbarHost(
+				modifier = Modifier.navigationBarsPadding(),
+				hostState = hostState
+			)
+		}
+	) { paddingValues ->
+		CompositionLocalProvider(LocalHostState provides hostState) {
+			Surface(color = MaterialTheme.colorScheme.background) {
+				content(paddingValues)
 			}
 		}
 	}
 }
+

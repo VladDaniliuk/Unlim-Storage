@@ -1,7 +1,7 @@
 package com.shov.settingsfeature.views.navigations
 
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import com.shov.coreui.ui.horizontalComposable
 import com.shov.coreutils.values.Screen
 import com.shov.settingsfeature.views.SecurityScreen
 import com.shov.settingsfeature.views.SettingsScreen
@@ -12,25 +12,25 @@ import com.shov.settingsfeature.views.password.RemovePasswordScreen
 import com.shov.settingsfeature.views.theme.ThemeScreen
 
 fun NavGraphBuilder.settingsComposable() {
-	composable(Screen.ChangePassword.route) {
+	horizontalComposable(Screen.ChangePassword.route) {
 		ChangePasswordScreen()
 	}
-	composable(Screen.CheckPassword.route) {
+	horizontalComposable(Screen.CheckPassword.route) {
 		CheckPasswordScreen()
 	}
-	composable(Screen.CreatePassword.route) {
+	horizontalComposable(Screen.CreatePassword.route) {
 		CreatePasswordScreen()
 	}
-	composable(Screen.RemovePassword.route) {
+	horizontalComposable(Screen.RemovePassword.route) {
 		RemovePasswordScreen()
 	}
-	composable(Screen.Security.route) {
+	horizontalComposable(Screen.Security.route) {
 		SecurityScreen()
 	}
-	composable(Screen.Settings.route) {
+	horizontalComposable(Screen.Settings.route) {
 		SettingsScreen()
 	}
-	composable(Screen.Theme.route) {
+	horizontalComposable(Screen.Theme.route) {
 		ThemeScreen()
 	}
 }

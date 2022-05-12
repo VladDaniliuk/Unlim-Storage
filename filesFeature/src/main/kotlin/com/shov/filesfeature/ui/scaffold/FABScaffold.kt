@@ -11,19 +11,22 @@ import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.UploadFile
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.ui.LocalHostState
 import com.shov.coreui.ui.buttons.CustomFloatingActionButton
 import com.shov.coreui.ui.buttons.CustomFloatingActionButtonState
 import com.shov.coreui.ui.buttons.FloatingActionButtonModel
-import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import com.shov.filesfeature.viewModels.FABViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,7 +36,8 @@ fun FABScaffold(
 	fabViewModel: FABViewModel = hiltViewModel(),
 	onCreateNewFolderClick: () -> Unit,
 	onUploadFile: () -> Unit,
-	scaffold: ScaffoldViewModel = singletonViewModel(),
+	coroutine: CoroutineScope = rememberCoroutineScope(),
+	snackbar: SnackbarHostState = LocalHostState.current,
 	content: @Composable () -> Unit
 ) {
 	Scaffold(
@@ -64,7 +68,10 @@ fun FABScaffold(
 						text = stringResource(id = R.string.download_list),
 					) {
 						fabViewModel.collapse()
-						scaffold.showSnackbar(context.getString(R.string.list_unavailable))
+
+						coroutine.launch {
+							snackbar.showSnackbar(context.getString(R.string.list_unavailable))
+						}
 					}
 				),
 				onClick = fabViewModel::onClick

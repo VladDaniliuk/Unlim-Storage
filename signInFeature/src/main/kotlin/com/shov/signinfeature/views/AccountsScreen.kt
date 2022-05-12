@@ -1,17 +1,21 @@
 package com.shov.signinfeature.views
 
-import android.content.Context
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,7 +24,7 @@ import com.shov.coremodels.models.StorageType
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.coreui.viewModels.NavigationViewModel
-import com.shov.coreui.viewModels.TopAppBarViewModel
+import com.shov.coreui.views.CustomScaffold
 import com.shov.coreutils.values.Dialog
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.signinfeature.R
@@ -29,31 +33,43 @@ import com.shov.signinfeature.viewModels.AccountsViewModel
 @Composable
 fun AccountsScreen(
 	accountsViewModel: AccountsViewModel = hiltViewModel(),
-	context: Context = LocalContext.current,
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
-	AccountsView(
-		storageTypes = accountsViewModel.storageTypes,
-		navigateTo = navigationViewModel::navigateTo,
-		isAddAccountAvailable = accountsViewModel.isAddAccountAvailable,
-	)
-
-	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
-			Icons.Rounded.ArrowBack to navigationViewModel::popBack,
-			context.getString(R.string.accounts)
+	CustomScaffold(
+		title = {
+			Text(stringResource(id = R.string.accounts))
+		},
+		navigationIcon = {
+			IconButton(onClick = navigationViewModel::popBack) {
+				Icon(
+					imageVector = Icons.Rounded.ArrowBack,
+					contentDescription = null
+				)
+			}
+		}
+	) { paddingValues ->
+		AccountsView(
+			paddingValues = paddingValues,
+			storageTypes = accountsViewModel.storageTypes,
+			navigateTo = navigationViewModel::navigateTo,
+			isAddAccountAvailable = accountsViewModel.isAddAccountAvailable,
 		)
 	}
 }
 
 @Composable
 internal fun AccountsView(
+	paddingValues: PaddingValues,
 	storageTypes: List<StorageType>,
 	navigateTo: (String) -> Unit,
 	isAddAccountAvailable: Boolean,
 ) {
-	Column(modifier = Modifier.fillMaxSize()) {
+	Column(
+		modifier = Modifier
+			.padding(paddingValues)
+			.fillMaxHeight()
+			.verticalScroll(rememberScrollState())
+	) {
 		storageTypes.forEach { storageType: StorageType ->
 			MenuLink(
 				icon = {
@@ -91,6 +107,7 @@ private fun AccountsPreview() {
 	AccountsView(
 		storageTypes = listOf(StorageType.BOX),
 		navigateTo = {},
-		isAddAccountAvailable = true
+		isAddAccountAvailable = true,
+		paddingValues = PaddingValues()
 	)
 }

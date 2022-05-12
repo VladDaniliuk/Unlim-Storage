@@ -1,9 +1,7 @@
 package com.shov.settingsfeature.views.theme
 
 import android.os.Build
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -21,15 +19,17 @@ import com.shov.settingsfeature.R
 
 @Composable
 fun ThemeView(
-	theme: Theme,
-	expandMenu: (Boolean) -> Unit,
-	isExpanded: Boolean,
+	changeDynamicTheme: (Boolean) -> Unit,
 	changeTheme: (Theme) -> Unit,
+	expandMenu: (Boolean) -> Unit,
 	isDynamicTheme: Boolean,
-	changeDynamicTheme: (Boolean) -> Unit
+	isExpanded: Boolean,
+	paddingValues: PaddingValues,
+	theme: Theme
 ) {
 	Column(
 		modifier = Modifier
+			.padding(paddingValues)
 			.fillMaxHeight()
 			.verticalScroll(rememberScrollState())
 	) {
@@ -74,11 +74,12 @@ fun ThemeView(
 @Composable
 fun ThemePreview() {
 	ThemeView(
-		theme = Theme.Light,
-		expandMenu = {},
-		isExpanded = false,
+		changeDynamicTheme = {},
 		changeTheme = {},
+		expandMenu = {},
 		isDynamicTheme = true,
-		changeDynamicTheme = {}
+		isExpanded = false,
+		paddingValues = PaddingValues(),
+		theme = Theme.Light
 	)
 }

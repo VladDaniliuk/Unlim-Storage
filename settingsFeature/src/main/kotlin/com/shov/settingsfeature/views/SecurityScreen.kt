@@ -4,17 +4,23 @@ import android.content.Context
 import androidx.biometric.BiometricManager
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
-import com.shov.coreui.viewModels.TopAppBarViewModel
+import com.shov.coreui.views.CustomScaffold
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
@@ -29,33 +35,41 @@ import com.shov.settingsfeature.viewModels.SecurityViewModel
 fun SecurityScreen(
 	context: Context = LocalContext.current,
 	scaffold: ScaffoldViewModel = singletonViewModel(),
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	securityViewModel: SecurityViewModel = hiltViewModel(),
 	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
-	SecurityView(
-		canAuthWithBiometric = BiometricManager.from(context).checkForAuthenticate(),
-		isBiometricCheckedState = securityViewModel.isBiometricEnabled,
-		isPinCodeSetUp = securityViewModel.isPassSetUp,
-		onChangePasswordClick = { navigationViewModel.navigateTo(Screen.ChangePassword.route) },
-		onCheckBoxChange = securityViewModel::setBiometricEnable,
-		onPasswordSetClick = { navigationViewModel.navigateTo(Screen.CreatePassword.route) },
-		onRemovePasswordClick = { navigationViewModel.navigateTo(Screen.RemovePassword.route) },
-		onCantAuthWithBiometric = {
-			scaffold.showSnackbar(context.getString(R.string.check_biometric_on_settings))
+	CustomScaffold(
+		title = {
+			Text(stringResource(R.string.security))
+		},
+		navigationIcon = {
+			IconButton(onClick = navigationViewModel::popBack) {
+				Icon(
+					imageVector = Icons.Rounded.ArrowBack,
+					contentDescription = null
+				)
+			}
 		}
-	)
-
-	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
-			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
-			title = context.getString(R.string.security)
+	) { paddingValues ->
+		SecurityView(
+			modifier = Modifier.padding(paddingValues),
+			canAuthWithBiometric = BiometricManager.from(context).checkForAuthenticate(),
+			isBiometricCheckedState = securityViewModel.isBiometricEnabled,
+			isPinCodeSetUp = securityViewModel.isPassSetUp,
+			onChangePasswordClick = { navigationViewModel.navigateTo(Screen.ChangePassword.route) },
+			onCheckBoxChange = securityViewModel::setBiometricEnable,
+			onPasswordSetClick = { navigationViewModel.navigateTo(Screen.CreatePassword.route) },
+			onRemovePasswordClick = { navigationViewModel.navigateTo(Screen.RemovePassword.route) },
+			onCantAuthWithBiometric = {
+				scaffold.showSnackbar(context.getString(R.string.check_biometric_on_settings))
+			}
 		)
 	}
 }
 
 @Composable
 fun SecurityView(
+	modifier: Modifier = Modifier,
 	canAuthWithBiometric: Boolean = true,
 	isBiometricCheckedState: Boolean,
 	isPinCodeSetUp: Boolean = false,
@@ -64,7 +78,11 @@ fun SecurityView(
 	onPasswordSetClick: () -> Unit = {},
 	onRemovePasswordClick: () -> Unit = {},
 	onCantAuthWithBiometric: () -> Unit = {}
-) = Column(modifier = Modifier.fillMaxHeight()) {
+) = Column(
+	modifier = modifier
+		.fillMaxHeight()
+		.verticalScroll(rememberScrollState())
+) {
 	if (isPinCodeSetUp) {
 		ChangePasswordMenuLink(onChangePasswordClick = onChangePasswordClick)
 

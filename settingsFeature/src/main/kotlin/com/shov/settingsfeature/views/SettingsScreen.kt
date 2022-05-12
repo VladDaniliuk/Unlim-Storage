@@ -1,46 +1,57 @@
 package com.shov.settingsfeature.views
 
-import android.content.Context
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.menuLinks.MenuLink
 import com.shov.coreui.viewModels.NavigationViewModel
-import com.shov.coreui.viewModels.TopAppBarViewModel
+import com.shov.coreui.views.CustomScaffold
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.settingsfeature.R
 
 @Composable
 fun SettingsScreen(
-	context: Context = LocalContext.current,
-	topAppBarViewModel: TopAppBarViewModel = singletonViewModel(),
 	navigationViewModel: NavigationViewModel = singletonViewModel()
 ) {
-	SettingsView(onNavigate = navigationViewModel::navigateTo)
-
-	LaunchedEffect(key1 = null) {
-		topAppBarViewModel.setTopBar(
-			prevRoute = Icons.Rounded.ArrowBack to navigationViewModel::popBack,
-			title = context.getString(R.string.settings)
+	CustomScaffold(
+		title = {
+			Text(stringResource(id = R.string.settings))
+		},
+		navigationIcon = {
+			IconButton(onClick = navigationViewModel::popBack) {
+				Icon(
+					imageVector = Icons.Rounded.ArrowBack,
+					contentDescription = null
+				)
+			}
+		}
+	) { paddingValues ->
+		SettingsView(
+			paddingValues = paddingValues,
+			onNavigate = navigationViewModel::navigateTo
 		)
 	}
 }
 
 @Composable
-internal fun SettingsView(onNavigate: (String) -> Unit) {
+internal fun SettingsView(paddingValues: PaddingValues, onNavigate: (String) -> Unit) {
 	Column(
 		modifier = Modifier
+			.padding(paddingValues)
 			.fillMaxHeight()
 			.verticalScroll(rememberScrollState())
 	) {
@@ -89,5 +100,5 @@ internal fun SettingsView(onNavigate: (String) -> Unit) {
 @Preview
 @Composable
 private fun SettingsScreenPreview() {
-	SettingsView {}
+	SettingsView(paddingValues = PaddingValues()) {}
 }

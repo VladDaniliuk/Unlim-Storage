@@ -5,14 +5,12 @@ import android.content.Context
 import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shov.coreui.ui.LocalHostState
 import com.shov.coreui.viewModels.NavigationViewModel
-import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreui.viewModels.TopAppBarViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
 import com.shov.coreutils.values.Screen
@@ -23,13 +21,16 @@ import com.shov.filesfeature.utils.rememberRequestMultiplePermissionsResult
 import com.shov.filesfeature.utils.share
 import com.shov.filesfeature.viewModels.FileInfoViewModel
 import com.shov.filesfeature.views.fileInfo.views.FileInfoView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun FileInfoScreen(
 	navigationViewModel: NavigationViewModel = singletonViewModel(),
 	context: Context = LocalContext.current,
 	fileInfoViewModel: FileInfoViewModel = hiltViewModel(),
-	scaffold: ScaffoldViewModel = singletonViewModel(),
+	snackbar: SnackbarHostState = LocalHostState.current,
+	coroutine: CoroutineScope = rememberCoroutineScope(),
 	topAppBarViewModel: TopAppBarViewModel = singletonViewModel()
 ) {
 	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
@@ -39,11 +40,15 @@ fun FileInfoScreen(
 		Manifest.permission.WRITE_EXTERNAL_STORAGE,
 		onAllowed = {
 			fileInfoViewModel.downloadFile { id ->
-				scaffold.showSnackbar(context.getString(id))
+				coroutine.launch {
+					snackbar.showSnackbar(context.getString(id))
+				}
 			}
 		},
 		onDenied = {
-			scaffold.showSnackbar(context.getString(R.string.permissions_denied))
+			coroutine.launch {
+				snackbar.showSnackbar(context.getString(R.string.permissions_denied))
+			}
 		}
 	)
 
@@ -76,7 +81,9 @@ fun FileInfoScreen(
 					)
 				) {
 					fileInfoViewModel.downloadFile { id ->
-						scaffold.showSnackbar(context.getString(id))
+						coroutine.launch {
+							snackbar.showSnackbar(context.getString(id))
+						}
 					}
 				} else {
 					launcher.launch(
@@ -88,11 +95,17 @@ fun FileInfoScreen(
 				}
 			} else {
 				fileInfoViewModel.downloadFile { id ->
-					scaffold.showSnackbar(context.getString(id))
+					coroutine.launch {
+						snackbar.showSnackbar(context.getString(id))
+					}
 				}
 			}
 		},
-		onShowSnackbar = scaffold::showSnackbar
+		onShowSnackbar = {
+			coroutine.launch {
+				snackbar.showSnackbar(it)
+			}
+		}
 	)
 
 	LaunchedEffect(key1 = isConnected) {
@@ -106,7 +119,9 @@ fun FileInfoScreen(
 			Icons.Rounded.ArrowBack to navigationViewModel::popBack,
 			fileInfoViewModel.storeItem?.name,
 			fileInfoViewModel.staredIcon to {
-				scaffold.showSnackbar(context.getString(R.string.doesnt_work_now))
+				coroutine.launch {
+					snackbar.showSnackbar(context.getString(R.string.doesnt_work_now))
+				}
 			}
 		)
 	}

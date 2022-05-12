@@ -1,9 +1,8 @@
 package com.shov.filesfeature.views.navigations
 
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.bottomSheet
+import com.shov.coreui.ui.bottomSheetComposable
+import com.shov.coreui.ui.horizontalComposable
 import com.shov.coreutils.values.BottomSheet
 import com.shov.coreutils.values.Screen
 import com.shov.filesfeature.views.FileActionsBottomSheet
@@ -15,28 +14,25 @@ import com.shov.filesfeature.views.newObject.UploadFileBottomSheet
 import com.shov.filesfeature.views.newObject.newFolder.NewFolderBottomSheet
 
 fun NavGraphBuilder.filesComposable() {
-	composable(Screen.FileInfo.route) {
+	horizontalComposable(Screen.FileInfo.route) {
 		FileInfoScreen()
 	}
-	composable(Screen.FileDescription.route) {
+	horizontalComposable(Screen.FileDescription.route) {
 		FileDescriptionScreen()
 	}
-	composable(Screen.Files.route) {
+	horizontalComposable(Screen.Files.route) {
 		FileListScreen()
 	}
-	composable(Screen.Search.route) {
+	horizontalComposable(Screen.Search.route) {
 		SearchScreen()
 	}
-	@OptIn(ExperimentalMaterialNavigationApi::class)
-	bottomSheet(BottomSheet.FileAction.route) {
+	bottomSheetComposable(BottomSheet.FileAction.route) {
 		FileActionsBottomSheet()
 	}
-	@OptIn(ExperimentalMaterialNavigationApi::class)
-	bottomSheet(BottomSheet.NewFolder.route) {
+	bottomSheetComposable(BottomSheet.NewFolder.route) {
 		NewFolderBottomSheet()
 	}
-	@OptIn(ExperimentalMaterialNavigationApi::class)
-	bottomSheet(BottomSheet.UploadFile.route) {
+	bottomSheetComposable(BottomSheet.UploadFile.route) {
 		UploadFileBottomSheet()
 	}
 }
