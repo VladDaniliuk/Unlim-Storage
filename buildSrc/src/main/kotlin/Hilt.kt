@@ -6,7 +6,7 @@ object Hilt {
 	private const val hiltLib = "androidx.hilt:hilt"
 	private const val daggerLib = "com.google.dagger:hilt-android"
 	private const val hiltVersion = "1.0.0"
-	private const val daggerVersion = "2.41"
+	private const val daggerVersion = "2.42"
 
 	object Lib {
 		const val compiler = "$daggerLib-compiler:$daggerVersion"
