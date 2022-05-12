@@ -3,8 +3,8 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Compose {
 	private const val lib = "androidx.compose"
-	const val version = "1.2.0-alpha08"
-	private const val versionMaterial3 = "1.0.0-alpha10"
+	const val version = "1.2.0-beta01"
+	private const val versionMaterial3 = "1.0.0-alpha11"
 
 	object Lib {
 		const val foundation = ".foundation:foundation:$version"

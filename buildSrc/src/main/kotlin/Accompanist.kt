@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 object Accompanist {
 	private const val lib = "com.google.accompanist:accompanist"
-	private const val version = "0.24.7-alpha"
+	private const val version = "0.24.8-beta"
 
 	object Lib {
 		const val swiperefresh = "$lib-swiperefresh:$version"
