@@ -1,4 +1,4 @@
-package com.shov.unlimstorage.utils
+package com.shov.unlimstorage.utils.context
 
 import android.content.Context
 import android.net.ConnectivityManager

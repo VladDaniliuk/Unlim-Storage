@@ -9,13 +9,14 @@ import com.dropbox.core.android.Auth
 import com.dropbox.core.android.AuthActivity
 import com.dropbox.core.oauth.DbxCredential
 import com.dropbox.core.v2.DbxClientV2
-import com.shov.unlimstorage.models.preferences.Preference
+import com.shov.unlimstorage.models.repositories.PreferenceRepository
 import com.shov.unlimstorage.values.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class DropBoxSignIn @Inject constructor(
-	@ApplicationContext val context: Context
+	@ApplicationContext val context: Context,
+	private val preference: PreferenceRepository
 ) : Authorizer {
 	override fun signIn(dataForSignIn: ManagedActivityResultLauncher<Intent, ActivityResult>) {
 		Auth.startOAuth2PKCE(
@@ -30,13 +31,13 @@ class DropBoxSignIn @Inject constructor(
 	}
 
 	override fun isSuccess(): Boolean {
-		val credentialPref by Preference(context, DROPBOX_CREDENTIAL, "")
+		val credentialPref by preference.getPref(DROPBOX_CREDENTIAL, "")
 		return credentialPref.isNotEmpty()
 	}
 
 	@Suppress(NEVER_ACCESSED, UNUSED_VALUE)
 	override suspend fun signOut() {
-		var credentialPref by Preference(context, DROPBOX_CREDENTIAL, "")
+		var credentialPref by preference.getPref(DROPBOX_CREDENTIAL, "")
 
 		DbxClientV2(
 			DbxRequestConfig(DROPBOX_CLIENT_IDENTIFIER),

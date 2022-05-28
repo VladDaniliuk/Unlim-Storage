@@ -21,7 +21,10 @@ fun CustomScaffold(
 		snackbarHost = { hostState ->
 			SnackbarHost(
 				hostState = hostState,
-				modifier = Modifier.navigationBarsPadding()
+				modifier = Modifier.navigationBarsPadding(
+					start = false,
+					end = false
+				)
 			) { snackBarData ->
 				Snackbar(snackbarData = snackBarData)
 			}
@@ -36,7 +39,10 @@ fun FABScaffold(onClick: () -> Unit, content: @Composable (PaddingValues) -> Uni
 	Scaffold(
 		floatingActionButton = {
 			FloatingActionButton(
-				modifier = Modifier.navigationBarsPadding(),
+				modifier = Modifier.navigationBarsPadding(
+					start = false,
+					end = false
+				),
 				onClick = onClick
 			) {
 				Icon(
