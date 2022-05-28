@@ -2,10 +2,9 @@ package com.shov.unlimstorage.models.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.shov.unlimstorage.values.ARGUMENT_ANY
-import com.shov.unlimstorage.values.PREFERENCES
-import com.shov.unlimstorage.values.UNCHECKED_CAST
-import com.shov.unlimstorage.values.UnknownClassInheritance
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import com.shov.unlimstorage.values.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -13,10 +12,26 @@ import kotlin.reflect.KProperty
 class Preference<T>(
 	@ApplicationContext private val context: Context,
 	private val name: String,
-	private val default: T
+	private val default: T,
+	private val isEncrypted: Boolean = false
 ) : ReadWriteProperty<Any?, T?> {
+	private val masterKey: MasterKey by lazy {
+		MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
+			.setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+	}
+
 	private val sharedPreferences: SharedPreferences by lazy {
-		context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+		if (isEncrypted) {
+			EncryptedSharedPreferences.create(
+				context,
+				ENCRYPTED_PREFERENCE,
+				masterKey,
+				EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+				EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+			)
+		} else {
+			context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+		}
 	}
 
 	override fun getValue(thisRef: Any?, property: KProperty<*>): T {

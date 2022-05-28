@@ -47,13 +47,15 @@ class UpdateViewModel @Inject constructor(
 	}
 
 	private fun checkNeedUpdate(lastReleaseVersion: String) {
-		val currentVersion = BuildConfig.VERSION_NAME.split(".")
+		val currentVersion = BuildConfig.VERSION_NAME.split(".", "-")
 
-		lastReleaseVersion.split(".").forEachIndexed { i, element ->
-			if (element.toLong() > (currentVersion.getOrNull(i)?.toLong() ?: 0)) {
+		lastReleaseVersion.split(".", "-").forEachIndexed { i, element ->
+			if (element.toLongOrNull() ?: 0 > (currentVersion.getOrNull(i)?.toLongOrNull() ?: 0)) {
 				isDialogShown = true
 				return
-			} else if (element.toLong() < (currentVersion.getOrNull(i)?.toLong() ?: 0)) {
+			} else if (
+				element.toLongOrNull() ?: 0 < (currentVersion.getOrNull(i)?.toLongOrNull() ?: 0)
+			) {
 				return
 			}
 		}
