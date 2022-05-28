@@ -2,6 +2,7 @@ package com.shov.unlimstorage.views.navigations
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,9 +35,8 @@ fun UploadNavigation(
 				}
 			) { fileUri ->
 				fileUri?.let { uri ->
-					context.contentResolver.openFileDescriptor(uri, "r", null)?.also { parcelFile ->
-						uploadNavigationState.file = FileInputStream(parcelFile.fileDescriptor)
-					}?.close()
+					uploadNavigationState.file =
+						context.contentResolver.openFileDescriptor(uri, "r", null)
 
 					uploadNavigationState.navController.navigate(
 						BottomSheet.ChooseFile.setParent(
@@ -52,7 +52,13 @@ fun UploadNavigation(
 			NewFolderBottomSheet()
 		}
 		composable(BottomSheet.ChooseFile.route) {
-			UploadBottomSheet(uploadNavigationState.file)
+			UploadBottomSheet(FileInputStream(uploadNavigationState.file?.fileDescriptor))
+		}
+	}
+
+	DisposableEffect(key1 = null) {
+		onDispose {
+			uploadNavigationState.file?.close()
 		}
 	}
 }
