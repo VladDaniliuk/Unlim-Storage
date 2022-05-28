@@ -11,6 +11,8 @@ import com.shov.unlimstorage.models.repositories.signIn.AuthorizerFactory
 import com.shov.unlimstorage.models.repositories.signIn.StorageType
 import com.shov.unlimstorage.utils.converters.StoreMetadataConverter
 import com.shov.unlimstorage.utils.converters.toStoreItem
+import com.shov.unlimstorage.utils.files.createFile
+import com.shov.unlimstorage.values.DOWNLOAD_PATH
 import com.shov.unlimstorage.values.getBoxFields
 import com.shov.unlimstorage.values.setItemFields
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -47,24 +49,16 @@ class BoxFiles @Inject constructor(
 		setPercents: (Float, String) -> Unit
 	) {
 		if (checkAuth) {
-			File(File("/storage/emulated/0/Download"), name).let { file ->
-				when {
-					file.createNewFile() -> {
-						val boxApiFile = BoxApiFile(BoxSession(context))
-							.getDownloadRequest(FileOutputStream(file), id)
-							.setProgressListener { numBytes, _ ->
-								setPercents((numBytes.toFloat() / size.toFloat()), name)
-							}
-						boxApiFile.send()
-					}
-					file.exists() -> {
-						//TODO "FILE WAS DOWNLOADED EARLY"
-					}
-					else -> {
-						//TODO ERROR DOWNLOAD
-					}
+			File(DOWNLOAD_PATH).createFile(
+				name = name,
+				onCreate = {
+					BoxApiFile(BoxSession(context))
+						.getDownloadRequest(FileOutputStream(this), id)
+						.setProgressListener { numBytes, _ ->
+							setPercents((numBytes.toFloat() / size.toFloat()), name)
+						}.send()
 				}
-			}
+			)//TODO onExist and onError
 		}
 	}
 
