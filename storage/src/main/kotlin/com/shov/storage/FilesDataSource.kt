@@ -12,4 +12,5 @@ interface FilesDataSource {
 	fun getFileMetadata(id: String, type: ItemType): StoreMetadataItem?
 	fun getFiles(folderId: String? = null): List<StoreItem>
 	suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?)
+	suspend fun renameFile(id: String, name: String): Boolean
 }

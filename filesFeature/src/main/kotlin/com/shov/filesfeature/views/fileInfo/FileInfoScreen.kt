@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
+import com.shov.coreutils.values.BottomSheet
 import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
@@ -90,7 +91,16 @@ fun FileInfoScreen(
 				}
 			}
 		},
-		onShowSnackbar = scaffold::showSnackbar
+		onShowSnackbar = scaffold::showSnackbar,
+		onRenameClick = {
+			navigationViewModel.navigateTo(
+				BottomSheet.RenameFile.setStoreItemId(
+					fileInfoViewModel.storeItem!!.disk.name,
+					fileInfoViewModel.storeItem!!.id,
+					fileInfoViewModel.storeItem!!.name
+				)
+			)
+		}
 	)
 
 	LaunchedEffect(key1 = isConnected) {

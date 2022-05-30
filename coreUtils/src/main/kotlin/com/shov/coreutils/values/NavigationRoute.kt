@@ -12,6 +12,7 @@ const val navUploadFile = "nav_uploadFile/?"
 //Arguments
 const val argFolderId = "arg_folderId"
 const val argFolderName = "arg_folderName"
+const val argStoreName= "arg_storeName"
 const val argStorageType = "arg_storageType"
 const val argStoreId = "arg_storeId"
 
@@ -65,6 +66,12 @@ sealed class BottomSheet(val route: String) {
 
 	object FileAction : BottomSheet("nav_fileAction/$argStoreId={$argStoreId}") {
 		fun setStoreItemId(storeId: String) = "nav_fileAction/$argStoreId=$storeId"
+	}
+
+	object RenameFile :
+		BottomSheet("nav_renameFile/$argStorageType={$argStorageType}/$argStoreId={$argStoreId}/$argFolderName={$argFolderName}") {
+		fun setStoreItemId(storageType: String, storeId: String, storeName: String) =
+			"nav_renameFile/$argStorageType=$storageType/$argStoreId=$storeId/$argFolderName=$storeName"
 	}
 }
 

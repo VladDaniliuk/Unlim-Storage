@@ -1,4 +1,4 @@
-package com.shov.filesfeature.views
+package com.shov.filesfeature.views.fileActions
 
 import android.content.Context
 import androidx.compose.runtime.Composable

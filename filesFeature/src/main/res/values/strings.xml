@@ -15,6 +15,7 @@
 	<string name="dot">.</string>
 	<string name="download">Download</string>
 	<string name="download_error">Download finished because of error</string>
+	<string name="rename">Rename</string>
 	<string name="download_started">Download started</string>
 	<string name="folder_name">folder name</string>
 	<string name="id_description">Id:</string>

@@ -6,8 +6,9 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.bottomSheet
 import com.shov.coreutils.values.BottomSheet
 import com.shov.coreutils.values.Screen
-import com.shov.filesfeature.views.FileActionsBottomSheet
 import com.shov.filesfeature.views.FileDescriptionScreen
+import com.shov.filesfeature.views.fileActions.FileActionsBottomSheet
+import com.shov.filesfeature.views.fileActions.FileRenameBottomSheet
 import com.shov.filesfeature.views.fileInfo.FileInfoScreen
 import com.shov.filesfeature.views.files.FileListScreen
 import com.shov.filesfeature.views.newObject.UploadFileBottomSheet
@@ -34,5 +35,10 @@ fun NavGraphBuilder.filesComposable() {
 	@OptIn(ExperimentalMaterialNavigationApi::class)
 	bottomSheet(BottomSheet.UploadFile.route) {
 		UploadFileBottomSheet()
+	}
+
+	@OptIn(ExperimentalMaterialNavigationApi::class)
+	bottomSheet(BottomSheet.RenameFile.route) {
+		FileRenameBottomSheet()
 	}
 }

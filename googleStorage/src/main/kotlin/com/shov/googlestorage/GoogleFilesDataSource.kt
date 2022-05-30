@@ -88,4 +88,12 @@ class GoogleFilesDataSource @Inject constructor(
 			.build()
 			.Files()
 	} ?: throw IllegalArgumentException()
+
+	override suspend fun renameFile(id: String, name: String): Boolean {
+		getGoogleFiles().update(
+			id,
+			GoogleFile().setName(name)
+		).execute()
+		return true
+	}
 }
