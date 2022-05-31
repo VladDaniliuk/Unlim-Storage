@@ -20,6 +20,8 @@ const val argStoreId = "arg_storeId"
 sealed class Screen(val route: String) {
     object SignIn : Screen("nav_signIn")
 
+    object DownloadList : Screen("nav_downloadList")
+
     //Settings routes
     object Updates : Screen("nav_updates")
     object Accounts : Screen("nav_accounts")

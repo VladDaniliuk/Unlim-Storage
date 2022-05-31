@@ -1,13 +1,25 @@
 package com.shov.storagerepositories.repositories.files
 
+import android.app.DownloadManager
 import android.content.Context
+import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Environment
+import androidx.core.content.FileProvider
+import androidx.core.database.getFloatOrNull
+import androidx.core.database.getIntOrNull
+import androidx.core.net.toFile
 import com.shov.coremodels.inheritances.DownloadManagerRequest
+import com.shov.coremodels.models.DownloadedItem
 import com.shov.coremodels.models.ItemType
 import com.shov.coremodels.models.StorageType
 import com.shov.coremodels.models.StoreItem
+import com.shov.localstorage.StoreItemDataSource
 import com.shov.storagerepositories.repositories.factories.FilesFactory
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.io.File
 import java.io.InputStream
 import javax.inject.Inject
@@ -19,7 +31,7 @@ interface FileActionsRepository {
         storageType: StorageType
     ): Boolean
 
-    fun download(
+    suspend fun download(
         storageType: StorageType,
         id: String,
         name: String,
@@ -53,10 +65,19 @@ interface FileActionsRepository {
         storageType: StorageType,
         id: String
     ): String
+
+    fun getDownloadedItems(): Flow<List<DownloadedItem>>
+
+    fun checkDownload(id: Long): Flow<Float>
+
+    fun cancelDownload(id: Long)
+
+    fun openFile(id: Long)
 }
 
 class FileActionsRepositoryImpl @Inject constructor(
     private val filesFactory: FilesFactory,
+    private val storeItemDataSource: StoreItemDataSource,
     @ApplicationContext val context: Context
 ) : FileActionsRepository {
     override suspend fun createFolder(
@@ -65,7 +86,7 @@ class FileActionsRepositoryImpl @Inject constructor(
         storageType: StorageType
     ) = filesFactory.create(storageType).createFolder(folderId, folderName)
 
-    override fun download(
+    override suspend fun download(
         storageType: StorageType,
         id: String,
         name: String,
@@ -100,14 +121,16 @@ class FileActionsRepositoryImpl @Inject constructor(
         } else emptyList()
     }
 
-    private fun downloadFile(
+    private suspend fun downloadFile(
         disk: StorageType,
         id: String,
         name: String,
     ) {
-        DownloadManagerRequest(context, filesFactory.create(disk).getDownloadLink(id), name)
+        val x = DownloadManagerRequest(context, filesFactory.create(disk).getDownloadLink(id), name)
             .addRequestHeaders(filesFactory.create(disk).getHeaders(id))
             .enqueue()
+
+        storeItemDataSource.addDownloadedFile(DownloadedItem(id, name, disk, x))
     }//TODO need mediaScanner
 
     override suspend fun uploadFile(
@@ -139,4 +162,61 @@ class FileActionsRepositoryImpl @Inject constructor(
         storageType: StorageType,
         id: String
     ): String = filesFactory.create(storageType).shareFile(itemType, id)
+
+    override fun getDownloadedItems(): Flow<List<DownloadedItem>> =
+        storeItemDataSource.getDownloadedFiles()
+
+    override fun checkDownload(id: Long): Flow<Float> = flow {
+        context.getSystemService(DownloadManager::class.java)
+            ?.query(DownloadManager.Query().setFilterById(id))
+            ?.let {
+                if (it.moveToFirst()) {
+                    when (it.getIntOrNull(it.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+                        DownloadManager.STATUS_SUCCESSFUL -> emit(1f)
+                        DownloadManager.STATUS_FAILED -> emit(-1f)
+                        DownloadManager.STATUS_RUNNING -> {
+                            emit(
+                                (it.getFloatOrNull(it.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+                                    ?: 0f) / (it.getFloatOrNull(it.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+                                    ?: 0f)
+                            )
+                        }
+                        else -> {}
+                    }
+                }
+            }
+    }
+
+    override fun cancelDownload(id: Long) {
+        context.getSystemService(DownloadManager::class.java)?.remove(id)
+    }
+
+    override fun openFile(id: Long) {
+        context.getSystemService(DownloadManager::class.java)
+            ?.query(DownloadManager.Query().setFilterById(id))?.let { cursor ->
+                if (cursor.moveToFirst()) {
+                    if (cursor.getIntOrNull(
+                            cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
+                        ) == DownloadManager.STATUS_SUCCESSFUL
+                    ) {
+                        context.openFile(cursor.getFile())
+                    }
+                }
+            }
+
+    }
+}
+
+fun Cursor.getFile(): File = Uri
+    .parse(getString(getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI))).toFile()
+
+fun Context.openFile(file: File) {
+    val install = Intent(Intent.ACTION_VIEW).apply {
+        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
+        data = FileProvider.getUriForFile(this@openFile, "$packageName.provider", file)
+    }
+
+    startActivity(install)
 }
