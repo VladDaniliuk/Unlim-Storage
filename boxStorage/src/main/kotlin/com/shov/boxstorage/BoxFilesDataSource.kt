@@ -76,9 +76,13 @@ class BoxFilesDataSource @Inject constructor(
         ).send()
     }
 
-    override suspend fun renameFile(id: String, name: String) = if (checkAuth) {
+    override suspend fun renameFile(itemType: ItemType, id: String, name: String) = if (checkAuth) {
         try {
-            BoxApiFile(BoxSession(context)).getRenameRequest(id, name).send()
+            if (itemType == ItemType.FILE) {
+                BoxApiFile(BoxSession(context)).getRenameRequest(id, name).send()
+            } else {
+                BoxApiFolder(BoxSession(context)).getRenameRequest(id, name).send()
+            }
             true
         } catch (e: BoxException) {
             false

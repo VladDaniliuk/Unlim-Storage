@@ -80,7 +80,7 @@ class DropBoxFilesDataSource @Inject constructor(
 	private fun getPath(id: String?) =
 		if (id.isNullOrEmpty()) "" else dbxUserFilesRequests()?.getMetadata(id)?.pathLower
 
-	override suspend fun renameFile(id: String, name: String): Boolean {
+	override suspend fun renameFile(itemType: ItemType, id: String, name: String): Boolean {
 		return try {
 			dbxUserFilesRequests()?.moveV2(
 				"${getPath(id)}",

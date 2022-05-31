@@ -12,72 +12,78 @@ const val navUploadFile = "nav_uploadFile/?"
 //Arguments
 const val argFolderId = "arg_folderId"
 const val argFolderName = "arg_folderName"
-const val argStoreName= "arg_storeName"
+const val argStoreName = "arg_storeName"
+const val argItemType = "arg_itemType"
 const val argStorageType = "arg_storageType"
 const val argStoreId = "arg_storeId"
 
 sealed class Screen(val route: String) {
-	object SignIn : Screen("nav_signIn")
+    object SignIn : Screen("nav_signIn")
 
-	//Settings routes
-	object Updates : Screen("nav_updates")
-	object Accounts : Screen("nav_accounts")
-	object Security : Screen("nav_security")
-	object Theme : Screen("nav_theme")
+    //Settings routes
+    object Updates : Screen("nav_updates")
+    object Accounts : Screen("nav_accounts")
+    object Security : Screen("nav_security")
+    object Theme : Screen("nav_theme")
 
-	//Password routes
-	object CreatePassword : Screen("nav_createPassword")
-	object ChangePassword : Screen("nav_changePassword")
-	object CheckPassword : Screen("nav_checkPassword")
-	object RemovePassword : Screen("nav_removePassword")
+    //Password routes
+    object CreatePassword : Screen("nav_createPassword")
+    object ChangePassword : Screen("nav_changePassword")
+    object CheckPassword : Screen("nav_checkPassword")
+    object RemovePassword : Screen("nav_removePassword")
 
-	object Settings : Screen("nav_settings")
-	object Files : Screen(
-		"$navFiles$argFolderId={$argFolderId}/?$argStorageType={$argStorageType}/?" +
-				"$argFolderName={$argFolderName}"
-	) {
-		fun openFolder(backStack: BackStack) = "$navFiles$argFolderId=${backStack.folderId}" +
-				"/?$argStorageType=${backStack.storageType}/?$argFolderName=${backStack.folderName}"
-	}
+    object Settings : Screen("nav_settings")
+    object Files : Screen(
+        "$navFiles$argFolderId={$argFolderId}/?$argStorageType={$argStorageType}/?" +
+                "$argFolderName={$argFolderName}"
+    ) {
+        fun openFolder(backStack: BackStack) = "$navFiles$argFolderId=${backStack.folderId}" +
+                "/?$argStorageType=${backStack.storageType}/?$argFolderName=${backStack.folderName}"
+    }
 
-	object FileInfo : Screen("$navFileInfo{$argStoreId}") {
-		fun setStoreItem(storeId: String) = "$navFileInfo$storeId"
-	}
+    object FileInfo : Screen("$navFileInfo{$argStoreId}") {
+        fun setStoreItem(storeId: String) = "$navFileInfo$storeId"
+    }
 
-	object FileDescription : Screen("$navFileDescription{$argStoreId}") {
-		fun setStoreItemId(storeId: String) = "$navFileDescription$storeId"
-	}
+    object FileDescription : Screen("$navFileDescription{$argStoreId}") {
+        fun setStoreItemId(storeId: String) = "$navFileDescription$storeId"
+    }
 }
 
 sealed class BottomSheet(val route: String) {
-	object NewFolder : BottomSheet(
-		"$navNewFolder$argStorageType={$argStorageType}/?$argFolderId={$argFolderId}"
-	) {
-		fun setParent(type: String?, folderId: String?) =
-			"$navNewFolder$argStorageType=${type ?: ""}/?$argFolderId=${folderId ?: ""}"
-	}
+    object NewFolder : BottomSheet(
+        "$navNewFolder$argStorageType={$argStorageType}/?$argFolderId={$argFolderId}"
+    ) {
+        fun setParent(type: String?, folderId: String?) =
+            "$navNewFolder$argStorageType=${type ?: ""}/?$argFolderId=${folderId ?: ""}"
+    }
 
-	object UploadFile : BottomSheet(
-		"$navUploadFile$argStorageType={$argStorageType}/?$argFolderId={$argFolderId}"
-	) {
-		fun setParent(type: String?, folderId: String?) =
-			"$navUploadFile$argStorageType=${type ?: ""}/?$argFolderId=${folderId ?: ""}"
-	}
+    object UploadFile : BottomSheet(
+        "$navUploadFile$argStorageType={$argStorageType}/?$argFolderId={$argFolderId}"
+    ) {
+        fun setParent(type: String?, folderId: String?) =
+            "$navUploadFile$argStorageType=${type ?: ""}/?$argFolderId=${folderId ?: ""}"
+    }
 
-	object FileAction : BottomSheet("nav_fileAction/$argStoreId={$argStoreId}") {
-		fun setStoreItemId(storeId: String) = "nav_fileAction/$argStoreId=$storeId"
-	}
+    object FileAction : BottomSheet("nav_fileAction/$argStoreId={$argStoreId}") {
+        fun setStoreItemId(storeId: String) = "nav_fileAction/$argStoreId=$storeId"
+    }
 
-	object RenameFile :
-		BottomSheet("nav_renameFile/$argStorageType={$argStorageType}/$argStoreId={$argStoreId}/$argFolderName={$argFolderName}") {
-		fun setStoreItemId(storageType: String, storeId: String, storeName: String) =
-			"nav_renameFile/$argStorageType=$storageType/$argStoreId=$storeId/$argFolderName=$storeName"
-	}
+    object RenameFile :
+        BottomSheet("nav_renameFile/$argStorageType={$argStorageType}/$argStoreId={$argStoreId}/$argFolderName={$argFolderName}/$argItemType={$argItemType}") {
+        fun setStoreItemId(
+            storageType: String,
+            storeId: String,
+            storeName: String,
+            itemType: String
+        ) =
+            "nav_renameFile/$argStorageType=$storageType/$argStoreId=$storeId/$argFolderName=$storeName/$argItemType=$itemType"
+    }
 }
 
 sealed class Dialog(val route: String) {
-	object AddAccount : Dialog("nav_addAccount")
-	object RevokeAccount : Dialog("nav_revokeAccount/{$argStorageType}") {
-		fun setStorageType(storageType: String) = "nav_revokeAccount/$storageType"
-	}
+    object AddAccount : Dialog("nav_addAccount")
+    object RevokeAccount : Dialog("nav_revokeAccount/{$argStorageType}") {
+        fun setStorageType(storageType: String) = "nav_revokeAccount/$storageType"
+    }
 }
