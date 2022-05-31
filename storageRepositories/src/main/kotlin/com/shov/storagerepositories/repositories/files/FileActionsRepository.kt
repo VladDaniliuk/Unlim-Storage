@@ -127,6 +127,8 @@ class FileActionsRepositoryImpl @Inject constructor(
         name: String,
     ) {
         val x = DownloadManagerRequest(context, filesFactory.create(disk).getDownloadLink(id), name)
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            .setTitle(name)
             .addRequestHeaders(filesFactory.create(disk).getHeaders(id))
             .enqueue()
 

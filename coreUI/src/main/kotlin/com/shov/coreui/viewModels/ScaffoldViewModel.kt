@@ -14,34 +14,35 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScaffoldViewModel @Inject constructor() : ViewModel() {
-	//Snackbar
-	val snackbarHostState = SnackbarHostState()
+    //Snackbar
+    val snackbarHostState = SnackbarHostState()
 
-	fun showSnackbar(message: String) {
-		viewModelScope.launch {
-			snackbarHostState.showSnackbar(message)
-		}
-	}
+    fun showSnackbar(message: String) {
+        viewModelScope.launch {
+            snackbarHostState.showSnackbar(message)
+        }
+    }
 
-	//TopAppBar
-	var topAppBar by mutableStateOf(TopAppBar())
-		private set
-	private var prevRouteOld by mutableStateOf<ImageVector?>(null)
-	private var nextRouteOld by mutableStateOf<ImageVector?>(null)
+    //TopAppBar
+    var topAppBar by mutableStateOf(TopAppBar())
+        private set
+    private var prevRouteOld by mutableStateOf<ImageVector?>(null)
+    private var nextRouteOld by mutableStateOf<ImageVector?>(null)
+    var onTitleClick by mutableStateOf<(() -> Unit)?>(null)
 
-	fun onPrevRouteChange() {
-		if (topAppBar.prevRoute != null) prevRouteOld = topAppBar.prevRoute?.first
-	}
+    fun onPrevRouteChange() {
+        if (topAppBar.prevRoute != null) prevRouteOld = topAppBar.prevRoute?.first
+    }
 
-	fun onNextRouteChange() {
-		if (topAppBar.nextRoute != null) nextRouteOld = topAppBar.nextRoute?.first
-	}
+    fun onNextRouteChange() {
+        if (topAppBar.nextRoute != null) nextRouteOld = topAppBar.nextRoute?.first
+    }
 
-	fun setTopBar(
-		prevRoute: Pair<ImageVector, (() -> Unit)>? = null,
-		title: String? = null,
-		nextRoute: Pair<ImageVector, (() -> Unit)>? = null
-	) {
-		topAppBar = TopAppBar(prevRoute, title, nextRoute)
-	}
+    fun setTopBar(
+        prevRoute: Pair<ImageVector, (() -> Unit)>? = null,
+        title: String? = null,
+        nextRoute: Pair<ImageVector, (() -> Unit)>? = null
+    ) {
+        topAppBar = TopAppBar(prevRoute, title, nextRoute)
+    }
 }

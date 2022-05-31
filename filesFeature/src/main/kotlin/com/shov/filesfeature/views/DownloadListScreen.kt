@@ -80,12 +80,14 @@ fun DownloadedItem(
             CustomText(text = "id: ${downloadedItem.downloadedId}")
 
             Row(modifier = Modifier.fillMaxWidth()) {
-                LinearProgressIndicator(
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .weight(1f),
-                    progress = percent
-                )
+                if (percent != 1f) {
+                    LinearProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .weight(1f),
+                        progress = percent
+                    )
+                }
 
                 if ((percent != -1f) and (percent != 1f)) {
                     CustomIcon(
