@@ -13,4 +13,5 @@ interface FilesDataSource {
     fun getFiles(folderId: String? = null): List<StoreItem>
     suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?)
     suspend fun renameFile(itemType: ItemType, id: String, name: String): Boolean
+    suspend fun deleteFile(itemType: ItemType, id: String)
 }

@@ -24,52 +24,60 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FileInfoViewModel @Inject constructor(
-	private val filesInfoRepository: FilesInfoRepository,
-	private val fileActionsRepository: FileActionsRepository,
-	savedStateHandle: SavedStateHandle
+    private val filesInfoRepository: FilesInfoRepository,
+    private val fileActionsRepository: FileActionsRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-	var id by mutableStateOf<String?>(null)
-		private set
-	var storeItem by mutableStateOf<StoreItem?>(null)
-		private set
-	var storeMetadata by mutableStateOf<StoreMetadataItem?>(null)
-		private set
+    var id by mutableStateOf<String?>(null)
+        private set
+    var storeItem by mutableStateOf<StoreItem?>(null)
+        private set
+    var storeMetadata by mutableStateOf<StoreMetadataItem?>(null)
+        private set
 
-	val staredIcon: ImageVector
-		get() = Icons.Rounded.run { if (storeMetadata?.isStarred == true) Star else StarBorder }
+    val staredIcon: ImageVector
+        get() = Icons.Rounded.run { if (storeMetadata?.isStarred == true) Star else StarBorder }
 
-	fun getFileMetadata() {
-		this.storeItem?.let { item ->
-			viewModelScope.launch(Dispatchers.IO) {
-				storeMetadata = filesInfoRepository.getRemoteMetadata(id!!, item.disk, item.type)
-			}
-		}
-	}
+    fun getFileMetadata() {
+        this.storeItem?.let { item ->
+            viewModelScope.launch(Dispatchers.IO) {
+                storeMetadata = filesInfoRepository.getRemoteMetadata(id!!, item.disk, item.type)
+            }
+        }
+    }
 
-	fun downloadFile(onShowSnackbar: (message: Int) -> Unit) {
-		this.storeItem?.let { item ->
-			viewModelScope.launch(Dispatchers.IO) {
-				onShowSnackbar(R.string.download_started)
+    fun downloadFile(onShowSnackbar: (message: Int) -> Unit) {
+        this.storeItem?.let { item ->
+            viewModelScope.launch(Dispatchers.IO) {
+                onShowSnackbar(R.string.download_started)
 
-				fileActionsRepository.download(
-					storageType = item.disk,
-					id = item.id,
-					name = item.name,
-					type = item.type
-				)
-			}
-		}
-	}
+                fileActionsRepository.download(
+                    storageType = item.disk,
+                    id = item.id,
+                    name = item.name,
+                    type = item.type
+                )
+            }
+        }
+    }
 
-	init {
-		savedStateHandle.get<String>(argStoreId)?.let { id ->
-			this.id = id
-		} ?: throw NullPointerException()
+    fun deleteFile(goBack: () -> Unit) {
+        viewModelScope.launch(Dispatchers.Default) {
+            fileActionsRepository.deleteFile(storeItem!!.type, storeItem!!.disk, storeItem!!.id)
+        }.invokeOnCompletion {
+            goBack()
+        }
+    }
 
-		viewModelScope.launch {
-			filesInfoRepository.getLocalItemAsync(id!!).collectLatest { storeItem ->
-				this@FileInfoViewModel.storeItem = storeItem
-			}
-		}
-	}
+    init {
+        savedStateHandle.get<String>(argStoreId)?.let { id ->
+            this.id = id
+        } ?: throw NullPointerException()
+
+        viewModelScope.launch {
+            filesInfoRepository.getLocalItemAsync(id!!).collectLatest { storeItem ->
+                this@FileInfoViewModel.storeItem = storeItem
+            }
+        }
+    }
 }

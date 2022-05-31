@@ -88,4 +88,14 @@ class BoxFilesDataSource @Inject constructor(
             false
         }
     } else false
+
+    override suspend fun deleteFile(itemType: ItemType, id: String) {
+        if (checkAuth) {
+                if (itemType == ItemType.FILE) {
+                    BoxApiFile(BoxSession(context)).getDeleteRequest(id).send()
+                } else {
+                    BoxApiFolder(BoxSession(context)).getDeleteRequest(id).send()
+                }
+        }
+    }
 }

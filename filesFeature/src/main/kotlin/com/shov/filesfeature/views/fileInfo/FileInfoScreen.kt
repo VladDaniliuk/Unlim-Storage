@@ -101,6 +101,12 @@ fun FileInfoScreen(
                     fileInfoViewModel.storeItem!!.type.name
                 )
             )
+        },
+        onDeleteClick = {
+            if (isConnected)
+                fileInfoViewModel.deleteFile {
+                    navigationViewModel.popBack()
+                }
         }
     )
 

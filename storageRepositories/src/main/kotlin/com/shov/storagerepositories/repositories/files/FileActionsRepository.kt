@@ -41,6 +41,12 @@ interface FileActionsRepository {
         id: String,
         name: String
     ): Boolean
+
+    suspend fun deleteFile(
+        itemType: ItemType,
+        storageType: StorageType,
+        id: String
+    )
 }
 
 class FileActionsRepositoryImpl @Inject constructor(
@@ -113,4 +119,12 @@ class FileActionsRepositoryImpl @Inject constructor(
         id: String,
         name: String
     ): Boolean = filesFactory.create(storageType).renameFile(itemType, id, name)
+
+    override suspend fun deleteFile(
+        itemType: ItemType,
+        storageType: StorageType,
+        id: String
+    ) {
+        filesFactory.create(storageType).deleteFile(itemType, id)
+    }
 }

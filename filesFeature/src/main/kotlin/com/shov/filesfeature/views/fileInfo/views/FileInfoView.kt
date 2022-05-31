@@ -20,93 +20,105 @@ import com.shov.filesfeature.ui.button.MaxWidthButton
 
 @Composable
 fun FileInfoView(
-	id: String?,
-	itemType: ItemType?,
-	storageTypeImageId: Int?,
-	fileSize: String?,
-	createdTime: String?,
-	modifiedTime: String?,
-	version: String?,
-	onDescriptionClick: () -> Unit,
-	description: String?,
-	sharingUsers: List<UserItem>?,
-	link: String?,
-	onShareLink: () -> Unit,
-	onDownloadClick: () -> Unit,
-	onShowSnackbar: (String) -> Unit,
-	onRenameClick: () -> Unit,
+    id: String?,
+    itemType: ItemType?,
+    storageTypeImageId: Int?,
+    fileSize: String?,
+    createdTime: String?,
+    modifiedTime: String?,
+    version: String?,
+    onDescriptionClick: () -> Unit,
+    description: String?,
+    sharingUsers: List<UserItem>?,
+    link: String?,
+    onShareLink: () -> Unit,
+    onDownloadClick: () -> Unit,
+    onShowSnackbar: (String) -> Unit,
+    onRenameClick: () -> Unit,
+    onDeleteClick: () -> Unit,
 ) {
-	Column(
-		modifier = Modifier
-			.verticalScroll(state = rememberScrollState())
-			.navigationBarsPadding()
-	) {
-		FileAdditionalInfoView(
-			id = id,
-			mainIcon = itemType?.imageVector,
-			secondaryIconId = storageTypeImageId,
-			fileSize = fileSize,
-			createdTime = createdTime,
-			modifiedTime = modifiedTime,
-			version = version
-		)
+    Column(
+        modifier = Modifier
+            .verticalScroll(state = rememberScrollState())
+            .navigationBarsPadding()
+    ) {
+        FileAdditionalInfoView(
+            id = id,
+            mainIcon = itemType?.imageVector,
+            secondaryIconId = storageTypeImageId,
+            fileSize = fileSize,
+            createdTime = createdTime,
+            modifiedTime = modifiedTime,
+            version = version
+        )
 
-		FileDescriptionView(
-			description = description,
-			onIconClick = onDescriptionClick
-		)
+        FileDescriptionView(
+            description = description,
+            onIconClick = onDescriptionClick
+        )
 
-		FileUsersView(
-			sharingUsers = sharingUsers,
-			onShowSnackbar = onShowSnackbar
-		)
+        FileUsersView(
+            sharingUsers = sharingUsers,
+            onShowSnackbar = onShowSnackbar
+        )
 
-		FileLinkView(
-			link = link,
-			onShowSnackbar = onShowSnackbar,
-			onShareLink = onShareLink
-		)
+        FileLinkView(
+            link = link,
+            onShowSnackbar = onShowSnackbar,
+            onShareLink = onShareLink
+        )
 
-		MaxWidthButton(
-			text = stringResource(id = R.string.download),
-			onClick = onDownloadClick
-		)
+        MaxWidthButton(
+            text = stringResource(id = R.string.download),
+            onClick = onDownloadClick
+        )
 
-		Button(
-			modifier = Modifier.padding(
-				horizontal = 8.dp,
-				vertical = 4.dp
-			),
-			onClick = onRenameClick
-		) {
-			CustomText(text = stringResource(id = R.string.rename))
-		}
-	}
+        Button(
+            modifier = Modifier.padding(
+                horizontal = 8.dp,
+                vertical = 4.dp
+            ),
+            onClick = onRenameClick
+        ) {
+            CustomText(text = stringResource(id = R.string.rename))
+        }
+
+        Button(
+            modifier = Modifier.padding(
+                horizontal = 8.dp,
+                vertical = 4.dp
+            ),
+            onClick = onDeleteClick
+        ) {
+            CustomText(text = "Delete")
+        }
+    }
 }
 
 @Preview
 @Composable
 fun FileInfoPreview() {
-	FileInfoView(
-		id = "id",
-		itemType = ItemType.FILE,
-		storageTypeImageId = StorageType.GOOGLE.imageId,
-		fileSize = "12 Mb",
-		createdTime = "12:00:00 January 12 2009",
-		modifiedTime = "12:00:00 January 12 2009",
-		version = "12",
-		onDescriptionClick = {},
-		description = "Description",
-		sharingUsers = List(10) {
-			UserItem(
-				email = "email1",
-				role = "Role1",
-				name = "Name1"
-			)
-		},
-		link = "123",
-		onShareLink = {},
-		onDownloadClick = {},
-		onShowSnackbar = {},
-	) {}
+    FileInfoView(
+        id = "id",
+        itemType = ItemType.FILE,
+        storageTypeImageId = StorageType.GOOGLE.imageId,
+        fileSize = "12 Mb",
+        createdTime = "12:00:00 January 12 2009",
+        modifiedTime = "12:00:00 January 12 2009",
+        version = "12",
+        onDescriptionClick = {},
+        description = "Description",
+        sharingUsers = List(10) {
+            UserItem(
+                email = "email1",
+                role = "Role1",
+                name = "Name1"
+            )
+        },
+        link = "123",
+        onShareLink = {},
+        onDownloadClick = {},
+        onShowSnackbar = {},
+        onRenameClick = {},
+    ) {}
 }
