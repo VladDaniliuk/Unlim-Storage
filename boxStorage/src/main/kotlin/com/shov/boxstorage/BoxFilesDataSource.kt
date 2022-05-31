@@ -91,11 +91,23 @@ class BoxFilesDataSource @Inject constructor(
 
     override suspend fun deleteFile(itemType: ItemType, id: String) {
         if (checkAuth) {
-                if (itemType == ItemType.FILE) {
-                    BoxApiFile(BoxSession(context)).getDeleteRequest(id).send()
-                } else {
-                    BoxApiFolder(BoxSession(context)).getDeleteRequest(id).send()
-                }
+            if (itemType == ItemType.FILE) {
+                BoxApiFile(BoxSession(context)).getDeleteRequest(id).send()
+            } else {
+                BoxApiFolder(BoxSession(context)).getDeleteRequest(id).send()
+            }
         }
     }
+
+    override suspend fun shareFile(itemType: ItemType, id: String): String = if (checkAuth) {
+        if (itemType == ItemType.FILE) {
+            BoxApiFile(BoxSession(context)).getCreateSharedLinkRequest(id).send()
+                .sharedLink
+                .url
+        } else {
+            BoxApiFolder(BoxSession(context)).getCreateSharedLinkRequest(id).send()
+                .sharedLink
+                .url
+        }
+    } else throw IllegalStateException("Box user not authorized")
 }

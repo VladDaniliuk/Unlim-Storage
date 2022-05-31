@@ -20,7 +20,6 @@ import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import com.shov.filesfeature.utils.checkMultiplePermissions
 import com.shov.filesfeature.utils.rememberRequestMultiplePermissionsResult
-import com.shov.filesfeature.utils.share
 import com.shov.filesfeature.viewModels.FileInfoViewModel
 import com.shov.filesfeature.views.fileInfo.views.FileInfoView
 
@@ -61,12 +60,8 @@ fun FileInfoScreen(
         },
         description = fileInfoViewModel.storeMetadata?.description,
         sharingUsers = fileInfoViewModel.storeMetadata?.sharingUsers,
-        link = fileInfoViewModel.storeMetadata?.link,
-        onShareLink = {
-            fileInfoViewModel.storeMetadata?.link?.let { link ->
-                context.share(link)
-            }
-        },
+        link = fileInfoViewModel.shareLink,
+        onShareLink = fileInfoViewModel::shareFile,
         onDownloadClick = {
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
                 if (context.checkMultiplePermissions(

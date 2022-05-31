@@ -34,6 +34,8 @@ class FileInfoViewModel @Inject constructor(
         private set
     var storeMetadata by mutableStateOf<StoreMetadataItem?>(null)
         private set
+    var shareLink by mutableStateOf<String?>(null)
+        private set
 
     val staredIcon: ImageVector
         get() = Icons.Rounded.run { if (storeMetadata?.isStarred == true) Star else StarBorder }
@@ -66,6 +68,16 @@ class FileInfoViewModel @Inject constructor(
             fileActionsRepository.deleteFile(storeItem!!.type, storeItem!!.disk, storeItem!!.id)
         }.invokeOnCompletion {
             goBack()
+        }
+    }
+
+    fun shareFile() {
+        viewModelScope.launch(Dispatchers.Default) {
+            shareLink = fileActionsRepository.shareFile(
+                storeItem!!.type,
+                storeItem!!.disk,
+                storeItem!!.id
+            )
         }
     }
 

@@ -47,6 +47,12 @@ interface FileActionsRepository {
         storageType: StorageType,
         id: String
     )
+
+    suspend fun shareFile(
+        itemType: ItemType,
+        storageType: StorageType,
+        id: String
+    ): String
 }
 
 class FileActionsRepositoryImpl @Inject constructor(
@@ -127,4 +133,10 @@ class FileActionsRepositoryImpl @Inject constructor(
     ) {
         filesFactory.create(storageType).deleteFile(itemType, id)
     }
+
+    override suspend fun shareFile(
+        itemType: ItemType,
+        storageType: StorageType,
+        id: String
+    ): String = filesFactory.create(storageType).shareFile(itemType, id)
 }

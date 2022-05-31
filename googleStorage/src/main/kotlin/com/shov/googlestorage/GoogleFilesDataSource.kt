@@ -100,4 +100,7 @@ class GoogleFilesDataSource @Inject constructor(
     override suspend fun deleteFile(itemType: ItemType, id: String) {
         getGoogleFiles().delete(id).execute()
     }
+
+    override suspend fun shareFile(itemType: ItemType, id: String): String =
+        getGoogleFiles().get(id).setFields("webViewLink").execute().webViewLink
 }

@@ -14,4 +14,5 @@ interface FilesDataSource {
     suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?)
     suspend fun renameFile(itemType: ItemType, id: String, name: String): Boolean
     suspend fun deleteFile(itemType: ItemType, id: String)
+    suspend fun shareFile(itemType: ItemType, id: String): String
 }

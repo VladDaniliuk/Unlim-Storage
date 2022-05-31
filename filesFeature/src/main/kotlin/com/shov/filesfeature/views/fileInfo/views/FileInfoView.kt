@@ -62,11 +62,13 @@ fun FileInfoView(
             onShowSnackbar = onShowSnackbar
         )
 
-        FileLinkView(
-            link = link,
-            onShowSnackbar = onShowSnackbar,
-            onShareLink = onShareLink
-        )
+        if ((itemType != ItemType.FOLDER) and (storageTypeImageId != StorageType.DROPBOX.imageId)) {
+            FileLinkView(
+                link = link,
+                onShowSnackbar = onShowSnackbar,
+                onShareLink = onShareLink
+            )
+        }
 
         MaxWidthButton(
             text = stringResource(id = R.string.download),

@@ -21,60 +21,60 @@ import com.shov.coreui.ui.buttons.CustomIconButton
 import com.shov.coreui.ui.texts.CustomText
 import com.shov.filesfeature.R
 import com.shov.filesfeature.ui.button.MaxWidthButton
+import com.shov.filesfeature.utils.share
 
 @Composable
 fun FileLinkView(
-	link: String?,
-	onShowSnackbar: (String) -> Unit,
-	onShareLink: () -> Unit
+    link: String?,
+    onShowSnackbar: (String) -> Unit,
+    onShareLink: () -> Unit
 ) {
-	val context = LocalContext.current
-	val uriHandler = LocalUriHandler.current
-	val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+    val clipboardManager = LocalClipboardManager.current
 
-	Column {
-		CustomText(
-			modifier = Modifier.padding(horizontal = 16.dp),
-			text = stringResource(R.string.link_description),
-			textStyle = Typography().titleSmall
-		)
+    Column {
+        CustomText(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            text = stringResource(R.string.link_description),
+            textStyle = Typography().titleSmall
+        )
 
-		if (link != null) {
-			Row {
-				CustomIconButton(
-					imageVector = Icons.Rounded.OpenInBrowser,
-					text = stringResource(R.string.open_in_browser),
-					onClick = { uriHandler.openUri(link) }
-				)
+        if (link != null) {
+            Row {
+                CustomIconButton(
+                    imageVector = Icons.Rounded.OpenInBrowser,
+                    text = stringResource(R.string.open_in_browser),
+                    onClick = { uriHandler.openUri(link) }
+                )
 
-				CustomIconButton(
-					imageVector = Icons.Rounded.CopyAll,
-					text = stringResource(R.string.copy_link),
-					onClick = {
-						clipboardManager.setText(AnnotatedString(link))
-						onShowSnackbar(context.getString(R.string.link_copied))
-					}
-				)
+                CustomIconButton(
+                    imageVector = Icons.Rounded.CopyAll,
+                    text = stringResource(R.string.copy_link),
+                    onClick = {
+                        clipboardManager.setText(AnnotatedString(link))
+                        onShowSnackbar(context.getString(R.string.link_copied))
+                    }
+                )
 
-				CustomIconButton(
-					imageVector = Icons.Rounded.Share,
-					text = stringResource(R.string.share_link),
-					onClick = onShareLink
-				)
-			}
-		} else {
-			MaxWidthButton(stringResource(R.string.create_link)) {
-				onShowSnackbar(context.getString(R.string.doesnt_work_now))
-			}
-		}
-	}
+                CustomIconButton(
+                    imageVector = Icons.Rounded.Share,
+                    text = stringResource(R.string.share_link)
+                ) { context.share(link) }
+            }
+        } else {
+            MaxWidthButton(stringResource(R.string.create_link)) {
+                onShareLink()
+            }
+        }
+    }
 }
 
 @Preview
 @Composable
 fun FileLinkPreview() {
-	FileLinkView(
-		link = "link",
-		onShowSnackbar = {}
-	) {}
+    FileLinkView(
+        link = "link",
+        onShowSnackbar = {}
+    ) {}
 }
