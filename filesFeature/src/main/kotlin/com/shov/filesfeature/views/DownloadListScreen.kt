@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.FileOpen
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,12 +29,19 @@ import androidx.lifecycle.ViewModel
 import com.shov.coremodels.models.DownloadedItem
 import com.shov.coreui.ui.icons.CustomIcon
 import com.shov.coreui.ui.texts.CustomText
+import com.shov.coreui.viewModels.NavigationViewModel
+import com.shov.coreui.viewModels.ScaffoldViewModel
+import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.storagerepositories.repositories.files.FileActionsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @Composable
-fun DownloadListScreen(downloadListViewModel: DownloadListViewModel = hiltViewModel()) {
+fun DownloadListScreen(
+    downloadListViewModel: DownloadListViewModel = hiltViewModel(),
+    scaffold: ScaffoldViewModel = singletonViewModel(),
+    navigationViewModel: NavigationViewModel = singletonViewModel()
+) {
     val list by downloadListViewModel.list.collectAsState(initial = emptyList())
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -48,6 +57,14 @@ fun DownloadListScreen(downloadListViewModel: DownloadListViewModel = hiltViewMo
                 downloadListViewModel.cancelDownload(item.downloadedId)
             }
         }
+    }
+
+    LaunchedEffect(key1 = null) {
+        scaffold.setTopBar(
+            Icons.Rounded.ArrowBack to navigationViewModel::popBack,
+            "Downloads",
+            null
+        )
     }
 }
 

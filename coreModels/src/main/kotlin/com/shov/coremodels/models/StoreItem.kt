@@ -16,8 +16,8 @@ data class StoreItem(
 
 @Entity
 data class DownloadedItem(
-    @PrimaryKey val id: String = "",
+    @PrimaryKey val downloadedId: Long = 0L,
+    @ColumnInfo val id: String = "",
     @ColumnInfo val name: String = "",
     @ColumnInfo val disk: StorageType = StorageType.GOOGLE,
-    @ColumnInfo val downloadedId: Long = 0L,
 )

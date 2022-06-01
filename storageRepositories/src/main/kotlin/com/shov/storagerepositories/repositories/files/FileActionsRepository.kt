@@ -18,6 +18,7 @@ import com.shov.coremodels.models.StoreItem
 import com.shov.localstorage.StoreItemDataSource
 import com.shov.storagerepositories.repositories.factories.FilesFactory
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.File
@@ -132,7 +133,7 @@ class FileActionsRepositoryImpl @Inject constructor(
             .addRequestHeaders(filesFactory.create(disk).getHeaders(id))
             .enqueue()
 
-        storeItemDataSource.addDownloadedFile(DownloadedItem(id, name, disk, x))
+        storeItemDataSource.addDownloadedFile(DownloadedItem(x, id, name, disk))
     }//TODO need mediaScanner
 
     override suspend fun uploadFile(
@@ -172,7 +173,9 @@ class FileActionsRepositoryImpl @Inject constructor(
         context.getSystemService(DownloadManager::class.java)
             ?.query(DownloadManager.Query().setFilterById(id))
             ?.let {
-                if (it.moveToFirst()) {
+                while (it.moveToFirst()) {
+                    delay(100)
+
                     when (it.getIntOrNull(it.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
                         DownloadManager.STATUS_SUCCESSFUL -> emit(1f)
                         DownloadManager.STATUS_FAILED -> emit(-1f)
@@ -183,7 +186,9 @@ class FileActionsRepositoryImpl @Inject constructor(
                                     ?: 0f)
                             )
                         }
-                        else -> {}
+                        DownloadManager.STATUS_PAUSED -> emit(-1f)
+                        DownloadManager.STATUS_PENDING -> emit(-1f)
+                        else -> emit(-1f)
                     }
                 }
             }
