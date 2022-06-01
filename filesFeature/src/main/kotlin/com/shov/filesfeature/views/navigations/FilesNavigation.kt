@@ -6,6 +6,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.bottomSheet
 import com.shov.coreutils.values.BottomSheet
 import com.shov.coreutils.values.Screen
+import com.shov.filesfeature.SearchScreen
 import com.shov.filesfeature.views.DownloadListScreen
 import com.shov.filesfeature.views.FileDescriptionScreen
 import com.shov.filesfeature.views.fileActions.FileActionsBottomSheet
@@ -27,6 +28,9 @@ fun NavGraphBuilder.filesComposable() {
     }
     composable(route = Screen.DownloadList.route) {
         DownloadListScreen()
+    }
+    composable(route = Screen.Search.route) {
+        SearchScreen()
     }
     @OptIn(ExperimentalMaterialNavigationApi::class)
     bottomSheet(BottomSheet.FileAction.route) {

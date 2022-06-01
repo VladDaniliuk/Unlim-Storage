@@ -3,6 +3,7 @@ package com.shov.boxstorage
 import android.content.Context
 import com.box.androidsdk.content.BoxApiFile
 import com.box.androidsdk.content.BoxApiFolder
+import com.box.androidsdk.content.BoxApiSearch
 import com.box.androidsdk.content.BoxConfig
 import com.box.androidsdk.content.BoxConstants
 import com.box.androidsdk.content.BoxException
@@ -11,6 +12,7 @@ import com.box.androidsdk.content.models.BoxUser
 import com.shov.boxstorage.converters.getFileMetadata
 import com.shov.boxstorage.converters.toStoreItem
 import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StoreItem
 import com.shov.storage.FilesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.InputStream
@@ -60,6 +62,22 @@ class BoxFilesDataSource @Inject constructor(
                 .filter { (it.type == "file") or (it.type == "folder") }
                 .map { boxItem ->
                     boxItem.toStoreItem(folderId) {
+                        context.getString(second, first)
+                    }
+                }.toList()
+        } catch (e: BoxException) {
+            emptyList()
+        }
+    } else emptyList()
+
+    override fun searchFiles(name: String): List<StoreItem> = if (checkAuth) {
+        try {
+            BoxApiSearch(BoxSession(context)).getSearchRequest(name)
+                .setFields("size", "name", "parent")
+                .send()
+                .filter { (it.type == "file") or (it.type == "folder") }
+                .map { boxItem ->
+                    boxItem.toStoreItem(null) {
                         context.getString(second, first)
                     }
                 }.toList()

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.Folder
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.UploadFile
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -28,6 +29,7 @@ fun FABScaffold(
     onCreateNewFolderClick: () -> Unit,
     onUploadFile: () -> Unit,
     onDownloadListClick: () -> Unit,
+    onSearchClick: () -> Unit,
     content: @Composable () -> Unit
 ) {
     Scaffold(
@@ -58,6 +60,13 @@ fun FABScaffold(
                     ) {
                         fabViewModel.collapse()
                         onDownloadListClick()
+                    },
+                    FloatingActionButtonModel(
+                        icon = Icons.Rounded.Search,
+                        text = "Search",
+                    ) {
+                        fabViewModel.collapse()
+                        onSearchClick()
                     }
                 ),
                 onClick = fabViewModel::onClick

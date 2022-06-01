@@ -41,6 +41,9 @@ fun FileListScreen(
         },
         onDownloadListClick = {
             navigationViewModel.navigateTo(Screen.DownloadList.route)
+        },
+        onSearchClick = {
+            navigationViewModel.navigateTo(Screen.Search.route)
         }
     ) {
         Column {

@@ -9,6 +9,7 @@ import com.dropbox.core.oauth.DbxCredential
 import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.DbxUserFilesRequests
 import com.shov.coremodels.models.ItemType
+import com.shov.coremodels.models.StoreItem
 import com.shov.dropboxstorage.converters.toStoreItem
 import com.shov.dropboxstorage.converters.toStoreMetadataItem
 import com.shov.dropboxstorage.utils.uploadFile
@@ -31,6 +32,16 @@ class DropBoxFilesDataSource @Inject constructor(
                 dropBoxItem.toStoreItem(folderId) { context.getString(second, first) }
             }
             ?.toList() ?: emptyList()
+    } catch (e: RateLimitException) {
+        emptyList()
+    } catch (e: IllegalArgumentException) {
+        emptyList()
+    }
+
+    override fun searchFiles(name: String): List<StoreItem> = try {
+        dbxUserFilesRequests()?.searchV2(name)?.matches?.map {
+            it.metadata.metadataValue.toStoreItem(null) { context.getString(second, first) }
+        }?.toList() ?: emptyList()
     } catch (e: RateLimitException) {
         emptyList()
     } catch (e: IllegalArgumentException) {

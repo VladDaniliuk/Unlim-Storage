@@ -14,54 +14,74 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface FilesInfoRepository {
-	fun getFromLocalAsync(folderId: String?): Flow<List<StoreItem>>
-	fun getLocalItemAsync(id: String): Flow<StoreItem>
-	fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem?
-	suspend fun getFromRemote(storageType: StorageType?, folderId: String?)
+    fun getFromLocalAsync(folderId: String?): Flow<List<StoreItem>>
+    fun getLocalItemAsync(id: String): Flow<StoreItem>
+    fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem?
+    suspend fun getFromRemote(storageType: StorageType?, folderId: String?)
+    suspend fun search(name: String): List<StoreItem>
 }
 
 class FilesInfoRepositoryImpl @Inject constructor(
-	private val filesFactory: FilesFactory,
-	private val storeItemDao: StoreItemDataSource
+    private val filesFactory: FilesFactory,
+    private val storeItemDao: StoreItemDataSource
 ) : FilesInfoRepository {
-	override suspend fun getFromRemote(storageType: StorageType?, folderId: String?) {
-		val storeItems = mutableListOf<Deferred<List<StoreItem>>>()
-		storageType?.let {
-			coroutineScope {
-				storeItems.add(
-					async {
-						filesFactory.create(storageType).getFiles(folderId)
-					}
-				)
-			}
-		} ?: run {
-			coroutineScope {
-				StorageType.values().forEach { storageType ->
-					storeItems.add(
-						async {
-							filesFactory.create(storageType).getFiles(folderId)
-						}
-					)
-				}
-			}
-		}
+    override suspend fun getFromRemote(storageType: StorageType?, folderId: String?) {
+        val storeItems = mutableListOf<Deferred<List<StoreItem>>>()
+        storageType?.let {
+            coroutineScope {
+                storeItems.add(
+                    async {
+                        filesFactory.create(storageType).getFiles(folderId)
+                    }
+                )
+            }
+        } ?: run {
+            coroutineScope {
+                StorageType.values().forEach { storageType ->
+                    storeItems.add(
+                        async {
+                            filesFactory.create(storageType).getFiles(folderId)
+                        }
+                    )
+                }
+            }
+        }
 
-		val storeItemList = storeItems.awaitAll().flatten()
+        val storeItemList = storeItems.awaitAll().flatten()
 
-		storeItemDao.getFiles(folderId).filterNot(storeItemList::contains)
-			.map(StoreItem::id)
-			.let { id ->
-				storeItemDao.deleteFiles(id)
-			}
+        storeItemDao.getFiles(folderId).filterNot(storeItemList::contains)
+            .map(StoreItem::id)
+            .let { id ->
+                storeItemDao.deleteFiles(id)
+            }
 
-		storeItemDao.setAll(storeItemList)
-	}
+        storeItemDao.setAll(storeItemList)
+    }
 
-	override fun getFromLocalAsync(folderId: String?): Flow<List<StoreItem>> =
-		storeItemDao.getFilesAsync(folderId)
+    override fun getFromLocalAsync(folderId: String?): Flow<List<StoreItem>> =
+        storeItemDao.getFilesAsync(folderId)
 
-	override fun getLocalItemAsync(id: String): Flow<StoreItem> = storeItemDao.getFileAsync(id)
+    override fun getLocalItemAsync(id: String): Flow<StoreItem> = storeItemDao.getFileAsync(id)
 
-	override fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType) =
-		filesFactory.create(disk).getFileMetadata(id, type)
+    override fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType) =
+        filesFactory.create(disk).getFileMetadata(id, type)
+
+    override suspend fun search(name: String): List<StoreItem> {
+        val storeItems = mutableListOf<Deferred<List<StoreItem>>>()
+
+        coroutineScope {
+            StorageType.values().forEach { storageType ->
+                storeItems.add(
+                    async {
+                        filesFactory.create(storageType).searchFiles(name)
+                    }
+                )
+            }
+        }
+
+        val storeItemList = storeItems.awaitAll().flatten()
+
+        storeItemDao.setAll(storeItemList)
+        return storeItemList
+    }
 }

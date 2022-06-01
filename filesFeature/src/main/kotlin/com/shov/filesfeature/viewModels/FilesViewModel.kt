@@ -24,64 +24,64 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilesViewModel @Inject constructor(
-	private val filesInfoRepository: FilesInfoRepository,
-	savedStateHandle: SavedStateHandle
+    private val filesInfoRepository: FilesInfoRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-	var folderId by mutableStateOf<String?>(null)
-		private set
-	var storageType by mutableStateOf<StorageType?>(null)
-		private set
-	private val storeItemsAsync = MutableStateFlow<List<StoreItem>>(emptyList())
-	val storeItems: StateFlow<List<StoreItem>>
-		get() = storeItemsAsync
-	var isRefreshing by mutableStateOf(false)
-		private set
-	var isClickable by mutableStateOf(true)
-		private set
+    var folderId by mutableStateOf<String?>(null)
+        private set
+    var storageType by mutableStateOf<StorageType?>(null)
+        private set
+    private val storeItemsAsync = MutableStateFlow<List<StoreItem>>(emptyList())
+    val storeItems: StateFlow<List<StoreItem>>
+        get() = storeItemsAsync
+    var isRefreshing by mutableStateOf(false)
+        private set
+    var isClickable by mutableStateOf(true)
+        private set
 
-	fun onStoreItemClick(
-		storeItem: StoreItem,
-		onFolderOpen: (BackStack) -> Unit,
-		onFileInfoOpen: (String) -> Unit
-	) {
-		isClickable = false
+    fun onStoreItemClick(
+        storeItem: StoreItem,
+        onFolderOpen: (BackStack) -> Unit,
+        onFileInfoOpen: (String) -> Unit
+    ) {
+        isClickable = false
 
-		when (storeItem.type) {
-			ItemType.FILE -> onFileInfoOpen(Screen.FileInfo.setStoreItem(storeItem.id))
-			ItemType.FOLDER -> onFolderOpen(
-				BackStack(storeItem.id, storeItem.disk.name, storeItem.name)
-			)
-		}
+        when (storeItem.type) {
+            ItemType.FILE -> onFileInfoOpen(Screen.FileInfo.setStoreItem(storeItem.id))
+            ItemType.FOLDER -> onFolderOpen(
+                BackStack(storeItem.id, storeItem.disk.name, storeItem.name)
+            )
+        }
 
-		isClickable = true
-	}
+        isClickable = true
+    }
 
-	fun onRefresh(isConnected: Boolean, onConnectionFailed: () -> Unit) {
-		if (isConnected) {
-			isRefreshing = true
+    fun onRefresh(isConnected: Boolean, onConnectionFailed: () -> Unit) {
+        if (isConnected) {
+            isRefreshing = true
 
-			viewModelScope.launch(Dispatchers.IO) {
-				filesInfoRepository.getFromRemote(storageType, folderId)
-			}.invokeOnCompletion {
-				isRefreshing = false
-			}
-		} else {
-			onConnectionFailed()
-		}
-	}
+            viewModelScope.launch(Dispatchers.IO) {
+                filesInfoRepository.getFromRemote(storageType, folderId)
+            }.invokeOnCompletion {
+                isRefreshing = false
+            }
+        } else {
+            onConnectionFailed()
+        }
+    }
 
-	init {
-		savedStateHandle.get<String?>(argFolderId)?.let { folderId ->
-			this.folderId = folderId
-		}
-		savedStateHandle.get<String?>(argStorageType)?.let { storageType ->
-			this.storageType = StorageType.valueOf(storageType)
-		}
+    init {
+        savedStateHandle.get<String?>(argFolderId)?.let { folderId ->
+            this.folderId = folderId
+        }
+        savedStateHandle.get<String?>(argStorageType)?.let { storageType ->
+            this.storageType = StorageType.valueOf(storageType)
+        }
 
-		viewModelScope.launch {
-			filesInfoRepository.getFromLocalAsync(folderId).collectLatest {
-				storeItemsAsync.emit(it)
-			}
-		}
-	}
+        viewModelScope.launch {
+            filesInfoRepository.getFromLocalAsync(folderId).collectLatest {
+                storeItemsAsync.emit(it)
+            }
+        }
+    }
 }

@@ -21,6 +21,7 @@ sealed class Screen(val route: String) {
     object SignIn : Screen("nav_signIn")
 
     object DownloadList : Screen("nav_downloadList")
+    object Search : Screen("nav_search")
 
     //Settings routes
     object Updates : Screen("nav_updates")

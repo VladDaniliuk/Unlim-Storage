@@ -11,6 +11,7 @@ interface FilesDataSource {
     fun getHeaders(id: String): List<Pair<String, String>>
     fun getFileMetadata(id: String, type: ItemType): StoreMetadataItem?
     fun getFiles(folderId: String? = null): List<StoreItem>
+    fun searchFiles(name: String): List<StoreItem>
     suspend fun uploadFile(inputStream: InputStream, name: String, folderId: String?)
     suspend fun renameFile(itemType: ItemType, id: String, name: String): Boolean
     suspend fun deleteFile(itemType: ItemType, id: String)

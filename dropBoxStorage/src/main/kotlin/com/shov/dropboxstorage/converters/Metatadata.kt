@@ -12,43 +12,43 @@ import com.shov.coremodels.models.StoreMetadataItem
 import java.util.*
 
 internal fun Metadata.toStoreItem(
-	parentFolder: String?,
-	toSize: Pair<String, Int>.() -> String
+    parentFolder: String?,
+    toSize: Pair<String, Int>.() -> String
 ): StoreItem = when (this) {
-	is FolderMetadata -> StoreItem(
-		id = id,
-		type = ItemType.FOLDER,
-		name = name,
-		parentFolder = parentFolder,
-		disk = StorageType.DROPBOX
-	)
-	is FileMetadata -> StoreItem(
-		id = id,
-		type = ItemType.FILE,
-		name = name,
-		size = size.toBytes().let(toSize),
-		parentFolder = parentFolder,
-		disk = StorageType.DROPBOX
-	)
-	else -> throw Exception("Converter works only with File and Folder metadata")
+    is FolderMetadata -> StoreItem(
+        id = id,
+        type = ItemType.FOLDER,
+        name = name,
+        parentFolder = parentFolder,
+        disk = StorageType.DROPBOX
+    )
+    is FileMetadata -> StoreItem(
+        id = id,
+        type = ItemType.FILE,
+        name = name,
+        size = size.toBytes().let(toSize),
+        parentFolder = parentFolder,
+        disk = StorageType.DROPBOX
+    )
+    else -> throw Exception("Converter works only with File and Folder metadata")
 }
 
 internal fun Metadata.toStoreMetadataItem(): StoreMetadataItem = when (this) {
-	is FolderMetadata -> StoreMetadataItem(
-		id = id,
-		name = name,
-		type = ItemType.FOLDER
-	)
-	is FileMetadata -> StoreMetadataItem(
-		id = id,
-		name = name,
-		type = ItemType.FILE,
-		createdTime = fileLockInfo?.created?.toPrettyTime(),
-		modifiedTime = clientModified?.toPrettyTime(),
-		size = size
-	)
-	else -> throw Exception("Converter works only with File and Folder metadata")
+    is FolderMetadata -> StoreMetadataItem(
+        id = id,
+        name = name,
+        type = ItemType.FOLDER
+    )
+    is FileMetadata -> StoreMetadataItem(
+        id = id,
+        name = name,
+        type = ItemType.FILE,
+        createdTime = fileLockInfo?.created?.toPrettyTime(),
+        modifiedTime = clientModified?.toPrettyTime(),
+        size = size
+    )
+    else -> throw Exception("Converter works only with File and Folder metadata")
 }
 
 internal fun Date.toPrettyTime(): String =
-	SimpleDateFormat("yyyy MMMM d HH:mm", Locale.getDefault()).format(this)
+    SimpleDateFormat("yyyy MMMM d HH:mm", Locale.getDefault()).format(this)
