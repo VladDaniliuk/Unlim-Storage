@@ -22,50 +22,56 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shov.coreui.viewModels.NavigationViewModel
 import com.shov.coreui.viewModels.ScaffoldViewModel
 import com.shov.coreutils.utils.observeConnectivityAsFlow
+import com.shov.coreutils.values.Screen
 import com.shov.coreutils.viewModels.singletonViewModel
 import com.shov.filesfeature.R
 import com.shov.filesfeature.viewModels.FileDescriptionViewModel
 
 @Composable
 fun FileDescriptionScreen(
-	navigationViewModel: NavigationViewModel = singletonViewModel(),
-	context: Context = LocalContext.current,
-	fileDescriptionViewModel: FileDescriptionViewModel = hiltViewModel(),
-	scaffold: ScaffoldViewModel = singletonViewModel()
+    navigationViewModel: NavigationViewModel = singletonViewModel(),
+    context: Context = LocalContext.current,
+    fileDescriptionViewModel: FileDescriptionViewModel = hiltViewModel(),
+    scaffold: ScaffoldViewModel = singletonViewModel()
 ) {
-	val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
+    val isConnected by context.observeConnectivityAsFlow().collectAsState(false)
 
-	TextField(
-		modifier = Modifier
-			.fillMaxSize()
-			.navigationBarsPadding()
-			.imePadding(),
-		enabled = isConnected,
-		value = fileDescriptionViewModel.description ?: "",
-		onValueChange = { newDescription ->
-			fileDescriptionViewModel.setNewDescription(newDescription)
-		},
-		placeholder = { Text(text = stringResource(id = R.string.description)) },
-		colors = TextFieldDefaults.textFieldColors(
-			containerColor = MaterialTheme.colorScheme.background,
-			focusedIndicatorColor = MaterialTheme.colorScheme.background,
-			unfocusedIndicatorColor = MaterialTheme.colorScheme.background
-		)
-	)
+    TextField(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding()
+            .imePadding(),
+        enabled = isConnected,
+        value = fileDescriptionViewModel.description ?: "",
+        onValueChange = { newDescription ->
+            fileDescriptionViewModel.setNewDescription(newDescription)
+        },
+        placeholder = { Text(text = stringResource(id = R.string.description)) },
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            focusedIndicatorColor = MaterialTheme.colorScheme.background,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.background
+        )
+    )
 
-	LaunchedEffect(key1 = isConnected) {
-		if (isConnected.and(fileDescriptionViewModel.description.isNullOrEmpty())) {
-			fileDescriptionViewModel.getDescription()
-		}
-	}
+    LaunchedEffect(key1 = isConnected) {
+        if (isConnected.and(fileDescriptionViewModel.description.isNullOrEmpty())) {
+            fileDescriptionViewModel.getDescription()
+        }
+    }
 
-	LaunchedEffect(key1 = fileDescriptionViewModel.storeItem?.name) {
-		scaffold.setTopBar(
-			Icons.Rounded.Close to navigationViewModel::popBack,
-			fileDescriptionViewModel.storeItem?.name,
-			Icons.Rounded.Done to {
-				scaffold.showSnackbar(context.getString(R.string.doesnt_work_now))
-			}
-		)
-	}
+    LaunchedEffect(key1 = fileDescriptionViewModel.storeItem?.name) {
+        scaffold.setTopBar(
+            Icons.Rounded.Close to navigationViewModel::popBack,
+            fileDescriptionViewModel.storeItem?.name,
+            Icons.Rounded.Done to {
+                fileDescriptionViewModel.setDescription {
+                    navigationViewModel.navigateTo(
+                        Screen.FileInfo.setStoreItem(fileDescriptionViewModel.id),
+                        Screen.FileInfo.setStoreItem(fileDescriptionViewModel.id)
+                    )
+                }
+            }
+        )
+    }
 }

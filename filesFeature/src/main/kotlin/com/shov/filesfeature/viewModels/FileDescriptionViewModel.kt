@@ -17,41 +17,50 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FileDescriptionViewModel @Inject constructor(
-	savedStateHandle: SavedStateHandle,
-	private val filesInfoRepository: FilesInfoRepository
+    savedStateHandle: SavedStateHandle,
+    private val filesInfoRepository: FilesInfoRepository
 ) : ViewModel() {
-	var id by mutableStateOf<String?>(null)
-		private set
-	var description by mutableStateOf<String?>(null)
-		private set
-	var storeItem by mutableStateOf<StoreItem?>(null)
-		private set
+    val id = savedStateHandle.get<String>(argStoreId) ?: throw NullPointerException()
+    var description by mutableStateOf<String?>(null)
+        private set
+    var storeItem by mutableStateOf<StoreItem?>(null)
+        private set
 
-	fun setNewDescription(newDescription: String) {
-		description = newDescription
-	}
+    fun setNewDescription(newDescription: String) {
+        description = newDescription
+    }
 
-	fun getDescription() {
-		storeItem?.let { storeItem ->
-			viewModelScope.launch(Dispatchers.IO) {
-				description = filesInfoRepository.getRemoteMetadata(
-					id!!,
-					storeItem.disk,
-					storeItem.type
-				)?.description
-			}
-		}
-	}
+    fun getDescription() {
+        storeItem?.let { storeItem ->
+            viewModelScope.launch(Dispatchers.IO) {
+                description = filesInfoRepository.getRemoteMetadata(
+                    id,
+                    storeItem.disk,
+                    storeItem.type
+                )?.description
+            }
+        }
+    }
 
-	init {
-		savedStateHandle.get<String>(argStoreId)?.let { id ->
-			this.id = id
-		} ?: throw NullPointerException()
+    fun setDescription(onComplete: () -> Unit) {
+        storeItem?.let { storeItem ->
+            viewModelScope.launch {
+                filesInfoRepository.changeDescription(
+                    storeItem.disk,
+                    storeItem.id,
+                    description ?: ""
+                )
+            }.invokeOnCompletion {
+                onComplete()
+            }
+        }
+    }
 
-		viewModelScope.launch {
-			filesInfoRepository.getLocalItemAsync(id!!).collectLatest { storeItem ->
-				this@FileDescriptionViewModel.storeItem = storeItem
-			}
-		}
-	}
+    init {
+        viewModelScope.launch {
+            filesInfoRepository.getLocalItemAsync(id).collectLatest { storeItem ->
+                this@FileDescriptionViewModel.storeItem = storeItem
+            }
+        }
+    }
 }

@@ -128,4 +128,11 @@ class BoxFilesDataSource @Inject constructor(
                 .url
         }
     } else throw IllegalStateException("Box user not authorized")
+
+    override suspend fun changeDescription(id: String, description: String) {
+        BoxApiFile(BoxSession(context)).getUpdateRequest(id).apply {
+            this.description = description
+            this.send()
+        }
+    }
 }

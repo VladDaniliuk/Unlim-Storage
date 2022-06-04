@@ -120,4 +120,8 @@ class GoogleFilesDataSource @Inject constructor(
 
     override suspend fun shareFile(itemType: ItemType, id: String): String =
         getGoogleFiles().get(id).setFields("webViewLink").execute().webViewLink
+
+    override suspend fun changeDescription(id: String, description: String) {
+        getGoogleFiles().update(id, GoogleFile().setDescription(description))
+    }
 }

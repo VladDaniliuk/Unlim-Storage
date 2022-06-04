@@ -112,4 +112,6 @@ class DropBoxFilesDataSource @Inject constructor(
     override suspend fun shareFile(itemType: ItemType, id: String): String =
         dbxUserFilesRequests()?.getTemporaryLink(id)?.link
             ?: throw IllegalStateException("DropBox user is not authorized")
+
+    override suspend fun changeDescription(id: String, description: String) {}
 }

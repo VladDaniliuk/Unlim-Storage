@@ -52,10 +52,12 @@ fun FileInfoView(
             version = version
         )
 
-        FileDescriptionView(
-            description = description,
-            onIconClick = onDescriptionClick
-        )
+        if (storageTypeImageId != StorageType.DROPBOX.imageId) {
+            FileDescriptionView(
+                description = description,
+                onIconClick = onDescriptionClick
+            )
+        }
 
         FileUsersView(
             sharingUsers = sharingUsers,

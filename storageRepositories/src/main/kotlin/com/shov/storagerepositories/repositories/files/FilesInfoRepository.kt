@@ -19,6 +19,7 @@ interface FilesInfoRepository {
     fun getRemoteMetadata(id: String, disk: StorageType, type: ItemType): StoreMetadataItem?
     suspend fun getFromRemote(storageType: StorageType?, folderId: String?)
     suspend fun search(name: String): List<StoreItem>
+    suspend fun changeDescription(storageType: StorageType, id: String, description: String)
 }
 
 class FilesInfoRepositoryImpl @Inject constructor(
@@ -83,5 +84,13 @@ class FilesInfoRepositoryImpl @Inject constructor(
 
         storeItemDao.setAll(storeItemList)
         return storeItemList
+    }
+
+    override suspend fun changeDescription(
+        storageType: StorageType,
+        id: String,
+        description: String
+    ) {
+        filesFactory.create(storageType).changeDescription(id, description)
     }
 }
