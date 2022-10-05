@@ -24,6 +24,7 @@ import com.shov.coreui.ui.texts.CustomText
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun StoreItemView(
+	modifier: Modifier = Modifier,
 	name: String,
 	type: ItemType,
 	size: String?,
@@ -36,7 +37,7 @@ fun StoreItemView(
 	onOptionClick: () -> Unit = {}
 ) {
 	Row(
-		modifier = Modifier
+		modifier = modifier
 			.combinedClickable(
 				onClick = onClick,
 				onLongClick = onLongClick,

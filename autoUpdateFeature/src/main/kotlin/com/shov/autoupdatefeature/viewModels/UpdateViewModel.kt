@@ -31,6 +31,8 @@ class UpdateViewModel @Inject constructor(
 	private var _isShowAgain by preferences.getPref(IS_UPDATE_SHOW, true)
 	var isShowAgain by mutableStateOf(_isShowAgain)
 		private set
+	var isShowProgress by mutableStateOf(false)
+		private set
 	private var _downloadId by mutableStateOf<Long?>(null)
 
 	fun setShowDialogAgain() {
@@ -38,7 +40,8 @@ class UpdateViewModel @Inject constructor(
 		isShowAgain = _isShowAgain
 	}
 
-	fun checkAppVersion(currentVersion: String) {
+	fun checkAppVersion(currentVersion: String, onVersionsEqual: () -> Unit = {}) {
+		isShowProgress = true
 		viewModelScope.launch {
 			lastRelease = gitHubRepository.getLastRelease().body()
 
@@ -47,8 +50,11 @@ class UpdateViewModel @Inject constructor(
 				onNewerAction = {
 					isDialogShown = true
 					wasDialogShown = true
-				}
+				},
+				onEqualsAction = onVersionsEqual
 			)
+		}.invokeOnCompletion {
+			isShowProgress = false
 		}
 	}
 
